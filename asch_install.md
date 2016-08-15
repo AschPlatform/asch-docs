@@ -177,6 +177,8 @@ Failed to load delegates: Account xxxxxxxxx not found
 
 ### 6.3 无法同步区块(卡块)
 
+(可以通过对比自己钱包的区块高度与官方节点的最新区块高度来确认这一现象)<br>
+
 优先使用restart命令
 
 ```
