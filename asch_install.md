@@ -26,8 +26,8 @@ tar zxvf asch-linux-1.0.0-testnet.tar.gz
 正式版mainnet
 
 ```
-wget https://www.asch.so/downloads/asch-linux-1.0.0-mainnet.tar.gz
-tar zxvf asch-linux-1.0.0-mainnet.tar.gz
+wget https://www.asch.so/downloads/asch-linux-1.0.1-mainnet.tar.gz
+tar zxvf asch-linux-1.0.1-mainnet.tar.gz
 ```
 
 一般情况下，testnet的版本号大于等于mainnet的版本号
@@ -107,6 +107,7 @@ tail -f logs/debug.log
 
 ```
 ./aschd upgrade
+./aschd start
 ```
 
 ## 6 错误诊断
@@ -178,6 +179,8 @@ Failed to load delegates: Account xxxxxxxxx not found
 正常情况下应该会出现如下log
 
 ```
+grep Forging logs/debug.log
+
 Forging enabled on account: xxxxxxxxxxxxxx
 ```
 
