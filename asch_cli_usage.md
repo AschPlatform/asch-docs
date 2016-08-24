@@ -7,6 +7,7 @@
 ##0 asch-cli简介
 以下内容引用自ASCH白皮书
 >asch-cli是Asch系统提供了一个命令行工具，只需要根据提示输入一些配置项，就可以快速的建立一个侧链，并可在侧链上开发任意类型的应用。其次，系统还提供了一系列的 api 帮助用户构建复杂的智能合约应用，这些 api 涵盖共识、强随机数、数据库、密码学等方面。
+
 ##1 asch-cli的安装
 sudo apt-get install npm    #安装js软件包管理器npm
 npm install -g asch-cli     #国内服务器可以考虑加上“--registry=http://registry.npm.taobao.org”参数加快安装速度
