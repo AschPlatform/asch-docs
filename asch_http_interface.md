@@ -1531,7 +1531,7 @@ JSON返回示例：
 |secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
 |publicKey|string  |N|公钥      |    
 |secondSecret|string|N|asch账户二级密码(须符合BIP39标准)|   
-|min|integer|Y|多重签名交易账户的任意一笔转账都需要多人签名的最少个数，如果是注册多重签名账户操作，这该值不生效（此时需要所有人都签名）。最小值：2，最大值：16,该值需要大于keysgroup.length+1|   
+|min|integer|Y|多重签名交易账户的任意一笔转账都需要多人签名的最少个数，如果是注册多重签名账户操作，这该值不生效（此时需要所有人都签名）。最小值：2，最大值：16,该值需要小于keysgroup.length+1|   
 |lifetime|integer|Y|多重签名交易的最大挂起时间，最小值：1，最大值：24，暂时不生效|   
 |keysgroup|array|Y|其它签名人的公钥数组，每个公钥前需要加上+或者-号，代表增加/删除多重签名账户，数组最小长度：1，数组最大长度：10|   
    
