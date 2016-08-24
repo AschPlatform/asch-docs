@@ -74,7 +74,7 @@ asch-cli [选项] [命令]
 
 示例:
  
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -h #查看asch-cli帮助信息
   Usage: asch-cli [options] [command]
   Commands:
@@ -139,7 +139,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates -h #查看子命
 
 示例:
  
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -V
 1.0.0
 ```
@@ -153,7 +153,7 @@ root@asch:~# asch-cli -V
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器最新的区块高度
 101236
 ```
@@ -167,7 +167,7 @@ root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight  
 102313
 ```
@@ -181,7 +181,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块高度
 9388
 ```
@@ -197,7 +197,7 @@ root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 105387
 ```
@@ -211,7 +211,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 {
   "success": true,
@@ -232,7 +232,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack alley expand music basket purse later educate follow ride"
 {
   "address": "16723473400748954103",
@@ -256,7 +256,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack al
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 {
   "address": "16723473400748954103",
@@ -279,7 +279,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a1
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 20000000000
 ```
@@ -293,7 +293,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 {
   "address": "16723473400748954103",
@@ -317,7 +317,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 15745540293890213312 -o 1 -l 2
 { success: true,
   delegates: 
@@ -350,7 +350,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 1574554029389021
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 232
 ```
@@ -364,7 +364,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 [
   {
@@ -393,7 +393,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"
 [
   {
@@ -419,7 +419,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"
 {
   "username": "wgl_002",
@@ -439,13 +439,13 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae25655
 ###4.12 根据名字查看受托人详情
 命令值： getdelegatebyusername [username]
 
-返回值： 
+返回值： json字符串，受托人详情
 
 使用方法：asch-cli getdelegatebyusername "受托人名字"
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 {
   "username": "wgl_002",
@@ -472,7 +472,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 350000000
 {
   "success": true,
@@ -508,7 +508,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 35000000
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 1425942128040906871 #查看创世块
 {
   "id": "1425942128040906871",
@@ -539,7 +539,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 142594212804090687
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
 {
   "id": "1425942128040906871",
@@ -570,7 +570,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2 
 [
   {
@@ -599,7 +599,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3" 
 [
   {
@@ -628,7 +628,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查看全网前2个交易
 [
   {
@@ -677,7 +677,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查�
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 17192581936339156329
 {
   "id": "17192581936339156329",
@@ -707,7 +707,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 1719258193633915
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 sendmoney -e "motion group blossom coral upper warrior pattern fragile sister misery palm admin" -t 16723473400748954103 -a 100
 true
 ```
@@ -721,7 +721,7 @@ true
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 registerdelegate -e "fault still attack alley expand music basket purse later educate follow ride" -u "delegate_register"
 true
 ```
@@ -735,7 +735,7 @@ true
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 upvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 true
 ```
@@ -749,7 +749,7 @@ true
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 downvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 true
 ```
@@ -763,7 +763,7 @@ true
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 setsecondsecret -e "fault still attack alley expand music basket purse later educate follow ride" -s "ce shi er ji mi ma"
 true
 ```
@@ -800,7 +800,7 @@ true
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g
 ? Enter number of accounts to generate 1
 [ { address: '16723473400748954103',
@@ -826,7 +826,7 @@ Done
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 creategenesis 
 root@asch:~# more genesisBlock.json
 {
@@ -850,7 +850,7 @@ root@asch:~# more genesisBlock.json
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
 45.32.248.33:4096 1.0.0 106036
 45.32.62.184:4096 1.0.0 106036
@@ -866,7 +866,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 delegatestat
 name	address	rate	approval	productivity	produced	height	id	time
 nayimoliuguang	3331976396377269399	93	88.36%	98.39%	1037	105618	12962348710289833740	2016/08/17 21:07:20(1 hour ago)
@@ -889,7 +889,7 @@ mode_6	9248745407080572308	8	88.48%	100%	1060	105873	3777454410915098884	2016/08
 
 示例:
 
-```
+```{r, engine='bash', count_lines}
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 ipstat
 美国	US
 美国	US
