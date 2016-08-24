@@ -9,7 +9,7 @@
 
 ##1 asch-cli的安装
 sudo apt-get install npm    #安装js软件包管理器npm
-npm install -g asch-cli     #国内服务器可以考虑加上“--registry=http://registry.npm.taobao.org”参数加快安装速度
+npm install -g asch-cli     #国内服务器可以考虑加上 “--registry=http://registry.npm.taobao.org” 参数加快安装速度
 
 ##2 asch-cli使用说明
 asch-cli [选项] [命令]
