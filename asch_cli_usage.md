@@ -69,7 +69,9 @@ asch-cli [选项] [命令]
 返回值： asch-cli命令或者子命令的帮助文档
 
 使用方法：asch-cli -h(查看asch-cli帮助文档);asch-cli 子命令 -h(查看子命令的帮助文档)
-示例： 
+
+示例:
+ 
 ```
 root@asch:~# asch-cli -h #查看asch-cli帮助信息
   Usage: asch-cli [options] [command]
@@ -132,7 +134,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates -h #查看子命
 返回值： asch-cli命令的版本号
 
 使用方法：asch-cli -V
-示例： 
+
+示例:
+ 
 ```
 root@asch:~# asch-cli -V
 1.0.0
@@ -144,7 +148,9 @@ root@asch:~# asch-cli -V
 返回值： 无
 
 使用方法：asch-cli -H 45.32.248.33
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器最新的区块高度
 101236
@@ -156,7 +162,9 @@ root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器
 返回值： 无
 
 使用方法：asch-cli -P 4096
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight  
 102313
@@ -168,7 +176,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 返回值： 无
 
 使用方法：asch-cli -M 
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块高度
 9388
@@ -182,7 +192,9 @@ root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块
 返回值： 区块链高度
 
 使用方法：asch-cli getheight
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 105387
@@ -194,7 +206,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 返回值： json字符串，包含区块链高度、交易费、里程碑、受托人每块奖励、当前总量
 
 使用方法：asch-cli getblockstatus
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 {
@@ -213,7 +227,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 返回值： json字符串，含地址、余额、公钥、二级公钥等信息
 
 使用方法：asch-cli openaccount "密码"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack alley expand music basket purse later educate follow ride"
 {
@@ -235,7 +251,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack al
 返回值： json字符串，含地址、余额、二级公钥等信息
 
 使用方法：asch-cli openaccountbypublickey "公钥"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 {
@@ -256,7 +274,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a1
 返回值： 整型数字，除以100000000后为大家平时所说的余额
 
 使用方法：asch-cli getbalance 账户地址
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 20000000000
@@ -268,7 +288,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 返回值： json字符串，含地址、余额、公钥、二级公钥等信息
 
 使用方法：asch-cli getaccount 账户地址
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 {
@@ -290,7 +312,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 返回值： 列表
 
 使用方法：asch-cli getvoteddelegates 账户地址 -o 偏移量数字 -l 限制打印的受托人个数数字
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 15745540293890213312 -o 1 -l 2
 { success: true,
@@ -321,7 +345,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 1574554029389021
 返回值： 整型数字
 
 使用方法：asch-cli getdelegatescount
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 232
@@ -333,7 +359,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 返回值： 列表
 
 使用方法：asch-cli getdelegates -o 偏移量数字 -l 限制打印的受托人个数数字 -s rate:asc #rate:asc代表根据投票数正向排序，其它排序规则请参考asch-cli getdelegates -h帮助信息
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 [
@@ -360,7 +388,9 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 返回值： 列表
 
 使用方法：asch-cli getvoters "受托人公钥"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"
 [
@@ -384,7 +414,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04
 返回值： json字符串，包含受托人名字、地址、投票数、生成的block数、锻造收益等
 
 使用方法：asch-cli getdelegatebypublickey "受托人公钥"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"
 {
@@ -408,7 +440,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae25655
 返回值： 
 
 使用方法：asch-cli getdelegatebyusername "受托人名字"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 {
@@ -433,7 +467,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 返回值： json字符串，包含查询状态、符合查询要求的区块信息
 
 使用方法：asch-cli getblocks -o 偏移量数字 -l 限制的个数数字 -r 奖励 -f 费用 -a 总量 -g 生成区块的公钥 -s 排序规则
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 350000000
 {
@@ -467,7 +503,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 35000000
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
 
 使用方法：asch-cli getblockbyid 区块id
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 1425942128040906871 #查看创世块
 {
@@ -496,7 +534,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 142594212804090687
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
 
 使用方法：asch-cli getblockbyheight 区块高度
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
 {
@@ -525,7 +565,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
 返回值： 列表，包含节点ip、端口、os、asch版本等信息
 
 使用方法：asch-cli getpeers -o 偏移量数字 -l限制个数数字 -t 状态值 -s 排序 -v 版本 -p 端口 --os os版本 #详情请参考asch-cli getpeers -h帮助信息
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2 
 [
@@ -552,7 +594,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2
 返回值： 列表，包含所有未确认的交易详情
 
 使用方法：asch-cli getunconfirmedtransactions -p "发送者公钥" -a 接收者地址
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3" 
 [
@@ -579,7 +623,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "
 返回值： 列表，包含所有符合查询条件的交易详情
 
 使用方法：asch-cli gettransactions -b 区块id -o 偏移量数字 -l 限制个数数字 #其他参数请参考sch-cli gettransactions -h查看帮助信息
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查看全网前2个交易
 [
@@ -626,7 +672,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查�
 返回值： json字符串，包含交易id、区块高度、区块id、时间戳、发送者公钥、接收者地址、金额、费用、签名、确认数、资产等信息
 
 使用方法：asch-cli gettransaction 交易id
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 17192581936339156329
 {
@@ -654,7 +702,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 1719258193633915
 返回值： 结果状态值，ture或者报错信息
 
 使用方法：asch-cli -e "发送者密码" -t 接收者地址 -a 转账金额 [-s "二级密码"]
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 sendmoney -e "motion group blossom coral upper warrior pattern fragile sister misery palm admin" -t 16723473400748954103 -a 100
 true
@@ -680,7 +730,9 @@ true
 返回值： 结果状态值，ture或者报错信息
 
 使用方法：asch-cli upvote -e "密码" -s "二级密码" -p "受托人公钥"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 upvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 true
@@ -692,7 +744,9 @@ true
 返回值： 结果状态值，ture或者报错信息
 
 使用方法：asch-cli downvote -e "密码" -s "二级密码" -p "受托人公钥"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 downvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 true
@@ -704,7 +758,9 @@ true
 返回值： 结果状态值，ture或者报错信息
 
 使用方法：asch-cli setsecondsecret -e "密码" -s "二级密码"
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 setsecondsecret -e "fault still attack alley expand music basket purse later educate follow ride" -s "ce shi er ji mi ma"
 true
@@ -789,7 +845,9 @@ root@asch:~# more genesisBlock.json
 返回值： 节点信息，包含节点ip、端口、版本、区块高度等信息
 
 使用方法：asch-cli peerstat
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
 45.32.248.33:4096 1.0.0 106036
@@ -803,7 +861,9 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
 返回值： 受托人信息，包含全网受托人的名字、地址、投票、生产率、区块生成个数、区块高度、id、上一次生成区块的时间等信息
 
 使用方法：asch-cli 
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 delegatestat
 name	address	rate	approval	productivity	produced	height	id	time
@@ -824,7 +884,9 @@ mode_6	9248745407080572308	8	88.48%	100%	1060	105873	3777454410915098884	2016/08
 返回值： 节点ip归属地
 
 使用方法：asch-cli ipstat
-示例：
+
+示例:
+
 ```
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 ipstat
 美国	US
