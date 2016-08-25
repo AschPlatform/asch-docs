@@ -7,7 +7,7 @@ Table of Contents
     * [<strong>1 API使用说明</strong>](#1-api使用说明)
       * [<strong>1.1 请求过程说明</strong>](#11-请求过程说明)
     * [<strong>2 接口</strong>](#2-接口)
-      * [<strong>2.1 accounts</strong>](#21-accounts)
+      * [<strong>2.1 账户accounts</strong>](#21-账户accounts)
         * [<strong>2.1.1 登录</strong>](#211-登录)
           * [<strong>2.1.1.1 本地加密后再登陆（推荐使用）</strong>](#2111-本地加密后再登陆推荐使用)
           * [<strong>2.1.1.2 本地不加密直接登陆（不推荐使用）</strong>](#2112-本地不加密直接登陆不推荐使用)
@@ -17,14 +17,14 @@ Table of Contents
         * [<strong>2.1.5 生成公钥</strong>](#215-生成公钥)
         * [<strong>2.1.6 根据地址获取其投票列表</strong>](#216-根据地址获取其投票列表)
         * [<strong>2.1.7 获取受托人手续费设置？</strong>](#217-获取受托人手续费设置)
-        * [<strong>2.1.8 注册受托人？</strong>](#218-注册受托人)
-      * [<strong>2.2 transactions</strong>](#22-transactions)
+        * [<strong>2.1.8 投票</strong>](#218-投票)
+      * [<strong>2.2 交易transactions</strong>](#22-交易transactions)
         * [<strong>2.2.1 获取交易信息</strong>](#221-获取交易信息)
         * [<strong>2.2.2 根据id查看交易详情</strong>](#222-根据id查看交易详情)
-        * [<strong>2.2.3 根据未确认交易id查看详情？</strong>](#223-根据未确认交易id查看详情)
+        * [<strong>2.2.3 根据未确认交易id查看详情</strong>](#223-根据未确认交易id查看详情)
         * [<strong>2.2.4 获取[全网所有]未确认的交易详情</strong>](#224-获取全网所有未确认的交易详情)
         * [<strong>2.2.5 创建交易</strong>](#225-创建交易)
-      * [<strong>2.3 blocks</strong>](#23-blocks)
+      * [<strong>2.3 区块blocks</strong>](#23-区块blocks)
         * [<strong>2.3.1 获取特定id的区块详情</strong>](#231-获取特定id的区块详情)
         * [<strong>2.3.2 获取最新的区块</strong>](#232-获取最新的区块)
         * [<strong>2.3.3 获取区块链高度</strong>](#233-获取区块链高度)
@@ -33,7 +33,7 @@ Table of Contents
         * [<strong>2.3.6 查看单个区块奖励</strong>](#236-查看单个区块奖励)
         * [<strong>2.3.7 获取区块链当前最大供应值</strong>](#237-获取区块链当前最大供应值)
         * [<strong>2.3.8 区块链状态</strong>](#238-区块链状态)
-      * [<strong>2.4 delegates</strong>](#24-delegates)
+      * [<strong>2.4 受托人delegates</strong>](#24-受托人delegates)
         * [<strong>2.4.1 获取受托人总个数</strong>](#241-获取受托人总个数)
         * [<strong>2.4.2 根据公钥查看哪些人为其投了票</strong>](#242-根据公钥查看哪些人为其投了票)
         * [<strong>2.4.3 根据公钥或者用户名获取受托人详情</strong>](#243-根据公钥或者用户名获取受托人详情)
@@ -41,11 +41,11 @@ Table of Contents
         * [<strong>2.4.5 获取受托人设置的转账费</strong>](#245-获取受托人设置的转账费)
         * [<strong>2.4.6 根据公钥查看其锻造情况</strong>](#246-根据公钥查看其锻造情况)
         * [<strong>2.4.7 注册受托人</strong>](#247-注册受托人)
-      * [<strong>2.5 peers</strong>](#25-peers)
+      * [<strong>2.5 节点peers</strong>](#25-节点peers)
         * [<strong>2.5.1 获取全网节点信息</strong>](#251-获取全网节点信息)
         * [<strong>2.5.2 获取节点版本信息</strong>](#252-获取节点版本信息)
         * [<strong>2.5.3 获取特定ip节点信息</strong>](#253-获取特定ip节点信息)
-      * [<strong>2.6 loaders</strong>](#26-loaders)
+      * [<strong>2.6 同步loaders</strong>](#26-同步loaders)
         * [<strong>2.6.1 查看同步状态</strong>](#261-查看同步状态)
         * [<strong>2.6.2 查看同步信息</strong>](#262-查看同步信息)
       * [<strong>2.7 二级密码signatures</strong>](#27-二级密码signatures)
@@ -72,7 +72,7 @@ Table of Contents
 ---   
    
 ##**2 接口**   
-### **2.1 accounts**   
+### **2.1 账户accounts**   
    
 #### **2.1.1 登录**   
 ##### **2.1.1.1 本地加密后再登陆（推荐使用）**   
@@ -134,7 +134,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
+|secret |string |Y    |asch账户密码       |   
    
 返回参数说明：   
 
@@ -286,7 +286,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)      |   
+|secret |string |Y    |asch账户密码      |   
    
 返回参数说明：   
 
@@ -323,7 +323,7 @@ JSON返回示例：
 |名称	|类型   |说明              |   
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
-||  |      |    
+|delegates|Array  |已投票的受托人详情数组      |    
    
    
 请求示例：   
@@ -371,18 +371,12 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.1.7 获取受托人手续费设置？**   
+#### **2.1.7 获取受托人手续费设置**   
 接口地址：/api/accounts/delegates/fee   
 请求方式：get   
-支持格式：urlencoded   
-请求参数说明：   
+支持格式：无   
+请求参数说明：无  
 
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|secret |string |N    |asch账户密码(须符合BIP39标准)       |   
-|publicKey|string  |N|公钥      |    
-|secondSecret|string|N|asch账户二级密码(须符合BIP39标准)|   
-   
 返回参数说明：   
 
 |名称	|类型   |说明              |   
@@ -393,7 +387,7 @@ JSON返回示例：
    
 请求示例：   
 ```bash   
-curl -k -X GET 'http://45.32.248.33:4096/api/accounts/delegates/fee?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7'   
+curl -k -X GET 'http://45.32.248.33:4096/api/accounts/delegates/fee  
 ```   
    
 JSON返回示例：   
@@ -405,7 +399,7 @@ JSON返回示例：
 ```   
    
    
-#### **2.1.8 注册受托人？**   
+#### **2.1.8 投票**   
 接口地址：/api/accounts/delegates   
 请求方式：put   
 支持格式：json   
@@ -413,29 +407,49 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
+|secret |string |Y    |asch账户密码       |   
 |publicKey|string  |N|公钥      |    
-|secondSecret|string|N|asch账户二级密码(须符合BIP39标准)|   
+|secondSecret|string|N|asch账户二级密码，最小长度：1，最大长度：100|   
+|delegates|Array|受托人公钥数组，每个公钥前需要加上+或者-号，代表增加/取消对其的投票|   
    
 返回参数说明：   
 
 |名称	|类型   |说明              |   
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
-||  |      |    
+|transaction|json  |投票交易详情      |    
    
    
 请求示例：   
-```   
-   
+```bash   
+curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"call scissors pupil water friend timber spend brand vote obey corn size","publicKey":"3ec1c9ec08c0512641deba37c0e95a0fe5fc3bdf58424009f594d7d6a4e28a2a","delegates":["+fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"]}' 'http://45.32.248.33:4096/api/accounts/delegates'     
 ```   
    
 JSON返回示例：   
+```js   
+ {
+	"success": true,
+	"transaction": {
+		"type": 3,  //投票的交易类型为3
+		"amount": 0,
+		"senderPublicKey": "3ec1c9ec08c0512641deba37c0e95a0fe5fc3bdf58424009f594d7d6a4e28a2a",
+		"requesterPublicKey": null,
+		"timestamp": 5056064,
+		"asset": {
+			"vote": {
+				"votes": ["+fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"]
+			}
+		},
+		"recipientId": null,
+		"signature": "0bff58c7311fc59b3c8b3ffc236bbfece9850c334fb0c292ab087f78cf9a6c0f4d3e541c501887a2c2ec46294c777e8f7bf7dea9cb7c9a175fdec641bb684f08",
+		"id": "5630629337798595849",
+		"fee": 10000000,
+		"senderId": "15238461869262180695"
+	}
+}  
 ```   
    
-```   
-   
-### **2.2 transactions**   
+### **2.2 交易transactions**   
 #### **2.2.1 获取交易信息**   
 接口地址：/api/transactions   
 请求方式：get   
@@ -583,7 +597,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.2.3 根据未确认交易id查看详情？**   
+#### **2.2.3 根据未确认交易id查看详情**   
 接口地址：/api/transactions/unconfirmed/get   
 请求方式：get   
 支持格式：urlencoded   
@@ -598,16 +612,34 @@ JSON返回示例：
 |名称	|类型   |说明              |   
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
+|transaction|json  |未确认交易详情      |   
    
    
 请求示例：   
 ```bash   
-curl -k -X GET 'http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=14093929199102906687'   
+curl -k -X GET http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=7557072430673853692  //正常情况，该未确认交易存在时间极短0~10秒 
 ```   
    
 JSON返回示例：   
 ```js   
-{"success":false,"error":"Transaction not found"}   
+{
+	"success": true,
+	"transaction": {
+		"type": 0,
+		"amount": 10000,
+		"senderPublicKey": "3ec1c9ec08c0512641deba37c0e95a0fe5fc3bdf58424009f594d7d6a4e28a2a",
+		"requesterPublicKey": null,
+		"timestamp": 5082322,
+		"asset": {
+			
+		},
+		"recipientId": "16723473400748954103",
+		"signature": "3a97f8d63509ef964bda3d816366b8e9e2d9b5d4604a660e7cbeefe210cb910f5de9a51bece06c32d010f55502c62f0f59b8224e1c141731ddfee27206a88d02",
+		"id": "7557072430673853692",
+		"fee": 10000000,
+		"senderId": "15238461869262180695"
+	}
+}
 ```   
    
    
@@ -646,14 +678,14 @@ JSON返回示例：
    
 #### **2.2.5 创建交易**   
 接口地址：/api/transactions   
-请求方式：put   
+请求方式：PUT   
 支持格式：json   
 接口备注：接收者账户需在web端钱包登陆过   
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
+|secret |string |Y    |asch账户密码       |   
 |amount|integer|Y|金额，最小值：1，最大值：10000000000000000|   
 |recipientId|string|Y|接收者地址,最小长度：1|   
 |publicKey|string|N|发送者公钥|   
@@ -681,7 +713,7 @@ JSON返回示例：
 }   
 ```   
    
-### **2.3 blocks**   
+### **2.3 区块blocks**   
 #### **2.3.1 获取特定id的区块详情**   
 接口地址：/api/blocks/   
 请求方式：get   
@@ -964,7 +996,7 @@ JSON返回示例：
    
    
    
-### **2.4 delegates**   
+### **2.4 受托人delegates**   
    
 #### **2.4.1 获取受托人总个数**   
 接口地址：/api/delegates/count   
@@ -1225,9 +1257,9 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
+|secret |string |Y    |asch账户密码       |   
 |publicKey|string  |N      |公钥|    
-|secondSecret|string|N|asch账户二级密码(须符合BIP39标准)|   
+|secondSecret|string|N|asch账户二级密码，最小长度：1，最大长度：100|   
 |username|string|N|受托人名字|   
    
 返回参数说明：   
@@ -1268,7 +1300,7 @@ JSON返回示例：
 }   
 ```   
    
-### **2.5 peers**   
+### **2.5 节点peers**   
    
 #### **2.5.1 获取全网节点信息**   
 接口地址：/api/peers   
@@ -1381,7 +1413,7 @@ JSON返回示例：
 }   
 ```   
    
-### **2.6 loaders**   
+### **2.6 同步loaders**   
 #### **2.6.1 查看同步状态**   
 接口地址：/api/loader/status   
 请求方式：get   
@@ -1447,9 +1479,9 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
+|secret |string |Y    |asch账户密码       |   
 |publicKey|string  |N|公钥      |    
-|secondSecret|string|Y|asch账户二级密码(须符合BIP39标准)|   
+|secondSecret|string|Y|asch账户二级密码，最小长度：1，最大长度：100|   
 |multisigAccountPublicKey|string|N|多重签名账户公钥|   
    
    
@@ -1528,9 +1560,9 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
+|secret |string |Y    |asch账户密码       |   
 |publicKey|string  |N|公钥      |    
-|secondSecret|string|N|asch账户二级密码(须符合BIP39标准)|   
+|secondSecret|string|N|asch账户二级密码，最小长度：1，最大长度：100|   
 |min|integer|Y|多重签名交易账户的任意一笔转账都需要多人签名的最少个数，如果是注册多重签名账户操作，这该值不生效（此时需要所有人都签名）。最小值：2，最大值：16,该值需要小于keysgroup.length+1|   
 |lifetime|integer|Y|多重签名交易的最大挂起时间，最小值：1，最大值：24，暂时不生效|   
 |keysgroup|array|Y|其它签名人的公钥数组，每个公钥前需要加上+或者-号，代表增加/删除多重签名账户，数组最小长度：1，数组最大长度：10|   
@@ -1623,8 +1655,8 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|secret |string |Y    |asch账户密码(须符合BIP39标准)       |   
-|secondSecret|string|N|asch账户二级密码(须符合BIP39标准)|   
+|secret |string |Y    |asch账户密码       |   
+|secondSecret|string|N|asch账户二级密码，最小长度：1，最大长度：100|   
 |publicKey|string  |N|公钥      |    
 |transactionId|string|Y|交易id|   
    
@@ -1767,52 +1799,3 @@ asch系统的所有写操作都是通过发起一个交易来完成的。
 交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去   
 **库安装**   
 npm install asch-js   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-### **xx**   
-接口地址：   
-请求方式：   
-支持格式：urlencoded   
-请求参数说明：   
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-| |string |Y    |      |   
-|||||   
-|||||   
-|||||   
-|||||   
-|||||   
-|||||   
-   
-   
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功获得response数据 |    
-||  |      |    
-   
-   
-请求示例：   
-```   
-   
-```   
-   
-JSON返回示例：   
-```   
-   
-```   
