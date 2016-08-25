@@ -26,7 +26,7 @@ Table of Contents
         * [<strong>2.2.5 创建交易</strong>](#225-创建交易)
       * [<strong>2.3 区块blocks</strong>](#23-区块blocks)
         * [<strong>2.3.1 获取特定id的区块详情</strong>](#231-获取特定id的区块详情)
-        * [<strong>2.3.2 获取最新的区块</strong>](#232-获取最新的区块)
+        * [<strong>2.3.2 获取[全网]区块详情</strong>](#232-获取全网区块详情)
         * [<strong>2.3.3 获取区块链高度</strong>](#233-获取区块链高度)
         * [<strong>2.3.4 获取交易手续费</strong>](#234-获取交易手续费)
         * [<strong>2.3.5 获取里程碑</strong>](#235-获取里程碑)
@@ -1798,4 +1798,4 @@ JSON返回示例：
 asch系统的所有写操作都是通过发起一个交易来完成的。    
 交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去   
 **库安装**   
-npm install asch-js   
+npm install asch-js 
