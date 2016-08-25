@@ -16,7 +16,7 @@ Table of Contents
         * [<strong>2.1.4 获取账户公钥</strong>](#214-获取账户公钥)
         * [<strong>2.1.5 生成公钥</strong>](#215-生成公钥)
         * [<strong>2.1.6 根据地址获取其投票列表</strong>](#216-根据地址获取其投票列表)
-        * [<strong>2.1.7 获取受托人手续费设置？</strong>](#217-获取受托人手续费设置)
+        * [<strong>2.1.7 获取受托人手续费设置</strong>](#217-获取受托人手续费设置)
         * [<strong>2.1.8 投票</strong>](#218-投票)
       * [<strong>2.2 交易transactions</strong>](#22-交易transactions)
         * [<strong>2.2.1 获取交易信息</strong>](#221-获取交易信息)
