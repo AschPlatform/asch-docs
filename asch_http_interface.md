@@ -1,5 +1,5 @@
-# ASCH HTTP API文档   
-   
+# ASCH HTTP API文档
+
 Table of Contents
 =================
 
@@ -26,7 +26,7 @@ Table of Contents
         * [<strong>2.2.5 创建交易</strong>](#225-创建交易)
       * [<strong>2.3 区块blocks</strong>](#23-区块blocks)
         * [<strong>2.3.1 获取特定id的区块详情</strong>](#231-获取特定id的区块详情)
-        * [<strong>2.3.2 获取[全网]区块详情</strong>](#232-获取全网区块详情)
+        * [<strong>2.3.2 获取最新的区块</strong>](#232-获取最新的区块)
         * [<strong>2.3.3 获取区块链高度</strong>](#233-获取区块链高度)
         * [<strong>2.3.4 获取交易手续费</strong>](#234-获取交易手续费)
         * [<strong>2.3.5 获取里程碑</strong>](#235-获取里程碑)
@@ -56,9 +56,16 @@ Table of Contents
         * [<strong>2.8.2 获取挂起的多重签名交易详情</strong>](#282-获取挂起的多重签名交易详情)
         * [<strong>2.8.3 非交易发起人对交易进行多重签名</strong>](#283-非交易发起人对交易进行多重签名)
         * [<strong>2.8.4 获取多重签名账户信息</strong>](#284-获取多重签名账户信息)
+      * [<strong>2.9 点对点传输tansport[安全的api]</strong>](#29-点对点传输tansport安全的api)
+        * [<strong>2.9.1 说明</strong>](#291-说明)
+        * [<strong>2.9.2 交易</strong>](#292-交易)
+          * [<strong>2.9.10.1 设置二级支付密码</strong>](#29101-设置二级支付密码)
+          * [<strong>2.9.10.2 转账</strong>](#29102-转账)
+          * [<strong>2.9.10.3 注册受托人</strong>](#29103-注册受托人)
+          * [<strong>2.9.10.4 投票 &amp; 取消投票</strong>](#29104-投票--取消投票)
     * [<strong>附录1：asch-js安装</strong>](#附录1asch-js安装)
-   
-   
+
+
 ---   
    
 ##**1 API使用说明**   
@@ -80,10 +87,7 @@ Table of Contents
 请求方式：post   
 支持格式：json   
 接口备注：公钥需要根据用户提供的密码在在本地用程序生成   
-```js   
-var publicKey = AschJS.crypto.getKeys(secret).publicKey;   
-var address = AschJS.crypto.getAddress(publicKey);   
-```   
+
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -97,7 +101,13 @@ var address = AschJS.crypto.getAddress(publicKey);
 |success|boole  |是否登陆成功      |    
 |account|json   |账户信息          |    
 请求示例：   
-```bash   
+  
+```js
+var AschJS = require('asch-js');  //asch-js具体安装方法见附录 
+var publicKey = AschJS.crypto.getKeys(secret).publicKey;  //根据密码生成公钥 
+// var address = AschJS.crypto.getAddress(publicKey);   //根据公钥生成地址
+
+// 将上面生成的数据通过post提交到asch server   
 curl -X POST -H "Content-Type: application/json" -k -d '{"publicKey":"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"}' http://45.32.248.33:4096/api/accounts/open2/   
 ```   
    
@@ -617,7 +627,7 @@ JSON返回示例：
    
 请求示例：   
 ```bash   
-curl -k -X GET http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=7557072430673853692  //正常情况，该未确认交易存在时间极短0~10秒 
+curl -k -X GET http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=7557072430673853692  //正常情况，该未确认交易存在时间极短0~10秒   
 ```   
    
 JSON返回示例：   
@@ -647,6 +657,7 @@ JSON返回示例：
 接口地址：/api/transactions/unconfirmed   
 请求方式：get   
 支持格式：urlencoded   
+接口说明：如果不加参数，则会获取全网所有未确认交易
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -1598,7 +1609,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|publicKey|string  |N|公钥      |    
+|publicKey|string  |Y|公钥      |    
    
    
 返回参数说明：   
@@ -1793,9 +1804,173 @@ JSON返回示例：
 	}]   
 }   
 ```   
+
+### **2.9 点对点传输tansport[安全的api]**   
+#### **2.9.1 说明**   
+/peer相关的api，在请求时都需要设置一个header  
+
+ - key为magic，value为594fe0f3  
+ - key为version，value为''  
+
+#### **2.9.2 交易**   
+asch系统的所有写操作都是通过发起一个交易来完成的。 
+交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去
+
+POST接口规格如下：
+payload为asch-js创建出来的交易数据
+接口地址：/peer/transactions  
+请求方式：post   
+支持格式：json  
+
+#####**2.9.10.1 设置二级支付密码**   
+请求参数说明：   
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|asch-js.signature.createSignature生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+   
+   
+请求示例：   
+```js   
+var asch = require('asch-js');    
+var transaction = asch.signature.createSignature('measure bottom stock hospital calm hurdle come banner high edge foster cram','erjimimashezhi001')       
+console.log(JSON.stringify(transaction))  
+{"type":1,"amount":0,"fee":500000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5328943,"asset":{"signature":{"publicKey":"27116db89cb5a8c02fb559712e0eabdc298480d3c79a089b803e35bc5ef7bb7b"}},"signature":"71ef98b1600f22f3b18cfcf17599db3c40727c230db817f610e86454b62df4fb830211737ff0c03c6a61ecfd4a9fcb68a30b2874060bb33b87766acf800e820a","id":"15605591820551652547"}   
+
+// 将上面生成的设置二级密码的交易数据通过post提交给asch server
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":1,"amount":0,"fee":500000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5328943,"asset":{"signature":{"publicKey":"27116db89cb5a8c02fb559712e0eabdc298480d3c79a089b803e35bc5ef7bb7b"}},"signature":"71ef98b1600f22f3b18cfcf17599db3c40727c230db817f610e86454b62df4fb830211737ff0c03c6a61ecfd4a9fcb68a30b2874060bb33b87766acf800e820a","id":"15605591820551652547"}}' http://45.32.248.33:4096/peer/transactions   
+```   
+   
+JSON返回示例：   
+```js  
+{
+    "success":true  //二级密码设置成功
+}	
+``` 
+
+#####**2.9.10.2 转账**   
+请求参数说明：   
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|asch-js.transaction.createTransaction生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+   
+   
+请求示例：   
+```js   
+var asch = require('asch-js');   
+var targetAddress = "16358246403719868041";  
+var amount = 100*100000000;   //100 XAS
+var password = 'measure bottom stock hospital calm hurdle come banner high edge foster cram';
+var secondPassword  = 'erjimimashezhi001';
+
+// 其中password是在用户登录的时候记录下来的，secondPassword需要每次让用户输入
+// 可以通过user.secondPublicKey来判断用户是否有二级密码，如果没有，则不必输入，以下几个交易类型类似
+var transaction = asch.transaction.createTransaction(targetAddress, amount, password, secondPassword || undefined);       
+JSON.stringify(transaction)
+'{"type":0,"amount":10000000000,"fee":10000000,"recipientId":"16358246403719868041","timestamp":5333378,"asset":{},"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","signature":"2d47810b7d9964c5c4d330a53d1382769e5092b3a53639853f702cf4a382aafcff8ef8663c0f6856a23f41c249944f0c3cfac0744847268853a62af5dd8fc90a","signSignature":"dfa9b807fff362d581170b41c56a2b8bd723c48d1f100f2856d794408723e8973016d75aeff4705e6837dcdb745aafb41aa10a9f1ff8a77d128ba3d712e90907","id":"16348623380114619131"}'
+
+// 将上面生成的转账操作的交易数据通过post提交给asch server
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":0,"amount":10000000000,"fee":10000000,"recipientId":"16358246403719868041","timestamp":5333378,"asset":{},"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","signature":"2d47810b7d9964c5c4d330a53d1382769e5092b3a53639853f702cf4a382aafcff8ef8663c0f6856a23f41c249944f0c3cfac0744847268853a62af5dd8fc90a","signSignature":"dfa9b807fff362d581170b41c56a2b8bd723c48d1f100f2856d794408723e8973016d75aeff4705e6837dcdb745aafb41aa10a9f1ff8a77d128ba3d712e90907","id":"16348623380114619131"}}' http://45.32.248.33:4096/peer/transactions
+```   
+   
+JSON返回示例：   
+```js  
+{
+    "success":true  //转账成功
+}		
+``` 
+
+#####**2.9.10.3 注册受托人**   
+请求参数说明：   
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|asch-js.delegate.createDelegate生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+   
+   
+请求示例：   
+```js   
+var asch = require('asch-js');   
+var password = 'measure bottom stock hospital calm hurdle come banner high edge foster cram';
+var secondPassword  = 'erjimimashezhi001';
+var userName = 'zhenxi_test';  
+
+var transaction = asch.delegate.createDelegate(password, userName, secondPassword || undefined);   
+JSON.stringify(transaction)  
+'{"type":2,"amount":0,"fee":10000000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334485,"asset":{"delegate":{"username":"zhenxi_test","publicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f"}},"signature":"a12ce415d2d21ab46e4c1b918b8717b1d351dd99abd6f2f94d9a1a7e1f32b697f843a05b1851cb857ea45a2476dce592f5ddd612c00cd44488b8b610c57d7f0a","signSignature":"35adc9f1f37d14458e8588f9b4332eedf1151c02480159f64a287a4b0cbb59bfe82040dfec96a4d9560bae99b8eaa1799a7023395db5ddc640d95447992d6e00","id":"12310465407307249905"}'
+
+// 将上面生成的注册受托人的交易数据通过post提交给asch server
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":2,"amount":0,"fee":10000000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334485,"asset":{"delegate":{"username":"zhenxi_test","publicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f"}},"signature":"a12ce415d2d21ab46e4c1b918b8717b1d351dd99abd6f2f94d9a1a7e1f32b697f843a05b1851cb857ea45a2476dce592f5ddd612c00cd44488b8b610c57d7f0a","signSignature":"35adc9f1f37d14458e8588f9b4332eedf1151c02480159f64a287a4b0cbb59bfe82040dfec96a4d9560bae99b8eaa1799a7023395db5ddc640d95447992d6e00","id":"12310465407307249905"}}' http://45.32.248.33:4096/peer/transactions
+```   
+   
+JSON返回示例：   
+```js  
+{
+    "success":true  //注册受托人成功
+}		
+``` 
+
+#####**2.9.10.4 投票 & 取消投票**   
+请求参数说明：   
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|asch-js.vote.createVote生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+   
+   
+请求示例：   
+```js   
+var asch = require('asch-js');   
+var password = 'measure bottom stock hospital calm hurdle come banner high edge foster cram';
+var secondPassword  = 'erjimimashezhi001';
+// 投票内容是一个列表，列表中的每一个元素是一个符号加上所选择的受托人的公钥，符号为+表示投票，符号为-表示取消投票
+var voteContent = [
+    '-ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7',
+    '+c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2'
+];
+
+var transaction = asch.vote.createVote(password, voteContent, secondPassword || undefined);
+JSON.stringify(transaction)
+{"type":3,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334923,"asset":{"vote":{"votes":["-ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7","+c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2"]}},"signature":"6036c2066a231c452a1c83aafd3bb9db3842ee05d5f17813f8264a4294cdec761faa89edf4a95f9b2e2451285807ab18aa9f989ad9a3165b95643179b8e4580f","signSignature":"a216ca739112e6f65986604b9467ccc8058138a7077faf134d6c4d673306cd1c514cc95bd54a036f7c602a56c4b4f2e4e59f6aa7c376cb1429e89054042e050b","id":"17558357483072606427"}
+
+// 将上面生成的投票的交易数据通过post提交给asch server
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":3,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334923,"asset":{"vote":{"votes":["-ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7","+c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2"]}},"signature":"6036c2066a231c452a1c83aafd3bb9db3842ee05d5f17813f8264a4294cdec761faa89edf4a95f9b2e2451285807ab18aa9f989ad9a3165b95643179b8e4580f","signSignature":"a216ca739112e6f65986604b9467ccc8058138a7077faf134d6c4d673306cd1c514cc95bd54a036f7c602a56c4b4f2e4e59f6aa7c376cb1429e89054042e050b","id":"17558357483072606427"}}' http://localhost:4096/peer/transactions
+```   
+   
+JSON返回示例：   
+```js  
+{
+    "success":true  //投票&取消投票 成功
+}		
+``` 
+
+
    
 ## **附录1：asch-js安装**   
 asch系统的所有写操作都是通过发起一个交易来完成的。    
 交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去   
 **库安装**   
-npm install asch-js 
+npm install asch-js   
+   
+   
