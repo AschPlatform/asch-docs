@@ -153,7 +153,7 @@ withdrawaltransfer.js   # XAS提现合约
 或者直接访问dapp的url```localhost:4096/dapps/<dapp id>```
 
 在这个hello world项目中，我们可以进行充值、链内转账和提现操作。
-目前的充值可以通过命令进行操作
+目前的充值暂时只能通过命令进行操作(后面会做到主钱包中)，其他功能都可以直接在这个界面上操作
 
 ```
 asch-cli dapps -dapp
