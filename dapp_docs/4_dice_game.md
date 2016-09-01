@@ -1,4 +1,4 @@
-# Dapp开发教程三 Asch Dapp Dice Game
+# Dapp开发教程四 Asch Dapp Dice Game
 
 这个dice game与上一个mini dao相比，代码规模大了许多，功能也复杂了很多，创建了三个合约类型，彼此之间有依赖关系，合约的执行还要依赖历史交易数据。
 
