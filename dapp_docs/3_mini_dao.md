@@ -236,11 +236,7 @@ Project.prototype.apply = function (trs, sender, cb, scope) {
 
 非常简单，只有一个操作，仅仅是对账户资产进行一个减法操作。
 大部分情况下， ```applyUnconfirmed```是比```apply```要复杂的，特别是涉及到资产的减法操作时，因为前者要比后者执行的更早，后者就没必要做多余的条件检查了。
-我们要注意到，```apply```修改的是```balance```字段，```applyUnconfirmed```修改的是```u_balance```字段，我们先记住一个结论，以后再分析为什么：
-
-```
-u_balance 永远大于等于 balance
-```
+我们要注意到，```apply```修改的是```balance```字段，```applyUnconfirmed```修改的是```u_balance```字段，
 
 所以如果```u_balance```满足条件(即有足够的剩余资产)，那么```balance```一定也会满足条件，所以就没必要进行进一步检查了。
 
