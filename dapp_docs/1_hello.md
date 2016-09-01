@@ -26,7 +26,7 @@ git clone https://github.com/sqfasd/asch
 npm instal -g asch-cli
 ```
 
-注意这一步不要用淘宝的```cnpm```， ** 有bug **
+注意这一步不要用淘宝的```cnpm```， **有bug**
 
 ## 4 在本地创建一个应用
 
@@ -136,7 +136,7 @@ withdrawaltransfer.js   # XAS提现合约
 
 我们需要在```config.json```的```dapp```的字段配置上我们之前在创世块中使用的主密码和对应的dapp id。
 
-将来发布到正式网络中时，也需要有一台节点配置这个密钥，** 仅需一台 **
+将来发布到正式网络中时，也需要有一台节点配置这个密钥，**仅需一台**
 
 ```
 "params": {
@@ -156,7 +156,7 @@ withdrawaltransfer.js   # XAS提现合约
 目前的充值暂时只能通过命令进行操作(后面会做到主钱包中)，其他功能都可以直接在这个界面上操作
 
 ```
-asch-cli dapps -dapp
+asch-cli dapps -d
 
 ? Enter secret *******************************************************************************
 ? Enter amount 10000000000
