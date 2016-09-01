@@ -32,31 +32,31 @@
 
 ## 2 前后端通讯协议
 
-Dapp后端提供的接口的一般格式为```/api/dapps/<dapp id>/method```
+Dapp后端提供的接口的一般格式为```/api/dapps/<dapp id>/api/method```
 
 例如，我们在hello world项目中使用了3个接口
 
 **登录**
 
 ```
-post /api/dapps/<dapp id>/openAccount
+post /api/dapps/<dapp id>/api/openAccount
 
 # 这个接口需要提供secret字段，有安全隐患
 # 如果能在前端获取到publicKey，可以使用下面这个更安全的接口
 
-post /api/dapps/<dapp id>/openAccount2
+post /api/dapps/<dapp id>/api/openAccount2
 ```
 
 **链内交易**
 
 ```
-put /api/dapps/<dapp id>/transaction
+put /api/dapps/<dapp id>/api/transaction
 ```
 
 **提现**
 
 ```
-post /api/dapps/<dapp id>/withdrawal
+post /api/dapps/<dapp id>/api/withdrawal
 ```
 
 更多接口可以去```router.json```文件里查看
