@@ -117,7 +117,8 @@ normalize           # 交易数据的格式化，把不相关的对象字段删�
 
 ## 4 实现Project合约
 
-** 实现create **
+**实现create**
+
 ```
 	trs.recipientId = null;
   // 创建项目只需要发起者，不需要接收者，所以设为null
@@ -134,7 +135,7 @@ normalize           # 交易数据的格式化，把不相关的对象字段删�
 	return trs;
 ```
 
-** 设置交易费 **
+**设置交易费**
 
 这个项目我们不希望与XAS对接，那么就不把交易费设置为0就行了
 
@@ -144,7 +145,7 @@ Project.prototype.calculateFee = function (trs) {
 }
 ```
 
-** 数据检验 **
+**数据检验**
 
 这个没啥可解释的
 
@@ -172,7 +173,7 @@ Project.prototype.verify = function (trs, sender, cb, scope) {
 }
 ```
 
-** 获取二进制数据 **
+**获取二进制数据**
 
 二进制数据主要是为了生成签名数据，所以只需要把交易的实体数据组合起来打包成```Buffer```就可以了。
 组合的方式可以随便，比如，可以通过```bytebuffer```，也可以通过简单的字符串连接。
@@ -189,7 +190,7 @@ Project.prototype.getBytes = function (trs) {
 }
 ```
 
-** 合约执行逻辑 **
+**合约执行逻辑**
 
 我们先看未确认合约的执行
 
@@ -218,9 +219,7 @@ Project.prototype.applyUnconfirmed = function (trs, sender, cb, scope) {
 最后我们会看到一个dapp开发中最重要的api，即```modules.blockchain.accounts.mergeAccountAndGet```。
 
 这个api的功能是对账户进行操作，这个操作包括对数字的加减法、数组的增删、字符串的设置等。
-这里我们对账户余额执行了减法操作，即把```u_
-
-```balance```中的```POINTS```资产，减去```BURN_POINTS```。
+这里我们对账户余额执行了减法操作，即把```u_balance```中的```POINTS```资产，减去```BURN_POINTS```。
 这里我们取名```BURN_POINTS```主要是为了表达这个合约的执行需要燃烧一定数量的资产，因为我们没有指定被消耗掉的资产的去向，那么这些被消耗的资产就只有消失了，也就是被燃烧了。
 这里我们只是为了简单起见，如果你的业务逻辑不希望燃烧，可以把这些资产作为手续费，转给应用的开发者或者节点运营者，或者转移到一个基金账户中，用作将来的开发经费，完全由你自己决定。
 

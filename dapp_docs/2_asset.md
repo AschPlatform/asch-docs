@@ -32,3 +32,65 @@
 
 ## 2 前后端通讯协议
 
+Dapp后端提供的接口的一般格式为```/api/dapps/<dapp id>/method```
+
+例如，我们在hello world项目中使用了3个接口
+
+**登录**
+
+```
+post /api/dapps/<dapp id>/openAccount
+
+# 这个接口需要提供secret字段，有安全隐患
+# 如果能在前端获取到publicKey，可以使用下面这个更安全的接口
+
+post /api/dapps/<dapp id>/openAccount2
+```
+
+**链内交易**
+
+```
+put /api/dapps/<dapp id>/transaction
+```
+
+**提现**
+
+```
+post /api/dapps/<dapp id>/withdrawal
+```
+
+更多接口可以去```router.json```文件里查看
+
+例如
+
+**获取区块列表**
+
+```
+{
+		"path": "/blocks",
+		"method": "get",
+		"handler": "blockchain.blocks.getBlocks"
+	}
+```
+
+**获取未确认交易列表**
+
+```
+{
+		"path": "/transactions",
+		"method": "get",
+		"handler": "blockchain.transactions.getTransactions"
+	}
+```
+
+**增加受托人**
+
+```
+	{
+		"path": "/delegates",
+		"method": "put",
+		"handler": "blockchain.delegates.addDelegates"
+	}
+```
+
+侧链框架中提供了更多的方法，但是没有暴露出api，开发者如果有需要，可以自行配置。
