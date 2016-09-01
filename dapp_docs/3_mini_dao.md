@@ -137,7 +137,7 @@ normalize           # 交易数据的格式化，把不相关的对象字段删�
 
 **设置交易费**
 
-这个项目我们不希望与XAS对接，那么就不把交易费设置为0就行了
+这个项目我们不希望与XAS对接，那么就把交易费设置为0就行了
 
 ```
 Project.prototype.calculateFee = function (trs) {
