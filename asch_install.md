@@ -19,7 +19,7 @@
 测试版testnet
 
 ```
-wget https://github.com/sqfasd/asch/releases/download/v1.1.0/asch-linux-1.1.0-testnet.tar.gz
+wget https://www.asch.so/downloads/asch-linux-1.1.0-testnet.tar.gz
 tar zxvf asch-linux-1.1.0-testnet.tar.gz
 ```
 
