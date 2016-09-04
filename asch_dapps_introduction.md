@@ -67,3 +67,6 @@ Asch的侧链框架使用的语言是nodejs，我们内置了不少常用的库�
 
 - [Dapp开发教程四 Asch Dapp Dice Game](./dapp_docs/4_dice_game.md)
   这个文档教教你如何创建更复杂的交易类型或智能合约，如何在合约之间建立关联，如何在合约执行时依赖历史交易数据等，并且实现了一个骰子游戏作为演示。
+
+- [Dapp开发教程五 发布Dapp到线上](./dapp_docs/5_dapp_publish.md)
+  这个文档教教你如何在注册到线上系统(testnet, mainnet)以及如何安装和卸载
