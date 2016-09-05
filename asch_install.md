@@ -75,6 +75,9 @@ tar zxvf asch-linux-1.0.1-mainnet.tar.gz
 # 查看版本
 ./aschd version
 
+# 开启区块生产
+./aschd enable "your sercret"
+
 # 查看log
 tail -f logs/debug.log
 ```
