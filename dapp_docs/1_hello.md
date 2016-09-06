@@ -159,7 +159,7 @@ withdrawaltransfer.js   # XAS提现合约
 asch-cli dapps -d
 
 ? Enter secret *******************************************************************************
-? Enter amount 10000000000
+? Enter amount 100
 ? DApp Id 6299140990391157236
 ? Enter secondary secret (if defined)
 ? Host and port localhost:4096
@@ -167,5 +167,4 @@ null { success: true, transactionId: '10589988261732949004' }
 10589988261732949004
 ```
 
-注意这里输入的amount是实际转账的数额乘以100000000，所以上面我们实际上只充值了100个XAS
 充值和提现操作都是30秒刷新一次，我们稍等片刻，就可以看到界面上的余额刷新了。
