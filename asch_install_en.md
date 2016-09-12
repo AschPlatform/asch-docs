@@ -154,8 +154,8 @@ grep Forging logs/debug.log
 
 Forging enabled on account: xxxxxxxxxxxxxx
 ```
-###6.3 Unable to synchronize the block
-*This issue can be confirmed by comparing the height of blockchain between your wallet and official node*
+###6.3 Unable to synchronize the block （blockchain growth suspend）
+*This issue can be confirmed by comparing the block height of your wallet and official node*
 
 First, try `restart` the system:
 ```
