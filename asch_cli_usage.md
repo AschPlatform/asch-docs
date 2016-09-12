@@ -149,7 +149,7 @@ root@asch:~# asch-cli -V
 
 返回值： 无
 
-使用方法：asch-cli -H 45.32.248.33
+使用方法：asch-cli -H 45.32.248.33 [子命令]
 
 示例:
 
@@ -163,7 +163,7 @@ root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器
 
 返回值： 无
 
-使用方法：asch-cli -P 4096
+使用方法：asch-cli -P 4096 [子命令]
 
 示例:
 
@@ -177,7 +177,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 
 返回值： 无
 
-使用方法：asch-cli -M 
+使用方法：asch-cli -H 45.32.248.33 -P 8192 -M [子命令]
 
 示例:
 
