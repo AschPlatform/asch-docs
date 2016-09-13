@@ -595,7 +595,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2
 
 返回值： 列表，包含所有未确认的交易详情
 
-使用方法：asch-cli getunconfirmedtransactions -p "发送者公钥" -a 接收者地址
+使用方法：asch-cli getunconfirmedtransactions -k "发送者公钥" -a 接收者地址
 
 示例:
 
