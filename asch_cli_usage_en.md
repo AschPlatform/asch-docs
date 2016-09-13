@@ -3,16 +3,16 @@
 Index
 =================
 
-  * [ASCH-CLI Instruction](#asch-cli Instruction)
-    * [0 asch-cli Overview](#0-asch-cli Overview)
-    * [1 asch-cli Installation](#1-asch-cli Installation)
-    * [2 asch-cli Synopsis](#2-asch-cli Synopsis)
+  * [ASCH-CLI Instruction](#asch-cli-Instruction)
+    * [0 asch-cli Overview](#0-asch-cli-Overview)
+    * [1 asch-cli Installation](#1-asch-cli-Installation)
+    * [2 asch-cli Synopsis](#2-asch-cli-synopsis)
     * [3 asch-cli Option Description](#3-asch-cli Option Description)
       * [3.1 Print help information](#31-Print help information)
-      * [3.2 打印asch-cli版本号](#32-打印asch-cli版本号)
-      * [3.3 指定要连接的asch服务器主机名或者ip](#33-指定要连接的asch服务器主机名或者ip)
-      * [3.4 指定要连接的asch服务器的端口](#34-指定要连接的asch服务器的端口)
-      * [3.5 指定主链](#35-指定主链)
+      * [3.2 Print Asch-CLI version information](#32-打印asch-cli版本号)
+      * [3.3 Appoint the host name or IP address of target Asch Server](#33-指定要连接的asch服务器主机名或者ip)
+      * [3.4 Appoint the port number of target Asch server](#34-指定要连接的asch服务器的端口)
+      * [3.5 Appoint the main chain](#35-指定主链)
     * [4 asch-cli支持的命令](#4-asch-cli支持的命令)
       * [4.1 查看区块链高度](#41-查看区块链高度)
       * [4.2 查看区块链状态](#42-查看区块链状态)
@@ -65,11 +65,11 @@ NOTICE: if you install it in China, try parameter `--registry=http://registry.np
 
 ##3 Asch-CLI Option Description
 ###3.1 Print help information
-**Parameter:** 	-h, --help
-**Return:**     Help document of Asch-CLI commands or sub-commands
+**Parameter:** 	-h, --help  
+**Return:**     Help document of Asch-CLI commands or sub-commands  
 **Usage:**  	
-	`asch-cli -h` (print help information of asch-cli itself); 
-	`asch-cli [commands] -h` (print help information of Asch-CLI command)
+ - asch-cli -h #print help information of asch-cli itself 
+ - asch-cli [commands] -h #print help information of Asch-CLI command
 
 **Examples:**
 ```
@@ -129,8 +129,8 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates -h #print Asch-C
 ```
 
 ###3.2 Print Asch-CLI version information 
-**Parameter:** 	-V, --version
-**Return:**     Output the version information
+**Parameter:** 	-V, --version  
+**Return:**     Output the version information  
 **Usage:**  `asch-cli -V`	
 
 **Example:**
