@@ -3,49 +3,49 @@
 Index
 =================
 
-  * [ASCH-CLI Instruction](#asch-cli-Instruction)
-    * [0 asch-cli Overview](#0-asch-cli-overview)
-    * [1 asch-cli Installation](#1-asch-cli-Installation)
-    * [2 asch-cli Synopsis](#2-asch-cli-synopsis)
-    * [3 asch-cli Option Description](#3-asch-cli Option Description)
-      * [3.1 Print help information](#31-Print help information)
-      * [3.2 Print Asch-CLI version information](#32-打印asch-cli版本号)
-      * [3.3 Appoint the host name or IP address of target Asch Server](#33-指定要连接的asch服务器主机名或者ip)
-      * [3.4 Appoint the port number of target Asch server](#34-指定要连接的asch服务器的端口)
-      * [3.5 Appoint the main chain](#35-指定主链)
-    * [4 asch-cli支持的命令](#4-asch-cli支持的命令)
-      * [4.1 查看区块链高度](#41-查看区块链高度)
-      * [4.2 查看区块链状态](#42-查看区块链状态)
-      * [4.3  根据密码查看账户信息](#43--根据密码查看账户信息)
-      * [4.4 根据公钥查看账户信息](#44-根据公钥查看账户信息)
-      * [4.5 根据地址查看账户余额](#45-根据地址查看账户余额)
-      * [4.6 根据地址查看账户信息](#46-根据地址查看账户信息)
-      * [4.7 查看账户地址投了哪些受托人](#47-查看账户地址投了哪些受托人)
-      * [4.8 查看全部受托人个数](#48-查看全部受托人个数)
-      * [4.9 查看受托人详情并排序](#49-查看受托人详情并排序)
-      * [4.10 根据受托人公钥查看都是谁为他投了票](#410-根据受托人公钥查看都是谁为他投了票)
-      * [4.11 根据公钥查看受托人详情](#411-根据公钥查看受托人详情)
-      * [4.12 根据名字查看受托人详情](#412-根据名字查看受托人详情)
-      * [4.13 查看(分析)全网区块信息](#413-查看分析全网区块信息)
-      * [4.14 根据区块id查看区块详情](#414-根据区块id查看区块详情)
-      * [4.15 根据区块高度查看区块详情](#415-根据区块高度查看区块详情)
-      * [4.16 查看节点信息](#416-查看节点信息)
-      * [4.17 根据公钥查看未确认的交易](#417-根据公钥查看未确认的交易)
-      * [4.18 查看（分析）全网交易信息](#418-查看分析全网交易信息)
-      * [4.19 根据交易id查看交易详情](#419-根据交易id查看交易详情)
-      * [4.20 转账](#420-转账)
-      * [4.21 注册受托人](#421-注册受托人)
-      * [4.22 给受托人投票](#422-给受托人投票)
-      * [4.23 给受托人取消投票](#423-给受托人取消投票)
-      * [4.24 设置二级密码](#424-设置二级密码)
-      * [4.25 注册dapp](#425-注册dapp)
-      * [4.26  合约相关](#426--合约相关)
-      * [4.27 加密相关](#427-加密相关)
-      * [4.28  dapp相关](#428--dapp相关)
-      * [4.29 创建创世块文件](#429-创建创世块文件)
-      * [4.30 全网节点状态](#430-全网节点状态)
-      * [4.31 全网受托人状态](#431-全网受托人状态)
-      * [4.32 查看全网节点的ip归属](#432-查看全网节点的ip归属)
+  * [Asch-CLI Instruction](#asch-cli-instruction)
+    * [0 Asch-CLI Overview](#0-asch-cli-overview)
+    * [1 Asch-CLI Installation](#1-asch-cli-installation)
+    * [2 Asch-CLI Synopsis](#2-asch-cli-synopsis)
+    * [3 Asch-CLI Option Description](#3-asch-cli-option-description)
+      * [3.1 Print help information](#31-print-help-information)
+      * [3.2 Print Asch-CLI version information](#32-print-asch-cli-version-information)
+      * [3.3 Appoint the host name or IP address of target Asch Server](#33-appoint-the-host-name-or-ip-address-of-target-asch-server)
+      * [3.4 Appoint the port number of target Asch server](#34-appoint-the-port-number-of-target-asch-server)
+      * [3.5 Appoint the main chain](#35-appoint-the-main-chain)
+    * [4 Asch-CLI supported commands](#4-asch-cli-supported-commands)
+      * [4.1 Check the blockchain height](#41-check-the-blockchain-height)
+      * [4.2 Check the blockchain status](#42-check-the-blockchain-status)
+      * [4.3 Check account information by password](#43-check-account-information-by-password)
+      * [4.4 Check account information by public key](#44-check-account-information-by-public-key)
+      * [4.5 Check account balance by account address](##45-check-account-balance-by-account-address)
+      * [4.6 Check account information by account address](#46-check-account-information-by-account-address)
+      * [4.7 Check delegates voted by the account address](#47-check-delegates-voted-by-the-account-address)
+      * [4.8 Check the whole number of delegates](#48-check-the-whole-number-of-delegates)
+      * [4.9 Check delegates information and sort out](#49-check-delegates-information-and-sort-out)
+      * [4.10 Check the voters of the delegate by his public key](#410-check-the-voters-of-the-delegate-by-his-public-key)
+      * [4.11 Check detail information of delegate by public key](#411-check-detail-information-of-delegate-by-public-key)
+      * [4.12 Check the detail information of delegate by the name](#412-check-the-detail-information-of-delegate-by-the-name)
+      * [4.13 Check/analyse block information in whole network](#413-checkanalyze-block-information-in-whole-network)
+      * [4.14 Check block information by block ID](#414-check-block-information-by-block-id)
+      * [4.15 Check block information by block height](#415-check-block-information-by-block-height)
+      * [4.16 Check the peer/node status](#416-check-the-peernode-status)
+      * [4.17 Check unconfirmed transaction by public key](#417-check-unconfirmed-transaction-by-public-key)
+      * [4.18 Check/analyse transaction information in the whole network](#418-checkanalyse-transaction-information-in-the-whole-network)
+      * [4.19 Check transaction detail inforamtion by transaction ID](#419-check-transaction-detail-inforamtion-by-transaction-id)
+      * [4.20 Transfer money](#420-transfer-money)
+      * [4.21 Register delegate](#421-register-delegate)
+      * [4.22 Vote for delegate](#422-vote-for-delegate)
+      * [4.23 Cancel the vote for delegate](#423-cancel-the-vote-for-delegate)
+      * [4.24 Set second password (secret)](#424-set-second-password-secret)
+      * [4.25 Register Dapp (decentralized application)](#425-register-dapp-decentralized-application)
+      * [4.26 Contract related command](#426-contract-related-command)
+      * [4.27 Encrypt related command](#427-encrypt-related-command)
+      * [4.28 Dapp related command](#428-dapp-related-command)
+      * [4.29 Create genesis block file](#429-create-genesis-block-file)
+      * [4.30 Check the status of all nodes/peers of the whole network](#430-check-the-status-of-all-nodespeers-of-the-whole-network)
+      * [4.31 Check delegates' status in the whole network](#431-check-delegates-status-in-the-whole-network)
+      * [4.32 Check the original place of all nodes/peers' IP address in the whole network](#432-check-the-original-place-of-all-nodespeers-ip-address-in-the-whole-network)
 
 ---
 ##0 Asch-CLI Overview
@@ -217,7 +217,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 }
 ```
 
-###4.3  Check account information by password
+###4.3 Check account information by password
 **Command:**  openaccount [secret]
 
 **Return:** A JSON string containing account information such as address, balance, public key, and second public key and so on.
@@ -459,7 +459,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 }
 ```
 
-###4.13 Check (Analyze) block information in whole network
+###4.13 Check/analyse block information in whole network
 **Command:** getblocks [options]
 
 **Return:** A JSON string containing query result status and queried block information
@@ -778,7 +778,7 @@ true
 
 
 
-###4.26  Contract related command
+###4.26 Contract related command
 **Command:** contract [options]
 
 **Return:** 
@@ -810,7 +810,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g
 Done
 ```
 
-###4.28  Dapp related command
+###4.28 Dapp related command
 **Command:** dapps [options] 
 
 **Return:** 
