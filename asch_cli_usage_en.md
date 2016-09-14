@@ -50,7 +50,7 @@ Index
 ---
 ##0 Asch-CLI Overview
 From [Asch Whitepaper](/asch_whitepaper_en.md)
-> Asch-CLI is a command line interface provided by Asch system which allows to rapidly establish a sidechain by just following [TODO]
+> Asch-CLI is a command line interface provided by Asch system. Within the Asch-CLI, developers can rapidly establish a sidechain by making some simple configurations according to instructions and then create any kind of applications on this sidechain. The system also provides a series of APIs to help developers to create complicate smart contract applications. The functions of these APIs include consensus, strong random numbers, database, and cryptology and so on.
 
 ##1 Asch-CLI Installation
 - Install nodejs package manager **npm**
