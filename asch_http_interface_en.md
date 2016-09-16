@@ -1970,5 +1970,5 @@ All the writing operations in Asch system are finished by starting a transaction
 The transaction data is generated through a JS library named "asch-js", and then broadcasted by a POST API.
   
 **Install the library**   
-npm install asch-js   
+`npm install asch-js`   
    
