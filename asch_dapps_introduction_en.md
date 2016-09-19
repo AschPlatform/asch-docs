@@ -47,6 +47,7 @@ We provide a set of templates, (or we can say scaffold or development framework)
 The development language used in Asch sidechain framework is nodejs, upon which we built many common libraries that can be directly used by developers. Also developers can install anything they need since there is a large Javascript community providing enough supports.
 
 The following is modules built in Asch platform.
+
 ![inbuilt modules](./assets/inbuilt-modules.png)
 
 ## Solution of Security
