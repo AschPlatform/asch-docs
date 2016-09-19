@@ -42,7 +42,7 @@ Index
   * [2.5 Peers](#25-peers)
 	* [2.5.1 Get all Peers' Information in the Whole Network](#251-get-all-peers-information-in-the-whole-network)
 	* [2.5.2 Get the Version of Peer](#252-get-the-version-of-peer)
-	* [2.5.3 Get the Peer Information of a Given IP Address获取特定ip节点信息**](#253-get-the-peer-information-of-a-given-ip-address获取特定ip节点信息)
+	* [2.5.3 Get the Peer Information of a Given IP Address](#253-get-the-peer-information-of-a-given-ip-address)
   * [2.6 Synchronising loaders](#26-synchronising-loaders)
 	* [2.6.1 Check the Synchronising Status](#261-check-the-synchronising-status)
 	* [2.6.2 Get the Synchronising Information](#262-get-the-synchronising-information)
@@ -1384,7 +1384,7 @@ JSON Response Example:
 }   
 ```   
    
-#### 2.5.3 Get the Peer Information of a Given IP Address获取特定ip节点信息**   
+#### 2.5.3 Get the Peer Information of a Given IP Address   
 Interface Address: /api/peers/get   
 Request Method:get   
 Supported Format: urlencoded   
@@ -1418,8 +1418,8 @@ JSON Response Example:
 }   
 ```   
    
-### 2.6 Synchronising loaders  
-#### 2.6.1 Check the Synchronising Status   
+### 2.6 Sync and Loader  
+#### 2.6.1 Get the local blockchain loadig status   
 Interface Address: /api/loader/status   
 Request Method: get   
 Supported Format: none   
@@ -1447,7 +1447,7 @@ JSON Response Example:
 }   
 ```   
    
-#### 2.6.2 Get the Synchronising Information
+#### 2.6.2 Get the block syncing status
 Interface Address: /api/loader/status/sync   
 Request Method: get   
 Supported Format: none   
@@ -1757,7 +1757,7 @@ Request Parameter Description:
 
 |Name	|Type   |Required |Description              |   
 |------ |-----  |---  |----              |   
-|publicKey |string |Y    |multi-signature public key (not user's public key)      |   
+|publicKey |string |Y    |One of the participants‘ public key      |   
    
    
 Response Parameter Description:   
