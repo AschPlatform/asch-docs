@@ -18,6 +18,7 @@ Table of Contents
         * [<strong>2.1.6 根据地址获取其投票列表</strong>](#216-根据地址获取其投票列表)
         * [<strong>2.1.7 获取受托人手续费设置</strong>](#217-获取受托人手续费设置)
         * [<strong>2.1.8 投票</strong>](#218-投票)
+        * [<strong>2.1.9 获取账户排行榜前100名</strong>](#219-获取账户排行榜前100名)
       * [<strong>2.2 交易transactions</strong>](#22-交易transactions)
         * [<strong>2.2.1 获取交易信息</strong>](#221-获取交易信息)
         * [<strong>2.2.2 根据id查看交易详情</strong>](#222-根据id查看交易详情)
@@ -41,6 +42,9 @@ Table of Contents
         * [<strong>2.4.5 获取受托人设置的转账费</strong>](#245-获取受托人设置的转账费)
         * [<strong>2.4.6 根据公钥查看其锻造情况</strong>](#246-根据公钥查看其锻造情况)
         * [<strong>2.4.7 注册受托人</strong>](#247-注册受托人)
+        * [<strong>2.4.8 受托人开启锻造</strong>](#248-受托人开启锻造)
+        * [<strong>2.4.9 受托人关闭锻造</strong>](#249-受托人关闭锻造)
+        * [<strong>2.4.10 受托人锻造状态查看</strong>](#2410-受托人锻造状态查看)
       * [<strong>2.5 节点peers</strong>](#25-节点peers)
         * [<strong>2.5.1 获取全网节点信息</strong>](#251-获取全网节点信息)
         * [<strong>2.5.2 获取节点版本信息</strong>](#252-获取节点版本信息)
@@ -458,6 +462,63 @@ JSON返回示例：
 	}
 }  
 ```   
+
+#### **2.1.9 获取账户排行榜前100名**   
+接口地址：/api/accounts/top   
+请求方式：get   
+支持格式：无   
+请求参数说明：如果不加请求参数则返回持币量前100名账户信息  
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|limit |integer |N    |限制结果集个数，最小值：0,最大值：100   |  
+|offset|integer  |N      |步长，最小值0  |  
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|accounts|json  |账户信息元组，每个元素包含地址、余额、公钥      |    
+   
+   
+请求示例：   
+```bash   
+curl -k -X GET 'http://45.32.248.33:4096/api/accounts/top?limit=5&offset=0'  //返回前5名账户信息
+```   
+   
+JSON返回示例：   
+```js   
+{
+	"success": true,
+	"accounts": [{
+		"address": "355198157736313687",
+		"balance": 4400099900000000,        //44000999 XAS
+		"publicKey": "0b8e120db026d58cbf9d3f392f88eefe3a82a0a3023298b9466d7ed64ff05881"
+	},
+	{
+		"address": "3196144307608101364",
+		"balance": 3750000020000000,
+		"publicKey": "988eb82a603dd033f94a4f3b6f9f9ef4a7d3d066607c433e5255d50ea7270720"
+	},
+	{
+		"address": "9248745407080572308",
+		"balance": 988703397029757,
+		"publicKey": "02cedc56da08099532e312c5e563e2859bc5b93cc594eb3e5d350f368d681988"
+	},
+	{
+		"address": "15745540293890213312",
+		"balance": 498186229718623,
+		"publicKey": "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3"
+	},
+	{
+		"address": "8812460086240160222",
+		"balance": 100704426831866,
+		"publicKey": "0af92cc32f54d50dd83c4f7de14e71223a57843a40e993bc0813454aa9270053"
+	}
+}    
+```   
+   
    
 ### **2.2 交易transactions**   
 #### **2.2.1 获取交易信息**   
@@ -700,7 +761,7 @@ JSON返回示例：
 |amount|integer|Y|金额，最小值：1，最大值：10000000000000000|   
 |recipientId|string|Y|接收者地址,最小长度：1|   
 |publicKey|string|N|发送者公钥|   
-|secondSecret|string|N|发送者二级密码(须符合BIP39标准)，最小长度1，最大长度：100|   
+|secondSecret|string|N|发送者二级密码，最小长度1，最大长度：100|   
 |multisigAccountPublicKey|string|N|多重签名账户公钥|   
    
 返回参数说明：   
@@ -1311,6 +1372,95 @@ JSON返回示例：
 }   
 ```   
    
+#### **2.4.8 受托人开启锻造**   
+接口地址：/api/delegates/forging/enable   
+请求方式：post   
+支持格式：urlencoded   //url必须是受托人所在服务器  
+请求参数说明：   
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|secret |string |Y    |asch账户密码       |   
+|publicKey|string  |N      |公钥|    
+
+   
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|address|string  |受托人地址      |    
+   
+   
+请求示例：   
+```bash   
+curl -k -H "Content-Type: application/json" -X POST -d '{"secret":"motion group blossom coral upper warrior pattern fragile sister misery palm detect"}' 'http://localhost:4096/api/delegates/forging/enable'   
+```   
+   
+JSON返回示例：   
+```js   
+{"success":true,"address":"16358246403719868041"}   
+```      
+
+#### **2.4.9 受托人关闭锻造**   
+接口地址：/api/delegates/forging/disable   
+请求方式：post   
+支持格式：urlencoded   //url必须是受托人所在服务器  
+请求参数说明：   
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|secret |string |Y    |asch账户密码       |   
+|publicKey|string  |N      |公钥|    
+
+   
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|address|string  |受托人地址      |    
+   
+   
+请求示例：   
+```bash   
+curl -k -H "Content-Type: application/json" -X POST -d '{"secret":"motion group blossom coral upper warrior pattern fragile sister misery palm detect"}' 'http://localhost:4096/api/delegates/forging/disable'   
+```   
+   
+JSON返回示例：   
+```js   
+{"success":true,"address":"16358246403719868041"}     
+```     
+
+#### **2.4.10 受托人锻造状态查看**   
+接口地址：/api/delegates/forging/status      
+请求方式：get     
+支持格式：urlencoded    
+请求参数说明：   
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|publicKey|string  |Y      |公钥|    
+
+   
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|enabled|string  |锻造是否开启      |    
+   
+   
+请求示例：   
+```bash   
+curl -k -X GET 'http://45.32.248.33:4096/api/delegates/forging/status?publicKey=fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575'        
+```   
+   
+JSON返回示例：   
+```js   
+{"success":true,"enabled":false}    
+```     
+   
 ### **2.5 节点peers**   
    
 #### **2.5.1 获取全网节点信息**   
@@ -1764,7 +1914,7 @@ curl -k -X GET http://45.32.248.33:4096/api/transactions/get?id=1762037899827702
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
-|publicKey |string |Y    |多重签名参与者之一的公钥      |   
+|publicKey |string |Y    |多重签名参与者之一的公钥       |   
    
    
 返回参数说明：   
@@ -1979,4 +2129,5 @@ asch系统的所有写操作都是通过发起一个交易来完成的。
 npm install asch-js   
    
    
+
 
