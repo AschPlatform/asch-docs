@@ -25,8 +25,8 @@ tar zxvf asch-linux-1.1.1-testnet.tar.gz
 
 official version (mainnet)
 ```
-wget https://www.asch.so/downloads/asch-linux-1.0.1-mainnet.tar.gz
-tar zxvf asch-linux-1.0.1-mainnet.tar.gz
+wget https://www.asch.so/downloads/asch-linux-1.1.1-mainnet.tar.gz
+tar zxvf asch-linux-1.1.1-mainnet.tar.gz
 ```
 
 Usually, the version number of testnet will larger than that of mainnet.
