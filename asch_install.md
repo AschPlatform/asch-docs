@@ -19,15 +19,15 @@
 测试版testnet
 
 ```
-wget https://www.asch.so/downloads/asch-linux-1.1.1-testnet.tar.gz
-tar zxvf asch-linux-1.1.1-testnet.tar.gz
+wget https://www.asch.so/downloads/asch-linux-latest-testnet.tar.gz
+tar zxvf asch-linux-latest-testnet.tar.gz
 ```
 
 正式版mainnet
 
 ```
-wget https://www.asch.so/downloads/asch-linux-1.1.1-mainnet.tar.gz
-tar zxvf asch-linux-1.1.1-mainnet.tar.gz
+wget https://www.asch.so/downloads/asch-linux-latest-mainnet.tar.gz
+tar zxvf asch-linux-latest-mainnet.tar.gz
 ```
 
 一般情况下，testnet的版本号大于等于mainnet的版本号
