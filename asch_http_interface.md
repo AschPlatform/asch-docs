@@ -787,7 +787,7 @@ JSON返回示例：
    
 ### **2.3 区块blocks**   
 #### **2.3.1 获取特定id的区块详情**   
-接口地址：/api/blocks/   
+接口地址：/api/blocks/get   
 请求方式：get   
 支持格式：urlencoded   
 请求参数说明：   
