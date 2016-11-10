@@ -69,9 +69,6 @@ tar zxvf asch-linux-latest-mainnet.tar.gz
 # 重新同步区块
 ./aschd rebuild
 
-# 重建索引
-./aschd reindex
-
 # 查看版本
 ./aschd version
 
@@ -197,13 +194,7 @@ Forging enabled on account: xxxxxxxxxxxxxx
 ./aschd restart
 ```
 
-如果无法解决，再使用reindex命令
-
-```
-./aschd reindex
-```
-
-如果还是无法解决，使用rebuild命令
+如果无法解决，使用rebuild命令
 
 ```
 ./aschd rebuild

@@ -64,9 +64,6 @@ There is no need to run this step once although there is no harm to execute it m
 # re-synchronize the blockchain
 ./aschd rebuild
 
-# rebuild the index
-./aschd reindex
-
 # check the system version
 ./aschd version
 
@@ -161,11 +158,7 @@ First, try `restart` the system:
 ```
 ./aschd restart
 ```
-If problem is still unsolved, try `reindex`
-```
-./aschd reindex
-```
-And if it is still the same, try `rebuild`
+If problem is still unsolved, try `rebuild`
 ```
 ./aschd rebuild
 ```
