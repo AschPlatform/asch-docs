@@ -701,7 +701,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 1719258193633915
 ###4.20 转账
 命令值： sendmoney [选项]
 
-返回值： 结果状态值，ture或者报错信息
+返回值： 结果状态值，true或者报错信息
 
 使用方法：asch-cli -e "发送者密码" -t 接收者地址 -a 转账金额 [-s "二级密码"]
 
@@ -715,7 +715,7 @@ true
 ###4.21 注册受托人
 命令值： registerdelegate [options]
 
-返回值： 结果状态值，ture或者报错信息
+返回值： 结果状态值，true或者报错信息
 
 使用方法：asch-cli registerdelegate -e "密码" -s "二级密码" -u "受托人名字"
 
@@ -729,7 +729,7 @@ true
 ###4.22 给受托人投票 
 命令值： upvote [options] 
 
-返回值： 结果状态值，ture或者报错信息
+返回值： 结果状态值，true或者报错信息
 
 使用方法：asch-cli upvote -e "密码" -s "二级密码" -p "受托人公钥"
 
@@ -743,7 +743,7 @@ true
 ###4.23 给受托人取消投票
 命令值： downvote [options]
 
-返回值： 结果状态值，ture或者报错信息
+返回值： 结果状态值，true或者报错信息
 
 使用方法：asch-cli downvote -e "密码" -s "二级密码" -p "受托人公钥"
 
@@ -757,7 +757,7 @@ true
 ###4.24 设置二级密码
 命令值： setsecondsecret [options]
 
-返回值： 结果状态值，ture或者报错信息
+返回值： 结果状态值，true或者报错信息
 
 使用方法：asch-cli setsecondsecret -e "密码" -s "二级密码"
 
