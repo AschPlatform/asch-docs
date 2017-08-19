@@ -1,3 +1,4 @@
+该文档已废弃，请等待最新文档。
 # Dapp开发教程一 Asch Dapp Hello World
 
 ## 1 基本流程
