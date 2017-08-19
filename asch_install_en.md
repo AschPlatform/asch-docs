@@ -3,8 +3,8 @@
 ##1. Sytem requirement
 - Linux system required
 - Public IP address required
-- Ubuntu 14.04 64bit OS recommended
-- Above 1Gb RAM recommended
+- Ubuntu 16.04 64bit OS recommended
+- Above 2Gb RAM recommended
 - Above 2Mb broadwidth recommended
 
 ##2. Installation
@@ -12,7 +12,7 @@ There are two seperated system: test version (testnet) and main official version
 
 The installation procedures of these two system are the same except the installation package and configuration file (including default port setting).
 
-As long as there is no conflict of ports, you can install the test version and official version into the same compouter, but please note, the power of the machine is highly required, such as dual-core CPU, 2Gb RAM above or at least 4Mb broadwidth...
+As long as there is no conflict of ports, you can install the test version and official version into the same compouter, but please note, the power of the machine is highly required, such as 4core CPU, 4Gb RAM above or at least 4Mb broadwidth...
 
 ###2.1 Download and unpack
 
