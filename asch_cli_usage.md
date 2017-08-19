@@ -8,7 +8,7 @@
     * [0 asch-cli简介](#0-asch-cli简介)
     * [1 asch-cli的安装](#1-asch-cli的安装)
     * [2 asch-cli使用说明](#2-asch-cli使用说明)
-    * [3 asch-cli支持的选项](#3-asch-cli支持的选项)
+    * [3 asch-cli支持的选项](# 3-asch-cli支持的选项)
       * [3.1 打印帮助文档](#31-打印帮助文档)
       * [3.2 打印asch-cli版本号](#32-打印asch-cli版本号)
       * [3.3 指定要连接的asch服务器主机名或者ip](#33-指定要连接的asch服务器主机名或者ip)
@@ -50,22 +50,22 @@
 
 ---
 
-##0 asch-cli简介
+## 0 asch-cli简介
 以下内容引用自 [Asch白皮书](/asch_whitepaper.md)
 
 >asch-cli是Asch系统提供了一个命令行工具，只需要根据提示输入一些配置项，就可以快速的建立一个侧链，并可在侧链上开发任意类型的应用。其次，系统还提供了一系列的 api 帮助用户构建复杂的智能合约应用，这些 api 涵盖共识、强随机数、数据库、密码学等方面。
 
 
-##1 asch-cli的安装
+## 1 asch-cli的安装
 sudo apt-get install npm    #安装js软件包管理器npm
 
 npm install -g asch-cli     #国内服务器可以考虑加上 “--registry=http://registry.npm.taobao.org” 参数加快安装速度
 
-##2 asch-cli使用说明
+## 2 asch-cli使用说明
 asch-cli [选项] [命令]
 
-##3 asch-cli支持的选项
-###3.1 打印帮助文档 
+## 3 asch-cli支持的选项
+### 3.1 打印帮助文档 
 参数值： -h, --help
 
 返回值： asch-cli命令或者子命令的帮助文档
@@ -130,7 +130,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates -h #查看子命
     -l, --limit <n>   
 ```
 
-###3.2 打印asch-cli版本号 
+### 3.2 打印asch-cli版本号 
 参数值： -V, --version
 
 返回值： asch-cli命令的版本号
@@ -144,7 +144,7 @@ root@asch:~# asch-cli -V
 1.0.0
 ```
 
-###3.3 指定要连接的asch服务器主机名或者ip
+### 3.3 指定要连接的asch服务器主机名或者ip
 参数值： -H, --host <host>   默认：127.0.0.1 
 
 返回值： 无
@@ -158,7 +158,7 @@ root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器
 101236
 ```
 
-###3.4 指定要连接的asch服务器的端口
+### 3.4 指定要连接的asch服务器的端口
 参数值： -P, --port <port>   默认：4096
 
 返回值： 无
@@ -172,7 +172,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 102313
 ```
 
-###3.5 指定主链
+### 3.5 指定主链
 参数值： -M, --main     默认：测试链
 
 返回值： 无
@@ -187,8 +187,8 @@ root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块
 ```
 
 
-##4 asch-cli支持的命令
-###4.1 查看区块链高度
+## 4 asch-cli支持的命令
+### 4.1 查看区块链高度
 命令值： getheight
 
 返回值： 区块链高度
@@ -202,7 +202,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 105387
 ```
 
-###4.2 查看区块链状态
+### 4.2 查看区块链状态
 命令值： getblockstatus
 
 返回值： json字符串，包含区块链高度、交易费、里程碑、受托人每块奖励、当前总量
@@ -223,7 +223,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 }
 ```
 
-###4.3  根据密码查看账户信息
+### 4.3  根据密码查看账户信息
 命令值： openaccount [secret]
 
 返回值： json字符串，含地址、余额、公钥、二级公钥等信息
@@ -247,7 +247,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack al
 }
 ```
 
-###4.4 根据公钥查看账户信息
+### 4.4 根据公钥查看账户信息
 命令值： openaccountbypublickey [publickey]
 
 返回值： json字符串，含地址、余额、二级公钥等信息
@@ -270,7 +270,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a1
 }
 ```
 
-###4.5 根据地址查看账户余额
+### 4.5 根据地址查看账户余额
 命令值： getbalance [address]
 
 返回值： 整型数字，除以100000000后为大家平时所说的余额
@@ -284,7 +284,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 20000000000
 ```
 
-###4.6 根据地址查看账户信息
+### 4.6 根据地址查看账户信息
 命令值： getaccount [address]
 
 返回值： json字符串，含地址、余额、公钥、二级公钥等信息
@@ -308,7 +308,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 }
 ```
 
-###4.7 查看账户地址投了哪些受托人
+### 4.7 查看账户地址投了哪些受托人
 命令值： getvoteddelegates [options] [address]
 
 返回值： 列表
@@ -341,7 +341,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 1574554029389021
        productivity: '99.23' }]
 ```
 
-###4.8 查看全部受托人个数
+### 4.8 查看全部受托人个数
 命令值： getdelegatescount
 
 返回值： 整型数字
@@ -355,7 +355,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 232
 ```
 
-###4.9 查看受托人详情并排序
+### 4.9 查看受托人详情并排序
 命令值： getdelegates [options]
 
 返回值： 列表
@@ -384,7 +384,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 ]
 ```
 
-###4.10 根据受托人公钥查看都是谁为他投了票
+### 4.10 根据受托人公钥查看都是谁为他投了票
 命令值： getvoters [publicKey]
 
 返回值： 列表
@@ -410,7 +410,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04
   }]
 ```
   
-###4.11 根据公钥查看受托人详情
+### 4.11 根据公钥查看受托人详情
 命令值： getdelegatebypublickey [publicKey]
 
 返回值： json字符串，包含受托人名字、地址、投票数、生成的block数、锻造收益等
@@ -436,7 +436,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae25655
   "forged": "174083762523"
 }
 ```
-###4.12 根据名字查看受托人详情
+### 4.12 根据名字查看受托人详情
 命令值： getdelegatebyusername [username]
 
 返回值： json字符串，受托人详情
@@ -463,7 +463,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 }
 ```
 
-###4.13 查看(分析)全网区块信息
+### 4.13 查看(分析)全网区块信息
 命令值： getblocks [options]
 
 返回值： json字符串，包含查询状态、符合查询要求的区块信息
@@ -499,7 +499,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 35000000
   "count": 45350
 }
 ```
-###4.14 根据区块id查看区块详情
+### 4.14 根据区块id查看区块详情
 命令值： getblockbyid [id]
 
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
@@ -530,7 +530,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 142594212804090687
 }
 ```
 
-###4.15 根据区块高度查看区块详情
+### 4.15 根据区块高度查看区块详情
 命令值： getblockbyheight [height]
 
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
@@ -561,7 +561,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
 }
 ```
 
-###4.16 查看节点信息
+### 4.16 查看节点信息
 命令值： getpeers [options] 
 
 返回值： 列表，包含节点ip、端口、os、asch版本等信息
@@ -590,7 +590,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2
 ]
 ```
 
-###4.17 根据公钥查看未确认的交易
+### 4.17 根据公钥查看未确认的交易
 命令值： getunconfirmedtransactions [options]
 
 返回值： 列表，包含所有未确认的交易详情
@@ -619,7 +619,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "
 ]
 ```
 
-###4.18 查看（分析）全网交易信息
+### 4.18 查看（分析）全网交易信息
 命令值： gettransactions [options]
 
 返回值： 列表，包含所有符合查询条件的交易详情
@@ -668,7 +668,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查�
 ]
 ```
 
-###4.19 根据交易id查看交易详情
+### 4.19 根据交易id查看交易详情
 命令值： gettransaction [id]
 
 返回值： json字符串，包含交易id、区块高度、区块id、时间戳、发送者公钥、接收者地址、金额、费用、签名、确认数、资产等信息
@@ -698,7 +698,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 1719258193633915
 }
 ```
 
-###4.20 转账
+### 4.20 转账
 命令值： sendmoney [选项]
 
 返回值： 结果状态值，true或者报错信息
@@ -712,7 +712,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 sendmoney -e "motion group blossom
 true
 ```
 
-###4.21 注册受托人
+### 4.21 注册受托人
 命令值： registerdelegate [options]
 
 返回值： 结果状态值，true或者报错信息
@@ -726,7 +726,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 registerdelegate -e "fault stil
 true
 ```
 
-###4.22 给受托人投票 
+### 4.22 给受托人投票 
 命令值： upvote [options] 
 
 返回值： 结果状态值，true或者报错信息
@@ -740,7 +740,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 upvote -e "fault still attack a
 true
 ```
 
-###4.23 给受托人取消投票
+### 4.23 给受托人取消投票
 命令值： downvote [options]
 
 返回值： 结果状态值，true或者报错信息
@@ -754,7 +754,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 downvote -e "fault still attack
 true
 ```
 
-###4.24 设置二级密码
+### 4.24 设置二级密码
 命令值： setsecondsecret [options]
 
 返回值： 结果状态值，true或者报错信息
@@ -768,7 +768,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 setsecondsecret -e "fault still
 true
 ```
 
-###4.25 注册dapp
+### 4.25 注册dapp
 命令值： registerdapp [options]
 
 返回值： 
@@ -779,7 +779,7 @@ true
 
 
 
-###4.26  合约相关
+### 4.26  合约相关
 命令值： contract [options]
 
 返回值： 
@@ -791,7 +791,7 @@ true
 
 
 
-###4.27 加密相关
+### 4.27 加密相关
 命令值： crypto [操作选项]
 
 返回值： 列表
@@ -809,7 +809,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g
 Done
 ```
 
-###4.28  dapp相关
+### 4.28  dapp相关
 命令值： dapps [options] 
 
 返回值： 
@@ -817,7 +817,7 @@ Done
 使用方法：asch-cli dapps -a 
 示例
 
-###4.29 创建创世块文件
+### 4.29 创建创世块文件
 命令值： creategenesis [options]
 
 返回值： 在当前目录生成genesisBlock.json创世块文件、genGenesisBlock.log创世块日志
@@ -841,7 +841,7 @@ root@asch:~# more genesisBlock.json
 }
 ```
 
-###4.30 全网节点状态
+### 4.30 全网节点状态
 命令值： peerstat
 
 返回值： 节点信息，包含节点ip、端口、版本、区块高度等信息
@@ -857,7 +857,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
 45.32.19.241:4096 1.0.0 106036
 ```
 
-###4.31 全网受托人状态
+### 4.31 全网受托人状态
 命令值： delegatestat
 
 返回值： 受托人信息，包含全网受托人的名字、地址、投票、生产率、区块生成个数、区块高度、id、上一次生成区块的时间等信息
@@ -880,7 +880,7 @@ intmaster	7321911740133937168	97	88.36%	100%	1032	105871	6757656887343300317	201
 mode_6	9248745407080572308	8	88.48%	100%	1060	105873	3777454410915098884	2016/08/17 21:53:10(25 mins ago)
 ```
 
-###4.32 查看全网节点的ip归属
+### 4.32 查看全网节点的ip归属
 命令值： ipstat
 
 返回值： 节点ip归属地
