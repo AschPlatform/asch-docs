@@ -35,6 +35,7 @@ npm instal -g asch-cli
 
 ```
 cd <asch source code dir>
+npm install
 node app.js
 ```
 
