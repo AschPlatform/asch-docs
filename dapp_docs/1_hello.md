@@ -24,7 +24,7 @@ git clone https://github.com/sqfasd/asch
 ## 3 安装asch-cli
 
 ```
-npm instal -g asch-cli
+npm install -g asch-cli
 ```
 
 注意这一步不要用淘宝的```cnpm```， **有bug**
