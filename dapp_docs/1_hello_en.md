@@ -22,7 +22,7 @@ Then you can install and operate the environment following the instructions in R
 ## 3 Install asch-cli
 
 ```
-npm instal -g asch-cli
+npm install -g asch-cli
 ```
 
 NOTE: DO NOT use ```cnpm``` from TAOBAO since there are some **bugs** in it.
