@@ -447,7 +447,7 @@ logger.warn('hello %s %d %j', 'world', 123, {foo:'bar'});
 logger.error('hello %s %d %j', 'world', 123, {foo:'bar'}, [1, 2, 3, 4], Object);
 ```
 
-## 其他
+## 工具类
 
 ### app.validate(type, value)
 
