@@ -84,6 +84,7 @@ Table of Contents
                * [<strong>2.10.9.7 资产注销</strong>](#21097-资产注销)
             * [<strong>2.10.10 获取指定账户指定资产的余额</strong>](#21010-获取指定账户指定资产的余额)
             * [<strong>2.10.11 获取指定账户指定资产转账记录</strong>](#21011-获取指定账户指定资产转账记录)
+            * [<strong>2.10.12 获取指定资产转账记录</strong>](#21012-获取指定资产转账记录)
          * [<strong>2.11 存储storages</strong>](#211-存储storages)
             * [<strong>2.11.1 上传数据</strong>](#2111-上传数据)
                * [<strong>2.11.1.1 上传数据(直接上传)</strong>](#21111-上传数据直接上传)
@@ -2469,10 +2470,11 @@ JSON返回示例：
 }		
 ```
 
-#### **2.10.8 获取指定账户所有资产转账记录** 
-接口地址：/api/uia/transactions/:address  
+#### **2.10.8 获取指定账户所有资产相关操作记录** 
+接口地址：/api/uia/transactions/my/:address  
 请求方式：get   
 支持格式：urlencoded 
+备注：包含发行商创建以及资产创建、发行、转账等 
 
 请求参数说明：
 
@@ -2492,7 +2494,7 @@ JSON返回示例：
    
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/transactions/16358246403719868041?offset=0&limit=2' && echo
+curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/my/transactions/16358246403719868041?offset=0&limit=2' && echo
 ```   
    
 JSON返回示例：   
@@ -2503,8 +2505,8 @@ JSON返回示例：
 		"id": "12372526051670720162",   // 交易id
 		"height": "286",    // 交易所在区块高度
 		"blockId": "14863181420651287815",  // 交易所在区块id
-		"type": 9,  // 交易类型
-		"timestamp": 17597873,  // 交易时间，举例创世块的offset
+		"type": 9,  // 交易类型，9代表注册发行商
+		"timestamp": 17597873,  // 交易时间，距离创世块的offset
 		"senderPublicKey": "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3",  // 交易发起者公钥
 		"senderId": "AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a",   // 交易发起者id
 		"recipientId": "",  //  接收者id，如果是系统则为空
@@ -2553,7 +2555,7 @@ JSON返回示例：
 
 
 说明：
-    注意这里asset与type相关，9 <= type <= 14， 根据不同的type从asset中取出不同的值，详情如下：
+    注意这里asset内容与type相关，9 <= type <= 14， 根据不同的type从asset中取出不同的值，详情如下：
 
 ```
 type=9
@@ -2564,7 +2566,7 @@ type=9
                     "desc": "issuer1_desc"
                 }
             },
-展示： 注册了发行商$name
+展示： 注册了发行商"issuername"
 ```
 
 ```
@@ -2579,7 +2581,7 @@ type=10
                     "strategy": ""
                 }
             },
-展示： 注册了资产$name
+展示： 注册了资产"issuername.BTC"
 ```
 
 ```
@@ -2593,8 +2595,8 @@ type=11
                 }
             },
 展示: 
-如果$flagType==1 ： 资产$currency访问控制设置为(flag==0?黑名单：白名单)
-如果$flagType==2 ： 资产$currency被注销
+如果$flagType==1 ： 资产issuername.BTC访问控制设置为(flag==0?黑名单：白名单)
+如果$flagType==2 ： 资产issuername.BTC被注销
 ```
 
 ```
@@ -2611,7 +2613,7 @@ type=12
                     ]
                 }
             },
-展示：资产$currency更新了访问控制列表
+展示：资产issuername.BTC更新了访问控制列表
 ```
 
 ```
@@ -2623,7 +2625,7 @@ type=13
                     "amount": "10000000000"
                 }
             },
-展示： 资产$currency新发行$amount
+展示： 资产issuername.BTC新发行10000000000(实际数量*精度)
 ```
 
 ```
@@ -2635,7 +2637,7 @@ type=14
                     "amount": "10"
                 }
             },
-展示：资产$currency从$senderId转账$amount到$recipientId
+展示：转账10个issuername.BTC资产，交易id是9105235822289198060
 ```
 
 
@@ -2838,7 +2840,7 @@ curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k 
    
 JSON返回示例：   
 ```js  
-		
+{"success":true}			
 ```
 
 ##### **2.10.9.6 资产转账** 
@@ -2950,9 +2952,10 @@ JSON返回示例：
 ```
 
 #### **2.10.11 获取指定账户指定资产转账记录** 
-接口地址：/api/uia/transfers/:address/:currency  
+接口地址：/api/uia/transactions/my/:address/:currency  
 请求方式：get   
 支持格式：urlencoded 
+备注：只返回资产转账记录 
 
 请求参数说明：
 
@@ -2973,7 +2976,7 @@ JSON返回示例：
    
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/transfers/16358246403719868041/IssuerName.CNY' && echo
+curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/transactions/my/16358246403719868041/IssuerName.CNY' && echo
 ```   
    
 JSON返回示例：   
@@ -3008,6 +3011,96 @@ JSON返回示例：
 	"count": 15
 }	
 ```
+
+#### **2.10.12 获取指定资产转账记录** 
+接口地址：/api/uia/transactions/:currency  
+请求方式：get   
+支持格式：urlencoded 
+备注：只返回指定资产转账记录 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|currency|string|Y|资产名字|
+|limit|integer|N|限制结果集个数，最小值：0,最大值：100|
+|offset|integer|N|偏移量，最小值0|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+|transactions|list|交易列表，每个元素是一个字典代表一次交易，包含交易id、区块高度、区块id、交易类型、时间戳、发送者公钥、发送者id、接收者id（系统为空，如资产注册）、交易数量（资产交易都为0）、手续费0.1XAS、签名、多重签名、确认数、资产信息（包含发行商id、发行商名字、描述）、交易id。|  
+|count|integer|该资产交易总数|  
+   
+请求示例：   
+```js   
+// 查询引力波资产absorb.YLB的所有转账记录 
+curl -X GET -H "Content-Type: application/json" 'http://127.0.0.1:4096/api/uia/transactions/absorb.YLB' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{
+	success: true,
+	transactions: [{
+		id: "a1ff79e3f37fd73b41abd293c22171ac7760160ad457e55f028e7a8b527651d3",
+		height: "43",
+		blockId: "b16b87e79b47edffdc2fd93bd1de70cbe3541684d5dbf8dc1d292903275e03dc",
+		type: 14,
+		timestamp: 39167334,
+		senderPublicKey: "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+		senderId: "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+		recipientId: "AMzDw5BmZ39we18y7Ty9VW79eL9k7maZPH",
+		amount: 0,
+		fee: 10000000,
+		signature: "a4e6b0e2c265e0d601fdfc9e82d971e7908457383835b801c725cdaac01bd619a435344241c64247599255f43a43b6576e1da3a357eac5bbd7058e013a8aa60e",
+		signSignature: "",
+		signatures: null,
+		confirmations: "809",
+		args: null,
+		message: "",
+		asset: {
+			uiaTransfer: {
+				transactionId: "a1ff79e3f37fd73b41abd293c22171ac7760160ad457e55f028e7a8b527651d3",
+				currency: "absorb.YLB",
+				amount: "200000000",
+				amountShow: "2",
+				precision: 8
+			}
+		}
+	},
+	{
+		id: "7cf50223e12b6eb51096353a066befcf2ef862bdd4d4eddcba28a79aa0249af9",
+		height: "809",
+		blockId: "278b096893bc028bb79692faec02de8c2f367804485b71f14e46027f3dd3000c",
+		type: 14,
+		timestamp: 39182041,
+		senderPublicKey: "b33b5fc45640cfc414981985bf92eef962c08c53e1a34f90dab039e985bb5fab",
+		senderId: "AMzDw5BmZ39we18y7Ty9VW79eL9k7maZPH",
+		recipientId: "1",
+		amount: 0,
+		fee: 10000000,
+		signature: "560bd31a4efe103ef9bd92f52cae5cf5a3b2aeb90fc83298498ff4126705e0433f751169bc32a3a7cfe894c7d8586d7182ebc790f2311daf9f02b881dc2aca0e",
+		signSignature: "",
+		signatures: null,
+		confirmations: "43",
+		args: null,
+		message: "",
+		asset: {
+			uiaTransfer: {
+				transactionId: "7cf50223e12b6eb51096353a066befcf2ef862bdd4d4eddcba28a79aa0249af9",
+				currency: "absorb.YLB",
+				amount: "100000000",
+				amountShow: "1",
+				precision: 8
+			}
+		}
+	}],
+	count: 2
+}
+```   
 
 ### **2.11 存储storages**   
 源码在src/core/transactions.js文件中，适合存储短文。
