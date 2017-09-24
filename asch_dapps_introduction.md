@@ -57,16 +57,4 @@ Asch的侧链框架使用的语言是nodejs，我们内置了不少常用的库�
 接下来我们会提供一个由浅入深的教程，帮助开发者快速入门。
 
 - [Dapp开发教程一 Asch Dapp Hello World](./dapp_docs/1_hello.md)
-  这个文档会教你如何创建并发布一个基础的侧链应用，并介绍侧链框架的源码结构。
-
-- [Dapp开发教程二 Asch Dapp Asset](./dapp_docs/2_asset.md)
-  这个文档教你如何为侧链指定一个内置资产，然后分析前后端通讯接口
-
-- [Dapp开发教程三 Asch Dapp Mini DAO](./dapp_docs/3_mini_dao.md)
-  这个文档教你如何创建新的交易类型或智能合约，并且提供了一个包括项目管理和投票功能mini dao项目作为演示
-
-- [Dapp开发教程四 Asch Dapp Dice Game](./dapp_docs/4_dice_game.md)
-  这个文档教教你如何创建更复杂的交易类型或智能合约，如何在合约之间建立关联，如何在合约执行时依赖历史交易数据等，并且实现了一个骰子游戏作为演示。
-
-- [Dapp开发教程五 发布Dapp到线上](./dapp_docs/5_dapp_publish.md)
-  这个文档教教你如何在注册到线上系统(testnet, mainnet)以及如何安装和卸载
+  这个文档会教你如何创建并发布一个基础的侧链应用，并介绍侧链框架的源码结构
