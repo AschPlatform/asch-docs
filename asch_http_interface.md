@@ -2473,8 +2473,8 @@ JSON返回示例：
 #### **2.10.8 获取指定账户所有资产相关操作记录** 
 接口地址：/api/uia/transactions/my/:address  
 请求方式：get   
-支持格式：urlencoded 
-备注：包含发行商创建以及资产创建、发行、转账等 
+支持格式：urlencoded  
+备注：包含发行商创建以及资产创建、发行、转账等  
 
 请求参数说明：
 
@@ -2954,8 +2954,8 @@ JSON返回示例：
 #### **2.10.11 获取指定账户指定资产转账记录** 
 接口地址：/api/uia/transactions/my/:address/:currency  
 请求方式：get   
-支持格式：urlencoded 
-备注：只返回资产转账记录 
+支持格式：urlencoded  
+备注：只返回资产转账记录  
 
 请求参数说明：
 
@@ -3015,7 +3015,7 @@ JSON返回示例：
 #### **2.10.12 获取指定资产转账记录** 
 接口地址：/api/uia/transactions/:currency  
 请求方式：get   
-支持格式：urlencoded 
+支持格式：urlencoded  
 备注：只返回指定资产转账记录 
 
 请求参数说明：
