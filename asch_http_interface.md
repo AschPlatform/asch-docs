@@ -639,6 +639,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
+|and|integer|N|取值范围0和1，默认值0。select查询时下面这些条件都是or的关系，and=1时select是and的关系  | 
 |blockId |string |N    |区块id      |   
 |limit |integer |N    |限制结果集个数，最小值：0,最大值：100   |   
 |type|integer  |N      |交易类型,0:普通转账，1:设置二级密码，2:注册受托人，3:投票，4:多重签名，5:DAPP，6:IN_TRANSFER，7:OUT_TRANSFER      |   
