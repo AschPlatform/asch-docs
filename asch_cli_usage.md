@@ -27,6 +27,7 @@ Table of Contents
             * [4.2.4 根据地址查看账户信息](#424-根据地址查看账户信息)
             * [4.2.5 查看账户地址投了哪些受托人](#425-查看账户地址投了哪些受托人)
             * [4.2.6 加密相关](#426-加密相关)
+            * [4.2.7 账户锁仓](#427-账户锁仓)
          * [4.3 受托人delegate](#43-受托人delegate)
             * [4.3.1 查看全部受托人个数](#431-查看全部受托人个数)
             * [4.3.2 查看受托人详情并排序](#432-查看受托人详情并排序)
@@ -40,24 +41,32 @@ Table of Contents
             * [4.4.1 查看(分析)全网区块信息](#441-查看分析全网区块信息)
             * [4.4.2 根据区块id查看区块详情](#442-根据区块id查看区块详情)
             * [4.4.3 根据区块高度查看区块详情](#443-根据区块高度查看区块详情)
+            * [4.4.4 根据区块id查看区块详情-包含交易信息](#444-根据区块id查看区块详情-包含交易信息)
+            * [4.4.5 根据区块高度查看区块详情-包含交易信息](#445-根据区块高度查看区块详情-包含交易信息)
+            * [4.4.6 验证区块文件字节](#446-验证区块文件字节)
+            * [4.4.7 验证区块文件payloadhash](#447-验证区块文件payloadhash)
+            * [4.4.8 验证区块文件区块id](#448-验证区块文件区块id)
+            * [4.4.8 验证区块签名是否通过](#448-验证区块签名是否通过)
          * [4.5 交易transaction](#45-交易transaction)
             * [4.5.1 根据公钥查看未确认的交易](#451-根据公钥查看未确认的交易)
             * [4.5.2 查看（分析）全网交易信息](#452-查看分析全网交易信息)
             * [4.5.3 根据交易id查看交易详情](#453-根据交易id查看交易详情)
             * [4.5.4 转账](#454-转账)
             * [4.5.5 设置二级密码](#455-设置二级密码)
+            * [4.5.6 验证交易文件bytes](#456-验证交易文件bytes)
+            * [4.5.7 验证交易文件id](#457-验证交易文件id)
+            * [4.4.8 验证交易签名是否通过](#448-验证交易签名是否通过)
          * [4.6 侧链dapp](#46-侧链dapp)
             * [4.6.1 注册dapp](#461-注册dapp)
             * [4.6.2 dapp充值](#462-dapp充值)
             * [4.6.3  智能合约的增删](#463--智能合约的增删)
             * [4.6.4 dapp交易](#464-dapp交易)
-            * [4.6.5  dapp相关](#465--dapp相关)
-         * [4.7 TODO](#47-todo)
+            * [4.6.5  dapp创建安装相关](#465--dapp创建安装相关)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 
-# ASCH-CLI说明
+# ASCH-CLI说明  
 
 
 ## 0 asch-cli简介
@@ -487,6 +496,30 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g
 Done
 ```
 
+#### 4.2.7 账户锁仓
+命令值： lock [操作选项]  
+返回值： 锁仓交易id 
+使用方法：asch-cli -e "一级密码" -s "二级密码" -h 锁仓高度  
+备注：锁仓后且区块高度未达到锁仓高度，则该账户不能执行如下操作：  
+|交易类型type|备注|  
+|----|----|  
+|0|主链XAS转账|  
+|6|Dapp充值|  
+|7|Dapp提现|  
+|8|存储小文件|  
+|9|发行商注册|  
+|10|资产注册|  
+|13|资发行产|  
+|14|主链uia转账|  
+
+示例:    
+```    
+// 锁仓到高度4340
+password="found knife gather faith wrestle private various fame cover response security predict"
+asch-cli lock -e "$password" -h 4340  
+a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf
+```
+
 ### 4.3 受托人delegate
 #### 4.3.1 查看全部受托人个数
 命令值： getdelegatescount
@@ -720,7 +753,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 142594212804090687
 }
 ```
 
-#### 4.4.3 根据区块高度查看区块详情
+#### 4.4.3 根据区块高度查看区块详情  
 命令值： getblockbyheight [height]
 
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
@@ -749,6 +782,258 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
   "confirmations": "105922",
   "totalForged": 0
 }
+```  
+
+#### 4.4.4 根据区块id查看区块详情-包含交易信息  
+命令值： getfullblockbyid [blockid]
+
+返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数、交易详情数组 等信息
+
+使用方法：asch-cli getfullblockbyid 区块id   
+备注：比getblockbyid返回的结果多交易信息（交易信息数组）  
+
+示例:
+
+```    
+asch-cli getfullblockbyid 61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75",
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",
+  "totalForged": 360000000,
+  "transactions": [ // 该区块包含的交易详情数组
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,  // 交易类型为100代表锁仓
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"  // 锁仓高度
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}  
+```
+
+#### 4.4.5 根据区块高度查看区块详情-包含交易信息  
+命令值： getfullblockbyheight [blockheight]  
+返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数、交易详情数组 等信息  
+使用方法：asch-cli getfullblockbyheight 区块高度  
+备注：比getblockbyheight返回的结果多交易信息（交易信息数组）  
+
+示例:   
+
+```    
+asch-cli getfullblockbyheight 4330  
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75",
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",
+  "totalForged": 360000000,
+  "transactions": [ // 该区块包含的交易详情数组
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,  // 交易类型为100代表锁仓
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"  // 锁仓高度
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}  
+```
+
+#### 4.4.6 验证区块文件字节    
+命令值： getblockbytes [-f block_file]  
+返回值： 区块文件字节，hex格式数据    
+使用方法：asch-cli getblockbytes -f 区块文件   
+备注： 下面这几个命令主要是验证区块文件，通过修改fullblock数据来和区块链上的数据进行对比是否一致  
+
+示例:
+
+```    
+asch-cli getfullblockbyheight 4330 > blockfile
+cat blockfile
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75",
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",
+  "totalForged": 360000000,
+  "transactions": [
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}
+
+asch-cli getblockbytes -f blockfile
+00000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75  
+```
+
+#### 4.4.7 验证区块文件payloadhash  
+命令值： getblockpayloadhash [-f blockfile]  
+
+返回值： 该区块的paylaod hash
+
+使用方法：asch-cli getblockpayloadhash -f 区块文件
+
+示例:
+
+```    
+asch-cli getfullblockbyheight 4330 > blockfile
+
+asch-cli getblockpayloadhash -f blockfile  
+a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf  
+```
+
+#### 4.4.8 验证区块文件区块id  
+命令值： getblockid [-f blockfile]  
+返回值： 该区块文件的blockid  
+使用方法：asch-cli getblockid -f 区块文件  
+
+示例:  
+```    
+asch-cli getfullblockbyheight 4330 > blockfile
+
+asch-cli getblockid -f blockfile  
+61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4 
+```
+
+#### 4.4.8 验证区块签名是否通过    
+命令值： verifybytes [options]   
+返回值： true or false 
+使用方法：asch-cli verifybytes -b 区块hex字节数据 -s 区块签名 -p 区块生成者公钥    
+
+示例:   
+```    
+asch-cli getfullblockbyheight 4330  
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75", // 区块生成者公钥  
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",   // 区块签名  
+  "totalForged": 360000000,
+  "transactions": [
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}
+
+asch-cli getblockbytes -f blockfile // 生成区块hex数据  
+00000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75  
+
+asch-cli verifybytes -b 00000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75 -s 6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b -p 0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75
+// 对hex进行签名验证  
+true    // 结果为true
+
+// 将上面的hex数据略做改动则验证不会被通过
+asch-cli verifybytes -b 10000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75 -s 6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b -p 0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75
+false // 将hex首位改成1则验证不通过  
 ```
 
 ### 4.5 交易transaction
@@ -889,6 +1174,99 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 setsecondsecret -e "fault still
 true
 ```
 
+#### 4.5.6 验证交易文件bytes
+命令值： gettransactionbytes  [-f transaction_file]  
+返回值： 交易bytes，hex格式数据   
+使用方法：asch-cli gettransactionbytes  -f 交易数据文件  
+
+示例:  
+```    
+asch-cli gettransaction a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf > transactionfile
+cat transactionfile
+{
+  "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "height": "4330",
+  "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "type": 100,
+  "timestamp": 40458794,
+  "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+  "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+  "recipientId": "",
+  "amount": 0,
+  "fee": 10000000,
+  "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+  "signSignature": "",
+  "signatures": null,
+  "confirmations": "413",
+  "args": [
+    "4340"
+  ],
+  "message": "",
+  "asset": {}
+}
+
+asch-cli gettransactionbytes  -f transactionfile 
+642a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430  
+```
+
+#### 4.5.7 验证交易文件id
+命令值： gettransactionid  [-f transaction_file]  
+返回值： 交易id  
+
+使用方法：asch-cli gettransactionid  -f 交易数据文件  
+
+示例:    
+```    
+asch-cli gettransaction a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf > transactionfile
+
+asch-cli gettransactionid  -f transactionfile
+a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf
+```
+
+#### 4.4.8 验证交易签名是否通过    
+命令值： verifybytes [options]   
+返回值： true or false 
+使用方法：asch-cli verifybytes -b 交易hex字节数据 -s 交易签名 -p 发送者公钥    
+
+示例:   
+```    
+asch-cli gettransaction a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf > transactionfile
+cat transactionfile
+{
+  "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "height": "4330",
+  "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "type": 100,
+  "timestamp": 40458794,
+  "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",    // 发送者公钥
+  "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+  "recipientId": "",
+  "amount": 0,
+  "fee": 10000000,
+  "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",    // 交易签名  
+  "signSignature": "",
+  "signatures": null,
+  "confirmations": "413",
+  "args": [
+    "4340"
+  ],
+  "message": "",
+  "asset": {}
+}
+
+asch-cli gettransactionbytes  -f transactionfile    // hex格式交易数据
+642a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430  
+
+asch-cli verifybytes -b 642a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430 -s efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a -p 2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4
+// 对hex交易数据进行签名验证  
+true    // 结果为true
+
+// 对hex交易数据略作修改则签名验证不会通过
+asch-cli verifybytes -b 142a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430 -s efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a -p 2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4
+false    // 将hex数据首位修改为1
+
+```
+
 ### 4.6 侧链dapp
 #### 4.6.1 注册dapp
 命令值： registerdapp [options]
@@ -936,7 +1314,7 @@ e5684046c87bef58e32ac64ea01a97e8323e6fe695e2dc186ca7ee6a55a9dbf5
 
 返回值： dapp交易id
 
-使用方法： asch-cli dapptransaction -e "密码" -d dappid -t 智能合约编号 -a 参数 -f 手续费（暂时是固定的10000000）
+使用方法： asch-cli dapptransaction -e "密码" -d dappid -t 智能合约编号 -a 数据字符串参数 -f 手续费（暂时是固定的10000000）
 
 示例:
 ```
@@ -953,24 +1331,12 @@ asch-cli -H 45.32.22.78 -P 4096 dapptransaction -e "$password" -d $dappid -t 4 -
 1234b6b08f38882bac2791255e71437c5de4c37b619f5086a0bf32484cd8cf5b
 ```
 
-#### 4.6.5  dapp相关
+#### 4.6.5  dapp创建安装相关  
 命令值： dapps [options] 
+返回值：    
+使用方法：asch-cli dapps -a   
+示例   
+```    
 
-返回值： 
-
-使用方法：asch-cli dapps -a 
-示例
-
-
-### 4.7 TODO
-    lock [options]                         lock account transfer
-    getfullblockbyid [id]                  get full block by block id
-    getfullblockbyheight [height]          get full block by block height
-    gettransactionbytes [options]          get transaction bytes
-    gettransactionid [options]             get transaction id
-    getblockbytes [options]                get block bytes
-    getblockpayloadhash [options]          get block bytes
-    getblockid [options]                   get block id
-    verifybytes [options]                  verify bytes/signature/publickey
-
+```
 
