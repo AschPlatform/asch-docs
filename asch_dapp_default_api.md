@@ -163,9 +163,10 @@ http接口又分为signed和unsigned，他们的区别是交易在本地还是�
  - key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5  
  - key为version，value为'' 
 
-asch系统的所有写操作都是通过发起一个交易来完成的。 
-交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去。
+asch系统的所有写操作都是通过发起一个交易来完成的。    
+交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去。    
 POST接口规格如下：
+
 |事项   |说明  |
 |---    |---   |
 |接口地址|/peer/transactions  |
@@ -178,11 +179,11 @@ POST接口规格如下：
 请求方式：POST   
 支持格式：json   
 备注：充值时在主链发生type=6的交易（intransfer），dapp内部会自动调用编号为1的智能合约进行dapp内部充值   	
-请求参数说明：  
-  
-|名称	|类型   |必填 |说明              |   
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
 |------ |-----  |---  |----              |   
-|transaction|json|Y|aschJS.transfer.createInTransfer生成的交易数据|  
+|transaction|json|Y|aschJS.transfer.createInTransfer生成的交易数据|
 
   
 返回参数说明：   
