@@ -177,6 +177,7 @@ POST接口规格如下：
 接口地址：/peer/transactions  
 请求方式：POST   
 支持格式：json   
+备注：充值时在主链发生type=6的交易（intransfer），dapp内部会自动调用编号为1的智能合约进行dapp内部充值   	
 请求参数说明：  
   
 |名称	|类型   |必填 |说明              |   
@@ -657,7 +658,7 @@ JSON返回示例：
 {    
 	contracts: [{    
 		type: "1",    
-		name: "core.deposit" // 系统内置合约，充值(从主链往dapp内进行资产充值)   
+		name: "core.deposit" // 系统内置合约，充值(从主链往dapp内进行资产充值)，普通用户不能直接调用（受托人可以调用但不能通过其它节点的校验），当主链有type=9（intransfer）的交易类型发生时会自动调用该智能合约进行dapp充值    
 	},    
 	{    
 		type: "2",    
