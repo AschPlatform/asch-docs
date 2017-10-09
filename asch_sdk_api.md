@@ -1,8 +1,67 @@
+Table of Contents
+=================
+
+   * [Asch SDK API 使用说明](#asch-sdk-api-使用说明)
+      * [<strong>1. 数据库</strong>](#1-数据库)
+         * [1.1 aync app.sdb.load(model, fields, indices)](#11-aync-appsdbloadmodel-fields-indices)
+         * [1.2 app.sdb.get(model, cond)](#12-appsdbgetmodel-cond)
+         * [1.3 app.sdb.keys(model)](#13-appsdbkeysmodel)
+         * [1.4 app.sdb.entries(model)](#14-appsdbentriesmodel)
+         * [1.5 ap.sdb.lock(key)](#15-apsdblockkey)
+         * [1.6 app.sdb.create(model, values)](#16-appsdbcreatemodel-values)
+         * [1.7 app.sdb.replace(model, values)](#17-appsdbreplacemodel-values)
+         * [1.8 app.sdb.update(model, modifier, cond)](#18-appsdbupdatemodel-modifier-cond)
+         * [1.9 app.sdb.increment(model, modifier, cond)](#19-appsdbincrementmodel-modifier-cond)
+         * [1.10 app.sdb.del(model, cond)](#110-appsdbdelmodel-cond)
+      * [2. 余额](#2-余额)
+         * [2.1 app.balances.get(address, currency)](#21-appbalancesgetaddress-currency)
+         * [2.2 app.balances.increase(address, currency, amount)](#22-appbalancesincreaseaddress-currency-amount)
+         * [2.3 app.balances.decrease(address, currency, amount)](#23-appbalancesdecreaseaddress-currency-amount)
+         * [2.4 app.balances.transfer(currency, amount, from, to)](#24-appbalancestransfercurrency-amount-from-to)
+      * [3 数据模型](#3-数据模型)
+         * [3.1 app.model[name]](#31-appmodelname)
+         * [3.2 fields()](#32-fields)
+         * [3.3 count(cond)](#33-countcond)
+         * [3.4 exists(cond)](#34-existscond)
+         * [3.5 findOne(options)](#35-findoneoptions)
+         * [3.6 findAll(options)](#36-findalloptions)
+      * [4. 路由](#4-路由)
+         * [4.1 app.route.get(path, handler)](#41-approutegetpath-handler)
+         * [4.2 app.route.post(path, handler)](#42-approutepostpath-handler)
+         * [4.3 app.route.put(path, handler)](#43-approuteputpath-handler)
+      * [5. 费用池](#5-费用池)
+         * [5.1 app.feePool.add(currency, amount)](#51-appfeepooladdcurrency-amount)
+      * [6. 自增ID](#6-自增id)
+         * [6.1 app.autoID.get(name)](#61-appautoidgetname)
+         * [6.2 app.autoID.increment(name)](#62-appautoidincrementname)
+      * [7. 日志](#7-日志)
+         * [7.1 app.logger.setLevel(level)](#71-apploggersetlevellevel)
+         * [7.2 app.logger.log()](#72-apploggerlog)
+         * [7.3 app.logger.trace()](#73-apploggertrace)
+         * [7.4 app.logger.debug()](#74-apploggerdebug)
+         * [7.5 app.logger.info()](#75-apploggerinfo)
+         * [7.6 app.logger.warn()](#76-apploggerwarn)
+         * [7.7 app.logger.error()](#77-apploggererror)
+      * [8. 工具类](#8-工具类)
+         * [8.1 app.validate(type, value)](#81-appvalidatetype-value)
+         * [8.2 app.registerContract(type, name)](#82-appregistercontracttype-name)
+         * [8.3 app.getContractName(type)](#83-appgetcontractnametype)
+         * [8.4 app.registerFee(type, min, currency)](#84-appregisterfeetype-min-currency)
+         * [8.5 app.getFee(type)](#85-appgetfeetype)
+         * [8.6 app.setDefaultFee(min, currency)](#86-appsetdefaultfeemin-currency)
+         * [8.7 app.getRealTime(epochTime)](#87-appgetrealtimeepochtime)
+         * [8.8 app.registerHook](#88-appregisterhook)
+         * [8.9 app.custom[]](#89-appcustom)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
+
 # Asch SDK API 使用说明
 
-## 数据库
 
-### `aync` app.sdb.load(model, fields, indices)
+## **1. 数据库**
+
+### 1.1 `aync` app.sdb.load(model, fields, indices)
 
 - `model` 模型名称
 - `fields` 加载到内存中的字段
@@ -19,7 +78,7 @@ await app.sdb.load('Balance', app.model.Balance.fields(), [['address', 'currency
 await app.sdb.load('Variable', ['key', 'value'], ['key'])
 ```
 
-### app.sdb.get(model, cond)
+### 1.2 app.sdb.get(model, cond)
 
 - `model` 模型名称
 - `cond` 查询条件
@@ -48,7 +107,7 @@ let balance = app.sdb.get('Balance', { address: 'foo', currency: 'XAS' })
 */
 ```
 
-### app.sdb.keys(model)
+### 1.3 app.sdb.keys(model)
 
 - `model` 模型名称
 
@@ -69,7 +128,7 @@ foo2
 ```
 
 
-### app.sdb.entries(model)
+### 1.4 app.sdb.entries(model)
 
 - `model` 模型名称
 
@@ -89,7 +148,7 @@ foo2 bar2
 */
 ```
 
-### ap.sdb.lock(key)
+### 1.5 ap.sdb.lock(key)
 
 - `key` 
 
@@ -103,7 +162,7 @@ foo2 bar2
 app.sdb.lock('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85@nickname'
 ```
 
-### app.sdb.create(model, values)
+### 1.6 app.sdb.create(model, values)
 
 - `model` 模型名称
 - `values` 待创建的数据项
@@ -122,7 +181,7 @@ app.sdb.create('Article', {
 })
 ```
 
-### app.sdb.replace(model, values)
+### 1.7 app.sdb.replace(model, values)
 
 - `model` 模型名称
 - `values` 待创建或更新的数据项
@@ -139,7 +198,7 @@ app.sdb.replace('Account', {
 })
 ```
 
-### app.sdb.update(model, modifier, cond)
+### 1.8 app.sdb.update(model, modifier, cond)
 
 - `model` 模型名称
 - `modifier` 待更新的数据项
@@ -154,7 +213,7 @@ app.sdb.replace('Account', {
 app.sdb.update('Account', { nickname: 'Nakamoto' }, { nickname: 'Satoshi' })
 ```
 
-### app.sdb.increment(model, modifier, cond)
+### 1.9 app.sdb.increment(model, modifier, cond)
 
 - `model` 模型名称
 - `modifier` 待更新的数据项
@@ -169,7 +228,7 @@ app.sdb.increment('Article', { votes: -10 }, { id: '10000' })
 app.sdb.increment('Article', { comments: 1 }, { id: '10000' })
 ```
 
-### app.sdb.del(model, cond)
+### 1.10 app.sdb.del(model, cond)
 
 - `model` 模型名称
 - `cond` 删除条件
@@ -184,9 +243,9 @@ app.sdb.increment('Article', { comments: 1 }, { id: '10000' })
 app.sdb.del('Article', { id: '100001' })
 ```
 
-## 余额
+## 2. 余额
 
-### app.balances.get(address, currency)
+### 2.1 app.balances.get(address, currency)
 
 - `address` 账户地址
 - `currency` 币种
@@ -206,7 +265,7 @@ app.balances.get('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS')
 */
 ```
 
-### app.balances.increase(address, currency, amount)
+### 2.2 app.balances.increase(address, currency, amount)
 
 - `address` 账户地址
 - `currency` 币种
@@ -221,7 +280,7 @@ app.balances.get('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS')
 app.balances.increase('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS', '100000')
 ```
 
-### app.balances.decrease(address, currency, amount)
+### 2.3 app.balances.decrease(address, currency, amount)
 
 - `address` 账户地址
 - `currency` 币种
@@ -236,7 +295,7 @@ app.balances.increase('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS', '100000')
 app.balances.decrease('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS', '100000')
 ```
 
-### app.balances.transfer(currency, amount, from, to)
+### 2.4 app.balances.transfer(currency, amount, from, to)
 
 - `currency` 币种
 - `amount` 转移的数额
@@ -252,19 +311,19 @@ app.balances.decrease('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS', '100000')
 app.balances.transfer('XAS', '100000', 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'A4MFPoF3c9vCzZ3GGf9sNQ3rDy2q8aXuVF')
 ```
 
-## 数据模型
+## 3 数据模型
 
-### app.model[name]
+### 3.1 app.model[name]
 
 - `name` 模型名称
 
 > 返回一个模型的实例, 主要用于查询已确认的数据
 
-### fields()
+### 3.2 fields()
 
 > 返回该模型所有字段
 
-### count(cond)
+### 3.3 count(cond)
 
 - `cond` 查询条件
 
@@ -280,7 +339,7 @@ app.model.Block.count({ height: { $lt: 100 } })
 /*
 ```
 
-### exists(cond)
+### 3.4 exists(cond)
 
 - `cond` 查询条件
 
@@ -301,7 +360,7 @@ true
 */
 ```
 
-### findOne(options)
+### 3.5 findOne(options)
 
 `options`是一个对象, 包含以下元素
 
@@ -323,7 +382,7 @@ app.model.Account.findOne({ nickname: 'Nakamoto' })
 */
 ```
 
-### findAll(options)
+### 3.6 findAll(options)
 
 `options`是一个对象, 包含以下元素
 
@@ -365,26 +424,26 @@ app.model.Transfer.findAll({ senderId: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85'})
 */
 ```
 
-## 路由
+## 4. 路由
 
 - `path` 路径
 - `handler` http请求处理函数, async类型
 
-### app.route.get(path, handler)
+### 4.1 app.route.get(path, handler)
 
 > 注册一个`get`类型的`http`请求处理函数
 
-### app.route.post(path, handler)
+### 4.2 app.route.post(path, handler)
 
 > 注册一个`post`类型的`http`请求处理函数
 
-### app.route.put(path, handler)
+### 4.3 app.route.put(path, handler)
 
 > 注册一个`put`类型的`http`请求处理函数
 
-## 费用池
+## 5. 费用池
 
-### app.feePool.add(currency, amount)
+### 5.1 app.feePool.add(currency, amount)
 
 - `currency` 币种
 - `amount` 数额
@@ -398,16 +457,16 @@ app.model.Transfer.findAll({ senderId: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85'})
 app.feelPool.add('XAS', '10000000')
 ```
 
-## 自增ID
+## 6. 自增ID
 
-### app.autoID.get(name)
+### 6.1 app.autoID.get(name)
 
 - `name` ID类型名称
 
 > 返回`String`
 > 获取一个类型的当前最大ID
 
-### app.autoID.increment(name)
+### 6.2 app.autoID.increment(name)
 
 - `name` ID类型名称
 
@@ -423,15 +482,15 @@ app.autoID.increment(AID) === '1'
 app.autoID.get(AID) === '1'
 ```
 
-## 日志
+## 7. 日志
 
-### app.logger.setLevel(level)
-### app.logger.log()
-### app.logger.trace()
-### app.logger.debug()
-### app.logger.info()
-### app.logger.warn()
-### app.logger.error()
+### 7.1 app.logger.setLevel(level)
+### 7.2 app.logger.log()
+### 7.3 app.logger.trace()
+### 7.4 app.logger.debug()
+### 7.5 app.logger.info()
+### 7.6 app.logger.warn()
+### 7.7 app.logger.error()
 
 示例:
 
@@ -447,9 +506,9 @@ logger.warn('hello %s %d %j', 'world', 123, {foo:'bar'});
 logger.error('hello %s %d %j', 'world', 123, {foo:'bar'}, [1, 2, 3, 4], Object);
 ```
 
-## 工具类
+## 8. 工具类
 
-### app.validate(type, value)
+### 8.1 app.validate(type, value)
 
 - `type` 待验证的数据类型
 - `value` 待验证的数据值
@@ -465,7 +524,7 @@ app.validate('amount', 'abc') // throws
 app.validate('amount', '1e10') // throws
 ```
 
-### app.registerContract(type, name)
+### 8.2 app.registerContract(type, name)
 
 - `type` 合约数值类型或编号
 - `name` 合约的字符串名称
@@ -479,7 +538,7 @@ app.validate('amount', '1e10') // throws
 app.registerContract(1001, 'cctime.postArticle')
 ```
 
-### app.getContractName(type)
+### 8.3 app.getContractName(type)
 
 - `type` 合约的数字类型或编号
 
@@ -491,7 +550,7 @@ app.registerContract(1001, 'cctime.postArticle')
 app.getContractName(1001) === 'cctime.postArticle'
 ```
 
-### app.registerFee(type, min, currency)
+### 8.4 app.registerFee(type, min, currency)
 
 - `type` 合约的数字类型或编号
 - `min` 最小费用
@@ -505,7 +564,7 @@ app.getContractName(1001) === 'cctime.postArticle'
 ```
 app.registerFee(1001, '100000', 'XAS')
 ```
-### app.getFee(type)
+### 8.5 app.getFee(type)
 
 - `type` 合约的数字类型或编号
 
@@ -523,7 +582,7 @@ app.getFee(1001)
 */
 ```
 
-### app.setDefaultFee(min, currency)
+### 8.6 app.setDefaultFee(min, currency)
 
 - `min` 最小费用
 - `currency` 币种
@@ -536,7 +595,7 @@ app.getFee(1001)
 app.setDefaultFee('10000', 'XAS')
 ```
 
-### app.getRealTime(epochTime)
+### 8.7 app.getRealTime(epochTime)
 
 - `epochTime` 距离创世区块生成时间的秒数
 
@@ -549,10 +608,14 @@ app.setDefaultFee('10000', 'XAS')
 app.getRealTime(4353634)
 ```
 
-### app.registerHook
+### 8.8 app.registerHook
 
 // TBD
 
-### app.custom[]
+### 8.9 app.custom[]
 
 > 应用的名字空间, 可用来保存应用本身自定义的一些全局变量, 主要是为了与系统级的全局变量进行隔离
+
+
+
+
