@@ -81,6 +81,11 @@ var AschJS = require('asch-js');
 > var secondSecret = 'erjimima2017';
 ```
 
+生成的json交易信息都需要通过http api进行广播。
+- 主链交易通过 `POST /peer/transactions`
+- dapp交易通过 `PUT /api/dapps/dappID/transactions/signed`
+
+
 ## **2 账户**  
 
 ### **2.1 根据密码获取密钥对**
