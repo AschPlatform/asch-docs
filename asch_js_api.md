@@ -688,11 +688,11 @@ var amount = 10*100000000 ;
 #### **6.4.1 创建提现交易,type=7**
 
 `transfer.createOutTransfer(recipientId, dappId, transactionId, currency, amount, secret, secondSecret)`
-`备注` 在主链的交易类型为7。该交易是编号为2的智能合约所创建吗？
+`备注` 在主链的交易类型为7，该接口一般由dapp受托人来调用（受托人每隔10秒扫描侧链上由智能合约所创建的提现交易，发现后则在主链创建type=7的提现交易），所以一般情况下开发人员用不到。
 
 - `recipientId` 提现接收者id
 - `dappId` dapp id
-- `transactionId` 提现交易id
+- `transactionId` 提现交易id,该交易id是编号为2的智能合约在侧链dapp上所创建的
 - `currency` 提现资产名(XAS或者UIA)
 - `amount` 提现数额
 
@@ -725,7 +725,7 @@ let amount = '10000000'
 #### **6.4.2 受托人对提现交易进行签名**
 
 `transfer.signOutTransfer(transaction, secret)`
-`备注` dapp提现交易，需要多个受托人签名后才能生效。受托人签名的最小数量取决于dapp的注册参数：unlockDelegates
+`备注` dapp提现交易，需要多个受托人签名后才能生效。受托人签名的最小数量取决于dapp的注册参数：unlockDelegates。受托人每隔10秒扫描侧链上由智能合约所创建的提现交易，发现有交易且签名个数未满足时，会对其进行签名。一般情况下普通开发人员用不到。
 
 - `transaction` transfer.createOutTransfer生成的提现交易
 - `secret` 受托人密码
