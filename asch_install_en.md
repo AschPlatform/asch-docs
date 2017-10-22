@@ -6,6 +6,7 @@
 - Ubuntu 16.04 64bit OS recommended
 - Above 2Gb RAM recommended
 - Above 2Mb broadwidth recommended
+- Above 10GB GB harddisk recommended
 
 ## 2. Installation
 There are two seperated system: test version (testnet) and main official version (mainnet). Both of them are co-existed but unable to communicate with each other. 
@@ -33,13 +34,13 @@ Usually, the version number of testnet will larger than that of mainnet.
 
 ### 2.2 Initialize
 In this step, something will be done for you automatically:  
-- Install some dependency modules like **nodejs** and **sqlite3**
+- Install some dependency modules like **sqlite3**
 - Install and configure the ntp service by which your time can be synchronized with that of other nodes.
 
 There is no need to run this step once although there is no harm to execute it more than one time.
 
 	# locate to your installation folder
-	/aschd configure
+	./aschd configure
 	...
 
 ## 3. Run
@@ -102,6 +103,8 @@ And don't forget restarting your system after configuration by:
 ### 6.1 I cannot access my online wallet
 #### Solution 1
 Check the `[port]` field in `config.json`, the default port numbers of **testnet** and **mainnet** are `4096` and `8192`, respectively.
+The official seed nodes changed the port to 80.
+Check the firewall configuration, and you need to open the Asch port inbound and outbound.
 
 #### Solution 2
 Check whether service is started by typing commands as follows:

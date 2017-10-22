@@ -8,6 +8,7 @@
 - 建议CPU 2C以上
 - 建议内存2G以上
 - 建议带宽2Mb以上
+- 建议硬盘空间10GB以上
 
 ## 2 安装
 
@@ -37,7 +38,7 @@ tar zxvf asch-linux-latest-mainnet.tar.gz
 
 这一步会自动帮您做以下几件事情
 
-1. 安装nodejs和sqlite3等依赖软件
+1. 安装sqlite3等依赖软件
 2. 安装和配置ntp服务，保证您的时间与其他节点同步
 
 这一步只需要运行一次即可，重复运行也无妨
@@ -119,6 +120,7 @@ tail -f logs/debug.log
 
 查看是否改了config.json里的port字段， testnet的端口默认为4096，mainnet的端口默认为8192<br>
 官方的种子节点将端口改成了80
+检查防火墙配置，需要打开Asch的端口入站和出站。
 
 【情况二】
 
