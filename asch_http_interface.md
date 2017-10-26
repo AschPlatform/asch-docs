@@ -602,7 +602,7 @@ JSON返回示例：
 
 
 #### **2.1.11 获取当前链上账户总个数**   
-接口地址：/api/accounts/top   
+接口地址：/api/accounts/count   
 请求方式：get   
 支持格式：无   
 请求参数：无    
@@ -617,7 +617,7 @@ JSON返回示例：
    
 请求示例：   
 ```bash   
-curl -k -X GET 'http://45.32.248.33:4096/api/count'    
+curl -k -X GET 'http://45.32.248.33:4096/api/accounts/count'    
 ```   
    
 JSON返回示例：   
