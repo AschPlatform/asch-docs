@@ -15,7 +15,7 @@ Dapp的开发同样要涉及到这三种网络，即
 每个开发者都可以在本地启动自己的localnet，需要先下载[asch源码](https://github.com/AschPlatform/asch)。
 
 ```
-git clone https://github.com/AschPlatform/asch
+> git clone https://github.com/AschPlatform/asch.git
 ```
 
 下载后就可以参照该项目的README进行后面的安装、运行操作。
@@ -23,7 +23,7 @@ git clone https://github.com/AschPlatform/asch
 ## 3 安装asch-cli
 
 ```
-npm install -g asch-cli
+> npm install -g asch-cli
 ```
 
 注意这一步不要用淘宝的```cnpm```， **有bug**
@@ -33,8 +33,8 @@ npm install -g asch-cli
 首先要进入你的asch源码目录，并确保localnet启动
 
 ```
-cd <asch source code dir>
-node app.js
+> cd <asch source code dir>
+> node app.js
 ```
 
 ### 4.1 创建你的受托人账户
@@ -44,7 +44,7 @@ node app.js
 这里为了演示，我们一次性创建5个账户，一个dapp最多有101个受托人，最少是5个。
 
 ```
-asch-cli crypto -g
+> asch-cli crypto -g
 
 #　接下来输入 5 即可生成5个账户
 [ { address: 'AijfU9bAE6Jpt5ve7zG3LoriDamH67eLb',
@@ -72,8 +72,8 @@ asch-cli crypto -g
 
 ```
 # 生成应用模板的时候，最好建立一个新目录
-mkdir asch-test-dapp && cd asch-test-dapp
-asch-cli dapps -a
+> mkdir asch-test-dapp && cd asch-test-dapp
+> asch-cli dapps -a
 ```
 
 接下来，我们要回答一系列的问题，以生成应用的注册信息与创世块
@@ -104,16 +104,17 @@ DApp meta information is saved to ./dapp.json ...
 
 ## 4.3 注册应用到主链
 
-注意这里的`主链`不是指`mainnet`， 每个`net`下都有相应的主链
+注意这里的`主链`不是指`mainnet`， 每个`net`下都有相应的主链， 主链是相对Dapp而言。
 
 我们可以使用`registerdapp`注册应用到主链，如下所示
 
 ```
-asch-cli registerdapp -f dapp.json -e "someone manual strong movie roof episode eight spatial brown soldier soup motor"
+> asch-cli registerdapp -f dapp.json -e "someone manual strong movie roof episode eight spatial brown soldier soup motor"
+# 返回结果如下
 0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb
 ```
 
-`0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb`是应用id
+`0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb` 是应用id
 
 使用浏览器访问`http://localhost:4096/api/dapps/get?id=0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb`, 可以查询到该dapp了
 
@@ -146,13 +147,13 @@ asch-cli registerdapp -f dapp.json -e "someone manual strong movie roof episode 
 现在我们把第二步中创建的模板代码拷贝到asch的安装目录下的dapp子目录，并改名为dapp的id
 
 ```
-cp -r asch-test-dapp path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb
+> cp -r asch-test-dapp path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb
 ```
 
 然后把第一步创建的受托人密码写入这个dapp的配置文件中
 
 ```
-cat path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/config.json
+> cat path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/config.json
 {
     "secrets": [
         "easy snap cable harvest plate tone planet yellow spot employ humble what", 
@@ -169,7 +170,7 @@ cat path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937
 ## 4.5 重启asch节点程序
 
 ```
-path/to/asch/aschd restart
+> ./aschd restart
 ```
 
 使用浏览器打开`http://localhost:4096/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/`，可以访问默认的一个前端页面，该页面可以进行一些简单的接口测试
@@ -177,7 +178,7 @@ path/to/asch/aschd restart
 也可以观察dapp的日志来排查一些问题
 
 ```
-tail -f path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/logs/debug.*.log
+> tail -f path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/logs/debug.*.log
 ```
 
 ## 4.6 跨链充值
@@ -197,10 +198,11 @@ dapp的前后端通讯协议一般可以分为两大类：读和写
 
 ## 4.7 查询接口调用
 
-查询接口一把你通过http get协议，比如
+查询接口一般通过http get协议，比如
 
 ```
-curl http://localhost:4096/api/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/blocks
+> curl http://localhost:4096/api/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/blocks
+# 返回结果如下
 {
     "blocks": [
         {
@@ -238,7 +240,7 @@ curl http://localhost:4096/api/dapps/0599a6100280df0d296653e89177b9011304d971fb9
 
 ```
 dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/
-├── blockchain.db         // 数据库文件
+├── blockchain.db         // dapp数据库文件，与主链的数据是分开存放的
 ├── config.json           // 应用的节点配置文件，目前主要用于配置受托人秘钥
 ├── contract              // 合约目录
 │   └── domain.js         // 域名合约的实现代码
@@ -248,7 +250,7 @@ dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/
 ├── interface             // 查询接口的实现目录
 │   ├── domain.js         // 域名查询接口实现
 │   └── helloworld.js
-├── logs
+├── logs                  // 日志目录
 │   └── debug.20170928.log
 ├── model
 │   └── domain.js         // 域名业务数据模型定义
