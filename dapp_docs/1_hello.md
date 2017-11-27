@@ -194,7 +194,7 @@ dapp的前后端通讯协议一般可以分为两大类：读和写
 
 1. 使用交互式的web图型界面，在【应用中心】的【已安装应用列表】
 2. 使用`asch-cli deposit`命令
-3. 调用`asch-js`的`createInTransfer`函数，具体可参考[asch-js接口文档](../asch_js_usage.md)
+3. 调用`asch-js`的`createInTransfer`函数，具体可参考[asch-js接口文档](../asch_js_api.md)
 
 ## 4.7 查询接口调用
 
@@ -232,7 +232,7 @@ dapp的前后端通讯协议一般可以分为两大类：读和写
 
 1. 在模板应用的默认前端页面，通过交互式web图型界面进行
 2. 使用`asch-cli dapptransaction`命令， 具体可参考[asch-cli使用说明](../asch_cli_usage.md)
-3. 使用`asch-js`的`createInnerTransaction`函数, 具体可参考[asch-js接口文档](../asch_js_usage.md)
+3. 使用`asch-js`的`createInnerTransaction`函数, 具体可参考[asch-js接口文档](../asch_js_api.md)
 
 ## 5 目录结构
 
