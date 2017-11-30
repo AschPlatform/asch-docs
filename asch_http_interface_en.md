@@ -1,85 +1,86 @@
-#Asch-HTTP Interface Specification
----
 Table of Contents
 =================
 
-  * [Asch-HTTP Interface Specification](#asch-http-interface-specification)
-  * [Index](#index)
-    * [* <a href="#appendix-1-install-asch-js-library">Appendix 1ï¼š Install 'asch-js' library</a>](#-appendix-1-install-asch-js-library)
-    * [1 API Usage Guide](#1-api-usage-guide)
-      * [1.1 Request Process Overview](#11-request-process-overview)
-    * [2 Interface](#2-interface)
-      * [2.1 Accounts](#21-accounts)
-        * [2.1.1 Login](#211-login)
-          * [2.1.1.1 Login after locally encrypt (recommended)](#2111-login-after-locally-encrypt-recommended)
-          * [2.1.1.2 Login without locally encrypt (not recommend)](#2112-login-without-locally-encrypt-not-recommend)
-        * [2.1.2 Get Account Information](#212-get-account-information)
-        * [2.1.3 Get Balance of Account](#213-get-balance-of-account)
-        * [2.1.4 Get Account's Public Key](#214-get-accounts-public-key)
-        * [2.1.5 Generate Public Key](#215-generate-public-key)
-        * [2.1.6 Get Voting List by Address](#216-get-voting-list-by-address)
-        * [2.1.7 Get the Fee of Given Delegate](#217-get-the-fee-of-given-delegate)
-        * [2.1.8 Voting](#218-voting)
-      * [2.2 Transactions](#22-transactions)
-        * [2.2.1 Get the Transaction Detail Information](#221-get-the-transaction-detail-information)
-        * [2.2.2 Get the Transaction Detail Information by Transaction ID](#222-get-the-transaction-detail-information-by-transaction-id)
-        * [2.2.3 Get Transaction Detail by Unconfirmed Transaction ID](#223-get-transaction-detail-by-unconfirmed-transaction-id)
-        * [**2.2.4 Get Unconfirmed Transaction Detail Inforamtion [within all network]](#224-get-unconfirmed-transaction-detail-inforamtion-within-all-network)
-        * [2.2.5 Create Transaction](#225-create-transaction)
-      * [2.3 Blocks](#23-blocks)
-        * [2.3.1 Get the Block Detail Information of the Given ID](#231-get-the-block-detail-information-of-the-given-id)
-        * [2.3.2 Get the Latest Block](#232-get-the-latest-block)
-        * [2.3.3 Get the Block Height](#233-get-the-block-height)
-        * [2.3.4 Get the Transaction Fee](#234-get-the-transaction-fee)
-        * [2.3.5 Get the Milestone](#235-get-the-milestone)
-        * [2.3.6 Get the Reward Information of a Block](#236-get-the-reward-information-of-a-block)
-        * [2.3.7 Get the Current Maximum Supply of the Blockchain](#237-get-the-current-maximum-supply-of-the-blockchain)
-        * [2.3.8 Get Current Status of Blockchain](#238-get-current-status-of-blockchain)
-      * [2.4 Delegates](#24-delegates)
-        * [2.4.1 Get the Total Number of Delegates](#241-get-the-total-number-of-delegates)
-        * [2.4.2 Check the Voters of Delegates by Public Key](#242-check-the-voters-of-delegates-by-public-key)
-        * [2.4.3 Get the Delegate's Detail by Public Key or Name](#243-get-the-delegates-detail-by-public-key-or-name)
-        * [2.4.4 Get the List of Delegates](#244-get-the-list-of-delegates)
-        * [2.4.5 Get the Transaction Fee Set by Delegate](#245-get-the-transaction-fee-set-by-delegate)
-        * [2.4.6 Get Forge Information by Public Key](#246-get-forge-information-by-public-key)
-        * [2.4.7 Register Delegate](#247-register-delegate)
-      * [2.5 Peers](#25-peers)
-        * [2.5.1 Get all Peers' Information in the Whole Network](#251-get-all-peers-information-in-the-whole-network)
-        * [2.5.2 Get the Version of Peer](#252-get-the-version-of-peer)
-        * [2.5.3 Get the Peer Information of a Given IP Address](#253-get-the-peer-information-of-a-given-ip-address)
-      * [2.6 Sync and Loader](#26-sync-and-loader)
-        * [2.6.1 Get the local blockchain loadig status](#261-get-the-local-blockchain-loadig-status)
-        * [2.6.2 Get the block syncing status](#262-get-the-block-syncing-status)
-      * [2.7 Second Password](#27-second-password)
-        * [2.7.1 Set the Second Password](#271-set-the-second-password)
-        * [2.7.2 Get the Transaction Fee of Setting Second Password](#272-get-the-transaction-fee-of-setting-second-password)
-      * [2.8 Multiple Signatures](#28-multiple-signatures)
-        * [2.8.1 Set Normal Account to Multi-signatures Account](#281-set-normal-account-to-multi-signatures-account)
-        * [2.8.2 Get the Detail Information of Pending Multi-signature Transaction](#282-get-the-detail-information-of-pending-multi-signature-transaction)
-        * [2.8.3 Sign the Multi-signature Transaction (by non-initiator)](#283-sign-the-multi-signature-transaction-by-non-initiator)
-        * [2.8.4 Get Detail Information of the Multi-signature Account](#284-get-detail-information-of-the-multi-signature-account)
-      * [2.9 Peer to Peer Transportation[secure API]](#29-peer-to-peer-transportationsecure-api)
-        * [2.9.1 Overview](#291-overview)
-        * [2.9.2 Transaction](#292-transaction)
-          * [2.9.2.1 Set the Second Payment Password](#2921-set-the-second-payment-password)
-          * [2.9.2.2 Transfer Money](#2922-transfer-money)
-          * [2.9.2.3 Register Delegates](#2923-register-delegates)
-          * [2.9.2.4 Vote and Cancel the vote](#2924-vote-and-cancel-the-vote)
-    * [Appendix 1ï¼š Install 'asch-js' library](#appendix-1-install-asch-js-library)
+   * [Asch-HTTP Interface Specification](#asch-http-interface-specification)
+      * [1 API Usage Guide](#1-api-usage-guide)
+         * [1.1 Request Process Overview](#11-request-process-overview)
+      * [2 Interface](#2-interface)
+         * [2.1 Accounts](#21-accounts)
+            * [2.1.1 Login](#211-login)
+               * [2.1.1.1 Login after locally encrypt (recommended)](#2111-login-after-locally-encrypt-recommended)
+               * [2.1.1.2 Login without locally encrypt (not recommend)](#2112-login-without-locally-encrypt-not-recommend)
+            * [2.1.2 Get Account Information](#212-get-account-information)
+            * [2.1.3 Get Balance of Account](#213-get-balance-of-account)
+            * [2.1.4 Get Account's Public Key](#214-get-accounts-public-key)
+            * [2.1.5 Generate Public Key](#215-generate-public-key)
+            * [2.1.6 Get Voting List by Address](#216-get-voting-list-by-address)
+            * [2.1.7 Get the Fee of Given Delegate](#217-get-the-fee-of-given-delegate)
+            * [2.1.8 Voting](#218-voting)
+         * [2.2 Transactions](#22-transactions)
+            * [2.2.1 Get the Transaction Detail Information](#221-get-the-transaction-detail-information)
+            * [2.2.2 Get the Transaction Detail Information by Transaction ID](#222-get-the-transaction-detail-information-by-transaction-id)
+            * [2.2.3 Get Transaction Detail by Unconfirmed Transaction ID](#223-get-transaction-detail-by-unconfirmed-transaction-id)
+            * [**2.2.4 Get Unconfirmed Transaction Detail Inforamtion [within all network]](#224-get-unconfirmed-transaction-detail-inforamtion-within-all-network)
+            * [2.2.5 Create Transaction](#225-create-transaction)
+         * [2.3 Blocks](#23-blocks)
+            * [2.3.1 Get the Block Detail Information of the Given ID](#231-get-the-block-detail-information-of-the-given-id)
+            * [2.3.2 Get the Latest Block](#232-get-the-latest-block)
+            * [2.3.3 Get the Block Height](#233-get-the-block-height)
+            * [2.3.4 Get the Transaction Fee](#234-get-the-transaction-fee)
+            * [2.3.5 Get the Milestone](#235-get-the-milestone)
+            * [2.3.6 Get the Reward Information of a Block](#236-get-the-reward-information-of-a-block)
+            * [2.3.7 Get the Current Maximum Supply of the Blockchain](#237-get-the-current-maximum-supply-of-the-blockchain)
+            * [2.3.8 Get Current Status of Blockchain](#238-get-current-status-of-blockchain)
+         * [2.4 Delegates](#24-delegates)
+            * [2.4.1 Get the Total Number of Delegates](#241-get-the-total-number-of-delegates)
+            * [2.4.2 Check the Voters of Delegates by Public Key](#242-check-the-voters-of-delegates-by-public-key)
+            * [2.4.3 Get the Delegate's Detail by Public Key or Name](#243-get-the-delegates-detail-by-public-key-or-name)
+            * [2.4.4 Get the List of Delegates](#244-get-the-list-of-delegates)
+            * [2.4.5 Get the Transaction Fee Set by Delegate](#245-get-the-transaction-fee-set-by-delegate)
+            * [2.4.6 Get Forge Information by Public Key](#246-get-forge-information-by-public-key)
+            * [2.4.7 Register Delegate](#247-register-delegate)
+         * [2.5 Peers](#25-peers)
+            * [2.5.1 Get all Peers' Information in the Whole Network](#251-get-all-peers-information-in-the-whole-network)
+            * [2.5.2 Get the Version of Peer](#252-get-the-version-of-peer)
+            * [2.5.3 Get the Peer Information of a Given IP Address](#253-get-the-peer-information-of-a-given-ip-address)
+         * [2.6 Sync and Loader](#26-sync-and-loader)
+            * [2.6.1 Get the local blockchain loadig status](#261-get-the-local-blockchain-loadig-status)
+            * [2.6.2 Get the block syncing status](#262-get-the-block-syncing-status)
+         * [2.7 Second Password](#27-second-password)
+            * [2.7.1 Set the Second Password](#271-set-the-second-password)
+            * [2.7.2 Get the Transaction Fee of Setting Second Password](#272-get-the-transaction-fee-of-setting-second-password)
+         * [2.8 Multiple Signatures](#28-multiple-signatures)
+            * [2.8.1 Set Normal Account to Multi-signatures Account](#281-set-normal-account-to-multi-signatures-account)
+            * [2.8.2 Get the Detail Information of Pending Multi-signature Transaction](#282-get-the-detail-information-of-pending-multi-signature-transaction)
+            * [2.8.3 Sign the Multi-signature Transaction (by non-initiator)](#283-sign-the-multi-signature-transaction-by-non-initiator)
+            * [2.8.4 Get Detail Information of the Multi-signature Account](#284-get-detail-information-of-the-multi-signature-account)
+         * [2.9 Peer to Peer Transportation[secure API]](#29-peer-to-peer-transportationsecure-api)
+            * [2.9.1 Overview](#291-overview)
+            * [2.9.2 Transaction](#292-transaction)
+               * [2.9.2.1 Set the Second Payment Password](#2921-set-the-second-payment-password)
+               * [2.9.2.2 Transfer Money](#2922-transfer-money)
+               * [2.9.2.3 Register Delegates](#2923-register-delegates)
+               * [2.9.2.4 Vote and Cancel the vote](#2924-vote-and-cancel-the-vote)
+      * [Appendix 1： Install 'asch-js' library](#appendix-1-install-asch-js-library)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
+# Asch-HTTP Interface Specification
+
 ---
-##1 API Usage Guide
-###1.1 Request Process Overview
-- **Generate request data:** according the interface specification provided by Asch system, generate the request data as a JSON object. (In one case, if you write about secure peer to peer transportation, you may need a JS library called asch-js to create signature. see [2.9 Peer to Peer transportation](#29-peer-to-peer-transportation) for detail).
+## 1 API Usage Guide
+### 1.1 Request Process Overview
+- **Generate request data:** according the interface specification provided by Asch system, generate the request data as a JSON object. (In one case, if you write about secure peer to peer transportation, you may need a JS library called asch-js to create signature. see [2.9 Peer to Peer transportation](# 29-peer-to-peer-transportation) for detail).
 - **Send request data:** transfer the generated data object to Asch  platform through POST/GET method upon HTTP
 - **Asch system handles the data object:** after receiving the data object, Asch server will validate the data firstly, then deal with it.
 - **Return the response data:** Asch system send the response data to client as a JSON object. See interface part for detail, like response data format and error code.
 - **Client handles the response data**
 
-##2 Interface   
-###2.1 Accounts   
+## 2 Interface   
+### 2.1 Accounts   
    
-####2.1.1 Login   
-#####2.1.1.1 Login after locally encrypt (recommended)   
+#### 2.1.1 Login   
+##### 2.1.1.1 Login after locally encrypt (recommended)   
 Interface Address: /api/accounts/open2/   
 Request Type: post   
 Supported Format: json   
@@ -172,7 +173,7 @@ JSON Response Example:
     }   
 }   
 ```   
-####2.1.2 Get Account Information   
+#### 2.1.2 Get Account Information   
 Interface Address: /api/accounts   
 Request Method:get   
 Supported Format: urlencoded   
@@ -1891,7 +1892,7 @@ JSON Response Example:
 }		
 ``` 
 
-#####2.9.2.3 Register Delegates   
+##### 2.9.2.3 Register Delegates   
 Request Parameter Description:  
 
 |Name	|Type   |Required |Description              |   
@@ -1927,7 +1928,7 @@ JSON Response Example:
 }		
 ``` 
 
-#####2.9.2.4 Vote and Cancel the vote  
+##### 2.9.2.4 Vote and Cancel the vote  
 
 Request Parameter Description: 
 
