@@ -1,54 +1,73 @@
-# ASCH-CLI说明
-
----
-目录
+Table of Contents
 =================
 
-  * [ASCH-CLI说明](#asch-cli说明)
-    * [0 asch-cli简介](#0-asch-cli简介)
-    * [1 asch-cli的安装](#1-asch-cli的安装)
-    * [2 asch-cli使用说明](#2-asch-cli使用说明)
-    * [3 asch-cli支持的选项](# 3-asch-cli支持的选项)
-      * [3.1 打印帮助文档](#31-打印帮助文档)
-      * [3.2 打印asch-cli版本号](#32-打印asch-cli版本号)
-      * [3.3 指定要连接的asch服务器主机名或者ip](#33-指定要连接的asch服务器主机名或者ip)
-      * [3.4 指定要连接的asch服务器的端口](#34-指定要连接的asch服务器的端口)
-      * [3.5 指定主链](#35-指定主链)
-    * [4 asch-cli支持的命令](#4-asch-cli支持的命令)
-      * [4.1 查看区块链高度](#41-查看区块链高度)
-      * [4.2 查看区块链状态](#42-查看区块链状态)
-      * [4.3  根据密码查看账户信息](#43--根据密码查看账户信息)
-      * [4.4 根据公钥查看账户信息](#44-根据公钥查看账户信息)
-      * [4.5 根据地址查看账户余额](#45-根据地址查看账户余额)
-      * [4.6 根据地址查看账户信息](#46-根据地址查看账户信息)
-      * [4.7 查看账户地址投了哪些受托人](#47-查看账户地址投了哪些受托人)
-      * [4.8 查看全部受托人个数](#48-查看全部受托人个数)
-      * [4.9 查看受托人详情并排序](#49-查看受托人详情并排序)
-      * [4.10 根据受托人公钥查看都是谁为他投了票](#410-根据受托人公钥查看都是谁为他投了票)
-      * [4.11 根据公钥查看受托人详情](#411-根据公钥查看受托人详情)
-      * [4.12 根据名字查看受托人详情](#412-根据名字查看受托人详情)
-      * [4.13 查看(分析)全网区块信息](#413-查看分析全网区块信息)
-      * [4.14 根据区块id查看区块详情](#414-根据区块id查看区块详情)
-      * [4.15 根据区块高度查看区块详情](#415-根据区块高度查看区块详情)
-      * [4.16 查看节点信息](#416-查看节点信息)
-      * [4.17 根据公钥查看未确认的交易](#417-根据公钥查看未确认的交易)
-      * [4.18 查看（分析）全网交易信息](#418-查看分析全网交易信息)
-      * [4.19 根据交易id查看交易详情](#419-根据交易id查看交易详情)
-      * [4.20 转账](#420-转账)
-      * [4.21 注册受托人](#421-注册受托人)
-      * [4.22 给受托人投票](#422-给受托人投票)
-      * [4.23 给受托人取消投票](#423-给受托人取消投票)
-      * [4.24 设置二级密码](#424-设置二级密码)
-      * [4.25 注册dapp](#425-注册dapp)
-      * [4.26  合约相关](#426--合约相关)
-      * [4.27 加密相关](#427-加密相关)
-      * [4.28  dapp相关](#428--dapp相关)
-      * [4.29 创建创世块文件](#429-创建创世块文件)
-      * [4.30 全网节点状态](#430-全网节点状态)
-      * [4.31 全网受托人状态](#431-全网受托人状态)
-      * [4.32 查看全网节点的ip归属](#432-查看全网节点的ip归属)
+   * [ASCH-CLI说明](#asch-cli说明)
+      * [0 asch-cli简介](#0-asch-cli简介)
+      * [1 asch-cli的安装](#1-asch-cli的安装)
+      * [2 asch-cli使用说明](#2-asch-cli使用说明)
+      * [3 asch-cli支持的选项](#3-asch-cli支持的选项)
+         * [3.1 打印帮助文档](#31-打印帮助文档)
+         * [3.2 打印asch-cli版本号](#32-打印asch-cli版本号)
+         * [3.3 指定要连接的asch服务器主机名或者ip](#33-指定要连接的asch服务器主机名或者ip)
+         * [3.4 指定要连接的asch服务器的端口](#34-指定要连接的asch服务器的端口)
+         * [3.5 指定主链](#35-指定主链)
+      * [4 asch-cli支持的命令](#4-asch-cli支持的命令)
+         * [4.1 区块链blockchain](#41-区块链blockchain)
+            * [4.1.1 查看区块链高度](#411-查看区块链高度)
+            * [4.1.2 查看区块链状态](#412-查看区块链状态)
+            * [4.1.3 查看节点信息](#413-查看节点信息)
+            * [4.1.4 全网节点状态](#414-全网节点状态)
+            * [4.1.5 全网受托人状态](#415-全网受托人状态)
+            * [4.1.6 查看全网节点的ip归属](#416-查看全网节点的ip归属)
+            * [4.1.7 创建创世块文件](#417-创建创世块文件)
+         * [4.2 账户account](#42-账户account)
+            * [4.2.1  根据密码查看账户信息](#421--根据密码查看账户信息)
+            * [4.2.2 根据公钥查看账户信息](#422-根据公钥查看账户信息)
+            * [4.2.3 根据地址查看账户余额](#423-根据地址查看账户余额)
+            * [4.2.4 根据地址查看账户信息](#424-根据地址查看账户信息)
+            * [4.2.5 查看账户地址投了哪些受托人](#425-查看账户地址投了哪些受托人)
+            * [4.2.6 加密相关](#426-加密相关)
+            * [4.2.7 账户锁仓](#427-账户锁仓)
+         * [4.3 受托人delegate](#43-受托人delegate)
+            * [4.3.1 查看全部受托人个数](#431-查看全部受托人个数)
+            * [4.3.2 查看受托人详情并排序](#432-查看受托人详情并排序)
+            * [4.3.3 根据受托人公钥查看都是谁为他投了票](#433-根据受托人公钥查看都是谁为他投了票)
+            * [4.3.4 根据公钥查看受托人详情](#434-根据公钥查看受托人详情)
+            * [4.3.5 根据名字查看受托人详情](#435-根据名字查看受托人详情)
+            * [4.3.5 注册受托人](#435-注册受托人)
+            * [4.3.6 给受托人投票](#436-给受托人投票)
+            * [4.3.7 给受托人取消投票](#437-给受托人取消投票)
+         * [4.4 区块block](#44-区块block)
+            * [4.4.1 查看(分析)全网区块信息](#441-查看分析全网区块信息)
+            * [4.4.2 根据区块id查看区块详情](#442-根据区块id查看区块详情)
+            * [4.4.3 根据区块高度查看区块详情](#443-根据区块高度查看区块详情)
+            * [4.4.4 根据区块id查看区块详情-包含交易信息](#444-根据区块id查看区块详情-包含交易信息)
+            * [4.4.5 根据区块高度查看区块详情-包含交易信息](#445-根据区块高度查看区块详情-包含交易信息)
+            * [4.4.6 验证区块文件字节](#446-验证区块文件字节)
+            * [4.4.7 验证区块文件payloadhash](#447-验证区块文件payloadhash)
+            * [4.4.8 验证区块文件区块id](#448-验证区块文件区块id)
+            * [4.4.8 验证区块签名是否通过](#448-验证区块签名是否通过)
+         * [4.5 交易transaction](#45-交易transaction)
+            * [4.5.1 根据公钥查看未确认的交易](#451-根据公钥查看未确认的交易)
+            * [4.5.2 查看（分析）全网交易信息](#452-查看分析全网交易信息)
+            * [4.5.3 根据交易id查看交易详情](#453-根据交易id查看交易详情)
+            * [4.5.4 转账](#454-转账)
+            * [4.5.5 设置二级密码](#455-设置二级密码)
+            * [4.5.6 验证交易文件bytes](#456-验证交易文件bytes)
+            * [4.5.7 验证交易文件id](#457-验证交易文件id)
+            * [4.4.8 验证交易签名是否通过](#448-验证交易签名是否通过)
+         * [4.6 侧链dapp](#46-侧链dapp)
+            * [4.6.1 注册dapp](#461-注册dapp)
+            * [4.6.2 dapp充值](#462-dapp充值)
+            * [4.6.3  智能合约的增删](#463--智能合约的增删)
+            * [4.6.4 dapp交易](#464-dapp交易)
+            * [4.6.5  dapp创建安装相关](#465--dapp创建安装相关)
 
----
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
+
+# ASCH-CLI说明  
+
 
 ## 0 asch-cli简介
 以下内容引用自 [Asch白皮书](/asch_whitepaper.md)
@@ -74,7 +93,7 @@ asch-cli [选项] [命令]
 
 示例:
  
-```{r, engine='bash', count_lines}
+```
 root@asch:~# asch-cli -h #查看asch-cli帮助信息
   Usage: asch-cli [options] [command]
   Commands:
@@ -139,7 +158,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates -h #查看子命
 
 示例:
  
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -V
 1.0.0
 ```
@@ -153,7 +172,7 @@ root@asch:~# asch-cli -V
 
 示例:
 
-```{r, engine='bash', count_lines}
+```      
 root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器最新的区块高度
 101236
 ```
@@ -167,7 +186,7 @@ root@asch:~# asch-cli -H 45.32.248.33 getheight     #查看45.32.248.33服务器
 
 示例:
 
-```{r, engine='bash', count_lines}
+```
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight  
 102313
 ```
@@ -181,14 +200,15 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块高度
 9388
 ```
 
 
 ## 4 asch-cli支持的命令
-### 4.1 查看区块链高度
+### 4.1 区块链blockchain
+#### 4.1.1 查看区块链高度
 命令值： getheight
 
 返回值： 区块链高度
@@ -197,12 +217,12 @@ root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight  #查看asch主链区块
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 105387
 ```
 
-### 4.2 查看区块链状态
+#### 4.1.2 查看区块链状态
 命令值： getblockstatus
 
 返回值： json字符串，包含区块链高度、交易费、里程碑、受托人每块奖励、当前总量
@@ -211,7 +231,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 {
   "success": true,
@@ -223,7 +243,126 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 }
 ```
 
-### 4.3  根据密码查看账户信息
+#### 4.1.3 查看节点信息
+命令值： getpeers [options] 
+
+返回值： 列表，包含节点ip、端口、os、asch版本等信息
+
+使用方法：asch-cli getpeers -o 偏移量数字 -l限制个数数字 -t 状态值 -s 排序 -v 版本 -p 端口 --os os版本 #详情请参考asch-cli getpeers -h帮助信息
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2 
+[
+  {
+    "ip": "45.32.62.184",
+    "port": 4096,
+    "state": 2,
+    "os": "linux3.13.0-87-generic",
+    "version": "1.0.0"
+  },
+  {
+    "ip": "45.32.22.78",
+    "port": 4096,
+    "state": 2,
+    "os": "linux3.13.0-87-generic",
+    "version": "1.0.0"
+  }
+]
+```
+
+
+#### 4.1.4 获取本机连接的所有节点信息
+命令值： peerstat
+
+返回值： 节点信息，包含节点ip、端口、版本、区块高度等信息
+
+备注：展示节点只是和本机有连接的节点，并不是全网所有的节点
+
+使用方法：asch-cli peerstat
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
+45.32.248.33:4096 1.0.0 106036
+45.32.62.184:4096 1.0.0 106036
+45.32.19.241:4096 1.0.0 106036
+```
+
+#### 4.1.5 全网受托人状态
+命令值： delegatestat
+
+返回值： 受托人信息，包含全网受托人的名字、地址、投票、生产率、区块生成个数、区块高度、id、上一次生成区块的时间等信息
+
+使用方法：asch-cli 
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 delegatestat
+name	address	rate	approval	productivity	produced	height	id	time
+nayimoliuguang	3331976396377269399	93	88.36%	98.39%	1037	105618	12962348710289833740	2016/08/17 21:07:20(1 hour ago)
+jack	3705405381126069457	86	88.36%	99.41%	506	105628	5876778147855073736	2016/08/17 21:09:00(1 hour ago)
+node_3	12796761013870716784	81	88.36%	80.51%	814	105784	4575518649204137595	2016/08/17 21:38:10(40 mins ago)
+wgl_003	9961157415582672274	2	98.65%	99.24%	1047	105852	11175724889329116017	2016/08/17 21:49:40(28 mins ago)
+xihulongjing	12676662200687508271	59	88.36%	76.92%	150	105853	15273855606472618453	2016/08/17 21:49:50(28 mins ago)
+liangpeili	4514546945474752928	50	88.37%	99.68%	627	105855	3771943180359756069	2016/08/17 21:50:10(28 mins ago)
+asch_tea1	8812460086240160222	4	98.58%	98.79%	1059	105857	14968719538781965695	2016/08/17 21:50:30(27 mins ago)
+intmaster	7321911740133937168	97	88.36%	100%	1032	105871	6757656887343300317	2016/08/17 21:52:50(25 mins ago)
+mode_6	9248745407080572308	8	88.48%	100%	1060	105873	3777454410915098884	2016/08/17 21:53:10(25 mins ago)
+```
+
+#### 4.1.6 查看全网节点的ip归属
+命令值： ipstat
+
+返回值： 节点ip归属地
+
+使用方法：asch-cli ipstat
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 ipstat
+美国	US
+美国	US
+美国	US
+日本	JP
+中国	CN
+中国	CN
+中国	CN
+中国	CN
+中国	CN
+中国	CN
+```
+
+#### 4.1.7 创建创世块文件
+命令值： creategenesis [options]
+
+返回值： 在当前目录生成genesisBlock.json创世块文件、genGenesisBlock.log创世块日志
+
+使用方法：asch-cli creategenesis
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 creategenesis 
+root@asch:~# more genesisBlock.json
+{
+  "version": 0,
+  "totalAmount": 10000000000000000,
+  "totalFee": 0,
+  "reward": 0,
+  "payloadHash": "baebdb59d0c19a07c2440e22c0512b4efe9794565b352375195c9e7e8a3817b0",
+  "timestamp": 0,
+  "numberOfTransactions": 103,
+...
+}
+```
+
+### 4.2 账户account
+#### 4.2.1  根据密码查看账户信息
 命令值： openaccount [secret]
 
 返回值： json字符串，含地址、余额、公钥、二级公钥等信息
@@ -232,7 +371,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack alley expand music basket purse later educate follow ride"
 {
   "address": "16723473400748954103",
@@ -247,7 +386,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack al
 }
 ```
 
-### 4.4 根据公钥查看账户信息
+#### 4.2.2 根据公钥查看账户信息
 命令值： openaccountbypublickey [publickey]
 
 返回值： json字符串，含地址、余额、二级公钥等信息
@@ -256,7 +395,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack al
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
 {
   "address": "16723473400748954103",
@@ -270,7 +409,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a1
 }
 ```
 
-### 4.5 根据地址查看账户余额
+#### 4.2.3 根据地址查看账户余额
 命令值： getbalance [address]
 
 返回值： 整型数字，除以100000000后为大家平时所说的余额
@@ -279,12 +418,12 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a1
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 20000000000
 ```
 
-### 4.6 根据地址查看账户信息
+#### 4.2.4 根据地址查看账户信息
 命令值： getaccount [address]
 
 返回值： json字符串，含地址、余额、公钥、二级公钥等信息
@@ -293,7 +432,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 {
   "address": "16723473400748954103",
@@ -308,7 +447,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 }
 ```
 
-### 4.7 查看账户地址投了哪些受托人
+#### 4.2.5 查看账户地址投了哪些受托人
 命令值： getvoteddelegates [options] [address]
 
 返回值： 列表
@@ -317,7 +456,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 15745540293890213312 -o 1 -l 2
 { success: true,
   delegates: 
@@ -341,7 +480,50 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 1574554029389021
        productivity: '99.23' }]
 ```
 
-### 4.8 查看全部受托人个数
+#### 4.2.6 加密相关
+命令值： crypto [操作选项]
+
+返回值： 列表
+
+使用方法：asch-cli -p(根据密码生成公钥)；asch-cli -g（生成新账户）
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g
+? Enter number of accounts to generate 1
+[ { address: '16723473400748954103',
+    secret: 'fault still attack alley expand music basket purse later educate follow ride',
+    publicKey: 'bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9' } ]
+Done
+```
+
+#### 4.2.7 账户锁仓
+命令值： lock [操作选项]  
+返回值： 锁仓交易id 
+使用方法：asch-cli -e "一级密码" -s "二级密码" -h 锁仓高度  
+备注：锁仓后且区块高度未达到锁仓高度，则该账户不能执行如下操作：  
+|交易类型type|备注|  
+|----|----|  
+|0|主链XAS转账|  
+|6|Dapp充值|  
+|7|Dapp提现|  
+|8|存储小文件|  
+|9|发行商注册|  
+|10|资产注册|  
+|13|资发行产|  
+|14|主链uia转账|  
+
+示例:    
+```    
+// 锁仓到高度4340
+password="found knife gather faith wrestle private various fame cover response security predict"
+asch-cli lock -e "$password" -h 4340  
+a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf
+```
+
+### 4.3 受托人delegate
+#### 4.3.1 查看全部受托人个数
 命令值： getdelegatescount
 
 返回值： 整型数字
@@ -350,12 +532,12 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 1574554029389021
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 232
 ```
 
-### 4.9 查看受托人详情并排序
+#### 4.3.2 查看受托人详情并排序
 命令值： getdelegates [options]
 
 返回值： 列表
@@ -364,7 +546,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 [
   {
@@ -384,7 +566,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 ]
 ```
 
-### 4.10 根据受托人公钥查看都是谁为他投了票
+#### 4.3.3 根据受托人公钥查看都是谁为他投了票
 命令值： getvoters [publicKey]
 
 返回值： 列表
@@ -393,7 +575,7 @@ root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"
 [
   {
@@ -410,7 +592,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04
   }]
 ```
   
-### 4.11 根据公钥查看受托人详情
+#### 4.3.4 根据公钥查看受托人详情
 命令值： getdelegatebypublickey [publicKey]
 
 返回值： json字符串，包含受托人名字、地址、投票数、生成的block数、锻造收益等
@@ -419,7 +601,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"
 {
   "username": "wgl_002",
@@ -436,7 +618,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae25655
   "forged": "174083762523"
 }
 ```
-### 4.12 根据名字查看受托人详情
+#### 4.3.5 根据名字查看受托人详情
 命令值： getdelegatebyusername [username]
 
 返回值： json字符串，受托人详情
@@ -445,7 +627,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae25655
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 {
   "username": "wgl_002",
@@ -463,7 +645,50 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 }
 ```
 
-### 4.13 查看(分析)全网区块信息
+#### 4.3.5 注册受托人
+命令值： registerdelegate [options]
+
+返回值： 结果状态值，true或者报错信息
+
+使用方法：asch-cli registerdelegate -e "密码" -s "二级密码" -u "受托人名字"
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 registerdelegate -e "fault still attack alley expand music basket purse later educate follow ride" -u "delegate_register"
+true
+```
+
+#### 4.3.6 给受托人投票 
+命令值： upvote [options] 
+
+返回值： 结果状态值，true或者报错信息
+
+使用方法：asch-cli upvote -e "密码" -s "二级密码" -p "受托人公钥"
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 upvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
+true
+```
+
+#### 4.3.7 给受托人取消投票
+命令值： downvote [options]
+
+返回值： 结果状态值，true或者报错信息
+
+使用方法：asch-cli downvote -e "密码" -s "二级密码" -p "受托人公钥"
+
+示例:
+
+```    
+root@asch:~# asch-cli -H 101.200.162.236 -P 4096 downvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
+true
+```
+
+### 4.4 区块block
+#### 4.4.1 查看(分析)全网区块信息
 命令值： getblocks [options]
 
 返回值： json字符串，包含查询状态、符合查询要求的区块信息
@@ -472,7 +697,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 350000000
 {
   "success": true,
@@ -499,7 +724,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 35000000
   "count": 45350
 }
 ```
-### 4.14 根据区块id查看区块详情
+#### 4.4.2 根据区块id查看区块详情
 命令值： getblockbyid [id]
 
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
@@ -508,7 +733,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 35000000
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 1425942128040906871 #查看创世块
 {
   "id": "1425942128040906871",
@@ -530,7 +755,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 142594212804090687
 }
 ```
 
-### 4.15 根据区块高度查看区块详情
+#### 4.4.3 根据区块高度查看区块详情  
 命令值： getblockbyheight [height]
 
 返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数等信息
@@ -539,7 +764,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 142594212804090687
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
 {
   "id": "1425942128040906871",
@@ -559,38 +784,262 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1
   "confirmations": "105922",
   "totalForged": 0
 }
-```
+```  
 
-### 4.16 查看节点信息
-命令值： getpeers [options] 
+#### 4.4.4 根据区块id查看区块详情-包含交易信息  
+命令值： getfullblockbyid [blockid]
 
-返回值： 列表，包含节点ip、端口、os、asch版本等信息
+返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数、交易详情数组 等信息
 
-使用方法：asch-cli getpeers -o 偏移量数字 -l限制个数数字 -t 状态值 -s 排序 -v 版本 -p 端口 --os os版本 #详情请参考asch-cli getpeers -h帮助信息
+使用方法：asch-cli getfullblockbyid 区块id   
+备注：比getblockbyid返回的结果多交易信息（交易信息数组）  
 
 示例:
 
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2 
-[
-  {
-    "ip": "45.32.62.184",
-    "port": 4096,
-    "state": 2,
-    "os": "linux3.13.0-87-generic",
-    "version": "1.0.0"
-  },
-  {
-    "ip": "45.32.22.78",
-    "port": 4096,
-    "state": 2,
-    "os": "linux3.13.0-87-generic",
-    "version": "1.0.0"
-  }
-]
+```    
+asch-cli getfullblockbyid 61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75",
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",
+  "totalForged": 360000000,
+  "transactions": [ // 该区块包含的交易详情数组
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,  // 交易类型为100代表锁仓
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"  // 锁仓高度
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}  
 ```
 
-### 4.17 根据公钥查看未确认的交易
+#### 4.4.5 根据区块高度查看区块详情-包含交易信息  
+命令值： getfullblockbyheight [blockheight]  
+返回值： json字符串，包含区块id、区块高度、前一个blockid、交易数、总额、费用、奖励、哈希值、区块生成者公钥、id、区块签名、确认数、交易详情数组 等信息  
+使用方法：asch-cli getfullblockbyheight 区块高度  
+备注：比getblockbyheight返回的结果多交易信息（交易信息数组）  
+
+示例:   
+
+```    
+asch-cli getfullblockbyheight 4330  
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75",
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",
+  "totalForged": 360000000,
+  "transactions": [ // 该区块包含的交易详情数组
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,  // 交易类型为100代表锁仓
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"  // 锁仓高度
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}  
+```
+
+#### 4.4.6 验证区块文件字节    
+命令值： getblockbytes [-f block_file]  
+返回值： 区块文件字节，hex格式数据    
+使用方法：asch-cli getblockbytes -f 区块文件   
+备注： 下面这几个命令主要是验证区块文件，通过修改fullblock数据来和区块链上的数据进行对比是否一致  
+
+示例:
+
+```    
+asch-cli getfullblockbyheight 4330 > blockfile
+cat blockfile
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75",
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",
+  "totalForged": 360000000,
+  "transactions": [
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}
+
+asch-cli getblockbytes -f blockfile
+00000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75  
+```
+
+#### 4.4.7 验证区块文件payloadhash  
+命令值： getblockpayloadhash [-f blockfile]  
+
+返回值： 该区块的paylaod hash
+
+使用方法：asch-cli getblockpayloadhash -f 区块文件
+
+示例:
+
+```    
+asch-cli getfullblockbyheight 4330 > blockfile
+
+asch-cli getblockpayloadhash -f blockfile  
+a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf  
+```
+
+#### 4.4.8 验证区块文件区块id  
+命令值： getblockid [-f blockfile]  
+返回值： 该区块文件的blockid  
+使用方法：asch-cli getblockid -f 区块文件  
+
+示例:  
+```    
+asch-cli getfullblockbyheight 4330 > blockfile
+
+asch-cli getblockid -f blockfile  
+61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4 
+```
+
+#### 4.4.8 验证区块签名是否通过    
+命令值： verifybytes [options]   
+返回值： true or false 
+使用方法：asch-cli verifybytes -b 区块hex字节数据 -s 区块签名 -p 区块生成者公钥    
+
+示例:   
+```    
+asch-cli getfullblockbyheight 4330  
+{
+  "id": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "version": 0,
+  "timestamp": 40458800,
+  "height": 4330,
+  "previousBlock": "ddc0bb392da3b1d22ac4e2c50d1a30a7adabe35e221fc0aeb80e3c6aaa509f68",
+  "numberOfTransactions": 1,
+  "totalAmount": 0,
+  "totalFee": 10000000,
+  "reward": 350000000,
+  "payloadLength": 121,
+  "payloadHash": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "generatorPublicKey": "0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75", // 区块生成者公钥  
+  "generatorId": "4354832300657989346",
+  "blockSignature": "6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b",   // 区块签名  
+  "totalForged": 360000000,
+  "transactions": [
+    {
+      "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+      "height": 4330,
+      "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+      "type": 100,
+      "timestamp": 40458794,
+      "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+      "requesterPublicKey": "",
+      "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+      "recipientId": "",
+      "amount": 0,
+      "fee": 10000000,
+      "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+      "signSignature": "",
+      "signatures": null,
+      "args": [
+        "4340"
+      ],
+      "message": "",
+      "asset": {}
+    }
+  ]
+}
+
+asch-cli getblockbytes -f blockfile // 生成区块hex数据  
+00000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75  
+
+asch-cli verifybytes -b 00000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75 -s 6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b -p 0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75
+// 对hex进行签名验证  
+true    // 结果为true
+
+// 将上面的hex数据略做改动则验证不会被通过
+asch-cli verifybytes -b 10000000305a69026464633062623339326461336231643232616334653263353064316133306137616461626533356532323166633061656238306533633661616135303966363801000000000000000000000080969800000000008093dc140000000079000000a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75 -s 6b09f19c21574c065015c026eaba049c25827b7008db071f7ac59e4f50538bbd70301dcf2cd9d3bada77e7a4279740fddb55ec72cce7de886517d74bdc1a0d0b -p 0ae2e3bcd8c959bccc34445a9473eab1bece60300f3aa00d89612923470dee75
+false // 将hex首位改成1则验证不通过  
+```
+
+### 4.5 交易transaction
+#### 4.5.1 根据公钥查看未确认的交易
 命令值： getunconfirmedtransactions [options]
 
 返回值： 列表，包含所有未确认的交易详情
@@ -599,7 +1048,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3" 
 [
   {
@@ -619,7 +1068,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "
 ]
 ```
 
-### 4.18 查看（分析）全网交易信息
+#### 4.5.2 查看（分析）全网交易信息
 命令值： gettransactions [options]
 
 返回值： 列表，包含所有符合查询条件的交易详情
@@ -628,7 +1077,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查看全网前2个交易
 [
   {
@@ -668,7 +1117,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查�
 ]
 ```
 
-### 4.19 根据交易id查看交易详情
+#### 4.5.3 根据交易id查看交易详情
 命令值： gettransaction [id]
 
 返回值： json字符串，包含交易id、区块高度、区块id、时间戳、发送者公钥、接收者地址、金额、费用、签名、确认数、资产等信息
@@ -677,7 +1126,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #查�
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 17192581936339156329
 {
   "id": "17192581936339156329",
@@ -698,7 +1147,7 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 1719258193633915
 }
 ```
 
-### 4.20 转账
+#### 4.5.4 转账
 命令值： sendmoney [选项]
 
 返回值： 结果状态值，true或者报错信息
@@ -707,54 +1156,13 @@ root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 1719258193633915
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 45.32.248.33 -P 4096 sendmoney -e "motion group blossom coral upper warrior pattern fragile sister misery palm admin" -t 16723473400748954103 -a 100
 true
 ```
 
-### 4.21 注册受托人
-命令值： registerdelegate [options]
 
-返回值： 结果状态值，true或者报错信息
-
-使用方法：asch-cli registerdelegate -e "密码" -s "二级密码" -u "受托人名字"
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 registerdelegate -e "fault still attack alley expand music basket purse later educate follow ride" -u "delegate_register"
-true
-```
-
-### 4.22 给受托人投票 
-命令值： upvote [options] 
-
-返回值： 结果状态值，true或者报错信息
-
-使用方法：asch-cli upvote -e "密码" -s "二级密码" -p "受托人公钥"
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 upvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
-true
-```
-
-### 4.23 给受托人取消投票
-命令值： downvote [options]
-
-返回值： 结果状态值，true或者报错信息
-
-使用方法：asch-cli downvote -e "密码" -s "二级密码" -p "受托人公钥"
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 downvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"
-true
-```
-
-### 4.24 设置二级密码
+#### 4.5.5 设置二级密码
 命令值： setsecondsecret [options]
 
 返回值： 结果状态值，true或者报错信息
@@ -763,23 +1171,135 @@ true
 
 示例:
 
-```{r, engine='bash', count_lines}
+```    
 root@asch:~# asch-cli -H 101.200.162.236 -P 4096 setsecondsecret -e "fault still attack alley expand music basket purse later educate follow ride" -s "ce shi er ji mi ma"
 true
 ```
 
-### 4.25 注册dapp
+#### 4.5.6 验证交易文件bytes
+命令值： gettransactionbytes  [-f transaction_file]  
+返回值： 交易bytes，hex格式数据   
+使用方法：asch-cli gettransactionbytes  -f 交易数据文件  
+
+示例:  
+```    
+asch-cli gettransaction a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf > transactionfile
+cat transactionfile
+{
+  "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "height": "4330",
+  "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "type": 100,
+  "timestamp": 40458794,
+  "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+  "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+  "recipientId": "",
+  "amount": 0,
+  "fee": 10000000,
+  "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",
+  "signSignature": "",
+  "signatures": null,
+  "confirmations": "413",
+  "args": [
+    "4340"
+  ],
+  "message": "",
+  "asset": {}
+}
+
+asch-cli gettransactionbytes  -f transactionfile 
+642a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430  
+```
+
+#### 4.5.7 验证交易文件id
+命令值： gettransactionid  [-f transaction_file]  
+返回值： 交易id  
+
+使用方法：asch-cli gettransactionid  -f 交易数据文件  
+
+示例:    
+```    
+asch-cli gettransaction a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf > transactionfile
+
+asch-cli gettransactionid  -f transactionfile
+a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf
+```
+
+#### 4.4.8 验证交易签名是否通过    
+命令值： verifybytes [options]   
+返回值： true or false 
+使用方法：asch-cli verifybytes -b 交易hex字节数据 -s 交易签名 -p 发送者公钥    
+
+示例:   
+```    
+asch-cli gettransaction a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf > transactionfile
+cat transactionfile
+{
+  "id": "a533d303f90e3ca9e685c2bd7088b93ae2ff721eafbea61027b7e353bfc2babf",
+  "height": "4330",
+  "blockId": "61e5c7c17a365e079d536dcf7d23acca30b927434ca474df8ce28547e3abbdc4",
+  "type": 100,
+  "timestamp": 40458794,
+  "senderPublicKey": "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",    // 发送者公钥
+  "senderId": "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+  "recipientId": "",
+  "amount": 0,
+  "fee": 10000000,
+  "signature": "efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a",    // 交易签名  
+  "signSignature": "",
+  "signatures": null,
+  "confirmations": "413",
+  "args": [
+    "4340"
+  ],
+  "message": "",
+  "asset": {}
+}
+
+asch-cli gettransactionbytes  -f transactionfile    // hex格式交易数据
+642a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430  
+
+asch-cli verifybytes -b 642a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430 -s efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a -p 2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4
+// 对hex交易数据进行签名验证  
+true    // 结果为true
+
+// 对hex交易数据略作修改则签名验证不会通过
+asch-cli verifybytes -b 142a5a69022856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec40000000000000000000000000000000034333430 -s efd9a349eb2bc0a022461401c312001a5cd9f4f4f2c1e554e5bda465e19d1f0da7b229b68fbcdda81d85e34c3cd331e968f27cc398908e7acd527d27ae7e230a -p 2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4
+false    // 将hex数据首位修改为1
+
+```
+
+### 4.6 侧链dapp
+#### 4.6.1 注册dapp
 命令值： registerdapp [options]
 
-返回值： 
+返回值： 生成的dapp id
 
 使用方法：asch-cli registerdapp -e "密码" -s "二级密码" -f dapp元信息文件
 
 示例:
+```
+root@asch:~$ asch-cli registerdapp -f dapp.json  -e "found knife gather faith wrestle private various fame cover response security predict"
+d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1
+```
 
+#### 4.6.2 dapp充值
+命令值： deposit [options]
 
+返回值： 充值交易id
 
-### 4.26  合约相关
+使用方法： asch-cli deposit -e "密码" -s "二级密码" -d dappid -c 待充值资产名称 -a 充值数量 
+
+示例:
+```
+dappid=d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1
+password="elite brush pave enable history risk ankle shrimp debate witness ski trend"
+
+asch-cli -H 45.32.22.78 -P 4096 deposit -e "$password" -d $dappid -c "CCTime.XCT" -a "100000000"  // 给dapp充值 1 CCTime.XCT  
+e5684046c87bef58e32ac64ea01a97e8323e6fe695e2dc186ca7ee6a55a9dbf5
+```
+
+#### 4.6.3  智能合约的增删
 命令值： contract [options]
 
 返回值： 
@@ -787,119 +1307,38 @@ true
 使用方法：asch-cli contract -a(创建合约);asch-cli contract -d(删除合约)
 
 示例:
-
-
-
-
-### 4.27 加密相关
-命令值： crypto [操作选项]
-
-返回值： 列表
-
-使用方法：asch-cli -p(根据密码生成公钥)；asch-cli -g（生成新账户）
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g
-? Enter number of accounts to generate 1
-[ { address: '16723473400748954103',
-    secret: 'fault still attack alley expand music basket purse later educate follow ride',
-    publicKey: 'bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9' } ]
-Done
 ```
 
-### 4.28  dapp相关
+```
+
+#### 4.6.4 dapp交易
+命令值： dapptransaction [options]
+
+返回值： dapp交易id
+
+使用方法： asch-cli dapptransaction -e "密码" -d dappid -t 智能合约编号 -a 数据字符串参数 -f 手续费（暂时是固定的10000000）
+
+示例:
+```
+dappid=d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1
+password="elite brush pave enable history risk ankle shrimp debate witness ski trend"
+
+asch-cli -H 45.32.22.78 -P 4096 dapptransaction -e "$password" -d $dappid -t 2 -a '["CCTime.XCT","100000000"]' -f 10000000 // 从dapp里面提现 1 CCTime.XCT  
+24a0b6b08f38882bac2791255e71437c5de4c37b619f5086a0bf32484cd8cf5b
+
+asch-cli -H 45.32.22.78 -P 4096 dapptransaction -e "$password" -d $dappid -t 3 -a '["CCTime.XCT","100000000","ADimyhJa99XFzVrbnTYsCqPB4TKQNdjCWw"]' -f 10000000 // 给ADimyhJa99XFzVrbnTYsCqPB4TKQNdjCWw在dapp内部转账1 CCTime.XCT 
+4a33e538f54b418bc89ac4484f954e51a749a94004aaf15939b4148991fac21c
+
+asch-cli -H 45.32.22.78 -P 4096 dapptransaction -e "$password" -d $dappid -t 4 -a '["zhenxi"]' -f 10000000 // 给该账户设置昵称“zhenxi”
+1234b6b08f38882bac2791255e71437c5de4c37b619f5086a0bf32484cd8cf5b
+```
+
+#### 4.6.5  dapp创建安装相关  
 命令值： dapps [options] 
+返回值：    
+使用方法：asch-cli dapps -a   
+示例   
+```    
 
-返回值： 
-
-使用方法：asch-cli dapps -a 
-示例
-
-### 4.29 创建创世块文件
-命令值： creategenesis [options]
-
-返回值： 在当前目录生成genesisBlock.json创世块文件、genGenesisBlock.log创世块日志
-
-使用方法：asch-cli creategenesis
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 creategenesis 
-root@asch:~# more genesisBlock.json
-{
-  "version": 0,
-  "totalAmount": 10000000000000000,
-  "totalFee": 0,
-  "reward": 0,
-  "payloadHash": "baebdb59d0c19a07c2440e22c0512b4efe9794565b352375195c9e7e8a3817b0",
-  "timestamp": 0,
-  "numberOfTransactions": 103,
-...
-}
-```
-
-### 4.30 全网节点状态
-命令值： peerstat
-
-返回值： 节点信息，包含节点ip、端口、版本、区块高度等信息
-
-使用方法：asch-cli peerstat
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat
-45.32.248.33:4096 1.0.0 106036
-45.32.62.184:4096 1.0.0 106036
-45.32.19.241:4096 1.0.0 106036
-```
-
-### 4.31 全网受托人状态
-命令值： delegatestat
-
-返回值： 受托人信息，包含全网受托人的名字、地址、投票、生产率、区块生成个数、区块高度、id、上一次生成区块的时间等信息
-
-使用方法：asch-cli 
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 delegatestat
-name	address	rate	approval	productivity	produced	height	id	time
-nayimoliuguang	3331976396377269399	93	88.36%	98.39%	1037	105618	12962348710289833740	2016/08/17 21:07:20(1 hour ago)
-jack	3705405381126069457	86	88.36%	99.41%	506	105628	5876778147855073736	2016/08/17 21:09:00(1 hour ago)
-node_3	12796761013870716784	81	88.36%	80.51%	814	105784	4575518649204137595	2016/08/17 21:38:10(40 mins ago)
-wgl_003	9961157415582672274	2	98.65%	99.24%	1047	105852	11175724889329116017	2016/08/17 21:49:40(28 mins ago)
-xihulongjing	12676662200687508271	59	88.36%	76.92%	150	105853	15273855606472618453	2016/08/17 21:49:50(28 mins ago)
-liangpeili	4514546945474752928	50	88.37%	99.68%	627	105855	3771943180359756069	2016/08/17 21:50:10(28 mins ago)
-asch_tea1	8812460086240160222	4	98.58%	98.79%	1059	105857	14968719538781965695	2016/08/17 21:50:30(27 mins ago)
-intmaster	7321911740133937168	97	88.36%	100%	1032	105871	6757656887343300317	2016/08/17 21:52:50(25 mins ago)
-mode_6	9248745407080572308	8	88.48%	100%	1060	105873	3777454410915098884	2016/08/17 21:53:10(25 mins ago)
-```
-
-### 4.32 查看全网节点的ip归属
-命令值： ipstat
-
-返回值： 节点ip归属地
-
-使用方法：asch-cli ipstat
-
-示例:
-
-```{r, engine='bash', count_lines}
-root@asch:~# asch-cli -H 101.200.162.236 -P 4096 ipstat
-美国	US
-美国	US
-美国	US
-日本	JP
-中国	CN
-中国	CN
-中国	CN
-中国	CN
-中国	CN
-中国	CN
 ```
 

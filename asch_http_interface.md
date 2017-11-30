@@ -8,33 +8,36 @@ Table of Contents
          * [<strong>2.1 账户accounts</strong>](#21-账户accounts)
             * [<strong>2.1.1 登录</strong>](#211-登录)
                * [<strong>2.1.1.1 本地加密后再登陆（推荐使用）</strong>](#2111-本地加密后再登陆推荐使用)
-               * [<strong>2.1.1.2 本地不加密直接登陆（不推荐使用）</strong>](#2112-本地不加密直接登陆不推荐使用)
-            * [<strong>2.1.2 获取账户信息</strong>](#212-获取账户信息)
+               * [<strong>2.1.1.2 本地不加密直接登陆</strong>](#2112-本地不加密直接登陆)
+            * [<strong>2.1.2 根据地址获取账户信息</strong>](#212-根据地址获取账户信息)
             * [<strong>2.1.3 获取账户余额</strong>](#213-获取账户余额)
-            * [<strong>2.1.4 获取账户公钥</strong>](#214-获取账户公钥)
+            * [<strong>2.1.4 根据地址获取账户公钥</strong>](#214-根据地址获取账户公钥)
             * [<strong>2.1.5 生成公钥</strong>](#215-生成公钥)
             * [<strong>2.1.6 根据地址获取其投票列表</strong>](#216-根据地址获取其投票列表)
             * [<strong>2.1.7 获取受托人手续费设置</strong>](#217-获取受托人手续费设置)
-            * [<strong>2.1.8 投票</strong>](#218-投票)
-            * [<strong>2.1.9 获取账户排行榜前100名</strong>](#219-获取账户排行榜前100名)
+            * [<strong>2.1.8 给受托人投票</strong>](#218-给受托人投票)
+            * [<strong>2.1.9 生成新账户</strong>](#219-生成新账户)
+            * [<strong>2.1.10 获取账户排行榜前100名</strong>](#2110-获取账户排行榜前100名)
+            * [<strong>2.1.11 获取当前链上账户总个数</strong>](#2111-获取当前链上账户总个数)
          * [<strong>2.2 交易transactions</strong>](#22-交易transactions)
             * [<strong>2.2.1 获取交易信息</strong>](#221-获取交易信息)
-            * [<strong>2.2.2 根据id查看交易详情</strong>](#222-根据id查看交易详情)
+            * [<strong>2.2.2 根据交易id查看交易详情</strong>](#222-根据交易id查看交易详情)
             * [<strong>2.2.3 根据未确认交易id查看详情</strong>](#223-根据未确认交易id查看详情)
             * [<strong>2.2.4 获取[全网所有]未确认的交易详情</strong>](#224-获取全网所有未确认的交易详情)
-            * [<strong>2.2.5 创建交易</strong>](#225-创建交易)
+            * [<strong>2.2.5 创建交易并广播</strong>](#225-创建交易并广播)
          * [<strong>2.3 区块blocks</strong>](#23-区块blocks)
-            * [<strong>2.3.1 获取特定id的区块详情</strong>](#231-获取特定id的区块详情)
-            * [<strong>2.3.2 获取最新的区块</strong>](#232-获取最新的区块)
+            * [<strong>2.3.1 获取指定区块的详情</strong>](#231-获取指定区块的详情)
+            * [<strong>2.3.2 获取区块数据</strong>](#232-获取区块数据)
             * [<strong>2.3.3 获取区块链高度</strong>](#233-获取区块链高度)
-            * [<strong>2.3.4 获取交易手续费</strong>](#234-获取交易手续费)
+            * [<strong>2.3.4 获取普通转账手续费</strong>](#234-获取普通转账手续费)
             * [<strong>2.3.5 获取里程碑</strong>](#235-获取里程碑)
             * [<strong>2.3.6 查看单个区块奖励</strong>](#236-查看单个区块奖励)
-            * [<strong>2.3.7 获取区块链当前最大供应值</strong>](#237-获取区块链当前最大供应值)
+            * [<strong>2.3.7 获取XAS当前供应值</strong>](#237-获取xas当前供应值)
             * [<strong>2.3.8 区块链状态</strong>](#238-区块链状态)
+            * [<strong>2.3.9 获取指定区块的交易信息</strong>](#239-获取指定区块的交易信息)
          * [<strong>2.4 受托人delegates</strong>](#24-受托人delegates)
             * [<strong>2.4.1 获取受托人总个数</strong>](#241-获取受托人总个数)
-            * [<strong>2.4.2 根据公钥查看哪些人为其投了票</strong>](#242-根据公钥查看哪些人为其投了票)
+            * [<strong>2.4.2 根据受托人公钥查看哪些人为其投了票</strong>](#242-根据受托人公钥查看哪些人为其投了票)
             * [<strong>2.4.3 根据公钥或者用户名获取受托人详情</strong>](#243-根据公钥或者用户名获取受托人详情)
             * [<strong>2.4.4 获取受托人列表</strong>](#244-获取受托人列表)
             * [<strong>2.4.5 获取受托人设置的转账费</strong>](#245-获取受托人设置的转账费)
@@ -45,57 +48,69 @@ Table of Contents
             * [<strong>2.4.10 受托人锻造状态查看</strong>](#2410-受托人锻造状态查看)
          * [<strong>2.5 节点peers</strong>](#25-节点peers)
             * [<strong>2.5.1 获取全网节点信息</strong>](#251-获取全网节点信息)
-            * [<strong>2.5.2 获取节点版本信息</strong>](#252-获取节点版本信息)
-            * [<strong>2.5.3 获取特定ip节点信息</strong>](#253-获取特定ip节点信息)
+            * [<strong>2.5.2 获取本节点版本号等信息</strong>](#252-获取本节点版本号等信息)
+            * [<strong>2.5.3 获取指定ip节点信息</strong>](#253-获取指定ip节点信息)
          * [<strong>2.6 同步和加载</strong>](#26-同步和加载)
             * [<strong>2.6.1 查看本地区块链加载状态</strong>](#261-查看本地区块链加载状态)
             * [<strong>2.6.2 查看区块同步信息</strong>](#262-查看区块同步信息)
          * [<strong>2.7 二级密码signatures</strong>](#27-二级密码signatures)
             * [<strong>2.7.1 设置二级密码</strong>](#271-设置二级密码)
-            * [<strong>2.7.2 获取二级密码设置费</strong>](#272-获取二级密码设置费)
+            * [<strong>2.7.2 获取二级密码设置手续费</strong>](#272-获取二级密码设置手续费)
          * [<strong>2.8 多重签名multisignatures</strong>](#28-多重签名multisignatures)
             * [<strong>2.8.1 设置普通账户为多重签名账户</strong>](#281-设置普通账户为多重签名账户)
-            * [<strong>2.8.2 获取挂起的多重签名交易详情</strong>](#282-获取挂起的多重签名交易详情)
+            * [<strong>2.8.2 根据公钥获取挂起的多重签名交易详情</strong>](#282-根据公钥获取挂起的多重签名交易详情)
             * [<strong>2.8.3 非交易发起人对交易进行多重签名</strong>](#283-非交易发起人对交易进行多重签名)
             * [<strong>2.8.4 获取多重签名账户信息</strong>](#284-获取多重签名账户信息)
          * [<strong>2.9 点对点传输tansport[安全的api]</strong>](#29-点对点传输tansport安全的api)
             * [<strong>2.9.1 说明</strong>](#291-说明)
-            * [<strong>2.9.2 交易</strong>](#292-交易)
-               * [<strong>2.9.2.1 设置二级支付密码</strong>](#2921-设置二级支付密码)
+            * [<strong>2.9.2 普通交易</strong>](#292-普通交易)
+               * [<strong>2.9.2.1 设置二级密码</strong>](#2921-设置二级密码)
                * [<strong>2.9.2.2 转账</strong>](#2922-转账)
                * [<strong>2.9.2.3 注册受托人</strong>](#2923-注册受托人)
                * [<strong>2.9.2.4 投票 &amp; 取消投票</strong>](#2924-投票--取消投票)
+               * [<strong>2.9.2.5 账户锁仓</strong>](#2925-账户锁仓)
+            * [<strong>2.9.3 UIA相关交易</strong>](#293-uia相关交易)
+               * [<strong>2.9.3.1 注册资产发行商</strong>](#2931-注册资产发行商)
+               * [<strong>2.9.3.2 注册资产</strong>](#2932-注册资产)
+               * [<strong>2.9.3.3 资产设置acl模式</strong>](#2933-资产设置acl模式)
+               * [<strong>2.9.3.4 更新访问控制列表（acl）</strong>](#2934-更新访问控制列表acl)
+               * [<strong>2.9.3.5 资产发行</strong>](#2935-资产发行)
+               * [<strong>2.9.3.6 资产转账</strong>](#2936-资产转账)
+               * [<strong>2.9.3.7 资产注销</strong>](#2937-资产注销)
+            * [<strong>2.9.4 其它内部通讯安全接口</strong>](#294-其它内部通讯安全接口)
          * [<strong>2.10 用户自定义资产uia</strong>](#210-用户自定义资产uia)
             * [<strong>2.10.1 获取全网所有发行商</strong>](#2101-获取全网所有发行商)
             * [<strong>2.10.2 查询指定发行商的信息</strong>](#2102-查询指定发行商的信息)
             * [<strong>2.10.3 查看指定发行商的资产</strong>](#2103-查看指定发行商的资产)
             * [<strong>2.10.4 获取全网所有资产信息</strong>](#2104-获取全网所有资产信息)
             * [<strong>2.10.5 获取指定资产信息</strong>](#2105-获取指定资产信息)
-            * [<strong>2.10.6 获取某个资产的访问控制列表（acl）</strong>](#2106-获取某个资产的访问控制列表acl)
-            * [<strong>2.10.7 获取指定账户所有资产的余额</strong>](#2107-获取指定账户所有资产的余额)
-            * [<strong>2.10.8 获取指定账户所有资产转账记录</strong>](#2108-获取指定账户所有资产转账记录)
-            * [<strong>2.10.9 创建资产（UIA）交易</strong>](#2109-创建资产uia交易)
-               * [<strong>2.10.9.1 注册资产发行商</strong>](#21091-注册资产发行商)
-               * [<strong>2.10.9.2 注册资产</strong>](#21092-注册资产)
-               * [<strong>2.10.9.3 资产设置acl模式</strong>](#21093-资产设置acl模式)
-               * [<strong>2.10.9.4 更新访问控制列表（acl）</strong>](#21094-更新访问控制列表acl)
-               * [<strong>2.10.9.5 资产发行</strong>](#21095-资产发行)
-               * [<strong>2.10.9.6 资产转账</strong>](#21096-资产转账)
-               * [<strong>2.10.9.7 资产注销</strong>](#21097-资产注销)
-            * [<strong>2.10.10 获取指定账户指定资产的余额</strong>](#21010-获取指定账户指定资产的余额)
-            * [<strong>2.10.11 获取指定账户指定资产转账记录</strong>](#21011-获取指定账户指定资产转账记录)
+            * [<strong>2.10.6 获取指定资产的访问控制列表（acl）</strong>](#2106-获取指定资产的访问控制列表acl)
+            * [<strong>2.10.7 获取指定账户所有uia的余额</strong>](#2107-获取指定账户所有uia的余额)
+            * [<strong>2.10.8 获取指定账户所有资产相关操作记录</strong>](#2108-获取指定账户所有资产相关操作记录)
+            * [<strong>2.10.9 获取指定账户指定资产的余额</strong>](#2109-获取指定账户指定资产的余额)
+            * [<strong>2.10.10 获取指定账户指定资产转账记录</strong>](#21010-获取指定账户指定资产转账记录)
+            * [<strong>2.10.11 获取指定资产转账记录</strong>](#21011-获取指定资产转账记录)
+            * [<strong>2.10.12 资产创建相关</strong>](#21012-资产创建相关)
+               * [<strong>2.10.12.1 注册资产发行商</strong>](#210121-注册资产发行商)
+               * [<strong>2.10.12.2 注册资产</strong>](#210122-注册资产)
+               * [<strong>2.10.12.3 更新资产访问控制列表(acl)</strong>](#210123-更新资产访问控制列表acl)
+               * [<strong>2.10.12.4 资产发行</strong>](#210124-资产发行)
+               * [<strong>2.10.12.5 资产转账</strong>](#210125-资产转账)
+               * [<strong>2.10.12.6 更新黑白名单</strong>](#210126-更新黑白名单)
          * [<strong>2.11 存储storages</strong>](#211-存储storages)
             * [<strong>2.11.1 上传数据</strong>](#2111-上传数据)
                * [<strong>2.11.1.1 上传数据(直接上传)</strong>](#21111-上传数据直接上传)
                * [<strong>2.11.1.2 上传数据(签名后再上传)</strong>](#21112-上传数据签名后再上传)
-            * [<strong>2.11.2 查询存储的数据</strong>](#2112-查询存储的数据)
+            * [<strong>2.11.2 根据交易id查询存储的数据-1</strong>](#2112-根据交易id查询存储的数据-1)
+            * [<strong>2.11.3 根据交易id查询存储的数据-2</strong>](#2113-根据交易id查询存储的数据-2)
       * [<strong>附录1：asch-js安装</strong>](#附录1asch-js安装)
 
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
+
 # ASCH HTTP API文档
 
----   
+
  
 ## **1 API使用说明**   
 ### **1.1 请求过程说明**   
@@ -115,7 +130,7 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 接口地址：/api/accounts/open2/   
 请求方式：post   
 支持格式：json   
-接口备注：公钥需要根据用户提供的密码在在本地用程序生成   
+接口备注：根据用户密码在本地客户端用js代码生成公钥    
 
 请求参数说明：   
 
@@ -146,30 +161,34 @@ JSON返回示例：
 {   
 	"success": true,   
 	"account": {   
-		"address": "16723473400748954103",   
-		"unconfirmedBalance": 19480000000,   
-		"balance": 19480000000,   
+		"address": "16723473400748954103",  //asch地址   
+		"unconfirmedBalance": 19480000000,  //未确认和已确认的余额之和，该值大于等于balance   
+		"balance": 19480000000, //余额   
+		"publicKey": "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9",    //公钥   
 		"unconfirmedSignature": false,   
-		"secondSignature": true,   
-		"secondPublicKey": "edf30942beb74de5ed6368c792af8665e9636f32a5f1c9377bcdc3b252d3f277",   
-		"multisignatures": [],   
-		"u_multisignatures": []   
+		"secondSignature": true,    //二级签名   
+		"secondPublicKey": "edf30942beb74de5ed6368c792af8665e9636f32a5f1c9377bcdc3b252d3f277",  //二级密码公钥   
+		"multisignatures": [],    
+		"u_multisignatures": [],   
+		"lockHeight: ": 0 // 锁仓高度    
 	},   
 	"latestBlock": {   
-		"height": 111923,   
-		"timestamp": 4446270   
+		"height": 114480,   //当前节点最新区块高度     
+		"timestamp": 4471890   
 	},   
 	"version": {   
-		"version": "1.0.0",   
-		"build": "12:11:11 16/08/2016",   
-		"net": "testnet"   
+		"version": "1.0.0",   //当前节点版本号    
+		"build": "12:11:11 16/08/2016", //构建日期   
+		"net": "testnet"    //区块链类型，是主链还是测试链   
 	}   
+}   
 ```   
    
-##### **2.1.1.2 本地不加密直接登陆（不推荐使用）**   
+##### **2.1.1.2 本地不加密直接登陆**   
 接口地址：/api/accounts/open/   
 请求方式：post   
 支持格式：json   
+接口备注：将密码传入到server端，根据生成的地址去查询账户信息。不推荐在公网坏境使用！ 
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -205,7 +224,7 @@ JSON返回示例：
     }   
 }   
 ```   
-#### **2.1.2 获取账户信息**   
+#### **2.1.2 根据地址获取账户信息**   
 接口地址：/api/accounts   
 请求方式：get   
 支持格式：urlencoded   
@@ -221,7 +240,7 @@ JSON返回示例：
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
 |account|json  |账户信息      |    
-|latestBlock|json  |最新的区块信息      |    
+|latestBlock|json  |该节点最新的区块信息      |    
 |version|json  |版本相关信息      |    
    
 请求示例：   
@@ -242,14 +261,15 @@ JSON返回示例：
 		"secondSignature": true,    //二级签名   
 		"secondPublicKey": "edf30942beb74de5ed6368c792af8665e9636f32a5f1c9377bcdc3b252d3f277",  //二级密码公钥   
 		"multisignatures": [],    
-		"u_multisignatures": []   
+		"u_multisignatures": [],   
+		"lockHeight: ": 0 // 锁仓高度    
 	},   
 	"latestBlock": {   
-		"height": 114480,   //区块高度   
+		"height": 114480,   //当前节点最新区块高度     
 		"timestamp": 4471890   
 	},   
 	"version": {   
-		"version": "1.0.0",   
+		"version": "1.0.0",   //当前节点版本号    
 		"build": "12:11:11 16/08/2016", //构建日期   
 		"net": "testnet"    //区块链类型，是主链还是测试链   
 	}   
@@ -288,7 +308,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.1.4 获取账户公钥**   
+#### **2.1.4 根据地址获取账户公钥**   
 接口地址：/api/accounts/getPublickey   
 请求方式：get   
 支持格式：urlencoded   
@@ -422,7 +442,7 @@ JSON返回示例：
 |名称	|类型   |说明              |   
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
-|fee|integer  |手续费设置      |    
+|fee|integer  |手续费      |    
    
    
 请求示例：   
@@ -434,12 +454,12 @@ JSON返回示例：
 ```js   
 {   
 	"success": true,   
-	"fee": 100000000   
+	"fee": 100000000  // 0.1 XAS   
 }   
 ```   
    
    
-#### **2.1.8 投票**   
+#### **2.1.8 给受托人投票**   
 接口地址：/api/accounts/delegates   
 请求方式：put   
 支持格式：json   
@@ -489,7 +509,42 @@ JSON返回示例：
 }  
 ```   
 
-#### **2.1.9 获取账户排行榜前100名**   
+
+#### **2.1.9 生成新账户**   
+接口地址：/api/accounts/new   
+请求方式：get   
+支持格式：无   
+请求参数：无   
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|secret|string  |密码      |    
+|publicKey|string  |公钥      |    
+|privateKey|string  |私钥      |    
+|address|string  |地址      |    
+   
+   
+请求示例：   
+```bash   
+curl -k -X GET 'http://45.32.248.33:4096/api/accounts/new'   
+```   
+   
+JSON返回示例：   
+```js  
+{    
+	success: true,
+	secret: "during crush zoo wealth horror left night upset spike iron divert lawn", // 密码   
+	publicKey: "261fa56f389c324fddbe8777dbc0ef3341ee7b75d1ffdc82192265633b90d503", // 公钥    
+	privateKey: "67c9523b7622704c4bcfe960cb32d7fa04d3eb94e30e7964d3c6a24a3647a0a3261fa56f389c324fddbe8777dbc0ef3341ee7b75d1ffdc82192265633b90d503", // 私钥    
+	address: "ANfXDQUZroMnrQ6vRGR7UXXtbPn3fhEVRJ" // 地址    
+}    
+```    
+
+
+#### **2.1.10 获取账户排行榜前100名**   
 接口地址：/api/accounts/top   
 请求方式：get   
 支持格式：无   
@@ -544,6 +599,34 @@ JSON返回示例：
 	}
 }    
 ```   
+
+
+#### **2.1.11 获取当前链上账户总个数**   
+接口地址：/api/accounts/count   
+请求方式：get   
+支持格式：无   
+请求参数：无    
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|count|integer  |当前链上账户总个数     |    
+   
+   
+请求示例：   
+```bash   
+curl -k -X GET 'http://45.32.248.33:4096/api/accounts/count'    
+```   
+   
+JSON返回示例：   
+```js   
+{
+	success: true,
+	count: 105
+}
+```    
    
    
 ### **2.2 交易transactions**   
@@ -556,6 +639,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |   
 |------ |-----  |---  |----              |   
+|and|integer|N|取值范围0和1，默认值0。select查询时下面这些条件都是or的关系，and=1时select是and的关系  | 
 |blockId |string |N    |区块id      |   
 |limit |integer |N    |限制结果集个数，最小值：0,最大值：100   |   
 |type|integer  |N      |交易类型,0:普通转账，1:设置二级密码，2:注册受托人，3:投票，4:多重签名，5:DAPP，6:IN_TRANSFER，7:OUT_TRANSFER      |   
@@ -563,11 +647,13 @@ JSON返回示例：
 |offset|integer  |N      |偏移量，最小值0  |   
 |senderPublicKey|string|N|发送者公钥|   
 |ownerPublicKey|string|N||   
-|ownerAddress|string|N||   
+ ownerAddress|string|N||   
 |senderId|string|N|发送者地址|   
 |recipientId|string|N|接收者地址,最小长度：1|   
 |amount|integer|N|金额|   
 |fee|integer|N|手续费|   
+|uia|integer|N|是否uia，0：不是，1：是|   
+|currency|string|N|资产名|   
    
 返回参数说明：   
 
@@ -646,7 +732,7 @@ JSON返回示例：
 	"count": 3   
 }   
 ```   
-#### **2.2.2 根据id查看交易详情**   
+#### **2.2.2 根据交易id查看交易详情**   
 接口地址：/api/transactions/get   
 请求方式：get   
 支持格式：urlencoded   
@@ -674,20 +760,20 @@ JSON返回示例：
 {   
 	"success": true,   
 	"transaction": {   
-		"id": "14093929199102906687",   
-		"height": "105460",   
-		"blockId": "2237504897174225512",   
-		"type": 0,   
-		"timestamp": 4380024,   
-		"senderPublicKey": "fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575",   
-		"senderId": "16358246403719868041",   
-		"recipientId": "16723473400748954103",   
-		"amount": 10000000000,   
-		"fee": 10000000,   
+		"id": "14093929199102906687", // 交易id  
+		"height": "105460",// 该交易所在区块高度   
+		"blockId": "2237504897174225512",// 所在区块id   
+		"type": 0,// 交易类型，0：普通XAS转账   
+		"timestamp": 4380024,// 距离阿希创世块的timestamp   
+		"senderPublicKey": "fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575", // 发送者公钥   
+		"senderId": "16358246403719868041",// 发送者地址   
+		"recipientId": "16723473400748954103",// 接收者地址   
+		"amount": 10000000000,// 交易额，100XAS   
+		"fee": 10000000, // 手续费0.1XAS  
 		"signature": "73ceddc3cbe5103fbdd9eee12f7e4d9a125a3bcf2e7cd04282b7329719735aeb36936762f17d842fb14813fa8f857b8144040e5117dffcfc7e2ae88e36440a0f",   
 		"signSignature": "",   
 		"signatures": null,   
-		"confirmations": "34268",   
+		"confirmations": "34268",// 确认数   
 		"asset": {   
 		}   
 	}   
@@ -714,7 +800,7 @@ JSON返回示例：
    
 请求示例：   
 ```bash   
-curl -k -X GET http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=7557072430673853692  //正常情况，该未确认交易存在时间极短0~10秒   
+curl -k -X GET http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=7557072430673853692  // 正常情况，该未确认交易存在时间极短0~10秒   
 ```   
    
 JSON返回示例：   
@@ -774,7 +860,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.2.5 创建交易**   
+#### **2.2.5 创建交易并广播**   
 接口地址：/api/transactions   
 请求方式：PUT   
 支持格式：json   
@@ -812,7 +898,7 @@ JSON返回示例：
 ```  
    
 ### **2.3 区块blocks**   
-#### **2.3.1 获取特定id的区块详情**   
+#### **2.3.1 获取指定区块的详情**   
 接口地址：/api/blocks/get   
 请求方式：get   
 支持格式：urlencoded   
@@ -862,7 +948,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.3.2 获取最新的区块**   
+#### **2.3.2 获取区块数据**   
 接口地址：/api/blocks   
 请求方式：get   
 支持格式：urlencoded   
@@ -962,7 +1048,7 @@ JSON返回示例：
 {"success":true,"height":140569}   
 ```   
    
-#### **2.3.4 获取交易手续费**   
+#### **2.3.4 获取普通转账手续费**   
 接口地址：/api/blocks/getFee   
 请求方式：get   
 支持格式：无   
@@ -1020,7 +1106,7 @@ JSON返回示例：
 |名称	|类型   |说明              |   
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
-|reward|integer  |区块奖励      |    
+|reward|integer  |区块奖励，包含受托人奖励和手续费      |    
    
    
 请求示例：   
@@ -1033,7 +1119,7 @@ JSON返回示例：
 {"success":true,"reward":350000000} //每个生成一个block奖励3.5 XAS   
 ```   
    
-#### **2.3.7 获取区块链当前最大供应值**   
+#### **2.3.7 获取XAS当前供应值**   
 接口地址：/api/blocks/getSupply   
 请求方式：get   
 支持格式：无   
@@ -1092,6 +1178,77 @@ JSON返回示例：
 }   
 ```   
    
+
+#### **2.3.9 获取指定区块的交易信息**   
+接口地址：/api/blocks/full   
+请求方式：get   
+支持格式：无   
+请求参数说明：无  
+ 
+   
+请求参数说明：
+
+|名称	|类型   |必填    |说明              |
+|------ |-----  |----   |----           |
+|id |string |参数2选1    |区块id      |
+|height|string|参数2选1|区块高度|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据 |    
+|block|json  |区块详情，包含交易信息transactions      |   
+   
+请求示例：   
+```bash   
+curl -k -X GET 'http://45.32.248.33:4096/api/blocks/full?height=2392'   
+```   
+   
+JSON返回示例：   
+```js   
+{    
+	success: true,    
+	block: {    
+		id: "99773e6fc4feddc2d876427701ce2b52aabfefc8b54a5a8560ed237acb1c9565",    
+		version: 0,    
+		timestamp: 39605950,    
+		height: 2392,    
+		previousBlock: "436ca0351028854792ca63862e01b5285b017dd40bc8748a97c1de034e97817f",    
+		numberOfTransactions: 1,    
+		totalAmount: 100000000,    
+		totalFee: 10000000,    
+		reward: 350000000,    
+		payloadLength: 117,    
+		payloadHash: "07af33c345f733e5224877b290888db2faab26e779e784881fadb086148335f1",    
+		generatorPublicKey: "1b36e7183125e3de33a4d778c5a705d4e6180e426b15f4737b18d1e09c150a42",    
+		generatorId: "8280768395963849562",    
+		blockSignature: "59b292c97e68f8a0fc311c0894e79e1fe23613b2387f42e389e0b5f4aba61847fb13feb8153578b3eb37d6249c13347001cce9c4d06ae521b6c8cefedb829804",    
+		totalForged: 360000000,    
+		transactions: [{    // 该区块包含的交易信息数组
+			id: "07af33c345f733e5224877b290888db2faab26e779e784881fadb086148335f1",    
+			height: 2392,    
+			blockId: "99773e6fc4feddc2d876427701ce2b52aabfefc8b54a5a8560ed237acb1c9565",    
+			type: 0,    
+			timestamp: 39605935,    
+			senderPublicKey: "8065a105c785a08757727fded3a06f8f312e73ad40f1f3502e0232ea42e67efd",    
+			requesterPublicKey: "",    
+			senderId: "14762548536863074694",    
+			recipientId: "1",    
+			amount: 100000000,    
+			fee: 10000000,    
+			signature: "72b72b3db7eb86436a32bff72f19f89fffc51e10f73ca19536968e70d34c38efd24e96ce43e5d4981a23b07849c9baa20263aeadd9dbbbad233c3efa2fa97100",    
+			signSignature: "",    
+			signatures: null,    
+			args: null,    
+			message: "",    
+			asset: {    
+				    
+			}    
+		}]    
+	}    
+}     
+``` 
    
    
 ### **2.4 受托人delegates**   
@@ -1103,7 +1260,7 @@ JSON返回示例：
 请求参数说明：无   
    
 返回参数说明：   
-
+    
 |名称	|类型   |说明              |   
 |------ |-----  |----              |   
 |success|boole  |是否成功获得response数据 |    
@@ -1116,10 +1273,13 @@ curl -k -X GET 'http://45.32.248.33:4096/api/delegates/count'
    
 JSON返回示例：   
 ```js   
-{"success":true,"count":234}   
+{    
+	"success": true,    
+	"count": 234    
+}     
 ```   
    
-#### **2.4.2 根据公钥查看哪些人为其投了票**   
+#### **2.4.2 根据受托人公钥查看哪些人为其投了票**   
 接口地址：/api/delegates/voters   
 请求方式：get   
 支持格式：urlencoded   
@@ -1168,7 +1328,7 @@ JSON返回示例：
 ```   
    
 #### **2.4.3 根据公钥或者用户名获取受托人详情**   
-接口地址： /api/delegates/get/   
+接口地址： /api/delegates/get   
 请求方式：get   
 支持格式：urlencoded   
 接口备注：通过公钥或者用户名获取受托人信息   
@@ -1278,10 +1438,6 @@ JSON返回示例：
 	"totalCount": 233   
 }   
 ```   
-   
-   
-   
-   
    
    
 #### **2.4.5 获取受托人设置的转账费**   
@@ -1401,7 +1557,7 @@ JSON返回示例：
 #### **2.4.8 受托人开启锻造**   
 接口地址：/api/delegates/forging/enable   
 请求方式：post   
-支持格式：urlencoded   //url必须是受托人所在服务器  
+支持格式：urlencoded   // url必须是受托人所在服务器  
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -1431,7 +1587,7 @@ JSON返回示例：
 #### **2.4.9 受托人关闭锻造**   
 接口地址：/api/delegates/forging/disable   
 请求方式：post   
-支持格式：urlencoded   //url必须是受托人所在服务器  
+支持格式：urlencoded   // url必须是受托人所在服务器  
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -1489,10 +1645,11 @@ JSON返回示例：
    
 ### **2.5 节点peers**   
    
-#### **2.5.1 获取全网节点信息**   
+#### **2.5.1 获取本机连接的所有节点信息**   
 接口地址：/api/peers   
 请求方式：get   
 支持格式：urlencoded   
+备注：展示节点只是和本机有连接的节点，并不是全网所有的节点    
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -1535,7 +1692,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.5.2 获取节点版本信息**   
+#### **2.5.2 获取本节点版本号等信息**   
 接口地址：/api/peers/version   
 请求方式：get   
 支持格式：无   
@@ -1566,7 +1723,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.5.3 获取特定ip节点信息**   
+#### **2.5.3 获取指定ip节点信息**   
 接口地址：/api/peers/get   
 请求方式：get   
 支持格式：urlencoded   
@@ -1599,6 +1756,7 @@ JSON返回示例：
 	}   
 }   
 ```   
+   
    
 ### **2.6 同步和加载**   
 #### **2.6.1 查看本地区块链加载状态**   
@@ -1709,7 +1867,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.7.2 获取二级密码设置费**   
+#### **2.7.2 获取二级密码设置手续费**   
 接口地址：/api/signatures/fee   
 请求方式：get   
 支持格式：无   
@@ -1736,6 +1894,7 @@ JSON返回示例：
 	"fee": 500000000         //5 XAS   
 }     
 ```   
+   
    
 ### **2.8 多重签名multisignatures**   
 #### **2.8.1 设置普通账户为多重签名账户**   
@@ -1777,7 +1936,7 @@ JSON返回示例：
 }   
 ```   
    
-#### **2.8.2 获取挂起的多重签名交易详情**   
+#### **2.8.2 根据公钥获取挂起的多重签名交易详情**   
 接口地址：/api/multisignatures/pending   
 请求方式：get   
 支持格式：urlencoded   
@@ -1985,10 +2144,10 @@ JSON返回示例：
 #### **2.9.1 说明**   
 /peer相关的api，在请求时都需要设置一个header  
 
- - key为magic，value为594fe0f3  
+ - key为magic，testnet value:594fe0f3, mainnet value:5f5b3cf5  
  - key为version，value为''  
 
-#### **2.9.2 交易**   
+#### **2.9.2 普通交易**   
 asch系统的所有写操作都是通过发起一个交易来完成的。 
 交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去
 
@@ -1998,7 +2157,7 @@ payload为asch-js创建出来的交易数据
 请求方式：post   
 支持格式：json  
 
-##### **2.9.2.1 设置二级支付密码**   
+##### **2.9.2.1 设置二级密码**   
 请求参数说明： 
 
 |名称	|类型   |必填 |说明              |   
@@ -2014,8 +2173,10 @@ payload为asch-js创建出来的交易数据
    
 请求示例：   
 ```js   
-var asch = require('asch-js');    
-var transaction = asch.signature.createSignature('measure bottom stock hospital calm hurdle come banner high edge foster cram','erjimimashezhi001')       
+var asch = require('asch-js');  
+var password = 'measure bottom stock hospital calm hurdle come banner high edge foster cram';  
+var secondPassword  = 'erjimimashezhi001';  
+var transaction = asch.signature.createSignature(password,secondPassword);       
 console.log(JSON.stringify(transaction))  
 {"type":1,"amount":0,"fee":500000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5328943,"asset":{"signature":{"publicKey":"27116db89cb5a8c02fb559712e0eabdc298480d3c79a089b803e35bc5ef7bb7b"}},"signature":"71ef98b1600f22f3b18cfcf17599db3c40727c230db817f610e86454b62df4fb830211737ff0c03c6a61ecfd4a9fcb68a30b2874060bb33b87766acf800e820a","id":"15605591820551652547"}   
 
@@ -2049,8 +2210,8 @@ JSON返回示例：
 var asch = require('asch-js');   
 var targetAddress = "16358246403719868041";  
 var amount = 100*100000000;   //100 XAS
-var password = 'measure bottom stock hospital calm hurdle come banner high edge foster cram';
-var secondPassword  = 'erjimimashezhi001';
+var password = 'measure bottom stock hospital calm hurdle come banner high edge foster cram';  
+var secondPassword  = 'erjimimashezhi001';  
 var message = ''; // 转账备注
 
 // 其中password是在用户登录的时候记录下来的，secondPassword需要每次让用户输入
@@ -2147,6 +2308,336 @@ JSON返回示例：
     "success":true  //投票&取消投票 成功
 }		
 ``` 
+
+##### **2.9.2.5 账户锁仓**  
+备注：锁仓后且区块高度未达到锁仓高度，则该账户不能执行如下操作：
+
+|交易类型type|备注|
+|----|----|
+|0|主链XAS转账|
+|6|Dapp充值|
+|7|Dapp提现|
+|8|存储小文件|
+|9|发行商注册|
+|10|资产注册|
+|13|资发行产|
+|14|主链uia转账|
+
+请求参数说明：  
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|asch-js.transaction.createLock生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+|transactionId|string|交易id|
+   
+   
+请求示例：   
+```js   
+var asch = require('asch-js');   
+var height = 3500;  // 锁仓高度
+var password = 'found knife gather faith wrestle private various fame cover response security predict';
+var secondPassword  = '';
+
+
+// 其中password是在用户登录的时候记录下来的，secondPassword需要每次让用户输入
+// 可以通过user.secondPublicKey来判断用户是否有二级密码，如果没有，则不必输入，以下几个交易类型类似
+var transaction = asch.transaction.createLock(height, password, secondPassword || undefined);       
+JSON.stringify(transaction)
+'{"type":100,"amount":0,"fee":10000000,"recipientId":null,"args":["3500"],"timestamp":39615653,"asset":{},"senderPublicKey":"2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4","signature":"46770ea4ba48ebb0abbaae95b7931dd9f6cc0d178ff22ec50b9e97f3f31126b8d0c9c47f7d2e4479124530f7d36d9e1aac72da598330cda3b7404cd48fb10e0c","id":"b71187f59e2a7f6dd68f18b4ddd0bb87f20394473f0388952f0ceedf49596811"}'
+
+// 将上面生成的转账操作的交易数据通过post提交给asch server
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":100,"amount":0,"fee":10000000,"recipientId":null,"args":["3500"],"timestamp":39615653,"asset":{},"senderPublicKey":"2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4","signature":"46770ea4ba48ebb0abbaae95b7931dd9f6cc0d178ff22ec50b9e97f3f31126b8d0c9c47f7d2e4479124530f7d36d9e1aac72da598330cda3b7404cd48fb10e0c","id":"b71187f59e2a7f6dd68f18b4ddd0bb87f20394473f0388952f0ceedf49596811"}}' http://localhost:4096/peer/transactions && echo 
+```   
+   
+JSON返回示例：   
+```js  
+{
+    "success":true,  // 锁仓成功
+    "transactionId":"b71187f59e2a7f6dd68f18b4ddd0bb87f20394473f0388952f0ceedf49596811"
+}		
+``` 
+
+#### **2.9.3 UIA相关交易** 
+asch系统的所有写操作都是通过发起一个交易来完成的。 
+交易数据通过一个叫做asch-js的库来构建，然后再通过一个POST接口发布出去。
+
+POST接口规格如下：
+payload为asch-js创建出来的交易数据
+接口地址：/peer/transactions  
+请求方式：post   
+支持格式：json  
+公用变量：
+```
+var AschJS = require('asch-js');
+// 一级密码
+var secret = 'motion group blossom coral upper warrior pattern fragile sister misery palm detect'
+// 二级密码
+var secondSecret = 'erjimima001'
+```
+
+##### **2.9.3.1 注册资产发行商**
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createIssuer根据发行商名字、描述、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+// 发行商名称,唯一标识
+var name = 'IssuerName'
+// 发行商描述
+var desc = 'IssuerDesc'
+// 构造交易数据
+var trs = AschJS.uia.createIssuer(name, desc, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":9,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19395607,"asset":{"uiaIssuer":{"name":"IssuerName","desc":"IssuerDesc"}},"signature":"c6ed2a4bafe2b8aa31f4aaceacc2a96cb028abbabb2ed062937498c58e24ca5467a340ddd63b67f809a680ff91b83e685c64991eb695494ddb2fdc57e5761607","signSignature":"8eceacbd47c2b8ed335145ced19d7a3a51f99bdd6631d16ed214180c6f80e29bd6d572f45e7c7d685584e55cb5c303cf340406553ece28c9c0a2fa7a777aac0b"}
+
+// 将生成的交易数据通过post发送给server，注册资产发行商IssuerName
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":9,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19395607,"asset":{"uiaIssuer":{"name":"IssuerName","desc":"IssuerDesc"}},"signature":"c6ed2a4bafe2b8aa31f4aaceacc2a96cb028abbabb2ed062937498c58e24ca5467a340ddd63b67f809a680ff91b83e685c64991eb695494ddb2fdc57e5761607","signSignature":"8eceacbd47c2b8ed335145ced19d7a3a51f99bdd6631d16ed214180c6f80e29bd6d572f45e7c7d685584e55cb5c303cf340406553ece28c9c0a2fa7a777aac0b"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}		
+```
+
+##### **2.9.3.2 注册资产** 
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createAsset根据资产名字、描述、上限、精度、策略、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+// 资产名称，发行商名.资产名，唯一标识
+var name = 'IssuerName.CNY'
+var desc = '资产描述'
+// 上限
+var maximum = '1000000'
+// 精度，小数点的位数，这里上限是1000000，精度为3，代表资产IssuerName.CNY的最大发行量为1000.000
+var precision = 3
+// 策略
+var strategy = ''
+// 构造交易数据
+var trs = AschJS.uia.createAsset(name, desc, maximum  , precision, strategy, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":10,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19397444,"asset":{"uiaAsset":{"name":"IssuerName.CNY","desc":"资产描述","maximum":"1000000","precision":3,"strategy":""}},"signature":"c755587d331dd2eb62ef91dce1511d83a3e603c7cdc7548a16052519c21ea89c78364e35e5d46da0e2103fa2fb7f037eec55a5deba18826fa13e4252422d750e","signSignature":"1b7ed4c21c477b8ff3d2acfdfd7ff85617093f4c21de70938c46b61c9704b037dbcf7f9e5f5dd1a5dc8f22cf473aaa459e6e5b15ced388b8a1da1e307987a509"}
+
+// 将生成的交易数据通过post发送给server，注册资产IssuerName.CNY
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":10,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19397444,"asset":{"uiaAsset":{"name":"IssuerName.CNY","desc":"资产描述","maximum":"1000000","precision":3,"strategy":""}},"signature":"c755587d331dd2eb62ef91dce1511d83a3e603c7cdc7548a16052519c21ea89c78364e35e5d46da0e2103fa2fb7f037eec55a5deba18826fa13e4252422d750e","signSignature":"1b7ed4c21c477b8ff3d2acfdfd7ff85617093f4c21de70938c46b61c9704b037dbcf7f9e5f5dd1a5dc8f22cf473aaa459e6e5b15ced388b8a1da1e307987a509"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}		
+```
+
+##### **2.9.3.3 资产设置acl模式** 
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createFlags根据资产名、流通状态、黑白名单模式、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+var currency = 'IssuerName.CNY'
+// 资产是否注销，1：流通，2：注销
+var flagType = 1
+// 访问控制列表的类型，0：黑名单， 1：白名单，资产创建后默认为黑名单模式
+var flag = 1
+var trs = AschJS.uia.createFlags(currency, flagType, flag, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19400996,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":1,"flag":1}},"signature":"b96fb3d1456e1f26357109cc24d82834eb9a4687f29e69c374bbb1d534568336e148cac52f213aa4d2a69185092f8e1143b49ec4b8048cd9b3af4e20f6ba0b08","signSignature":"b37c77ebebe90341346be2aefe1e12bd7403e5d8f4d6e8f04630190b3e09494a28820da0ffd5f9ff011033aa6d70fc9bb4c159a4493be3b18fd7ff470103570d"}
+
+// 将生成的交易数据通过post发送给server，将acl改为白名单模式
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19400996,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":1,"flag":1}},"signature":"b96fb3d1456e1f26357109cc24d82834eb9a4687f29e69c374bbb1d534568336e148cac52f213aa4d2a69185092f8e1143b49ec4b8048cd9b3af4e20f6ba0b08","signSignature":"b37c77ebebe90341346be2aefe1e12bd7403e5d8f4d6e8f04630190b3e09494a28820da0ffd5f9ff011033aa6d70fc9bb4c159a4493be3b18fd7ff470103570d"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}		
+```
+
+##### **2.9.3.4 更新访问控制列表（acl）** 
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createAcl根据资产名字、列表操作方法、黑名单还是白名单、地址列表、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+var currency = 'IssuerName.CNY'
+// '+'表示增加列表， ‘-’表示删除列表
+var operator = '+'
+var list = ['15745540293890213312']
+// 访问控制列表的类型，0：黑名单， 1：白名单
+var flag =1
+var trs = AschJS.uia.createAcl(currency, operator, flag, list, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":12,"amount":0,"fee":20000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19403125,"asset":{"uiaAcl":{"currency":"IssuerName.CNY","operator":"+","flag":1,"list":["15745540293890213312"]}},"signature":"ad4060e04c1a12256de114e34499f8add24326753f1f8362991ee14aefc4c0fe90ff394d2db97e83770855a5688d463de00656fdd2d04604605cf3c04fdaca0e","signSignature":"63129c58b1b9fcce88cbe829f3104a10ab06037253e9b65feb50ce0d2bb988533b93e8edcad016a85675f9027758fc318cf899ca7ef161a95a8d8a055ae83a02"}
+
+// 将生成的交易数据通过post发送给server，把地址列表['15745540293890213312']增加到该白名单中，只修改名单列表，不修改acl模式，手续费0.2XAS
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":12,"amount":0,"fee":20000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19403125,"asset":{"uiaAcl":{"currency":"IssuerName.CNY","operator":"+","flag":1,"list":["15745540293890213312"]}},"signature":"ad4060e04c1a12256de114e34499f8add24326753f1f8362991ee14aefc4c0fe90ff394d2db97e83770855a5688d463de00656fdd2d04604605cf3c04fdaca0e","signSignature":"63129c58b1b9fcce88cbe829f3104a10ab06037253e9b65feb50ce0d2bb988533b93e8edcad016a85675f9027758fc318cf899ca7ef161a95a8d8a055ae83a02"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}
+// 查询更新后的列表（acl/1代表白名单）
+curl -X GET -H "Content-Type: application/json" 'http://localhost:4096/api/uia/assets/IssuerName.CNY/acl/1?limit=10&offset=0' && echo
+{
+	"success": true,
+	"list": [{
+		"address": "15745540293890213312"
+	}],
+	"count": 1
+}
+```
+
+
+##### **2.9.3.5 资产发行** 
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createIssuer根据发行商名字、描述、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+var currency = 'IssuerName.CNY'
+// 本次发行量=真实数量（100）*10**精度（3），所有发行量之和需 <= 上限*精度
+var amount = '100000'
+var trs = AschJS.uia.createIssue(currency, amount, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":13,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19475744,"asset":{"uiaIssue":{"currency":"IssuerName.CNY","amount":"100000"}},"signature":"32b01a18eca2b0dc7e2ce77ba4e758eaae2532f60844760a762cc20918e7439ac6ca585b921db6ede833ed0bf1c62e30cec545a928abafe0b679183a6ad02202","signSignature":"4fc290d7d7d788e9112a56233df0fe796cba39be3efa0cebf00cbc7e5bc5fd1369fad49e5698d967845b5c02e427926049cab25845d4d385e4a395791906f909"}
+
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":13,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19475744,"asset":{"uiaIssue":{"currency":"IssuerName.CNY","amount":"100000"}},"signature":"32b01a18eca2b0dc7e2ce77ba4e758eaae2532f60844760a762cc20918e7439ac6ca585b921db6ede833ed0bf1c62e30cec545a928abafe0b679183a6ad02202","signSignature":"4fc290d7d7d788e9112a56233df0fe796cba39be3efa0cebf00cbc7e5bc5fd1369fad49e5698d967845b5c02e427926049cab25845d4d385e4a395791906f909"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}			
+```
+
+##### **2.9.3.6 资产转账** 
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createTransfer根据资产名字、数量、接收者地址、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+var currency = 'IssuerName.CNY'
+// 本次转账数（10000）=真实数量（10）*10**精度（3），需 <= 当前资产发行总量
+var amount = '10000'
+// 接收地址，需满足前文定义好的acl规则
+var recipientId = 'AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a'
+var trs = AschJS.uia.createTransfer(currency, amount, recipientId, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":14,"amount":0,"fee":10000000,"recipientId":"AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a","senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19481489,"asset":{"uiaTransfer":{"currency":"IssuerName.CNY","amount":"10000"}},"signature":"77789071a2ad6d407b9d1e0d654a9deb6d85340a3d2a13d786030e26ac773b4e9b5f052589958d2b8553ae5fc9449496946b5c225e0baa723e7ddecbd89f060a","signSignature":"f0d4a000aae3dd3fa48a92f792d4318e41e3b56cdbaf98649261ae34490652b87645326a432d5deb69f771c133ee4b67d2d22789197be34249e6f7f0c30c1705"}
+
+// 给AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a发送10.000 IssuerName.CNY资产
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":14,"amount":0,"fee":10000000,"recipientId":"AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a","senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19481489,"asset":{"uiaTransfer":{"currency":"IssuerName.CNY","amount":"10000"}},"signature":"77789071a2ad6d407b9d1e0d654a9deb6d85340a3d2a13d786030e26ac773b4e9b5f052589958d2b8553ae5fc9449496946b5c225e0baa723e7ddecbd89f060a","signSignature":"f0d4a000aae3dd3fa48a92f792d4318e41e3b56cdbaf98649261ae34490652b87645326a432d5deb69f771c133ee4b67d2d22789197be34249e6f7f0c30c1705"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}		
+```
+ 
+##### **2.9.3.7 资产注销** 
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|transaction|json|Y|AschJS.uia.createFlags根据资产名字、注销状态、黑白名单模式、一级密码、二级密码生成的交易数据|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+
+   
+请求示例：   
+```js   
+var currency = 'IssuerName.CNY'
+// flagType为资产是否注销，1：流通，2：注销
+var flagType = 2
+// flag为黑、白名单模式
+var flag =1
+var trs = AschJS.uia.createFlags(currency, flagType, flag, secret, secondSecret)
+console.log(JSON.stringify(trs))
+{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19488690,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":2,"flag":1}},"signature":"cbd656552417604704703e1236ec2bbed8eba6a2ccfcb54cc0b2d629c0a9d1335a264fc9f6dee1705f4a86c36a5ce2ba8e039d913a189b7c273c8ac0d9e3780c","signSignature":"3c7b91d03efeed2dc86e1f2301da60789751c1be8850460d8c66c0ae8f55ea27d26f0bc79541d74b4777d9b85c518c1c73c0284dbf3e826db0a686560e57a80b"}
+
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19488690,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":2,"flag":1}},"signature":"cbd656552417604704703e1236ec2bbed8eba6a2ccfcb54cc0b2d629c0a9d1335a264fc9f6dee1705f4a86c36a5ce2ba8e039d913a189b7c273c8ac0d9e3780c","signSignature":"3c7b91d03efeed2dc86e1f2301da60789751c1be8850460d8c66c0ae8f55ea27d26f0bc79541d74b4777d9b85c518c1c73c0284dbf3e826db0a686560e57a80b"}}' 'http://localhost:4096/peer/transactions' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{"success":true}		
+```  
+
+
+#### **2.9.4 其它内部通讯安全接口**  
+get /peer/list  //查找dapp peer   
+get /peer/blocks/common //查找common block   
+...    
+
+
 
 ### **2.10 用户自定义资产uia**  
 #### **2.10.1 获取全网所有发行商**  
@@ -2376,7 +2867,7 @@ JSON返回示例：
 }		
 ``` 
 
-#### **2.10.6 获取某个资产的访问控制列表（acl）** 
+#### **2.10.6 获取指定资产的访问控制列表（acl）** 
 接口地址：/api/uia/assets/:name/acl/flag  
 请求方式：get   
 支持格式：urlencoded 
@@ -2419,7 +2910,7 @@ JSON返回示例：
 }		
 ``` 
 
-#### **2.10.7 获取指定账户所有资产的余额** 
+#### **2.10.7 获取指定账户所有uia的余额** 
 接口地址：/api/uia/balances/:address  
 请求方式：get   
 支持格式：urlencoded 
@@ -2469,10 +2960,11 @@ JSON返回示例：
 }		
 ```
 
-#### **2.10.8 获取指定账户所有资产转账记录** 
-接口地址：/api/uia/transactions/:address  
+#### **2.10.8 获取指定账户所有资产相关操作记录** 
+接口地址：/api/uia/transactions/my/:address  
 请求方式：get   
-支持格式：urlencoded 
+支持格式：urlencoded  
+备注：包含发行商创建以及资产创建、发行、转账等  
 
 请求参数说明：
 
@@ -2492,7 +2984,7 @@ JSON返回示例：
    
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/transactions/16358246403719868041?offset=0&limit=2' && echo
+curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/my/transactions/16358246403719868041?offset=0&limit=2' && echo
 ```   
    
 JSON返回示例：   
@@ -2503,8 +2995,8 @@ JSON返回示例：
 		"id": "12372526051670720162",   // 交易id
 		"height": "286",    // 交易所在区块高度
 		"blockId": "14863181420651287815",  // 交易所在区块id
-		"type": 9,  // 交易类型
-		"timestamp": 17597873,  // 交易时间，举例创世块的offset
+		"type": 9,  // 交易类型，9代表注册发行商
+		"timestamp": 17597873,  // 交易时间，距离创世块的offset
 		"senderPublicKey": "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3",  // 交易发起者公钥
 		"senderId": "AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a",   // 交易发起者id
 		"recipientId": "",  //  接收者id，如果是系统则为空
@@ -2553,7 +3045,7 @@ JSON返回示例：
 
 
 说明：
-    注意这里asset与type相关，9 <= type <= 14， 根据不同的type从asset中取出不同的值，详情如下：
+    注意这里asset内容与type相关，9 <= type <= 14， 根据不同的type从asset中取出不同的值，详情如下：
 
 ```
 type=9
@@ -2564,7 +3056,7 @@ type=9
                     "desc": "issuer1_desc"
                 }
             },
-展示： 注册了发行商$name
+展示： 注册了发行商"issuername"
 ```
 
 ```
@@ -2579,7 +3071,7 @@ type=10
                     "strategy": ""
                 }
             },
-展示： 注册了资产$name
+展示： 注册了资产"issuername.BTC"
 ```
 
 ```
@@ -2593,8 +3085,8 @@ type=11
                 }
             },
 展示: 
-如果$flagType==1 ： 资产$currency访问控制设置为(flag==0?黑名单：白名单)
-如果$flagType==2 ： 资产$currency被注销
+如果$flagType==1 ： 资产issuername.BTC访问控制设置为(flag==0?黑名单：白名单)
+如果$flagType==2 ： 资产issuername.BTC被注销
 ```
 
 ```
@@ -2611,7 +3103,7 @@ type=12
                     ]
                 }
             },
-展示：资产$currency更新了访问控制列表
+展示：资产issuername.BTC更新了访问控制列表
 ```
 
 ```
@@ -2623,7 +3115,7 @@ type=13
                     "amount": "10000000000"
                 }
             },
-展示： 资产$currency新发行$amount
+展示： 资产issuername.BTC新发行10000000000(实际数量*精度)
 ```
 
 ```
@@ -2635,280 +3127,14 @@ type=14
                     "amount": "10"
                 }
             },
-展示：资产$currency从$senderId转账$amount到$recipientId
+展示：转账10个issuername.BTC资产，交易id是9105235822289198060
 ```
 
 
    
-#### **2.10.9 创建资产（UIA）交易** 
-asch系统的所有写操作都是通过发起一个交易来完成的。 
-交易数据通过一个叫做asch-js的库来构建，然后再通过一个POST接口发布出去。
-
-POST接口规格如下：
-payload为asch-js创建出来的交易数据
-接口地址：/peer/transactions  
-请求方式：post   
-支持格式：json  
-公用变量：
-```
-var AschJS = require('asch-js');
-// 一级密码
-var secret = 'motion group blossom coral upper warrior pattern fragile sister misery palm detect'
-// 二级密码
-var secondSecret = 'erjimima001'
-```
-
-##### **2.10.9.1 注册资产发行商**
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createIssuer根据发行商名字、描述、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-// 发行商名称,唯一标识
-var name = 'IssuerName'
-// 发行商描述
-var desc = 'IssuerDesc'
-// 构造交易数据
-var trs = AschJS.uia.createIssuer(name, desc, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":9,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19395607,"asset":{"uiaIssuer":{"name":"IssuerName","desc":"IssuerDesc"}},"signature":"c6ed2a4bafe2b8aa31f4aaceacc2a96cb028abbabb2ed062937498c58e24ca5467a340ddd63b67f809a680ff91b83e685c64991eb695494ddb2fdc57e5761607","signSignature":"8eceacbd47c2b8ed335145ced19d7a3a51f99bdd6631d16ed214180c6f80e29bd6d572f45e7c7d685584e55cb5c303cf340406553ece28c9c0a2fa7a777aac0b"}
-
-// 将生成的交易数据通过post发送给server，注册资产发行商IssuerName
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":9,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19395607,"asset":{"uiaIssuer":{"name":"IssuerName","desc":"IssuerDesc"}},"signature":"c6ed2a4bafe2b8aa31f4aaceacc2a96cb028abbabb2ed062937498c58e24ca5467a340ddd63b67f809a680ff91b83e685c64991eb695494ddb2fdc57e5761607","signSignature":"8eceacbd47c2b8ed335145ced19d7a3a51f99bdd6631d16ed214180c6f80e29bd6d572f45e7c7d685584e55cb5c303cf340406553ece28c9c0a2fa7a777aac0b"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-{"success":true}		
-```
-
-##### **2.10.9.2 注册资产** 
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createAsset根据资产名字、描述、上限、精度、策略、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-// 资产名称，发行商名.资产名，唯一标识
-var name = 'IssuerName.CNY'
-var desc = '资产描述'
-// 上限
-var maximum = '1000000'
-// 精度，小数点的位数，这里上限是1000000，精度为3，代表资产IssuerName.CNY的最大发行量为1000.000
-var precision = 3
-// 策略
-var strategy = ''
-// 构造交易数据
-var trs = AschJS.uia.createAsset(name, desc, maximum  , precision, strategy, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":10,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19397444,"asset":{"uiaAsset":{"name":"IssuerName.CNY","desc":"资产描述","maximum":"1000000","precision":3,"strategy":""}},"signature":"c755587d331dd2eb62ef91dce1511d83a3e603c7cdc7548a16052519c21ea89c78364e35e5d46da0e2103fa2fb7f037eec55a5deba18826fa13e4252422d750e","signSignature":"1b7ed4c21c477b8ff3d2acfdfd7ff85617093f4c21de70938c46b61c9704b037dbcf7f9e5f5dd1a5dc8f22cf473aaa459e6e5b15ced388b8a1da1e307987a509"}
-
-// 将生成的交易数据通过post发送给server，注册资产IssuerName.CNY
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":10,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19397444,"asset":{"uiaAsset":{"name":"IssuerName.CNY","desc":"资产描述","maximum":"1000000","precision":3,"strategy":""}},"signature":"c755587d331dd2eb62ef91dce1511d83a3e603c7cdc7548a16052519c21ea89c78364e35e5d46da0e2103fa2fb7f037eec55a5deba18826fa13e4252422d750e","signSignature":"1b7ed4c21c477b8ff3d2acfdfd7ff85617093f4c21de70938c46b61c9704b037dbcf7f9e5f5dd1a5dc8f22cf473aaa459e6e5b15ced388b8a1da1e307987a509"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-{"success":true}		
-```
-
-##### **2.10.9.3 资产设置acl模式** 
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createFlags根据资产名、流通状态、黑白名单模式、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-var currency = 'IssuerName.CNY'
-// 资产是否注销，1：流通，2：注销
-var flagType = 1
-// 访问控制列表的类型，0：黑名单， 1：白名单，资产创建后默认为黑名单模式
-var flag = 1
-var trs = AschJS.uia.createFlags(currency, flagType, flag, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19400996,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":1,"flag":1}},"signature":"b96fb3d1456e1f26357109cc24d82834eb9a4687f29e69c374bbb1d534568336e148cac52f213aa4d2a69185092f8e1143b49ec4b8048cd9b3af4e20f6ba0b08","signSignature":"b37c77ebebe90341346be2aefe1e12bd7403e5d8f4d6e8f04630190b3e09494a28820da0ffd5f9ff011033aa6d70fc9bb4c159a4493be3b18fd7ff470103570d"}
-
-// 将生成的交易数据通过post发送给server，将acl改为白名单模式
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19400996,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":1,"flag":1}},"signature":"b96fb3d1456e1f26357109cc24d82834eb9a4687f29e69c374bbb1d534568336e148cac52f213aa4d2a69185092f8e1143b49ec4b8048cd9b3af4e20f6ba0b08","signSignature":"b37c77ebebe90341346be2aefe1e12bd7403e5d8f4d6e8f04630190b3e09494a28820da0ffd5f9ff011033aa6d70fc9bb4c159a4493be3b18fd7ff470103570d"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-{"success":true}		
-```
-
-##### **2.10.9.4 更新访问控制列表（acl）** 
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createAcl根据资产名字、列表操作方法、黑名单还是白名单、地址列表、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-var currency = 'IssuerName.CNY'
-// '+'表示增加列表， ‘-’表示删除列表
-var operator = '+'
-var list = ['15745540293890213312']
-// 访问控制列表的类型，0：黑名单， 1：白名单
-var flag =1
-var trs = AschJS.uia.createAcl(currency, operator, flag, list, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":12,"amount":0,"fee":20000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19403125,"asset":{"uiaAcl":{"currency":"IssuerName.CNY","operator":"+","flag":1,"list":["15745540293890213312"]}},"signature":"ad4060e04c1a12256de114e34499f8add24326753f1f8362991ee14aefc4c0fe90ff394d2db97e83770855a5688d463de00656fdd2d04604605cf3c04fdaca0e","signSignature":"63129c58b1b9fcce88cbe829f3104a10ab06037253e9b65feb50ce0d2bb988533b93e8edcad016a85675f9027758fc318cf899ca7ef161a95a8d8a055ae83a02"}
-
-// 将生成的交易数据通过post发送给server，把地址列表['15745540293890213312']增加到该白名单中，只修改名单列表，不修改acl模式，手续费0.2XAS
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":12,"amount":0,"fee":20000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19403125,"asset":{"uiaAcl":{"currency":"IssuerName.CNY","operator":"+","flag":1,"list":["15745540293890213312"]}},"signature":"ad4060e04c1a12256de114e34499f8add24326753f1f8362991ee14aefc4c0fe90ff394d2db97e83770855a5688d463de00656fdd2d04604605cf3c04fdaca0e","signSignature":"63129c58b1b9fcce88cbe829f3104a10ab06037253e9b65feb50ce0d2bb988533b93e8edcad016a85675f9027758fc318cf899ca7ef161a95a8d8a055ae83a02"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-{"success":true}
-// 查询更新后的列表（acl/1代表白名单）
-curl -X GET -H "Content-Type: application/json" 'http://localhost:4096/api/uia/assets/IssuerName.CNY/acl/1?limit=10&offset=0' && echo
-{
-	"success": true,
-	"list": [{
-		"address": "15745540293890213312"
-	}],
-	"count": 1
-}
-```
 
 
-##### **2.10.9.5 资产发行** 
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createIssuer根据发行商名字、描述、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-var currency = 'IssuerName.CNY'
-// 本次发行量=真实数量（100）*10**精度（3），所有发行量之和需 <= 上限*精度
-var amount = '100000'
-var trs = AschJS.uia.createIssue(currency, amount, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":13,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19475744,"asset":{"uiaIssue":{"currency":"IssuerName.CNY","amount":"100000"}},"signature":"32b01a18eca2b0dc7e2ce77ba4e758eaae2532f60844760a762cc20918e7439ac6ca585b921db6ede833ed0bf1c62e30cec545a928abafe0b679183a6ad02202","signSignature":"4fc290d7d7d788e9112a56233df0fe796cba39be3efa0cebf00cbc7e5bc5fd1369fad49e5698d967845b5c02e427926049cab25845d4d385e4a395791906f909"}
-
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":13,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19475744,"asset":{"uiaIssue":{"currency":"IssuerName.CNY","amount":"100000"}},"signature":"32b01a18eca2b0dc7e2ce77ba4e758eaae2532f60844760a762cc20918e7439ac6ca585b921db6ede833ed0bf1c62e30cec545a928abafe0b679183a6ad02202","signSignature":"4fc290d7d7d788e9112a56233df0fe796cba39be3efa0cebf00cbc7e5bc5fd1369fad49e5698d967845b5c02e427926049cab25845d4d385e4a395791906f909"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-		
-```
-
-##### **2.10.9.6 资产转账** 
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createTransfer根据资产名字、数量、接收者地址、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-var currency = 'IssuerName.CNY'
-// 本次转账数（10000）=真实数量（10）*10**精度（3），需 <= 当前资产发行总量
-var amount = '10000'
-// 接收地址，需满足前文定义好的acl规则
-var recipientId = 'AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a'
-var trs = AschJS.uia.createTransfer(currency, amount, recipientId, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":14,"amount":0,"fee":10000000,"recipientId":"AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a","senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19481489,"asset":{"uiaTransfer":{"currency":"IssuerName.CNY","amount":"10000"}},"signature":"77789071a2ad6d407b9d1e0d654a9deb6d85340a3d2a13d786030e26ac773b4e9b5f052589958d2b8553ae5fc9449496946b5c225e0baa723e7ddecbd89f060a","signSignature":"f0d4a000aae3dd3fa48a92f792d4318e41e3b56cdbaf98649261ae34490652b87645326a432d5deb69f771c133ee4b67d2d22789197be34249e6f7f0c30c1705"}
-
-// 给AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a发送10.000 IssuerName.CNY资产
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":14,"amount":0,"fee":10000000,"recipientId":"AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a","senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19481489,"asset":{"uiaTransfer":{"currency":"IssuerName.CNY","amount":"10000"}},"signature":"77789071a2ad6d407b9d1e0d654a9deb6d85340a3d2a13d786030e26ac773b4e9b5f052589958d2b8553ae5fc9449496946b5c225e0baa723e7ddecbd89f060a","signSignature":"f0d4a000aae3dd3fa48a92f792d4318e41e3b56cdbaf98649261ae34490652b87645326a432d5deb69f771c133ee4b67d2d22789197be34249e6f7f0c30c1705"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-{"success":true}		
-```
- 
-##### **2.10.9.7 资产注销** 
-请求参数说明：
-
-|名称	|类型   |必填 |说明              |   
-|------ |-----  |---  |----              |   
-|transaction|json|Y|AschJS.uia.createFlags根据资产名字、注销状态、黑白名单模式、一级密码、二级密码生成的交易数据|
-
-返回参数说明：   
-
-|名称	|类型   |说明              |   
-|------ |-----  |----              |   
-|success|boole  |是否成功 |  
-
-   
-请求示例：   
-```js   
-var currency = 'IssuerName.CNY'
-// flagType为资产是否注销，1：流通，2：注销
-var flagType = 2
-// flag为黑、白名单模式
-var flag =1
-var trs = AschJS.uia.createFlags(currency, flagType, flag, secret, secondSecret)
-console.log(JSON.stringify(trs))
-{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19488690,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":2,"flag":1}},"signature":"cbd656552417604704703e1236ec2bbed8eba6a2ccfcb54cc0b2d629c0a9d1335a264fc9f6dee1705f4a86c36a5ce2ba8e039d913a189b7c273c8ac0d9e3780c","signSignature":"3c7b91d03efeed2dc86e1f2301da60789751c1be8850460d8c66c0ae8f55ea27d26f0bc79541d74b4777d9b85c518c1c73c0284dbf3e826db0a686560e57a80b"}
-
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":11,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575","timestamp":19488690,"asset":{"uiaFlags":{"currency":"IssuerName.CNY","flagType":2,"flag":1}},"signature":"cbd656552417604704703e1236ec2bbed8eba6a2ccfcb54cc0b2d629c0a9d1335a264fc9f6dee1705f4a86c36a5ce2ba8e039d913a189b7c273c8ac0d9e3780c","signSignature":"3c7b91d03efeed2dc86e1f2301da60789751c1be8850460d8c66c0ae8f55ea27d26f0bc79541d74b4777d9b85c518c1c73c0284dbf3e826db0a686560e57a80b"}}' 'http://localhost:4096/peer/transactions' && echo
-```   
-   
-JSON返回示例：   
-```js  
-{"success":true}		
-```  
-
-#### **2.10.10 获取指定账户指定资产的余额** 
+#### **2.10.9 获取指定账户指定资产的余额** 
 接口地址：/api/uia/balances/:address/:currency  
 请求方式：get   
 支持格式：urlencoded 
@@ -2949,10 +3175,11 @@ JSON返回示例：
 }	
 ```
 
-#### **2.10.11 获取指定账户指定资产转账记录** 
-接口地址：/api/uia/transfers/:address/:currency  
+#### **2.10.10 获取指定账户指定资产转账记录** 
+接口地址：/api/uia/transactions/my/:address/:currency  
 请求方式：get   
-支持格式：urlencoded 
+支持格式：urlencoded  
+备注：只返回资产转账记录  
 
 请求参数说明：
 
@@ -2973,7 +3200,7 @@ JSON返回示例：
    
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/transfers/16358246403719868041/IssuerName.CNY' && echo
+curl -X GET -H "Content-Type: application/json"  'http://localhost:4096/api/uia/transactions/my/16358246403719868041/IssuerName.CNY' && echo
 ```   
    
 JSON返回示例：   
@@ -3009,6 +3236,147 @@ JSON返回示例：
 }	
 ```
 
+#### **2.10.11 获取指定资产转账记录** 
+接口地址：/api/uia/transactions/:currency  
+请求方式：get   
+支持格式：urlencoded  
+备注：只返回指定资产转账记录 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|currency|string|Y|资产名字|
+|limit|integer|N|限制结果集个数，最小值：0,最大值：100|
+|offset|integer|N|偏移量，最小值0|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功 |  
+|transactions|list|交易列表，每个元素是一个字典代表一次交易，包含交易id、区块高度、区块id、交易类型、时间戳、发送者公钥、发送者id、接收者id（系统为空，如资产注册）、交易数量（资产交易都为0）、手续费0.1XAS、签名、多重签名、确认数、资产信息（包含发行商id、发行商名字、描述）、交易id。|  
+|count|integer|该资产交易总数|  
+   
+请求示例：   
+```js   
+// 查询引力波资产absorb.YLB的所有转账记录 
+curl -X GET -H "Content-Type: application/json" 'http://127.0.0.1:4096/api/uia/transactions/absorb.YLB' && echo
+```   
+   
+JSON返回示例：   
+```js  
+{
+	success: true,
+	transactions: [{
+		id: "a1ff79e3f37fd73b41abd293c22171ac7760160ad457e55f028e7a8b527651d3",
+		height: "43",
+		blockId: "b16b87e79b47edffdc2fd93bd1de70cbe3541684d5dbf8dc1d292903275e03dc",
+		type: 14,
+		timestamp: 39167334,
+		senderPublicKey: "2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4",
+		senderId: "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",
+		recipientId: "AMzDw5BmZ39we18y7Ty9VW79eL9k7maZPH",
+		amount: 0,
+		fee: 10000000,
+		signature: "a4e6b0e2c265e0d601fdfc9e82d971e7908457383835b801c725cdaac01bd619a435344241c64247599255f43a43b6576e1da3a357eac5bbd7058e013a8aa60e",
+		signSignature: "",
+		signatures: null,
+		confirmations: "809",
+		args: null,
+		message: "",
+		asset: {
+			uiaTransfer: {
+				transactionId: "a1ff79e3f37fd73b41abd293c22171ac7760160ad457e55f028e7a8b527651d3",
+				currency: "absorb.YLB",
+				amount: "200000000",
+				amountShow: "2",
+				precision: 8
+			}
+		}
+	},
+	{
+		id: "7cf50223e12b6eb51096353a066befcf2ef862bdd4d4eddcba28a79aa0249af9",
+		height: "809",
+		blockId: "278b096893bc028bb79692faec02de8c2f367804485b71f14e46027f3dd3000c",
+		type: 14,
+		timestamp: 39182041,
+		senderPublicKey: "b33b5fc45640cfc414981985bf92eef962c08c53e1a34f90dab039e985bb5fab",
+		senderId: "AMzDw5BmZ39we18y7Ty9VW79eL9k7maZPH",
+		recipientId: "1",
+		amount: 0,
+		fee: 10000000,
+		signature: "560bd31a4efe103ef9bd92f52cae5cf5a3b2aeb90fc83298498ff4126705e0433f751169bc32a3a7cfe894c7d8586d7182ebc790f2311daf9f02b881dc2aca0e",
+		signSignature: "",
+		signatures: null,
+		confirmations: "43",
+		args: null,
+		message: "",
+		asset: {
+			uiaTransfer: {
+				transactionId: "7cf50223e12b6eb51096353a066befcf2ef862bdd4d4eddcba28a79aa0249af9",
+				currency: "absorb.YLB",
+				amount: "100000000",
+				amountShow: "1",
+				precision: 8
+			}
+		}
+	}],
+	count: 2
+}
+```   
+
+#### **2.10.12 资产创建相关**   
+下面没有内容的章节请参考《2.9.3》章节。
+##### **2.10.12.1 注册资产发行商**  
+##### **2.10.12.2 注册资产**  
+##### **2.10.12.3 更新资产访问控制列表(acl)**  
+##### **2.10.12.4 资产发行**  
+##### **2.10.12.5 资产转账**  
+接口地址：/api/uia/transfers   
+请求方式：PUT   
+支持格式：json   
+接口备注：   
+请求参数说明：   
+
+|名称	|类型   |必填 |说明              |   
+|------ |-----  |---  |----              |   
+|secret |string |Y    |发送者密码,最大长度100       |   
+|currency |string |Y    |资产名，最大长度22       |   
+|amount |string |Y    |转账金额，最大长度50       |   
+|recipientId |string |Y    |接收地址，最小长度1       |  
+|publicKey|string|N|发送者公钥，格式必须符合公钥格式|  
+|secondSecret|string|N|发送者二级密码，最小长度1，最大长度：100|   
+|multisigAccountPublicKey|string|N|多签账户公钥，格式必须符合公钥格式|   
+|message|string|N|转账备注，最大长度256| 
+
+   
+返回参数说明：   
+
+|名称	|类型   |说明              |   
+|------ |-----  |----              |   
+|success|boole  |是否成功获得response数据。|    
+|transactionId|string  |交易id      |    
+   
+   
+请求示例：   
+```bash   
+// 转0.01 absorb.YLB给16723473400748954103
+curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"found knife gather faith wrestle private various fame cover response security predict","amount":"1000000","recipientId":"16723473400748954103","currency":"absorb.YLB"}' 'http://localhost:4096/api/uia/transfers' && echo   
+```   
+   
+JSON返回示例：   
+```js   
+{   
+	"success": true,   
+	"transactionId": "3cb6d97534a3b90cf7fc883927f0a9a7c7f4878a9df526c2906ca97e250fcaba"   
+}   
+```  
+
+##### **2.10.12.6 更新黑白名单**  
+
+
+
 ### **2.11 存储storages**   
 源码在src/core/transactions.js文件中，适合存储短文。
 #### **2.11.1 上传数据**
@@ -3016,7 +3384,7 @@ JSON返回示例：
 接口地址：/api/storages   
 请求方式：PUT   
 支持格式：json   
-接口备注：创建者账户需在web端钱包登陆过   
+接口备注：   
 请求参数说明：   
 
 |名称	|类型   |必填 |说明              |   
@@ -3105,8 +3473,8 @@ JSON返回示例：
 }
 ```  
 
-#### **2.11.2 查询存储的数据**
-接口地址：/api/storages   
+#### **2.11.2 根据交易id查询存储的数据-1**  
+接口地址：/api/storages/get   
 请求方式：GET   
 支持格式：urlencode   
 请求参数说明：   
@@ -3157,6 +3525,23 @@ console.log(new Buffer('68656c6c6f776f726c64','hex').toString());
 helloworld
 ```  
 
+#### **2.11.3 根据交易id查询存储的数据-2**  
+接口地址：/api/storages/:id   
+请求方式：GET   
+支持格式：urlencode   
+请求参数说明：交易id  
+备注：与/api/storages/get功能相同   
+
+请求示例：   
+```bash   
+curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/storages/2ae89f859f20e6e9be7aeef5f7ff7b8c6a457ff712100a1b694436bddd9800c0 && echo   
+```   
+
+JSON返回示例：   
+```js   
+
+```
+
 
 
 ## **附录1：asch-js安装**   
@@ -3164,3 +3549,5 @@ asch系统的所有写操作都是通过发起一个交易来完成的。
 交易数据通过一个叫做asch-js的库来创建，然后再通过一个POST接口发布出去   
 **库安装**   
 npm install asch-js   
+
+
