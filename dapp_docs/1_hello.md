@@ -34,6 +34,7 @@ Dapp的开发同样要涉及到这三种网络，即
 
 ```
 > cd <asch source code dir>
+> npm install
 > node app.js
 ```
 
