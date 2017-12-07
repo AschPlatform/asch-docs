@@ -40,7 +40,10 @@ In this step, something will be done for you automatically:
 There is no need to run this step once although there is no harm to execute it more than one time.
 
 	# locate to your installation folder
+	# for ubuntu
 	chmod u+x init/*.sh && ./aschd configure
+	# for other linux
+	please install sqlite3/ntp using apt-get/yum/zypper or other package manager.
 	...
 
 ## 3. Run
