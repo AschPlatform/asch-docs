@@ -21,14 +21,14 @@
 测试版testnet
 
 ```
-wget https://www.asch.so/downloads/asch-linux-latest-testnet.tar.gz
+wget https://www.asch.io/downloads/asch-linux-latest-testnet.tar.gz
 tar zxvf asch-linux-latest-testnet.tar.gz
 ```
 
 正式版mainnet
 
 ```
-wget https://www.asch.so/downloads/asch-linux-latest-mainnet.tar.gz
+wget https://www.asch.io/downloads/asch-linux-latest-mainnet.tar.gz
 tar zxvf asch-linux-latest-mainnet.tar.gz
 ```
 
@@ -45,7 +45,10 @@ tar zxvf asch-linux-latest-mainnet.tar.gz
 
 ```
 # 进入你的安装目录
-./aschd configure
+# ubuntu执行下面的命令
+chmod u+x init/*.sh && ./aschd configure
+# 其他linux系统
+请自行利用apt-get/yum/zypper等包管理器工具安装sqlite3/ntp2个依赖包
 ```
 
 ## 3 运行

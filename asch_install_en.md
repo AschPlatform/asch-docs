@@ -20,13 +20,13 @@ As long as there is no conflict of ports, you can install the test version and o
 test version (testnet)  
 
 ```
-wget https://www.asch.so/downloads/asch-linux-latest-testnet.tar.gz
+wget https://www.asch.io/downloads/asch-linux-latest-testnet.tar.gz
 tar zxvf asch-linux-latest-testnet.tar.gz
 ```
 
 official version (mainnet)
 ```
-wget https://www.asch.so/downloads/asch-linux-latest-mainnet.tar.gz
+wget https://www.asch.io/downloads/asch-linux-latest-mainnet.tar.gz
 tar zxvf asch-linux-latest-mainnet.tar.gz
 ```
 
@@ -40,7 +40,7 @@ In this step, something will be done for you automatically:
 There is no need to run this step once although there is no harm to execute it more than one time.
 
 	# locate to your installation folder
-	./aschd configure
+	chmod u+x init/*.sh && ./aschd configure
 	...
 
 ## 3. Run
