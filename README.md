@@ -18,3 +18,12 @@ Asch documents
 - [Command line interface](./asch_cli_usage_en.md)
 - [Http interface](./asch_http_interface_en.md)
 - [Dapp development](./asch_dapps_introduction_en.md)
+
+## Inhaltsverzeichnis
+
+- [Whitepaper](./asch_whitepaper_de.md)
+- [Installation](./asch_install_de.md)
+- [Delegation & Schmiede](./asch_delegate_forging_de.md)
+- [Command Line Interface](./asch_cli_usage_de.md)
+- [Http Interface](./asch_http_interface_de.md)
+- [Dapp Entwicklung](./asch_dapps_introduction_de.md)
