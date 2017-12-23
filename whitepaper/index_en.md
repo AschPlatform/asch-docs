@@ -1,4 +1,4 @@
-title:  Whitepaper
+title:  Asch Whitepaper
 ---
 # Introduction
 Since Bitcoin was introduced in 2009 and had been rapidly developing for these several years, people found that Bitcoin has more potential than just be a kind of electronic currency. Especially blockchain, the underlying technology of Bitcoin, has the unlimited capacity even more valuable than Bitcoin itself. The blockchain technology can be applied in the development of different kinds of application, which have the same characteristic that is decentralization. The emerging of these decentralized applications also promotes a new application architecture, which is based on an open-source platform. Based on this concept, we propose the Asch system, a development platform for decentralized applications.

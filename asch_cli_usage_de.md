@@ -47,14 +47,12 @@ Inhaltsverzeichnis
     - [4.31 Überprüfe den Status aller Delegate](#431-%C3%9Cberpr%C3%BCfe-den-status-aller-delegate)
     - [4.32 Zeige das Land aus dem ursprünglich die IP-Adresse des Knotens registriert wurde](#432-zeige-das-land-aus-dem-urspr%C3%BCnglich-die-ip-adresse-des-knotens-registriert-wurde)
 
-
+Inhaltsverzeichnis mittels [markdown-toc](https://github.com/AlanWalk/markdown-toc) erstellt
 ---
 
 ## 0 Asch-CLI Übersicht
 From [Asch Whitepaper](/asch_whitepaper_de.md)
-> Zuerst White Paper übersetzen
-
-> Asch-CLI is a command line interface provided by Asch system. Within the Asch-CLI, developers can rapidly establish a sidechain by making some simple configurations according to instructions and then create any kind of applications on this sidechain. The system also provides a series of APIs to help developers to create complicate smart contract applications. The functions of these APIs include consensus, strong random numbers, database, and cryptology and so on.
+> Asch-CLI ist eine Asch Kommandozeile (CLI steht für command-line interface). Mit Hilfe der Asch-CLI können Entwickler ohne große Mühe eine Sidechain erstellen und auf dieser entwickeln. Das System bietet eine Vielzahl an APIs welche die Erstellen von intelligenten Verträgen ermöglicht. Diese APIs umfassen die Möglichkeit für Konsens, Zufallszahlen, Datenbank-Zugriff, Kryptographie und vieles mehr.
 
 ## 1 Asch-CLI Installation
 - Installiere den node Paket-Manager **npm**
