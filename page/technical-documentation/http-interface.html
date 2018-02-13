@@ -1,0 +1,3104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Asch.io Official Documentation">
+  <meta name="author" content="Asch.io">
+  <title>Asch Technical Documentation Overview</title>
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../../css/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../../css/sb-admin.css" rel="stylesheet">
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="../../css/custom.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="../../index.html">Asch.io Docs</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Welcome">
+          <a class="nav-link" href="../../index.html">
+            <i class="fa fa-fw fa-play"></i>
+            <span class="nav-link-text">Get started</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Documentation">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDocumentation" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-book"></i>
+            <span class="nav-link-text">Documentation</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseDocumentation">
+            <li>
+              <a href="../../page/technical-documentation/overview.html">Overview</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/node-installation.html">Node Installation</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/delegate-forging.html">Delegate Forging</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/command-line-guide.html">Command-line Interface</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/http-interface.html">HTTP Interface</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/issue-assets.html">Issue Assets</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dapp Development">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDappDev" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-plus"></i>
+            <span class="nav-link-text">Dapp Development</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseDappDev">
+          <li>
+            <a href="../../page/dapp-development/overview.html">Overview</a>
+          </li>
+          <li>
+            <a href="../../page/dapp-development/introduction.html">Introduction</a>
+          </li>
+        </ul>
+      </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Whitepaper">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseWhitepaper" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file-o"></i>
+            <span class="nav-link-text">Whitepaper</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseWhitepaper">
+          <li>
+            <a href="../../page/whitepaper/overview.html">Overview</a>
+          </li>
+          <li>
+            <a href="../../page/whitepaper/asch-whitepaper.html">Asch Whitepaper</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Frequently Asked Questions">
+        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseFAQ" data-parent="#exampleAccordion">
+          <i class="fa fa-fw fa-question-circle-o"></i>
+          <span class="nav-link-text">FAQ</span>
+      </a>
+      <ul class="sidenav-second-level collapse" id="collapseFAQ">
+        <li>
+          <a href="../../page/faq/overview.html">Overview</a>
+        </li>
+        <li>
+          <a href="../../page/faq/technical.html">Technical</a>
+        </li>
+        <li>
+          <a href="../../page/faq/contributing.html">Contributing</a>
+        </li>
+      </ul>
+    </li>
+
+   </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/">
+            <i class="fa fa-fw fa-github"></i> Contribute on GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Asch.io</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="../../index.html">Docs</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="overview.html">Technical Documentation</a>
+        </li>
+        <li class="breadcrumb-item active">HTTP Interface</li>
+      </ol>
+
+      <!-- Doc Content starts here-->
+      <div class="row">
+        <div class="col-12">
+          <h1>HTTP Interface</h1>
+
+          <div class="alert alert-primary" role="alert">
+            The documentation is continously being updated by team members and contributors.
+            Please feel free to contribute to the <a href="#" class="alert-link">Asch documentation on GitHub</a>.
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+
+              <h1 id="1-API-Usage-Guide" class="article-heading">1 API Usage Guide</h1>
+              <h2 id="1-1-Request-Process-Overview" class="article-heading">1.1 Request Process Overview</h2>
+              <ul>
+              <li><strong>Generate request data:</strong>&nbsp;according the interface specification provided by Asch system, generate the request data as a JSON object. (In one case, if you write about secure peer to peer transportation, you may need a JS library called asch-js to create signature. see&nbsp;<a href="http://docs.asch.mobi/en/docs/asch_http_interface.html#29-peer-to-peer-transportation">2.9 Peer to Peer transportation</a>&nbsp;for detail).</li>
+              <li><strong>Send request data:</strong>&nbsp;transfer the generated data object to Asch platform through POST/GET method upon HTTP</li>
+              <li><strong>Asch system handles the data object:</strong>&nbsp;after receiving the data object, Asch server will validate the data firstly, then deal with it.</li>
+              <li><strong>Return the response data:</strong>&nbsp;Asch system send the response data to client as a JSON object. See interface part for detail, like response data format and error code.</li>
+              <li><strong>Client handles the response data</strong></li>
+              </ul>
+              <h1 id="2-Interface" class="article-heading">2 Interface</h1>
+              <h2 id="2-1-Accounts" class="article-heading">2.1 Accounts</h2>
+              <h3 id="2-1-1-Login" class="article-heading">2.1.1 Login</h3>
+              <h4 id="2-1-1-1-Login-after-locally-encrypt-recommended" class="article-heading">2.1.1.1 Login after locally encrypt (recommended)</h4>
+              <p>Interface Address: /api/accounts/open2/<br />Request Type: post<br />Supported Format: json<br />Comment: Public key needs to be generated locally according to user&rsquo;s password (see Request Example)</p>
+              <p>Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>Whether login is successful</td>
+              </tr>
+              <tr>
+              <td>account</td>
+              <td>json</td>
+              <td>Account Information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code class="js"><span class="keyword">var</span> AschJS = <span class="built_in">require</span>(<span class="string">'asch-js'</span>);  <span class="comment">//For further information about asch-js, please see Appendix</span>
+              <span class="keyword">var</span> publicKey = AschJS.crypto.getKeys(secret).publicKey;  <span class="comment">//Generate public key according to password </span>
+              <span class="comment">// var address = AschJS.crypto.getAddress(publicKey);   //Generate address according to public key</span>
+
+              <span class="comment">// Submit the above data to Asch server through post method   </span>
+              curl -X POST -H <span class="string">"Content-Type: application/json"</span> -k -d <span class="string">'{"publicKey":"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"}'</span> http:<span class="comment">//45.32.248.33:4096/api/accounts/open2/</span>
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"account"</span>: {
+                      <span class="string">"address"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"unconfirmedBalance"</span>: <span class="number">19480000000</span>,
+                      <span class="string">"balance"</span>: <span class="number">19480000000</span>,
+                      <span class="string">"unconfirmedSignature"</span>: <span class="literal">false</span>,
+                      <span class="string">"secondSignature"</span>: <span class="literal">true</span>,
+                      <span class="string">"secondPublicKey"</span>: <span class="string">"edf30942beb74de5ed6368c792af8665e9636f32a5f1c9377bcdc3b252d3f277"</span>,
+                      <span class="string">"multisignatures"</span>: [],
+                      <span class="string">"u_multisignatures"</span>: []
+                  },
+                  <span class="string">"latestBlock"</span>: {
+                      <span class="string">"height"</span>: <span class="number">111923</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4446270</span>
+                  },
+                  <span class="string">"version"</span>: {
+                      <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,
+                      <span class="string">"build"</span>: <span class="string">"12:11:11 16/08/2016"</span>,
+                      <span class="string">"net"</span>: <span class="string">"testnet"</span>
+                  }
+              </code></pre>
+              <h4 id="2-1-1-2-Login-without-locally-encrypt-not-recommend" class="article-heading">2.1.1.2 Login without locally encrypt (not recommend)</h4>
+              <p>Interface Address: /api/accounts/open/<br />Request Method:post<br />Supported Format: json<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>asch account password</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>Whether login is successful</td>
+              </tr>
+              <tr>
+              <td>account</td>
+              <td>json</td>
+              <td>Account information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -X POST -H "Content-Type: application/json" -k -d '{"secret":"fault still attack alley expand music basket purse later educate follow ride"}' http://45.32.248.33:4096/api/accounts/open/
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"account"</span>: {
+                      <span class="string">"address"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"unconfirmedBalance"</span>: <span class="number">19480000000</span>,
+                      <span class="string">"balance"</span>: <span class="number">19480000000</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</span>,
+                      <span class="string">"unconfirmedSignature"</span>: <span class="literal">false</span>,
+                      <span class="string">"secondSignature"</span>: <span class="literal">true</span>,
+                      <span class="string">"secondPublicKey"</span>: <span class="string">"edf30942beb74de5ed6368c792af8665e9636f32a5f1c9377bcdc3b252d3f277"</span>,
+                      <span class="string">"multisignatures"</span>: [ ],
+                      <span class="string">"u_multisignatures"</span>: [ ]
+                  }
+              }
+              </code></pre>
+              <h3 id="2-1-2-Get-Account-Information" class="article-heading">2.1.2 Get Account Information</h3>
+              <p>Interface Address: /api/accounts<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Client&rsquo;s address, minimum length:1</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>whether response data can be returned</td>
+              </tr>
+              <tr>
+              <td>account</td>
+              <td>json</td>
+              <td>account information</td>
+              </tr>
+              <tr>
+              <td>latestBlock</td>
+              <td>json</td>
+              <td>latest block information</td>
+              </tr>
+              <tr>
+              <td>version</td>
+              <td>json</td>
+              <td>version information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET http://45.32.248.33:4096/api/accounts?address=16723473400748954103
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"account"</span>: {
+                      <span class="string">"address"</span>: <span class="string">"16723473400748954103"</span>,  <span class="comment">//Asch address   </span>
+                      <span class="string">"unconfirmedBalance"</span>: <span class="number">19480000000</span>,  <span class="comment">//the sum of unconfirmed and confirmed balance, that should be larger than or equal to balance below.   </span>
+                      <span class="string">"balance"</span>: <span class="number">19480000000</span>, <span class="comment">//balance   </span>
+                      <span class="string">"publicKey"</span>: <span class="string">"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</span>,    <span class="comment">//Public key   </span>
+                      <span class="string">"unconfirmedSignature"</span>: <span class="literal">false</span>,
+                      <span class="string">"secondSignature"</span>: <span class="literal">true</span>,    <span class="comment">//second signature   </span>
+                      <span class="string">"secondPublicKey"</span>: <span class="string">"edf30942beb74de5ed6368c792af8665e9636f32a5f1c9377bcdc3b252d3f277"</span>,  <span class="comment">//second public key   </span>
+                      <span class="string">"multisignatures"</span>: [],
+                      <span class="string">"u_multisignatures"</span>: []
+                  },
+                  <span class="string">"latestBlock"</span>: {
+                      <span class="string">"height"</span>: <span class="number">114480</span>,   <span class="comment">//block height   </span>
+                      <span class="string">"timestamp"</span>: <span class="number">4471890</span>
+                  },
+                  <span class="string">"version"</span>: {
+                      <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,
+                      <span class="string">"build"</span>: <span class="string">"12:11:11 16/08/2016"</span>, <span class="comment">//build date   </span>
+                      <span class="string">"net"</span>: <span class="string">"testnet"</span>    <span class="comment">//blockchain type: main chain or test one   </span>
+                  }
+              }
+              </code></pre>
+              <h3 id="2-1-3-Get-Balance-of-Account" class="article-heading">2.1.3 Get Balance of Account</h3>
+              <p>Interface Address: /api/accounts/getBalance<br />Request Method: get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Client&rsquo;s address, minimum length:1</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>balance</td>
+              <td>integer</td>
+              <td>balance</td>
+              </tr>
+              <tr>
+              <td>unconfirmedBalance</td>
+              <td>integer</td>
+              <td>the sum of unconfirmed and confirmed balance, that should be larger than or equal to balance</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/accounts/getBalance?address=14636456069025293113'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"balance"</span>: <span class="number">5281328514990</span>,
+                  <span class="string">"unconfirmedBalance"</span>: <span class="number">5281328514990</span>
+              }
+              </code></pre>
+              <h3 id="2-1-4-Get-Account&rsquo;s-Public-Key" class="article-heading">2.1.4 Get Account&rsquo;s Public Key</h3>
+              <p>Interface Address: /api/accounts/getPublickey<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Client&rsquo;s address, minimum length:1</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/accounts/getPublickey?address=14636456069025293113'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"publicKey"</span>: <span class="string">"ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"</span>
+              }
+              </code></pre>
+              <h3 id="2-1-5-Generate-Public-Key" class="article-heading">2.1.5 Generate Public Key</h3>
+              <p>Interface Address: /api/accounts/generatePublickey<br />Request Method: post<br />Supported Format: json<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account password</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X POST -d '{"secret":"fault still attack alley expand music basket purse later educate follow ride"}' 'http://45.32.248.33:4096/api/accounts/generatePublickey'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"publicKey"</span>: <span class="string">"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</span>
+              }
+              </code></pre>
+              <h3 id="2-1-6-Get-Voting-List-by-Address" class="article-heading">2.1.6 Get Voting List by Address</h3>
+              <p>Interface Address: /api/accounts/delegates<br />Request Method: get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Voter&rsquo;s address</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>delegates</td>
+              <td>Array</td>
+              <td>A list that contains detail information of those delegates who have already voted</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/accounts/delegates?address=14636456069025293113'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"delegates"</span>: [{
+                      <span class="string">"username"</span>: <span class="string">"wgl_002"</span>,
+                      <span class="string">"address"</span>: <span class="string">"14636456069025293113"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"</span>,
+                      <span class="string">"vote"</span>: <span class="number">9901985415600500</span>,
+                      <span class="string">"producedblocks"</span>: <span class="number">1373</span>,
+                      <span class="string">"missedblocks"</span>: <span class="number">6</span>,
+                      <span class="string">"rate"</span>: <span class="number">1</span>,
+                      <span class="string">"approval"</span>: <span class="string">"98.54"</span>,
+                      <span class="string">"productivity"</span>: <span class="string">"99.56"</span>
+                  },
+                  {
+                      <span class="string">"username"</span>: <span class="string">"wgl_003"</span>,
+                      <span class="string">"address"</span>: <span class="string">"9961157415582672274"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2"</span>,
+                      <span class="string">"vote"</span>: <span class="number">9891995435600500</span>,
+                      <span class="string">"producedblocks"</span>: <span class="number">1371</span>,
+                      <span class="string">"missedblocks"</span>: <span class="number">8</span>,
+                      <span class="string">"rate"</span>: <span class="number">2</span>,
+                      <span class="string">"approval"</span>: <span class="string">"98.44"</span>,
+                      <span class="string">"productivity"</span>: <span class="string">"99.41"</span>
+                  },
+                  {
+                      <span class="string">"username"</span>: <span class="string">"wgl_001"</span>,
+                      <span class="string">"address"</span>: <span class="string">"1869971419039689816"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"c547df2dde6cbb4508aabcb5970d8f9132e5a1d1c422632da6bc20bf1df165b8"</span>,
+                      <span class="string">"vote"</span>: <span class="number">32401577128413</span>,
+                      <span class="string">"producedblocks"</span>: <span class="number">969</span>,
+                      <span class="string">"missedblocks"</span>: <span class="number">8</span>,
+                      <span class="string">"rate"</span>: <span class="number">102</span>,
+                      <span class="string">"approval"</span>: <span class="string">"0.32"</span>,
+                      <span class="string">"productivity"</span>: <span class="number">0</span>
+                  }]
+              }
+              </code></pre>
+              <h3 id="2-1-7-Get-the-Fee-of-Given-Delegate" class="article-heading">2.1.7 Get the Fee of Given Delegate</h3>
+              <p>Interface Address: /api/accounts/delegates/fee<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>fee</td>
+              <td>integer</td>
+              <td>fee setting</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/accounts/delegates/fee
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"fee"</span>: <span class="number">100000000</span>
+              }
+              </code></pre>
+              <h3 id="2-1-8-Voting" class="article-heading">2.1.8 Voting</h3>
+              <p>Interface Address: /api/accounts/delegates<br />Request Method:put<br />Supported Format: json<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account password</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>public key</td>
+              </tr>
+              <tr>
+              <td>secondSecret</td>
+              <td>string</td>
+              <td>N</td>
+              <td>Asch account&rsquo;s second password，minimum length：1，maximum length：100</td>
+              </tr>
+              <tr>
+              <td>delegates</td>
+              <td>Array</td>
+              <td>a list that contains delegates&rsquo; public key. put +/- in front of each public key, which means vote/abolish this delegate.</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>voting detail inforamtion</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"call scissors pupil water friend timber spend brand vote obey corn size","publicKey":"3ec1c9ec08c0512641deba37c0e95a0fe5fc3bdf58424009f594d7d6a4e28a2a","delegates":["+fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"]}' 'http://45.32.248.33:4096/api/accounts/delegates'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js"> {
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transaction"</span>: {
+                      <span class="string">"type"</span>: <span class="number">3</span>,  <span class="comment">//the type of vote is '3'</span>
+                      <span class="string">"amount"</span>: <span class="number">0</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"3ec1c9ec08c0512641deba37c0e95a0fe5fc3bdf58424009f594d7d6a4e28a2a"</span>,
+                      <span class="string">"requesterPublicKey"</span>: <span class="literal">null</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">5056064</span>,
+                      <span class="string">"asset"</span>: {
+                          <span class="string">"vote"</span>: {
+                              <span class="string">"votes"</span>: [<span class="string">"+fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"</span>]
+                          }
+                      },
+                      <span class="string">"recipientId"</span>: <span class="literal">null</span>,
+                      <span class="string">"signature"</span>: <span class="string">"0bff58c7311fc59b3c8b3ffc236bbfece9850c334fb0c292ab087f78cf9a6c0f4d3e541c501887a2c2ec46294c777e8f7bf7dea9cb7c9a175fdec641bb684f08"</span>,
+                      <span class="string">"id"</span>: <span class="string">"5630629337798595849"</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"15238461869262180695"</span>
+                  }
+              }
+              </code></pre>
+              <h2 id="2-2-Transactions" class="article-heading">2.2 Transactions</h2>
+              <h3 id="2-2-1-Get-the-Transaction-Detail-Information" class="article-heading">2.2.1 Get the Transaction Detail Information</h3>
+              <p>Interface Address: /api/transactions<br />Request Method: get<br />Supported Format: urlencoded<br />Comment： if there is no parameter in request data, all network transactions will be returned.<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>blockId</td>
+              <td>string</td>
+              <td>N</td>
+              <td>block id</td>
+              </tr>
+              <tr>
+              <td>limit</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>the limitation of returned records，minimum：0,maximum：100</td>
+              </tr>
+              <tr>
+              <td>type</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>The transaction type,0:normal transfer，1:setting second password，2:registering delegate，3:voting，4:multiple signature，5:DAPP，6:IN_TRANSFER，7:OUT_TRANSFER</td>
+              </tr>
+              <tr>
+              <td>orderBy</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sort with a field in the table，senderPublicKey:desc</td>
+              </tr>
+              <tr>
+              <td>offset</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>offset, minimum 0</td>
+              </tr>
+              <tr>
+              <td>senderPublicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sender&rsquo;s public key</td>
+              </tr>
+              <tr>
+              <td>ownerPublicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>&nbsp;</td>
+              </tr>
+              <tr>
+              <td>ownerAddress</td>
+              <td>string</td>
+              <td>N</td>
+              <td>&nbsp;</td>
+              </tr>
+              <tr>
+              <td>senderId</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sender&rsquo;s address</td>
+              </tr>
+              <tr>
+              <td>recipientId</td>
+              <td>string</td>
+              <td>N</td>
+              <td>recipient&rsquo;s address, minimum:1</td>
+              </tr>
+              <tr>
+              <td>amount</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>amount</td>
+              </tr>
+              <tr>
+              <td>fee</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>charge fee</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactions</td>
+              <td>Array</td>
+              <td>A JSON object list containing multiple transactions&rsquo; detail</td>
+              </tr>
+              <tr>
+              <td>count</td>
+              <td>int</td>
+              <td>the total number of retrieved transactions</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/transactions?recipientId=16723473400748954103&amp;orderBy=t_timestamp:desc&amp;limit=3'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactions"</span>: [{
+                      <span class="string">"id"</span>: <span class="string">"17192581936339156329"</span>,
+                      <span class="string">"height"</span>: <span class="string">"105951"</span>,
+                      <span class="string">"blockId"</span>: <span class="string">"15051364118100195665"</span>,
+                      <span class="string">"type"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4385190</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3"</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"15745540293890213312"</span>,
+                      <span class="string">"recipientId"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"amount"</span>: <span class="number">10000000000</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                      <span class="string">"signature"</span>: <span class="string">"98d65df3109802c707eeed706e90a907f337bddab58cb4c1fbe6ec2179aa1c85ec2903cc0cf44bf0092926829aa5a0a6ec99458f65b6ebd11f0988772e58740e"</span>,
+                      <span class="string">"signSignature"</span>: <span class="string">""</span>,
+                      <span class="string">"signatures"</span>: <span class="literal">null</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"31802"</span>,
+                      <span class="string">"asset"</span>: {
+
+                      }
+                  },
+                  {
+                      <span class="string">"id"</span>: <span class="string">"7000452951235123088"</span>,
+                      <span class="string">"height"</span>: <span class="string">"105473"</span>,
+                      <span class="string">"blockId"</span>: <span class="string">"11877628176330539727"</span>,
+                      <span class="string">"type"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4380147</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"16358246403719868041"</span>,
+                      <span class="string">"recipientId"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"amount"</span>: <span class="number">10000000000</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                      <span class="string">"signature"</span>: <span class="string">"dc84044d4f6b4779eecc3a986b6507e458cc5964f601ebeb4d3b68a96129813f4940e14de950526dd685ca1328b6e477e6c57e95aeac45859a2ea62a587d0204"</span>,
+                      <span class="string">"signSignature"</span>: <span class="string">""</span>,
+                      <span class="string">"signatures"</span>: <span class="literal">null</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"32280"</span>,
+                      <span class="string">"asset"</span>: {
+
+                      }
+                  },
+                  {
+                      <span class="string">"id"</span>: <span class="string">"14093929199102906687"</span>,
+                      <span class="string">"height"</span>: <span class="string">"105460"</span>,
+                      <span class="string">"blockId"</span>: <span class="string">"2237504897174225512"</span>,
+                      <span class="string">"type"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4380024</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"16358246403719868041"</span>,
+                      <span class="string">"recipientId"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"amount"</span>: <span class="number">10000000000</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                      <span class="string">"signature"</span>: <span class="string">"73ceddc3cbe5103fbdd9eee12f7e4d9a125a3bcf2e7cd04282b7329719735aeb36936762f17d842fb14813fa8f857b8144040e5117dffcfc7e2ae88e36440a0f"</span>,
+                      <span class="string">"signSignature"</span>: <span class="string">""</span>,
+                      <span class="string">"signatures"</span>: <span class="literal">null</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"32293"</span>,
+                      <span class="string">"asset"</span>: {
+
+                      }
+                  }],
+                  <span class="string">"count"</span>: <span class="number">3</span>
+              }
+              </code></pre>
+              <h3 id="2-2-2-Get-the-Transaction-Detail-Information-by-Transaction-ID" class="article-heading">2.2.2 Get the Transaction Detail Information by Transaction ID</h3>
+              <p>Interface Address: /api/transactions/get<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>Id</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>transaction id</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactions</td>
+              <td>json</td>
+              <td>transaction detail information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/transactions/get?id=14093929199102906687'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transaction"</span>: {
+                      <span class="string">"id"</span>: <span class="string">"14093929199102906687"</span>,
+                      <span class="string">"height"</span>: <span class="string">"105460"</span>,
+                      <span class="string">"blockId"</span>: <span class="string">"2237504897174225512"</span>,
+                      <span class="string">"type"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4380024</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575"</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"16358246403719868041"</span>,
+                      <span class="string">"recipientId"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"amount"</span>: <span class="number">10000000000</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                      <span class="string">"signature"</span>: <span class="string">"73ceddc3cbe5103fbdd9eee12f7e4d9a125a3bcf2e7cd04282b7329719735aeb36936762f17d842fb14813fa8f857b8144040e5117dffcfc7e2ae88e36440a0f"</span>,
+                      <span class="string">"signSignature"</span>: <span class="string">""</span>,
+                      <span class="string">"signatures"</span>: <span class="literal">null</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"34268"</span>,
+                      <span class="string">"asset"</span>: {
+                      }
+                  }
+              }
+              </code></pre>
+              <h3 id="2-2-3-Get-Transaction-Detail-by-Unconfirmed-Transaction-ID" class="article-heading">2.2.3 Get Transaction Detail by Unconfirmed Transaction ID</h3>
+              <p>Interface Address: /api/transactions/unconfirmed/get<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>id</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>unconfirmed transaction id</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>unconfirmed transaction detail inforamtion</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET http://45.32.248.33:4096/api/transactions/unconfirmed/get?id=7557072430673853692  //Regularly, this unconfirmed transaction exist during an extremely short time, almost 0~10 second.
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transaction"</span>: {
+                      <span class="string">"type"</span>: <span class="number">0</span>,
+                      <span class="string">"amount"</span>: <span class="number">10000</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"3ec1c9ec08c0512641deba37c0e95a0fe5fc3bdf58424009f594d7d6a4e28a2a"</span>,
+                      <span class="string">"requesterPublicKey"</span>: <span class="literal">null</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">5082322</span>,
+                      <span class="string">"asset"</span>: {
+
+                      },
+                      <span class="string">"recipientId"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"signature"</span>: <span class="string">"3a97f8d63509ef964bda3d816366b8e9e2d9b5d4604a660e7cbeefe210cb910f5de9a51bece06c32d010f55502c62f0f59b8224e1c141731ddfee27206a88d02"</span>,
+                      <span class="string">"id"</span>: <span class="string">"7557072430673853692"</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"15238461869262180695"</span>
+                  }
+              }
+              </code></pre>
+              <h3 id="2-2-4-Get-Unconfirmed-Transaction-Detail-Inforamtion-within-all-network" class="article-heading">**2.2.4 Get Unconfirmed Transaction Detail Inforamtion [within all network]</h3>
+              <p>Interface Address: /api/transactions/unconfirmed<br />Request Method:get<br />Supported Format: urlencoded<br />Comment: If there is no parameter, all unconfirmed transactions in the whole network will be returned.<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>senderPublicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sender&rsquo;s public key</td>
+              </tr>
+              <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>N</td>
+              <td>address</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactions</td>
+              <td>Array</td>
+              <td>a list containing all unconfirmed transactions</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/transactions/unconfirmed'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactions"</span>: []      <span class="comment">//Currently there is no unconfirmed transaction in the whole network </span>
+              }
+              </code></pre>
+              <h3 id="2-2-5-Create-Transaction" class="article-heading">2.2.5 Create Transaction</h3>
+              <p>Interface Address: /api/transactions<br />Request Method:PUT<br />Supported Format: json<br />Comment: Recipiant acount must have already login in wallet on the web.<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account password</td>
+              </tr>
+              <tr>
+              <td>amount</td>
+              <td>integer</td>
+              <td>Y</td>
+              <td>amount，between 1 and 10000000000000000</td>
+              </tr>
+              <tr>
+              <td>recipientId</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>recipient&rsquo;s address, minimum:1</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sender&rsquo;s public key</td>
+              </tr>
+              <tr>
+              <td>secondSecret</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sender&rsquo;s second password (must fit the BIP39 standard), the length should be between 1 and 100</td>
+              </tr>
+              <tr>
+              <td>multisigAccountPublicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>the public key of multiple signature account</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactionId</td>
+              <td>string</td>
+              <td>transaction id</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"unaware label emerge fancy concert long fiction report affair appear decide twenty","amount":1000000,"recipientId":"16723473400748954103"}' 'http://45.32.248.33:4096/api/transactions'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactionId"</span>: <span class="string">"16670272591943275531"</span>
+              }
+              </code></pre>
+              <h2 id="2-3-Blocks" class="article-heading">2.3 Blocks</h2>
+              <h3 id="2-3-1-Get-the-Block-Detail-Information-of-the-Given-ID" class="article-heading">2.3.1 Get the Block Detail Information of the Given ID</h3>
+              <p>Interface Address: /api/blocks/<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>id</td>
+              <td>string</td>
+              <td>only choose one of these three parameters</td>
+              <td>block ID</td>
+              </tr>
+              <tr>
+              <td>height</td>
+              <td>string</td>
+              <td>ditto</td>
+              <td>block height</td>
+              </tr>
+              <tr>
+              <td>hash</td>
+              <td>string</td>
+              <td>ditto</td>
+              <td>block hash value</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>block</td>
+              <td>json</td>
+              <td>the block detail information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/get?id=6076474715648888747'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"block"</span>: {
+                      <span class="string">"id"</span>: <span class="string">"6076474715648888747"</span>,
+                      <span class="string">"version"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4734070</span>,
+                      <span class="string">"height"</span>: <span class="number">140538</span>,
+                      <span class="string">"previousBlock"</span>: <span class="string">"16033230167082515105"</span>,    <span class="comment">//previous block ID   </span>
+                      <span class="string">"numberOfTransactions"</span>: <span class="number">0</span>,  <span class="comment">//The number of transactions   </span>
+                      <span class="string">"totalAmount"</span>: <span class="number">0</span>,   <span class="comment">//the total transactions' amount   </span>
+                      <span class="string">"totalFee"</span>: <span class="number">0</span>,
+                      <span class="string">"reward"</span>: <span class="number">350000000</span>,    <span class="comment">//reward   </span>
+                      <span class="string">"payloadLength"</span>: <span class="number">0</span>,
+                      <span class="string">"payloadHash"</span>: <span class="string">"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"</span>,
+                      <span class="string">"generatorPublicKey"</span>: <span class="string">"1d352950c8141e1b35daba4a974a604519d7a2ef3a1ec0a503ce2653646aa052"</span>,
+                      <span class="string">"generatorId"</span>: <span class="string">"6656029629904254066"</span>,
+                      <span class="string">"blockSignature"</span>: <span class="string">"a53de66922cdc2f431acd0a474beec7cf7c420a8460b7b7caf84999be7caebb59fb7fbb7166c2c7013dbb431585ea7294722166cb08bf9663abf50b6bd81cd05"</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"2"</span>,
+                      <span class="string">"totalForged"</span>: <span class="number">350000000</span>
+                  }
+              }
+              </code></pre>
+              <h3 id="2-3-2-Get-the-Latest-Block" class="article-heading">2.3.2 Get the Latest Block</h3>
+              <p>Interface Address: /api/blocks<br />Request Method: get<br />Supported Format: urlencoded<br />Comment: if there is no parameter, the detail of all the blocks in the whole network will be returned<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>limit</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>maximum number of returned records, between 0 and 100</td>
+              </tr>
+              <tr>
+              <td>orderBy</td>
+              <td>string</td>
+              <td>N</td>
+              <td>sort by a field in the table, for example, height:desc</td>
+              </tr>
+              <tr>
+              <td>offset</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>offset, minimum 0</td>
+              </tr>
+              <tr>
+              <td>generatorPublicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>public key of the block generator</td>
+              </tr>
+              <tr>
+              <td>totalAmount</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>total amount of transactions, from 0 to 10000000000000000</td>
+              </tr>
+              <tr>
+              <td>totalFee</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>total fee of transaction, from 0 to 10000000000000000</td>
+              </tr>
+              <tr>
+              <td>reward</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>the amount of reward, minimum: 0</td>
+              </tr>
+              <tr>
+              <td>previousBlock</td>
+              <td>string</td>
+              <td>N</td>
+              <td>previous block</td>
+              </tr>
+              <tr>
+              <td>height</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>block height</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>blocks</td>
+              <td>Array</td>
+              <td>a list of JSON objects containing block detail</td>
+              </tr>
+              <tr>
+              <td>count</td>
+              <td>integer</td>
+              <td>block height</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks?limit=2&amp;offset=0&amp;orderBy=height:desc'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"blocks"</span>: [{
+                      <span class="string">"id"</span>: <span class="string">"12634047624004615059"</span>,
+                      <span class="string">"version"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4708080</span>,
+                      <span class="string">"height"</span>: <span class="number">137986</span>,
+                      <span class="string">"previousBlock"</span>: <span class="string">"3498191422350401106"</span>,
+                      <span class="string">"numberOfTransactions"</span>: <span class="number">0</span>,  <span class="comment">// the number of transactions   </span>
+                      <span class="string">"totalAmount"</span>: <span class="number">0</span>,   <span class="comment">// total amount of transactions   </span>
+                      <span class="string">"totalFee"</span>: <span class="number">0</span>,  <span class="comment">// transaction fee   </span>
+                      <span class="string">"reward"</span>: <span class="number">350000000</span>,    <span class="comment">// reward   </span>
+                      <span class="string">"payloadLength"</span>: <span class="number">0</span>,
+                      <span class="string">"payloadHash"</span>: <span class="string">"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"</span>,
+                      <span class="string">"generatorPublicKey"</span>: <span class="string">"44db7bec89ef289d0def257285675ca14f2a947dfd2b70e6b1cff4392ce42ada"</span>,
+                      <span class="string">"generatorId"</span>: <span class="string">"4925169939071346193"</span>,
+                      <span class="string">"blockSignature"</span>: <span class="string">"83a2124e3e8201c1a6099b2ac8ab1c117ad34867978add3a90d41a64df9d2ad8fabc9ec14d27a77cd34c08a6479ef684f247c11b1cbbcb0e9767dffc85838600"</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"1"</span>,
+                      <span class="string">"totalForged"</span>: <span class="number">350000000</span>
+                  },
+                  {
+                      <span class="string">"id"</span>: <span class="string">"3498191422350401106"</span>,
+                      <span class="string">"version"</span>: <span class="number">0</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4708070</span>,
+                      <span class="string">"height"</span>: <span class="number">137985</span>,
+                      <span class="string">"previousBlock"</span>: <span class="string">"14078155423801039323"</span>,
+                      <span class="string">"numberOfTransactions"</span>: <span class="number">0</span>,
+                      <span class="string">"totalAmount"</span>: <span class="number">0</span>,
+                      <span class="string">"totalFee"</span>: <span class="number">0</span>,
+                      <span class="string">"reward"</span>: <span class="number">350000000</span>,
+                      <span class="string">"payloadLength"</span>: <span class="number">0</span>,
+                      <span class="string">"payloadHash"</span>: <span class="string">"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"</span>,
+                      <span class="string">"generatorPublicKey"</span>: <span class="string">"500b1ec025cd64d36008341ed8d2508473ecf559be213ca5f9580620a21a592c"</span>,
+                      <span class="string">"generatorId"</span>: <span class="string">"16006295608945777169"</span>,
+                      <span class="string">"blockSignature"</span>: <span class="string">"a0b5ed6c94b1f33c4d0f017f21a08357061493392b19e34eeedf274b77c751e3f86c92443280de09ea1754d62fe7ef00e02acbdc3bc0c1063cef344bacaa4f07"</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"2"</span>,
+                      <span class="string">"totalForged"</span>: <span class="number">350000000</span>
+                  }],
+                  <span class="string">"count"</span>: <span class="number">137986</span>
+              }
+              </code></pre>
+              <h3 id="2-3-3-Get-the-Block-Height" class="article-heading">2.3.3 Get the Block Height</h3>
+              <p>Interface Address: /api/blocks/getHeight<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>height</td>
+              <td>integer</td>
+              <td>block height</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/getheight'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"height"</span>:<span class="number">140569</span>}
+              </code></pre>
+              <h3 id="2-3-4-Get-the-Transaction-Fee" class="article-heading">2.3.4 Get the Transaction Fee</h3>
+              <p>Interface Address: /api/blocks/getFee<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>fee</td>
+              <td>integer</td>
+              <td>transaction fee</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/getfee'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"fee"</span>:<span class="number">10000000</span>}     <span class="comment">//transaction fee is </span>
+              <span class="number">0.1</span> XAS
+              </code></pre>
+              <h3 id="2-3-5-Get-the-Milestone" class="article-heading">2.3.5 Get the Milestone</h3>
+              <p>Interface Address: /api/blocks/getMilestone<br />Request Method: get<br />Supported Format: none<br />Request Parameter Description: none<br />Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>milestone</td>
+              <td>integer</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/getMilestone'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"milestone"</span>:<span class="number">0</span>}
+              </code></pre>
+              <h3 id="2-3-6-Get-the-Reward-Information-of-a-Block" class="article-heading">2.3.6 Get the Reward Information of a Block</h3>
+              <p>Interface Address: /api/blocks/getReward<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>reward</td>
+              <td>integer</td>
+              <td>the reward of the block</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/getReward'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"reward"</span>:<span class="number">350000000</span>} <span class="comment">//every single block you created will be rewarded by 3.5 XAS</span>
+              </code></pre>
+              <h3 id="2-3-7-Get-the-Current-Maximum-Supply-of-the-Blockchain" class="article-heading">2.3.7 Get the Current Maximum Supply of the Blockchain</h3>
+              <p>Interface Address: /api/blocks/getSupply<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>supply</td>
+              <td>integer</td>
+              <td>the total amount of XAS in the whole network</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/getSupply'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"supply"</span>:<span class="number">10049222600000000</span>} <span class="comment">//There are totally 100492226 XAS in current testnet</span>
+              </code></pre>
+              <h3 id="2-3-8-Get-Current-Status-of-Blockchain" class="article-heading">2.3.8 Get Current Status of Blockchain</h3>
+              <p>Interface Address: /api/blocks/getStatus<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>height</td>
+              <td>integer</td>
+              <td>blockchain height</td>
+              </tr>
+              <tr>
+              <td>fee</td>
+              <td>integer</td>
+              <td>transaction fee</td>
+              </tr>
+              <tr>
+              <td>milestone</td>
+              <td>integer</td>
+              <td>&nbsp;</td>
+              </tr>
+              <tr>
+              <td>reward</td>
+              <td>integer</td>
+              <td>block reward</td>
+              </tr>
+              <tr>
+              <td>supply</td>
+              <td>integer</td>
+              <td>total amount of XAS in the whole network</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/blocks/getStatus'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"height"</span>: <span class="number">140649</span>,
+                  <span class="string">"fee"</span>: <span class="number">10000000</span>,
+                  <span class="string">"milestone"</span>: <span class="number">0</span>,
+                  <span class="string">"reward"</span>: <span class="number">350000000</span>,
+                  <span class="string">"supply"</span>: <span class="number">10049227150000000</span>
+              }
+              </code></pre>
+              <h2 id="2-4-Delegates" class="article-heading">2.4 Delegates</h2>
+              <h3 id="2-4-1-Get-the-Total-Number-of-Delegates" class="article-heading">2.4.1 Get the Total Number of Delegates</h3>
+              <p>Interface Address: /api/delegates/count<br />Request Method: get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>count</td>
+              <td>integer</td>
+              <td>total number of delegates</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/delegates/count'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"count"</span>:<span class="number">234</span>}
+              </code></pre>
+              <h3 id="2-4-2-Check-the-Voters-of-Delegates-by-Public-Key" class="article-heading">2.4.2 Check the Voters of Delegates by Public Key</h3>
+              <p>Interface Address: /api/delegates/voters<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>public key of the delegate</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>accounts</td>
+              <td>Array</td>
+              <td>a JSON object list of account</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/delegates/voters?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"accounts"</span>: [{
+                      <span class="string">"address"</span>: <span class="string">"2918354313445278349"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"4fde4c49f1297d5d3a24b1494204543c4281aff17917ff7ff8ff32da3b4b222f"</span>,
+                      <span class="string">"balance"</span>: <span class="number">1338227722727</span>,
+                      <span class="string">"weight"</span>: <span class="number">0.013316660647014596</span>
+                  },
+                  {
+                      <span class="string">"address"</span>: <span class="string">"1523444724068322527"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"8a6a61c28dc47541aadf1eecec2175c8f768f2331eea3472b1593bf1aa4e1fb4"</span>,
+                      <span class="string">"balance"</span>: <span class="number">2109297623765</span>,
+                      <span class="string">"weight"</span>: <span class="number">0.020989552213127274</span>
+                  },
+                  {
+                      <span class="string">"address"</span>: <span class="string">"14483826354741911727"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"5dacb7983095466b9b037690150c3edec0f073815326e33a4744b6d1d50953e2"</span>,
+                      <span class="string">"balance"</span>: <span class="number">5135815841470</span>,
+                      <span class="string">"weight"</span>: <span class="number">0.051106336795243436</span>
+                  }
+                  }]
+              }
+              </code></pre>
+              <h3 id="2-4-3-Get-the-Delegate&rsquo;s-Detail-by-Public-Key-or-Name" class="article-heading">2.4.3 Get the Delegate&rsquo;s Detail by Public Key or Name</h3>
+              <p>Interface Address: /api/delegates/get/<br />Request Method:get<br />Supported Format: urlencoded<br />Comment:Get the delegate&rsquo;s detail by his/her public key or user name<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>publickey</td>
+              <td>string</td>
+              <td>choose only one parameter of these two</td>
+              <td>delegate&rsquo;s public key</td>
+              </tr>
+              <tr>
+              <td>username</td>
+              <td>string</td>
+              <td>ditto</td>
+              <td>delegate&rsquo;s user name</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>delegate</td>
+              <td>json</td>
+              <td>the detail information of this delegate</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET http://45.32.248.33:4096/api/delegates/get?publicKey=bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9
+              curl -k -X GET http://45.32.248.33:4096/api/delegates/get?username=delegate_register
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"delegate"</span>: {
+                      <span class="string">"username"</span>: <span class="string">"delegate_register"</span>,
+                      <span class="string">"address"</span>: <span class="string">"16723473400748954103"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</span>,
+                      <span class="string">"vote"</span>: <span class="number">0</span>,
+                      <span class="string">"producedblocks"</span>: <span class="number">0</span>,
+                      <span class="string">"missedblocks"</span>: <span class="number">0</span>,
+                      <span class="string">"fees"</span>: <span class="number">0</span>,
+                      <span class="string">"rewards"</span>: <span class="number">0</span>,
+                      <span class="string">"rate"</span>: <span class="number">191</span>,
+                      <span class="string">"approval"</span>: <span class="number">0</span>,
+                      <span class="string">"productivity"</span>: <span class="number">0</span>,
+                      <span class="string">"forged"</span>: <span class="string">"0"</span>
+                  }
+              }
+              </code></pre>
+              <h3 id="2-4-4-Get-the-List-of-Delegates" class="article-heading">2.4.4 Get the List of Delegates</h3>
+              <p>Interface Address: /api/delegates<br />Request Method:get<br />Supported Format: urlencoded<br />Comment: if there is no parameter, all delegates in the whole network will be returned.<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>address</td>
+              <td>string</td>
+              <td>N</td>
+              <td>delegate&rsquo;s address</td>
+              </tr>
+              <tr>
+              <td>limit</td>
+              <td>int</td>
+              <td>N</td>
+              <td>maximum return records</td>
+              </tr>
+              <tr>
+              <td>offset</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>offset, minimum: 0</td>
+              </tr>
+              <tr>
+              <td>orderBy</td>
+              <td>string</td>
+              <td>N</td>
+              <td>[field used to sort]:[sort type] e.g., address:desc</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>delegates</td>
+              <td>Array</td>
+              <td>a list containing delegates&rsquo; detail information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/delegates?orderby=approval:desc&amp;limit=2' //the first two delegates order by approval vote, descendingly
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"delegates"</span>: [{
+                      <span class="string">"username"</span>: <span class="string">"wgl_002"</span>,  <span class="comment">//delegate's user name   </span>
+                      <span class="string">"address"</span>: <span class="string">"14636456069025293113"</span>,  <span class="comment">//delegate's address   </span>
+                      <span class="string">"publicKey"</span>: <span class="string">"ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"</span>,    <span class="comment">//delegate's public key   </span>
+                      <span class="string">"vote"</span>: <span class="number">9901984015600500</span>,   <span class="comment">//the number of vote   </span>
+                      <span class="string">"producedblocks"</span>: <span class="number">1371</span>, <span class="comment">//the number of generated blocks   </span>
+                      <span class="string">"missedblocks"</span>: <span class="number">6</span>,  <span class="comment">//the number of missed blocks   </span>
+                      <span class="string">"fees"</span>: <span class="number">12588514990</span>,
+                      <span class="string">"rewards"</span>: <span class="number">276850000000</span>,    <span class="comment">//the gained reward   </span>
+                      <span class="string">"rate"</span>: <span class="number">1</span>,
+                      <span class="string">"approval"</span>: <span class="number">98.54</span>,  <span class="comment">//the rate of approval votes   </span>
+                      <span class="string">"productivity"</span>: <span class="number">99.56</span>,  <span class="comment">//the productivity   </span>
+                      <span class="string">"forged"</span>: <span class="string">"289438514990"</span>    <span class="comment">//All reward from forge   </span>
+                  },
+                  {
+                      <span class="string">"username"</span>: <span class="string">"wgl_003"</span>,
+                      <span class="string">"address"</span>: <span class="string">"9961157415582672274"</span>,
+                      <span class="string">"publicKey"</span>: <span class="string">"c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2"</span>,
+                      <span class="string">"vote"</span>: <span class="number">9891994035600500</span>,
+                      <span class="string">"producedblocks"</span>: <span class="number">1370</span>,
+                      <span class="string">"missedblocks"</span>: <span class="number">8</span>,
+                      <span class="string">"fees"</span>: <span class="number">12355148480</span>,
+                      <span class="string">"rewards"</span>: <span class="number">275100000000</span>,
+                      <span class="string">"rate"</span>: <span class="number">2</span>,
+                      <span class="string">"approval"</span>: <span class="number">98.44</span>,
+                      <span class="string">"productivity"</span>: <span class="number">99.42</span>,
+                      <span class="string">"forged"</span>: <span class="string">"287455148480"</span>
+                  }],
+                  <span class="string">"totalCount"</span>: <span class="number">233</span>
+              }
+              </code></pre>
+              <h3 id="2-4-5-Get-the-Transaction-Fee-Set-by-Delegate" class="article-heading">2.4.5 Get the Transaction Fee Set by Delegate</h3>
+              <p>Interface Address: /api/delegates/fee<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>delegate&rsquo;s public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>fee</td>
+              <td>integer</td>
+              <td>transaction fee</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/delegates/fee?publicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"fee"</span>:<span class="number">10000000000</span>}  <span class="comment">//0.1 XAS</span>
+              </code></pre>
+              <h3 id="2-4-6-Get-Forge-Information-by-Public-Key" class="article-heading">2.4.6 Get Forge Information by Public Key</h3>
+              <p>Interface Address: /api/delegates/forging/getForgedByAccount<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>generatorPublicKey</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>block generator&rsquo;s public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>fees</td>
+              <td>integer</td>
+              <td>total amount of charged fee</td>
+              </tr>
+              <tr>
+              <td>rewards</td>
+              <td>integer</td>
+              <td>gained rewards</td>
+              </tr>
+              <tr>
+              <td>forged</td>
+              <td>integer</td>
+              <td>total rewards comming from forge</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/delegates/forging/getForgedByAccount?generatorPublicKey=ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"fees"</span>: <span class="number">12589307065</span>,
+                  <span class="string">"rewards"</span>: <span class="number">285600000000</span>,
+                  <span class="string">"forged"</span>: <span class="number">298189307065</span>
+              }
+              </code></pre>
+              <h3 id="2-4-7-Register-Delegate" class="article-heading">2.4.7 Register Delegate</h3>
+              <p>Interface Address: /api/delegates<br />Request Method:put<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account password</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>public key</td>
+              </tr>
+              <tr>
+              <td>secondSecret</td>
+              <td>string</td>
+              <td>N</td>
+              <td>Asch account&rsquo;s second password, minimum length:1 maximum length: 100</td>
+              </tr>
+              <tr>
+              <td>username</td>
+              <td>string</td>
+              <td>N</td>
+              <td>the delegate&rsquo;s user name</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>the detail of the registering process</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"unaware label emerge fancy concert long fiction report affair appear decide twenty","username":"delegate_0821"}' 'http://45.32.248.33:4096/api/delegates'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transaction"</span>: {
+                      <span class="string">"type"</span>: <span class="number">2</span>,  <span class="comment">//the transaction type of registering delegate is 2   </span>
+                      <span class="string">"amount"</span>: <span class="number">0</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"3b64f1833e6328043e1f2fee31e638bdaa6dfff5c7eb9c8577a5cefcf11261f2"</span>,
+                      <span class="string">"requesterPublicKey"</span>: <span class="literal">null</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4737615</span>,
+                      <span class="string">"asset"</span>: {
+                          <span class="string">"delegate"</span>: {
+                              <span class="string">"username"</span>: <span class="string">"delegate_0821"</span>,
+                              <span class="string">"publicKey"</span>: <span class="string">"3b64f1833e6328043e1f2fee31e638bdaa6dfff5c7eb9c8577a5cefcf11261f2"</span>
+                          }
+                      },
+                      <span class="string">"recipientId"</span>: <span class="literal">null</span>,
+                      <span class="string">"signature"</span>: <span class="string">"7f8417e8db5f58ddff887c86c789c26b32fd3f01083ef1e3c8d4e18ed16622bf766492d78518c6c7a07aada1c98b1efc36d40c8e09394989dbde229d8e3f8103"</span>,
+                      <span class="string">"id"</span>: <span class="string">"16351320834453011577"</span>,
+                      <span class="string">"fee"</span>: <span class="number">10000000000</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"250438937633388106"</span>
+                  }
+              }
+              </code></pre>
+              <h2 id="2-5-Peers" class="article-heading">2.5 Peers</h2>
+              <h3 id="2-5-1-Get-all-Peers&rsquo;-Information-in-the-Whole-Network" class="article-heading">2.5.1 Get all Peers&rsquo; Information in the Whole Network</h3>
+              <p>Interface Address: /api/peers<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>state</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>peer&rsquo;s status: 0:,1:,2:,3:</td>
+              </tr>
+              <tr>
+              <td>os</td>
+              <td>string</td>
+              <td>N</td>
+              <td>Linux kernel version</td>
+              </tr>
+              <tr>
+              <td>version</td>
+              <td>string</td>
+              <td>N</td>
+              <td>Asch system version</td>
+              </tr>
+              <tr>
+              <td>limit</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>maximum return records, minimum:0, maximum: 100</td>
+              </tr>
+              <tr>
+              <td>orderBy</td>
+              <td>string</td>
+              <td>N</td>
+              <td>&nbsp;</td>
+              </tr>
+              <tr>
+              <td>offset</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>offset, minimum 0</td>
+              </tr>
+              <tr>
+              <td>port</td>
+              <td>integer</td>
+              <td>N</td>
+              <td>port number，1~65535</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>peers</td>
+              <td>Array</td>
+              <td>a JSON array of peers&rsquo; information</td>
+              </tr>
+              <tr>
+              <td>totalCount</td>
+              <td>integer</td>
+              <td>the number of currently running peers</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/peers?limit=1'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"peers"</span>: [{
+                      <span class="string">"ip"</span>: <span class="string">"45.32.19.241"</span>,
+                      <span class="string">"port"</span>: <span class="number">4096</span>,
+                      <span class="string">"state"</span>: <span class="number">2</span>,
+                      <span class="string">"os"</span>: <span class="string">"linux3.13.0-87-generic"</span>,
+                      <span class="string">"version"</span>: <span class="string">"1.0.0"</span>
+                  }],
+                  <span class="string">"totalCount"</span>: [<span class="string">"54"</span>]
+              }
+              </code></pre>
+              <h3 id="2-5-2-Get-the-Version-of-Peer" class="article-heading">2.5.2 Get the Version of Peer</h3>
+              <p>Interface Address: /api/peers/version<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>version</td>
+              <td>string</td>
+              <td>version number</td>
+              </tr>
+              <tr>
+              <td>build</td>
+              <td>timestamp</td>
+              <td>built time</td>
+              </tr>
+              <tr>
+              <td>net</td>
+              <td>string</td>
+              <td>if the peer is mainnet or testnet</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET http://45.32.248.33:4096/api/peers/version
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,
+                  <span class="string">"build"</span>: <span class="string">"12:11:11 16/08/2016"</span>,
+                  <span class="string">"net"</span>: <span class="string">"testnet"</span>
+              }
+              </code></pre>
+              <h3 id="2-5-3-Get-the-Peer-Information-of-a-Given-IP-Address" class="article-heading">2.5.3 Get the Peer Information of a Given IP Address</h3>
+              <p>Interface Address: /api/peers/get<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>ip</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>peer&rsquo;s IP</td>
+              </tr>
+              <tr>
+              <td>port</td>
+              <td>integer</td>
+              <td>Y</td>
+              <td>peer&rsquo;s port，1~65535</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>peer</td>
+              <td>json</td>
+              <td>peer&rsquo;s information</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET 'http://45.32.248.33:4096/api/peers/get?ip=45.32.248.33&amp;port=4096'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"peer"</span>: {
+                  }
+              }
+              </code></pre>
+              <h2 id="2-6-Sync-and-Loader" class="article-heading">2.6 Sync and Loader</h2>
+              <h3 id="2-6-1-Get-the-local-blockchain-loadig-status" class="article-heading">2.6.1 Get the local blockchain loadig status</h3>
+              <p>Interface Address: /api/loader/status<br />Request Method: get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>loaded</td>
+              <td>bool</td>
+              <td>&nbsp;</td>
+              </tr>
+              <tr>
+              <td>blocksCount</td>
+              <td>integer</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k http://45.32.248.33:4096/api/loader/status -X GET
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"loaded"</span>: <span class="literal">true</span>,
+                  <span class="string">"blocksCount"</span>: <span class="number">0</span>
+              }
+              </code></pre>
+              <h3 id="2-6-2-Get-the-block-syncing-status" class="article-heading">2.6.2 Get the block syncing status</h3>
+              <p>Interface Address: /api/loader/status/sync<br />Request Method: get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>height</td>
+              <td>int</td>
+              <td>block height</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k http://45.32.248.33:4096/api/loader/status/sync -X GET
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"syncing"</span>: <span class="literal">false</span>,  <span class="comment">// show whether in synchronising. if yes, it will be "true". if there is no data to synchronise, it will be "false" </span>
+                  <span class="string">"blocks"</span>: <span class="number">0</span>,
+                  <span class="string">"height"</span>: <span class="number">111987</span>
+              }
+              </code></pre>
+              <h2 id="2-7-Second-Password" class="article-heading">2.7 Second Password</h2>
+              <h3 id="2-7-1-Set-the-Second-Password" class="article-heading">2.7.1 Set the Second Password</h3>
+              <p>Interface Address: /api/signatures<br />Request Method: put<br />Supported Format: json<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account&rsquo;s password</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>public key</td>
+              </tr>
+              <tr>
+              <td>secondSecret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account&rsquo;s second password，minimum length：1，maximum length：100</td>
+              </tr>
+              <tr>
+              <td>multisigAccountPublicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>the public key of multi signatures account</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>the detail information of setting transaction</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"unaware label emerge fancy concert long fiction report affair appear decide twenty","secondSecret":"fault still attack alley expand music basket purse later educate follow ride"}' 'http://45.32.248.33:4096/api/signatures'
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transaction"</span>: {
+                      <span class="string">"type"</span>: <span class="number">1</span>,  <span class="comment">//the transaction type of setting second password is 1  </span>
+                      <span class="string">"amount"</span>: <span class="number">0</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"3b64f1833e6328043e1f2fee31e638bdaa6dfff5c7eb9c8577a5cefcf11261f2"</span>,
+                      <span class="string">"requesterPublicKey"</span>: <span class="literal">null</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4872315</span>,
+                      <span class="string">"asset"</span>: {
+                          <span class="string">"signature"</span>: {
+                              <span class="string">"publicKey"</span>: <span class="string">"bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</span>
+                          }
+                      },
+                      <span class="string">"recipientId"</span>: <span class="literal">null</span>,
+                      <span class="string">"signature"</span>: <span class="string">"e76d9b25ec0fdaa88b19d59c5a222b7efdc04f738ee05896f55f4e6959229d9b1600ca25aa92fbea176668f3be7c12c506f2091e2b38c52ef0ece7a5d35e240a"</span>,
+                      <span class="string">"id"</span>: <span class="string">"1614688380530105232"</span>,
+                      <span class="string">"fee"</span>: <span class="number">500000000</span>,       <span class="comment">//the transaction fee of setting second password is 5 XAS   </span>
+                      <span class="string">"senderId"</span>: <span class="string">"250438937633388106"</span>
+                  }
+              }
+              </code></pre>
+              <h3 id="2-7-2-Get-the-Transaction-Fee-of-Setting-Second-Password" class="article-heading">2.7.2 Get the Transaction Fee of Setting Second Password</h3>
+              <p>Interface Address: /api/signatures/fee<br />Request Method:get<br />Supported Format: none<br />Request Parameter Description: none</p>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>fee</td>
+              <td>integer</td>
+              <td>transaction fee</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k http://45.32.248.33:4096/api/signatures/fee -X GET
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"fee"</span>: <span class="number">500000000</span>         <span class="comment">//5 XAS   </span>
+              }
+              </code></pre>
+              <h2 id="2-8-Multiple-Signatures" class="article-heading">2.8 Multiple Signatures</h2>
+              <h3 id="2-8-1-Set-Normal-Account-to-Multi-signatures-Account" class="article-heading">2.8.1 Set Normal Account to Multi-signatures Account</h3>
+              <p>Interface Address: /api/multisignatures<br />Request Method: put<br />Supported Format: json<br />Comment: the return value is transaction ID only. To successfully set to multi-signature account still needs other&rsquo;s signatures. Every transaction after registered as multi-signatures account will be asked for multiple signatures. The minimum necessary signatures is defined by &ldquo;min&rdquo; (include sender itself)<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account&rsquo;s password</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>public key</td>
+              </tr>
+              <tr>
+              <td>secondSecret</td>
+              <td>string</td>
+              <td>N</td>
+              <td>Asch account&rsquo;s second password, minimum length:1 maximum length: 100</td>
+              </tr>
+              <tr>
+              <td>min</td>
+              <td>integer</td>
+              <td>Y</td>
+              <td>the minimum signatures that is required to each transaction for multi-signatures account. (When the transaction is to register multi-signature account, this parameter will not work since everyone needs to sign.) Minimum:2, maximum:16. This number must not be larger than keysgroup.length+1.</td>
+              </tr>
+              <tr>
+              <td>lifetime</td>
+              <td>integer</td>
+              <td>Y</td>
+              <td>the maximum pending time of multi-signature transaction. Minimum:1, maximum:24. NOTE: this parameter is not available currently.</td>
+              </tr>
+              <tr>
+              <td>keysgroup</td>
+              <td>array</td>
+              <td>Y</td>
+              <td>an array containing other signaturers&rsquo; public key. There are plus/minus (+/-) in front of each public key, means add or delete multi-signature account respectively. Minimum length:1, maximum length:10.</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactionId</td>
+              <td>string</td>
+              <td>the multi-signature transaction ID</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"vanish deliver message evil canyon night extend unusual tell prosper issue antenna","min":2,"lifetime":1,"keysgroup":["+eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97","+d5d7aa157f866c47a2a1e09e2746286ed089fd90976b54fbfa930e87d11609cb"]}' 'http://45.32.248.33:4096/api/multisignatures'  //公钥为2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactionId"</span>: <span class="string">"17620378998277022323"</span>     <span class="comment">//only transaction ID is returned. To successfully set to multi-signature account needs other accounts' signatures.   </span>
+              }
+              </code></pre>
+              <h3 id="2-8-2-Get-the-Detail-Information-of-Pending-Multi-signature-Transaction" class="article-heading">2.8.2 Get the Detail Information of Pending Multi-signature Transaction</h3>
+              <p>Interface Address: /api/multisignatures/pending<br />Request Method:get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactions</td>
+              <td>Array</td>
+              <td>a JSON object list containing those pending transactions</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET http://45.32.248.33:4096/api/multisignatures/pending?publicKey=2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactions"</span>: [{      <span class="comment">//the detail information of the setting multi-signature account transaction (see 2.8.1, transactionId: 17620378998277022323)  </span>
+                      <span class="string">"min"</span>: <span class="number">2</span>,
+                      <span class="string">"lifetime"</span>: <span class="number">1</span>,
+                      <span class="string">"signed"</span>: <span class="literal">true</span>,
+                      <span class="string">"transaction"</span>: {
+                          <span class="string">"type"</span>: <span class="number">4</span>,      <span class="comment">//4 means registering multi-signature account   </span>
+                          <span class="string">"amount"</span>: <span class="number">0</span>,
+                          <span class="string">"senderPublicKey"</span>: <span class="string">"2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd"</span>,
+                          <span class="string">"requesterPublicKey"</span>: <span class="literal">null</span>,
+                          <span class="string">"timestamp"</span>: <span class="number">4879978</span>,
+                          <span class="string">"asset"</span>: {
+                              <span class="string">"multisignature"</span>: {
+                                  <span class="string">"min"</span>: <span class="number">2</span>,
+                                  <span class="string">"keysgroup"</span>: [<span class="string">"+eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97"</span>,
+                                  <span class="string">"+d5d7aa157f866c47a2a1e09e2746286ed089fd90976b54fbfa930e87d11609cb"</span>],
+                                  <span class="string">"lifetime"</span>: <span class="number">1</span>
+                              }
+                          },
+                          <span class="string">"recipientId"</span>: <span class="literal">null</span>,
+                          <span class="string">"signature"</span>: <span class="string">"a42feaccd9f2a4940fc0be1a1580e786b360f189db3154328f307988e75484293eae391f2f9eee489913cc6d15984eb1f5f5a0aa1bf78ea745d5c725f161af08"</span>,
+                          <span class="string">"id"</span>: <span class="string">"17620378998277022323"</span>,
+                          <span class="string">"fee"</span>: <span class="number">1500000000</span>,
+                          <span class="string">"senderId"</span>: <span class="string">"3855903394839129841"</span>
+                      }
+                  }]
+              }
+              </code></pre>
+              <h3 id="2-8-3-Sign-the-Multi-signature-Transaction-by-non-initiator" class="article-heading">2.8.3 Sign the Multi-signature Transaction (by non-initiator)</h3>
+              <p>Interface Address: /api/multisignatures/sign<br />Request Method:post<br />Supported Format: json<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>secret</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>Asch account&rsquo;s password</td>
+              </tr>
+              <tr>
+              <td>secondSecret</td>
+              <td>string</td>
+              <td>N</td>
+              <td>Asch account second password. Minimum length:1, maximum length:100</td>
+              </tr>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>N</td>
+              <td>public key</td>
+              </tr>
+              <tr>
+              <td>transactionId</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>transaction ID</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>transactionId</td>
+              <td>string</td>
+              <td>multi-signature transaction ID</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -H "Content-Type: application/json" -X POST -d '{"secret":"lemon carpet desk accuse clerk future oyster essay seminar force live dog","transactionId":"17620378998277022323"}' 'http://45.32.248.33:4096/api/multisignatures/sign'   //signed by a user whose public key is eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactionId"</span>: <span class="string">"17620378998277022323"</span>
+              }
+              <span class="comment">// Now get the pending transaction again   </span>
+              curl -k -X GET http:<span class="comment">//45.32.248.33:4096/api/multisignatures/pending?publicKey=2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd   </span>
+              {
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transactions"</span>: [{
+                      <span class="string">"min"</span>: <span class="number">2</span>,
+                      <span class="string">"lifetime"</span>: <span class="number">1</span>,
+                      <span class="string">"signed"</span>: <span class="literal">true</span>,
+                      <span class="string">"transaction"</span>: {
+                          <span class="string">"type"</span>: <span class="number">4</span>,
+                          <span class="string">"amount"</span>: <span class="number">0</span>,
+                          <span class="string">"senderPublicKey"</span>: <span class="string">"2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd"</span>,
+                          <span class="string">"requesterPublicKey"</span>: <span class="literal">null</span>,
+                          <span class="string">"timestamp"</span>: <span class="number">4879978</span>,
+                          <span class="string">"asset"</span>: {
+                              <span class="string">"multisignature"</span>: {
+                                  <span class="string">"min"</span>: <span class="number">2</span>,
+                                  <span class="string">"keysgroup"</span>: [<span class="string">"+eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97"</span>,
+                                  <span class="string">"+d5d7aa157f866c47a2a1e09e2746286ed089fd90976b54fbfa930e87d11609cb"</span>],
+                                  <span class="string">"lifetime"</span>: <span class="number">1</span>
+                              }
+                          },
+                          <span class="string">"recipientId"</span>: <span class="literal">null</span>,
+                          <span class="string">"signature"</span>: <span class="string">"a42feaccd9f2a4940fc0be1a1580e786b360f189db3154328f307988e75484293eae391f2f9eee489913cc6d15984eb1f5f5a0aa1bf78ea745d5c725f161af08"</span>,
+                          <span class="string">"id"</span>: <span class="string">"17620378998277022323"</span>,
+                          <span class="string">"fee"</span>: <span class="number">1500000000</span>,
+                          <span class="string">"senderId"</span>: <span class="string">"3855903394839129841"</span>,
+                          <span class="string">"signatures"</span>: [<span class="string">"b38a161264db2a23e353d3fbc4983562f6343d5ee693144543ca54e2bc67c0f73d1c761b7bfa38b2bb101ac2ab0797b674b1a9964ccd400aaa310746c3494d03"</span>]      <span class="comment">//new multi-signature generated   </span>
+                      }
+                  }]
+              }
+
+              <span class="comment">// a user whose public key is "d5d7aa157f866c47a2a1e09e2746286ed089fd90976b54fbfa930e87d11609cb" sign this registering transaction   </span>
+              curl -k -H <span class="string">"Content-Type: application/json"</span> -X POST -d <span class="string">'{"secret":"chalk among elbow piece badge try van round quality position simple teach","transactionId":"17620378998277022323"}'</span> <span class="string">'http://45.32.248.33:4096/api/multisignatures/sign'</span>
+              {<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"transactionId"</span>:<span class="string">"17620378998277022323"</span>}
+              <span class="comment">// trying to get pending transaction again, but this time there isn't any of it.   </span>
+              curl -k -X GET http:<span class="comment">//45.32.248.33:4096/api/multisignatures/pending?publicKey=2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd   </span>
+              {<span class="string">"success"</span>:<span class="literal">true</span>,<span class="string">"transactions"</span>:[]}
+              <span class="comment">// Check the detail of this transaction. (at this time, this transaction has been broadcasted to the whole network and been written to the blockchain) Now the account has already registered as a multi-signature account. </span>
+              curl -k -X GET http:<span class="comment">//45.32.248.33:4096/api/transactions/get?id=17620378998277022323   </span>
+              {
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"transaction"</span>: {
+                      <span class="string">"id"</span>: <span class="string">"17620378998277022323"</span>,   <span class="comment">//the registering transaction ID   </span>
+                      <span class="string">"height"</span>: <span class="string">"157013"</span>,
+                      <span class="string">"blockId"</span>: <span class="string">"4680888982781013372"</span>,
+                      <span class="string">"type"</span>: <span class="number">4</span>,
+                      <span class="string">"timestamp"</span>: <span class="number">4879978</span>,
+                      <span class="string">"senderPublicKey"</span>: <span class="string">"2cef5711e61bb5361c544077aa08aebc4d962a1d656571901c48d716382ad4fd"</span>,
+                      <span class="string">"senderId"</span>: <span class="string">"3855903394839129841"</span>,
+                      <span class="string">"recipientId"</span>: <span class="string">""</span>,
+                      <span class="string">"amount"</span>: <span class="number">0</span>,
+                      <span class="string">"fee"</span>: <span class="number">1500000000</span>,
+                      <span class="string">"signature"</span>: <span class="string">"a42feaccd9f2a4940fc0be1a1580e786b360f189db3154328f307988e75484293eae391f2f9eee489913cc6d15984eb1f5f5a0aa1bf78ea745d5c725f161af08"</span>,
+                      <span class="string">"signSignature"</span>: <span class="string">""</span>,
+                      <span class="string">"signatures"</span>: <span class="literal">null</span>,
+                      <span class="string">"confirmations"</span>: <span class="string">"26"</span>,
+                      <span class="string">"asset"</span>: {
+
+                      }
+                  }
+              }
+              </code></pre>
+              <h3 id="2-8-4-Get-Detail-Information-of-the-Multi-signature-Account" class="article-heading">2.8.4 Get Detail Information of the Multi-signature Account</h3>
+              <p>Interface Address: /api/multisignatures/accounts<br />Request Method: get<br />Supported Format: urlencoded<br />Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>publicKey</td>
+              <td>string</td>
+              <td>Y</td>
+              <td>One of the participants&lsquo; public key</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>true: response data return successfully</td>
+              </tr>
+              <tr>
+              <td>accounts</td>
+              <td>Array</td>
+              <td>the detail of this multi-signature account</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code>curl -k -X GET http://45.32.248.33:4096/api/multisignatures/accounts?publicKey=eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>: <span class="literal">true</span>,
+                  <span class="string">"accounts"</span>: [{
+                      <span class="string">"address"</span>: <span class="string">"3855903394839129841"</span>,       <span class="comment">//the address of this multi-signature account   </span>
+                      <span class="string">"balance"</span>: <span class="number">18500000000</span>,     <span class="comment">//the balance of this multi-signature account   </span>
+                      <span class="string">"multisignatures"</span>: [<span class="string">"eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97"</span>,
+                      <span class="string">"d5d7aa157f866c47a2a1e09e2746286ed089fd90976b54fbfa930e87d11609cb"</span>],    <span class="comment">//the public key of this multi-signature account   </span>
+                      <span class="string">"multimin"</span>: <span class="number">2</span>,  <span class="comment">//minimum required signature  </span>
+                      <span class="string">"multilifetime"</span>: <span class="number">1</span>,
+                      <span class="string">"multisigaccounts"</span>: [{          <span class="comment">//the detail of signer's account  </span>
+                          <span class="string">"address"</span>: <span class="string">"13542769708474548631"</span>,
+                          <span class="string">"publicKey"</span>: <span class="string">"eb48b9ab7c9a34a9b7cdf860265d65b31af774355cabf1b3a387d14a1925dc97"</span>,
+                          <span class="string">"balance"</span>: <span class="number">0</span>
+                      },
+                      {
+                          <span class="string">"address"</span>: <span class="string">"4100816257782486230"</span>,
+                          <span class="string">"publicKey"</span>: <span class="string">"d5d7aa157f866c47a2a1e09e2746286ed089fd90976b54fbfa930e87d11609cb"</span>,
+                          <span class="string">"balance"</span>: <span class="number">0</span>
+                      }]
+                  }]
+              }
+              </code></pre>
+              <h2 id="2-9-Peer-to-Peer-Transportation-secure-API" class="article-heading">2.9 Peer to Peer Transportation[secure API]</h2>
+              <h3 id="2-9-1-Overview" class="article-heading">2.9.1 Overview</h3>
+              <p>To request a peer related API, it is required to set a header like this:</p>
+              <ul>
+              <li>key=magic, and value=594fe0f3</li>
+              <li>key=version, and value=&rsquo;&rsquo;</li>
+              </ul>
+              <h3 id="2-9-2-Transaction" class="article-heading">2.9.2 Transaction</h3>
+              <p>All the writing operations in Asch system are finished by starting a transaction.<br />The transaction data is generated through a JS library named &ldquo;asch-js&rdquo;, and then broadcasted by a POST API.<br />The POST API specification is as follows:</p>
+              <p>payload: transaction data generated by asch-js<br />API Address: /peer/transactions<br />Request Method: POST<br />Supported Format: JSON</p>
+              <h4 id="2-9-2-1-Set-the-Second-Payment-Password" class="article-heading">2.9.2.1 Set the Second Payment Password</h4>
+              <p>Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>Y</td>
+              <td>transaction data generated by [asch-js.signature.createSignature]</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>whether the transaction is successful</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code class="js"><span class="keyword">var</span> asch = <span class="built_in">require</span>(<span class="string">'asch-js'</span>);
+              <span class="keyword">var</span> transaction = asch.signature.createSignature(<span class="string">'measure bottom stock hospital calm hurdle come banner high edge foster cram'</span>,<span class="string">'erjimimashezhi001'</span>)
+              <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(transaction))
+              {<span class="string">"type"</span>:<span class="number">1</span>,<span class="string">"amount"</span>:<span class="number">0</span>,<span class="string">"fee"</span>:<span class="number">500000000</span>,<span class="string">"recipientId"</span>:<span class="literal">null</span>,<span class="string">"senderPublicKey"</span>:<span class="string">"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f"</span>,<span class="string">"timestamp"</span>:<span class="number">5328943</span>,<span class="string">"asset"</span>:{<span class="string">"signature"</span>:{<span class="string">"publicKey"</span>:<span class="string">"27116db89cb5a8c02fb559712e0eabdc298480d3c79a089b803e35bc5ef7bb7b"</span>}},<span class="string">"signature"</span>:<span class="string">"71ef98b1600f22f3b18cfcf17599db3c40727c230db817f610e86454b62df4fb830211737ff0c03c6a61ecfd4a9fcb68a30b2874060bb33b87766acf800e820a"</span>,<span class="string">"id"</span>:<span class="string">"15605591820551652547"</span>}
+
+              <span class="comment">// submit above data of setting second password to Asch server by POST method</span>
+              curl -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"magic:594fe0f3"</span> -H <span class="string">"version:''"</span> -k -X POST -d <span class="string">'{"transaction":{"type":1,"amount":0,"fee":500000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5328943,"asset":{"signature":{"publicKey":"27116db89cb5a8c02fb559712e0eabdc298480d3c79a089b803e35bc5ef7bb7b"}},"signature":"71ef98b1600f22f3b18cfcf17599db3c40727c230db817f610e86454b62df4fb830211737ff0c03c6a61ecfd4a9fcb68a30b2874060bb33b87766acf800e820a","id":"15605591820551652547"}}'</span> http:<span class="comment">//45.32.248.33:4096/peer/transactions</span>
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>:<span class="literal">true</span>  <span class="comment">//setting is successful</span>
+              }
+              </code></pre>
+              <h4 id="2-9-2-2-Transfer-Money" class="article-heading">2.9.2.2 Transfer Money</h4>
+              <p>Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>Y</td>
+              <td>transaction data generated by [asch-js.transaction.createTransaction]</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>whether the transaction is successful</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code class="js"><span class="keyword">var</span> asch = <span class="built_in">require</span>(<span class="string">'asch-js'</span>);
+              <span class="keyword">var</span> targetAddress = <span class="string">"16358246403719868041"</span>;
+              <span class="keyword">var</span> amount = <span class="number">100</span>*<span class="number">100000000</span>;   <span class="comment">//100 XAS</span>
+              <span class="keyword">var</span> password = <span class="string">'measure bottom stock hospital calm hurdle come banner high edge foster cram'</span>;
+              <span class="keyword">var</span> secondPassword  = <span class="string">'erjimimashezhi001'</span>;
+
+              <span class="comment">// in above code, password is recorded when user logs in. meanwhile the second password needs to be input every time by user.</span>
+              <span class="comment">// To input or not depends on whether user has second password, which can be identified by "user.secondPublicKey" function.</span>
+
+              <span class="keyword">var</span> transaction = asch.transaction.createTransaction(targetAddress, amount, password, secondPassword || <span class="literal">undefined</span>);
+              <span class="built_in">JSON</span>.stringify(transaction)
+              <span class="string">'{"type":0,"amount":10000000000,"fee":10000000,"recipientId":"16358246403719868041","timestamp":5333378,"asset":{},"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","signature":"2d47810b7d9964c5c4d330a53d1382769e5092b3a53639853f702cf4a382aafcff8ef8663c0f6856a23f41c249944f0c3cfac0744847268853a62af5dd8fc90a","signSignature":"dfa9b807fff362d581170b41c56a2b8bd723c48d1f100f2856d794408723e8973016d75aeff4705e6837dcdb745aafb41aa10a9f1ff8a77d128ba3d712e90907","id":"16348623380114619131"}'</span>
+
+              <span class="comment">// submit above data of transfer to Asch server by POST method</span>
+              curl -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"magic:594fe0f3"</span> -H <span class="string">"version:''"</span> -k -X POST -d <span class="string">'{"transaction":{"type":0,"amount":10000000000,"fee":10000000,"recipientId":"16358246403719868041","timestamp":5333378,"asset":{},"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","signature":"2d47810b7d9964c5c4d330a53d1382769e5092b3a53639853f702cf4a382aafcff8ef8663c0f6856a23f41c249944f0c3cfac0744847268853a62af5dd8fc90a","signSignature":"dfa9b807fff362d581170b41c56a2b8bd723c48d1f100f2856d794408723e8973016d75aeff4705e6837dcdb745aafb41aa10a9f1ff8a77d128ba3d712e90907","id":"16348623380114619131"}}'</span> http:<span class="comment">//45.32.248.33:4096/peer/transactions</span>
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>:<span class="literal">true</span>  <span class="comment">//transfer success</span>
+              }
+              </code></pre>
+              <h4 id="2-9-2-3-Register-Delegates" class="article-heading">2.9.2.3 Register Delegates</h4>
+              <p>Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>Y</td>
+              <td>transaction data generated by [asch-js.delegate.createDelegate]</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>whether transaction is success</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code class="js"><span class="keyword">var</span> asch = <span class="built_in">require</span>(<span class="string">'asch-js'</span>);
+              <span class="keyword">var</span> password = <span class="string">'measure bottom stock hospital calm hurdle come banner high edge foster cram'</span>;
+              <span class="keyword">var</span> secondPassword  = <span class="string">'erjimimashezhi001'</span>;
+              <span class="keyword">var</span> userName = <span class="string">'zhenxi_test'</span>;
+
+              <span class="keyword">var</span> transaction = asch.delegate.createDelegate(password, userName, secondPassword || <span class="literal">undefined</span>);
+              <span class="built_in">JSON</span>.stringify(transaction)
+              <span class="string">'{"type":2,"amount":0,"fee":10000000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334485,"asset":{"delegate":{"username":"zhenxi_test","publicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f"}},"signature":"a12ce415d2d21ab46e4c1b918b8717b1d351dd99abd6f2f94d9a1a7e1f32b697f843a05b1851cb857ea45a2476dce592f5ddd612c00cd44488b8b610c57d7f0a","signSignature":"35adc9f1f37d14458e8588f9b4332eedf1151c02480159f64a287a4b0cbb59bfe82040dfec96a4d9560bae99b8eaa1799a7023395db5ddc640d95447992d6e00","id":"12310465407307249905"}'</span>
+
+              <span class="comment">// submit above data of registering delegate to Asch server by POST method</span>
+              curl -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"magic:594fe0f3"</span> -H <span class="string">"version:''"</span> -k -X POST -d <span class="string">'{"transaction":{"type":2,"amount":0,"fee":10000000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334485,"asset":{"delegate":{"username":"zhenxi_test","publicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f"}},"signature":"a12ce415d2d21ab46e4c1b918b8717b1d351dd99abd6f2f94d9a1a7e1f32b697f843a05b1851cb857ea45a2476dce592f5ddd612c00cd44488b8b610c57d7f0a","signSignature":"35adc9f1f37d14458e8588f9b4332eedf1151c02480159f64a287a4b0cbb59bfe82040dfec96a4d9560bae99b8eaa1799a7023395db5ddc640d95447992d6e00","id":"12310465407307249905"}}'</span> http:<span class="comment">//45.32.248.33:4096/peer/transactions</span>
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>:<span class="literal">true</span>  <span class="comment">//register successfully</span>
+              }
+              </code></pre>
+              <h4 id="2-9-2-4-Vote-and-Cancel-the-vote" class="article-heading">2.9.2.4 Vote and Cancel the vote</h4>
+              <p>Request Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Required</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>transaction</td>
+              <td>json</td>
+              <td>Y</td>
+              <td>transaction data generated by [asch-js.vote.createVote]</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Response Parameter Description:</p>
+              <table>
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+              <td>success</td>
+              <td>bool</td>
+              <td>whether the transaction is successful</td>
+              </tr>
+              </tbody>
+              </table>
+              <p>Request Example:</p>
+              <pre><code class="js"><span class="keyword">var</span> asch = <span class="built_in">require</span>(<span class="string">'asch-js'</span>);
+              <span class="keyword">var</span> password = <span class="string">'measure bottom stock hospital calm hurdle come banner high edge foster cram'</span>;
+              <span class="keyword">var</span> secondPassword  = <span class="string">'erjimimashezhi001'</span>;
+              <span class="comment">// the voting content is a list in which each item consists of a symbol (+ or -) and the delegate's public key. The "+" means vote, and "-" means cancel the vote.</span>
+              <span class="keyword">var</span> voteContent = [
+                  <span class="string">'-ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7'</span>,
+                  <span class="string">'+c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2'</span>
+              ];
+
+              <span class="keyword">var</span> transaction = asch.vote.createVote(password, voteContent, secondPassword || <span class="literal">undefined</span>);
+              <span class="built_in">JSON</span>.stringify(transaction)
+              {<span class="string">"type"</span>:<span class="number">3</span>,<span class="string">"amount"</span>:<span class="number">0</span>,<span class="string">"fee"</span>:<span class="number">10000000</span>,<span class="string">"recipientId"</span>:<span class="literal">null</span>,<span class="string">"senderPublicKey"</span>:<span class="string">"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f"</span>,<span class="string">"timestamp"</span>:<span class="number">5334923</span>,<span class="string">"asset"</span>:{<span class="string">"vote"</span>:{<span class="string">"votes"</span>:[<span class="string">"-ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"</span>,<span class="string">"+c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2"</span>]}},<span class="string">"signature"</span>:<span class="string">"6036c2066a231c452a1c83aafd3bb9db3842ee05d5f17813f8264a4294cdec761faa89edf4a95f9b2e2451285807ab18aa9f989ad9a3165b95643179b8e4580f"</span>,<span class="string">"signSignature"</span>:<span class="string">"a216ca739112e6f65986604b9467ccc8058138a7077faf134d6c4d673306cd1c514cc95bd54a036f7c602a56c4b4f2e4e59f6aa7c376cb1429e89054042e050b"</span>,<span class="string">"id"</span>:<span class="string">"17558357483072606427"</span>}
+
+              <span class="comment">// submit above data of vote/cancel vote to Asch server by POST method</span>
+              curl -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"magic:594fe0f3"</span> -H <span class="string">"version:''"</span> -k -X POST -d <span class="string">'{"transaction":{"type":3,"amount":0,"fee":10000000,"recipientId":null,"senderPublicKey":"3e6e7c90571b9f7dabc0abc2e499c2fcee8e436af3a9d5c8eadd82ac7aeae85f","timestamp":5334923,"asset":{"vote":{"votes":["-ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7","+c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2"]}},"signature":"6036c2066a231c452a1c83aafd3bb9db3842ee05d5f17813f8264a4294cdec761faa89edf4a95f9b2e2451285807ab18aa9f989ad9a3165b95643179b8e4580f","signSignature":"a216ca739112e6f65986604b9467ccc8058138a7077faf134d6c4d673306cd1c514cc95bd54a036f7c602a56c4b4f2e4e59f6aa7c376cb1429e89054042e050b","id":"17558357483072606427"}}'</span> http:<span class="comment">//45.32.248.33:4096/peer/transactions</span>
+              </code></pre>
+              <p>JSON Response Example:</p>
+              <pre><code class="js">{
+                  <span class="string">"success"</span>:<span class="literal">true</span>  <span class="comment">//transaction of vote/cancel the vote is success</span>
+              }
+              </code></pre>
+              <h1 id="Appendix-1：-Install-&lsquo;asch-js&rsquo;-library" class="article-heading">Appendix 1： Install &lsquo;asch-js&rsquo; library</h1>
+              <p>All the writing operations in Asch system are finished by starting a transaction.<br />The transaction data is generated through a JS library named &ldquo;asch-js&rdquo;, and then broadcasted by a POST API.</p>
+              <p><strong>Install the library</strong><br /><code>npm install asch-js</code></p>
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!-- Doc Content ends here-->
+
+    </div>
+    <!-- /.container-fluid-->
+
+
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+
+  </div>
+</body>
+
+</html>
