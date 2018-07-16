@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Asch.io Official Documentation">
+  <meta name="author" content="Asch.io">
+  <title>Asch Command Line Guide</title>
+
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../../css/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="../../css/sb-admin.css" rel="stylesheet">
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="../../css/custom.css" rel="stylesheet">
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="../../index.html">Asch.io Docs</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Welcome">
+          <a class="nav-link" href="../../index.html">
+            <i class="fa fa-fw fa-play"></i>
+            <span class="nav-link-text">Get started</span>
+          </a>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Documentation">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDocumentation" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-book"></i>
+            <span class="nav-link-text">Documentation</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseDocumentation">
+            <li>
+              <a href="../../page/technical-documentation/overview.html">Overview</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/node-installation.html">Node Installation</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/delegate-forging.html">Delegate Forging</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/command-line-guide.html">Command-line Interface</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/http-interface.html">HTTP Interface</a>
+            </li>
+            <li>
+              <a href="../../page/technical-documentation/issue-assets.html">Issue Assets</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dapp Development">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDappDev" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-plus"></i>
+            <span class="nav-link-text">Dapp Development</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseDappDev">
+          <li>
+            <a href="../../page/dapp-development/overview.html">Overview</a>
+          </li>
+          <li>
+            <a href="../../page/dapp-development/introduction.html">Introduction</a>
+          </li>
+        </ul>
+      </li>
+
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Whitepaper">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseWhitepaper" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-file-o"></i>
+            <span class="nav-link-text">Whitepaper</span>
+        </a>
+        <ul class="sidenav-second-level collapse" id="collapseWhitepaper">
+          <li>
+            <a href="../../page/whitepaper/overview.html">Overview</a>
+          </li>
+          <li>
+            <a href="../../page/whitepaper/asch-whitepaper.html">Asch Whitepaper</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Frequently Asked Questions">
+        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseFAQ" data-parent="#exampleAccordion">
+          <i class="fa fa-fw fa-question-circle-o"></i>
+          <span class="nav-link-text">FAQ</span>
+      </a>
+      <ul class="sidenav-second-level collapse" id="collapseFAQ">
+        <li>
+          <a href="../../page/faq/overview.html">Overview</a>
+        </li>
+        <li>
+          <a href="../../page/faq/technical.html">Technical</a>
+        </li>
+        <li>
+          <a href="../../page/faq/contributing.html">Contributing</a>
+        </li>
+      </ul>
+    </li>
+
+   </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/">
+            <i class="fa fa-fw fa-github"></i> Contribute on GitHub</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Asch.io</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="../../index.html">Docs</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="overview.html">Technical Documentation</a>
+        </li>
+        <li class="breadcrumb-item active">Command-line Guide</li>
+      </ol>
+
+      <!-- Doc Content starts here-->
+      <div class="row">
+        <div class="col-12">
+          <h1>Command-line Guide</h1>
+
+          <div class="alert alert-primary" role="alert">
+            The documentation is continously being updated by team members and contributors.
+            Please feel free to contribute to the <a href="#" class="alert-link">Asch documentation on GitHub</a>.
+          </div>
+
+          <div class="row">
+            <div class="col-sm-8">
+
+              <header class="article-header">
+              <h1 id="0-Asch-CLI-Overview" class="article-heading">0 Asch-CLI Overview</h1>
+              <p>From&nbsp;<a href="http://docs.asch.mobi/asch_whitepaper_en.md">Asch Whitepaper</a></p>
+              <blockquote>
+              <p>Asch-CLI is a command line interface provided by Asch system. Within the Asch-CLI, developers can rapidly establish a sidechain by making some simple configurations according to instructions and then create any kind of applications on this sidechain. The system also provides a series of APIs to help developers to create complicate smart contract applications. The functions of these APIs include consensus, strong random numbers, database, and cryptology and so on.</p>
+              </blockquote>
+              <h1 id="1-Asch-CLI-Installation" class="article-heading">1 Asch-CLI Installation</h1>
+              <ul>
+              <li>
+              <p>Install nodejs package manager&nbsp;<strong>npm</strong><br /><code>sudo apt-get install npm</code></p>
+              </li>
+              <li>
+              <p>Install Asch-CLI<br /><code>npm install -g asch-cli</code><br />NOTICE: if you install it in China, try parameter&nbsp;<code>--registry=http://registry.npm.taobao.org</code>&nbsp;to accelerate the installation.</p>
+              </li>
+              </ul>
+              <h1 id="2-Asch-CLI-Synopsis" class="article-heading">2 Asch-CLI Synopsis</h1>
+              <p><code>asch-cli [option] [command]</code></p>
+              <h1 id="3-Asch-CLI-Option-Description" class="article-heading">3 Asch-CLI Option Description</h1>
+              <h2 id="3-1-Print-help-information" class="article-heading">3.1 Print help information</h2>
+              <p><strong>Parameter:</strong>&nbsp;-h, &ndash;help<br /><strong>Return:</strong>&nbsp;Help document of Asch-CLI commands or sub-commands<br /><strong>Usage:</strong></p>
+              <ul>
+              <li>asch-cli -h #print help information of asch-cli itself</li>
+              <li>asch-cli [commands] -h #print help information of Asch-CLI command</li>
+              </ul>
+              <p><strong>Examples:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -h #print asch-cli help information</div>
+              <div class="line">Usage: asch-cli [options] [command]</div>
+              <div class="line">Commands:</div>
+              <div class="line">&nbsp;</div>
+              <div class="line">getheight get block height</div>
+              <div class="line">getblockstatus get block status</div>
+              <div class="line">openaccount [secret] open your account and get the infomation by secret</div>
+              <div class="line">openaccountbypublickey [publickey] open your account and get the infomation by publickey</div>
+              <div class="line">getbalance [address] get balance by address</div>
+              <div class="line">getaccount [address] get account by address</div>
+              <div class="line">getvoteddelegates [options] [address] get delegates voted by address</div>
+              <div class="line">getdelegatescount get delegates count</div>
+              <div class="line">getdelegates [options] get delegates</div>
+              <div class="line">getvoters [publicKey] get voters of a delegate by public key</div>
+              <div class="line">getdelegatebypublickey [publicKey] get delegate by public key</div>
+              <div class="line">getdelegatebyusername [username] get delegate by username</div>
+              <div class="line">getblocks [options] get blocks</div>
+              <div class="line">getblockbyid [id] get block by id</div>
+              <div class="line">getblockbyheight [height] get block by height</div>
+              <div class="line">getpeers [options] get peers</div>
+              <div class="line">getunconfirmedtransactions [options] get unconfirmed transactions</div>
+              <div class="line">gettransactions [options] get transactions</div>
+              <div class="line">gettransaction [id] get transactions</div>
+              <div class="line">sendmoney [options] send money to some address</div>
+              <div class="line">registerdelegate [options] register delegate</div>
+              <div class="line">upvote [options] vote for delegates</div>
+              <div class="line">downvote [options] cancel vote for delegates</div>
+              <div class="line">setsecondsecret [options] set second secret</div>
+              <div class="line">registerdapp [options] register a dapp</div>
+              <div class="line">contract [options] contract operations</div>
+              <div class="line">crypto [options] crypto operations</div>
+              <div class="line">dapps [options] manage your dapps</div>
+              <div class="line">creategenesis [options] create genesis block</div>
+              <div class="line">peerstat analyze block height of all peers</div>
+              <div class="line">delegatestat analyze delegates status</div>
+              <div class="line">ipstat analyze peer ip info</div>
+              <div class="line">&nbsp;</div>
+              <div class="line">Options:</div>
+              <div class="line">&nbsp;</div>
+              <div class="line">-h, --help output usage information</div>
+              <div class="line">-V, --version output the version number</div>
+              <div class="line">-H, --host &lt;host&gt; Specify the hostname or ip of the node, default: 127.0.0.1</div>
+              <div class="line">-P, --port &lt;port&gt; Specify the port of the node, default: 4096</div>
+              <div class="line">-M, --main Specify the mainnet, default: false</div>
+              <div class="line">&nbsp;</div>
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates -h #print Asch-CLI command help information</div>
+              <div class="line">Usage: getvoteddelegates [options] [address]</div>
+              <div class="line">get delegates voted by address</div>
+              <div class="line">Options:</div>
+              <div class="line">&nbsp;</div>
+              <div class="line">-h, --help output usage information</div>
+              <div class="line">-o, --offset &lt;n&gt;</div>
+              <div class="line">-l, --limit &lt;n&gt;</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <p>&nbsp;</p>
+              <h2 id="3-2-Print-Asch-CLI-version-information" class="article-heading">3.2 Print Asch-CLI version information</h2>
+              <p><strong>Parameter:</strong>&nbsp;-V, &ndash;version<br /><strong>Return:</strong>&nbsp;Output the version information<br /><strong>Usage:</strong>&nbsp;<code>asch-cli -V</code></p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -V</div>
+              <div class="line">1.0.0</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="3-3-Appoint-the-host-name-or-IP-address-of-target-Asch-Server" class="article-heading">3.3 Appoint the host name or IP address of target Asch Server</h2>
+              <p><strong>Parameter:</strong>&nbsp;-H, &ndash;host &lt;host&gt; [command]&nbsp;<em>(Default: 127.0.0.1)</em></p>
+              <p><strong>Return:</strong>&nbsp;none</p>
+              <p><strong>Usage:</strong>&nbsp;<code>asch-cli -H 45.32.248.33 [command]</code></p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 getheight #check block height of Asch server whose IP is 45.32.248.33</div>
+              <div class="line">101236</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <p>&nbsp;</p>
+              <h2 id="3-4-Appoint-the-port-number-of-target-Asch-server" class="article-heading">3.4 Appoint the port number of target Asch server</h2>
+              <p><strong>Parameter:</strong>&nbsp;-P, &ndash;port &lt;port&gt; [command]&nbsp;<em>(Default: 4096)</em></p>
+              <p><strong>Return:</strong>&nbsp;none</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli -P 4096</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight</div>
+              <div class="line">102313</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="3-5-Appoint-the-main-chain" class="article-heading">3.5 Appoint the main chain</h2>
+              <p><strong>Parameter:</strong>&nbsp;-M, &ndash;main&nbsp;<em>(Default: test chain)</em></p>
+              <p><strong>Return:</strong>&nbsp;none</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli -M</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -M -H *.*.*.105 -P 8192 getheight #check the block height of Asch main chain</div>
+              <div class="line">9388</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h1 id="4-Asch-CLI-supported-commands" class="article-heading">4 Asch-CLI supported commands</h1>
+              <h2 id="4-1-Check-the-blockchain-height" class="article-heading">4.1 Check the blockchain height</h2>
+              <p><strong>Command:</strong>&nbsp;getheight</p>
+              <p><strong>Return:</strong>&nbsp;blockchain height</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getheight</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getheight</div>
+              <div class="line">105387</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-2-Check-the-blockchain-status" class="article-heading">4.2 Check the blockchain status</h2>
+              <p><strong>Command:</strong>&nbsp;getblockstatus</p>
+              <p><strong>Return:</strong>&nbsp;a JSON format string including blockchain height, transaction fee, milestone, the reward of each delegate&rsquo;s block and the whole current volume</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getblockstatus</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getblockstatus</div>
+              <div class="line">{</div>
+              <div class="line">"success": true,</div>
+              <div class="line">"height": 105392,</div>
+              <div class="line">"fee": 10000000,</div>
+              <div class="line">"milestone": 0,</div>
+              <div class="line">"reward": 350000000,</div>
+              <div class="line">"supply": 10036887200000000</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-3-Check-account-information-by-password" class="article-heading">4.3 Check account information by password</h2>
+              <p><strong>Command:</strong>&nbsp;openaccount [secret]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing account information such as address, balance, public key, and second public key and so on.</p>
+              <p><strong>Usage:</strong>asch-cli openaccount &ldquo;password&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccount "fault still attack alley expand music basket purse later educate follow ride"</div>
+              <div class="line">{</div>
+              <div class="line">"address": "16723473400748954103",</div>
+              <div class="line">"unconfirmedBalance": 20000000000,</div>
+              <div class="line">"balance": 20000000000,</div>
+              <div class="line">"publicKey": "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9",</div>
+              <div class="line">"unconfirmedSignature": false,</div>
+              <div class="line">"secondSignature": false,</div>
+              <div class="line">"secondPublicKey": "",</div>
+              <div class="line">"multisignatures": [],</div>
+              <div class="line">"u_multisignatures": []</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-4-Check-account-information-by-public-key" class="article-heading">4.4 Check account information by public key</h2>
+              <p><strong>Command:</strong>openaccountbypublickey [publickey]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing account information such as address, balance, public key, and second public key and so on.</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli openaccountbypublickey &ldquo;public key&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 openaccountbypublickey "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</div>
+              <div class="line">{</div>
+              <div class="line">"address": "16723473400748954103",</div>
+              <div class="line">"unconfirmedBalance": 20000000000,</div>
+              <div class="line">"balance": 20000000000,</div>
+              <div class="line">"unconfirmedSignature": false,</div>
+              <div class="line">"secondSignature": false,</div>
+              <div class="line">"secondPublicKey": "",</div>
+              <div class="line">"multisignatures": [],</div>
+              <div class="line">"u_multisignatures": []</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-5-Check-account-balance-by-account-address" class="article-heading">4.5 Check account balance by account address</h2>
+              <p><strong>Command:</strong>&nbsp;getbalance [address]</p>
+              <p><strong>Return:</strong>&nbsp;A integer number that will be the account balance when divided by 100000000</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getbalance [account address]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getbalance 16723473400748954103</div>
+              <div class="line">20000000000</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-6-Check-account-information-by-account-address" class="article-heading">4.6 Check account information by account address</h2>
+              <p><strong>Command:</strong>&nbsp;getaccount [address]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing account information such as address, balance, public key, and second public key and so on.</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getaccount [account address]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getaccount 16723473400748954103</div>
+              <div class="line">{</div>
+              <div class="line">"address": "16723473400748954103",</div>
+              <div class="line">"unconfirmedBalance": 20000000000,</div>
+              <div class="line">"balance": 20000000000,</div>
+              <div class="line">"publicKey": "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9",</div>
+              <div class="line">"unconfirmedSignature": false,</div>
+              <div class="line">"secondSignature": false,</div>
+              <div class="line">"secondPublicKey": "",</div>
+              <div class="line">"multisignatures": [],</div>
+              <div class="line">"u_multisignatures": []</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-7-Check-delegates-voted-by-the-account-address" class="article-heading">4.7 Check delegates voted by the account address</h2>
+              <p><strong>Command:</strong>&nbsp;getvoteddelegates [options] [address]</p>
+              <p><strong>Return:</strong>&nbsp;A list containing the delegates voted by this account</p>
+              <p><strong>Usage:</strong>asch-cli getvoteddelegates [account address] -o offset -l [a number indicates maximum delegates that can be printed]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getvoteddelegates 15745540293890213312 -o 1 -l 2</div>
+              <div class="line">{ success: true,</div>
+              <div class="line">delegates:</div>
+              <div class="line">[ { username: 'wgl_002',</div>
+              <div class="line">address: '14636456069025293113',</div>
+              <div class="line">publicKey: 'ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7',</div>
+              <div class="line">vote: 8902736443247261,</div>
+              <div class="line">producedblocks: 1041,</div>
+              <div class="line">missedblocks: 6,</div>
+              <div class="line">rate: 1,</div>
+              <div class="line">approval: '88.70',</div>
+              <div class="line">productivity: '99.42' },</div>
+              <div class="line">{ username: 'wgl_003',</div>
+              <div class="line">address: '9961157415582672274',</div>
+              <div class="line">publicKey: 'c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2',</div>
+              <div class="line">vote: 8902736443247261,</div>
+              <div class="line">producedblocks: 1043,</div>
+              <div class="line">missedblocks: 8,</div>
+              <div class="line">rate: 2,</div>
+              <div class="line">approval: '88.70',</div>
+              <div class="line">productivity: '99.23' }]</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-8-Check-the-whole-number-of-delegates" class="article-heading">4.8 Check the whole number of delegates</h2>
+              <p><strong>Command:</strong>&nbsp;getdelegatescount</p>
+              <p><strong>Return:</strong>&nbsp;An integer number indicates the count of all delegates</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getdelegatescount</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegatescount</div>
+              <div class="line">232</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-9-Check-delegates-information-and-sort-out" class="article-heading">4.9 Check delegates information and sort out</h2>
+              <p><strong>Command:</strong>getdelegates [options]</p>
+              <p><strong>Return:</strong>&nbsp;A list containing all delegates&rsquo; information</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getdelegates -o [offset number] -l [a number indicates maximum delegates that can be printed] -s rate:asc</p>
+              <p><strong>NOTICE:</strong>&nbsp;rate:asc means ascending sort according to votes. Check other sort types with&nbsp;<code>asch-cli getdelegates -h</code></p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 getdelegates -o 1 -l 1 -s rate:asc</div>
+              <div class="line">[</div>
+              <div class="line">{</div>
+              <div class="line">"username": "wgl_003",</div>
+              <div class="line">"address": "9961157415582672274",</div>
+              <div class="line">"publicKey": "c292db6ea14d518bc29e37cb227ff260be21e2e164ca575028835a1f499e4fe2",</div>
+              <div class="line">"vote": 9901544836887660,</div>
+              <div class="line">"producedblocks": 1044,</div>
+              <div class="line">"missedblocks": 8,</div>
+              <div class="line">"fees": 12150495022,</div>
+              <div class="line">"rewards": 161000000000,</div>
+              <div class="line">"rate": 2,</div>
+              <div class="line">"approval": 98.65,</div>
+              <div class="line">"productivity": 99.24,</div>
+              <div class="line">"forged": "173150495022"</div>
+              <div class="line">}</div>
+              <div class="line">]</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-10-Check-the-voters-of-the-delegate-by-his-public-key" class="article-heading">4.10 Check the voters of the delegate by his public key</h2>
+              <p><strong>Command:</strong>&nbsp;getvoters [publicKey]</p>
+              <p><strong>Return:</strong>&nbsp;A list containing all the voters</p>
+              <p><strong>Usage:</strong>asch-cli getvoters &ldquo;delegate&rsquo;s public key&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getvoters "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"</div>
+              <div class="line">[</div>
+              <div class="line">{</div>
+              <div class="line">"address": "2918354313445278349",</div>
+              <div class="line">"publicKey": "4fde4c49f1297d5d3a24b1494204543c4281aff17917ff7ff8ff32da3b4b222f",</div>
+              <div class="line">"balance": 1215522376203,</div>
+              <div class="line">"weight": 0.012110398031994424</div>
+              <div class="line">},</div>
+              <div class="line">{</div>
+              <div class="line">"address": "1523444724068322527",</div>
+              <div class="line">"publicKey": "8a6a61c28dc47541aadf1eecec2175c8f768f2331eea3472b1593bf1aa4e1fb4",</div>
+              <div class="line">"balance": 2109297623765,</div>
+              <div class="line">"weight": 0.02101519008767971</div>
+              <div class="line">}]</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-11-Check-detail-information-of-delegate-by-public-key" class="article-heading">4.11 Check detail information of delegate by public key</h2>
+              <p><strong>Command:</strong>&nbsp;getdelegatebypublickey [publicKey]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing delegate&rsquo;s detail information such as name, address, votes, produced blocks, and forging reward and so on.</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getdelegatebypublickey &ldquo;delegate&rsquo;s public key&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebypublickey "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7"</div>
+              <div class="line">{</div>
+              <div class="line">"username": "wgl_002",</div>
+              <div class="line">"address": "14636456069025293113",</div>
+              <div class="line">"publicKey": "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7",</div>
+              <div class="line">"vote": 9901546586887660,</div>
+              <div class="line">"producedblocks": 1042,</div>
+              <div class="line">"missedblocks": 6,</div>
+              <div class="line">"fees": 12383762523,</div>
+              <div class="line">"rewards": 161700000000,</div>
+              <div class="line">"rate": 1,</div>
+              <div class="line">"approval": 98.65,</div>
+              <div class="line">"productivity": 99.43,</div>
+              <div class="line">"forged": "174083762523"</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-12-Check-the-detail-information-of-delegate-by-the-name" class="article-heading">4.12 Check the detail information of delegate by the name</h2>
+              <p><strong>Command:</strong>&nbsp;getdelegatebyusername [username]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing delegate&rsquo;s detail</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getdelegatebyusername &ldquo;delegate&rsquo;s name&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getdelegatebyusername "wgl_002"</div>
+              <div class="line">{</div>
+              <div class="line">"username": "wgl_002",</div>
+              <div class="line">"address": "14636456069025293113",</div>
+              <div class="line">"publicKey": "ae256559d06409435c04bd62628b3e7ea3894c43298556f52b1cfb01fb3e3dc7",</div>
+              <div class="line">"vote": 9901546586887660,</div>
+              <div class="line">"producedblocks": 1042,</div>
+              <div class="line">"missedblocks": 6,</div>
+              <div class="line">"fees": 12383762523,</div>
+              <div class="line">"rewards": 161700000000,</div>
+              <div class="line">"rate": 1,</div>
+              <div class="line">"approval": 98.65,</div>
+              <div class="line">"productivity": 99.43,</div>
+              <div class="line">"forged": "174083762523"</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-13-Check-analyse-block-information-in-whole-network" class="article-heading">4.13 Check/analyse block information in whole network</h2>
+              <p><strong>Command:</strong>&nbsp;getblocks [options]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing query result status and queried block information</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getblocks -o [offset number] -l [an integer that indicate maximum return data] -r [reward amount] -f [fee] -a [total amount] -g [public key that generates blocks] -s [sort rule]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblocks -o 1 -l 1 -r 350000000</div>
+              <div class="line">{</div>
+              <div class="line">"success": true,</div>
+              <div class="line">"blocks": [</div>
+              <div class="line">{</div>
+              <div class="line">"id": "5533619110613125681",</div>
+              <div class="line">"version": 0,</div>
+              <div class="line">"timestamp": 3914630,</div>
+              <div class="line">"height": 60481,</div>
+              <div class="line">"previousBlock": "11174102253820291084",</div>
+              <div class="line">"numberOfTransactions": 0,</div>
+              <div class="line">"totalAmount": 0,</div>
+              <div class="line">"totalFee": 0,</div>
+              <div class="line">"reward": 350000000,</div>
+              <div class="line">"payloadLength": 0,</div>
+              <div class="line">"payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",</div>
+              <div class="line">"generatorPublicKey": "68b28341605a24f6684df81882df1b13f421ec1cbba7d9aaa68f6c079705b258",</div>
+              <div class="line">"generatorId": "10651956562526682705",</div>
+              <div class="line">"blockSignature": "77115fdaab3215039bcf2bf8b3a461b3b7cafca7adae07e271a1a953ca6531a9e93f985bbec8544d596a568595661f1da742e20797b827d5b20aa75e8d80cc0b",</div>
+              <div class="line">"confirmations": "45349",</div>
+              <div class="line">"totalForged": 350000000</div>
+              <div class="line">}</div>
+              <div class="line">],</div>
+              <div class="line">"count": 45350</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-14-Check-block-information-by-block-ID" class="article-heading">4.14 Check block information by block ID</h2>
+              <p><strong>Command:</strong>&nbsp;getblockbyid [id]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing block ID, block height, previous block ID, total transaction number, total amount, transaction fee, reward, hash, block generator public key and ID, block signature, quantity of confirmation and so on.<br /><strong>Usage:</strong>asch-cli getblockbyid [block ID]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyid 1425942128040906871 #check the genesis block</div>
+              <div class="line">{</div>
+              <div class="line">"id": "1425942128040906871",</div>
+              <div class="line">"version": 0,</div>
+              <div class="line">"timestamp": 0,</div>
+              <div class="line">"height": 1,</div>
+              <div class="line">"previousBlock": "",</div>
+              <div class="line">"numberOfTransactions": 103,</div>
+              <div class="line">"totalAmount": 10000000000000000,</div>
+              <div class="line">"totalFee": 0,</div>
+              <div class="line">"reward": 0,</div>
+              <div class="line">"payloadLength": 19417,</div>
+              <div class="line">"payloadHash": "dd5cd3186d32145b01f8fd0bd23e3b3d72414b59b162d2e664e759db8fe60d46",</div>
+              <div class="line">"generatorPublicKey": "2af8566f8555bafb25df5a50e2e22b91a8577ceabc05d47dbd921572d28330e8",</div>
+              <div class="line">"generatorId": "1170992220085500484",</div>
+              <div class="line">"blockSignature": "a8ed06bfbfd1b630b1628e97a5c7c9383337c4ce32825969fad830890e0af981312be635b775ff46eea4f739da043f668a70efd5a940429e39fe5063852f4a01",</div>
+              <div class="line">"confirmations": "105901",</div>
+              <div class="line">"totalForged": 0</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-15-Check-block-information-by-block-height" class="article-heading">4.15 Check block information by block height</h2>
+              <p><strong>Command:</strong>&nbsp;getblockbyheight [height]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing block ID, block height, previous block ID, total transaction number, total amount, transaction fee, reward, hash, block generator public key and ID, block signature, quantity of confirmation and so on.</p>
+              <p><strong>Usage:</strong>asch-cli getblockbyheight [block height]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getblockbyheight 1</div>
+              <div class="line">{</div>
+              <div class="line">"id": "1425942128040906871",</div>
+              <div class="line">"version": 0,</div>
+              <div class="line">"timestamp": 0,</div>
+              <div class="line">"height": 1,</div>
+              <div class="line">"previousBlock": "",</div>
+              <div class="line">"numberOfTransactions": 103,</div>
+              <div class="line">"totalAmount": 10000000000000000,</div>
+              <div class="line">"totalFee": 0,</div>
+              <div class="line">"reward": 0,</div>
+              <div class="line">"payloadLength": 19417,</div>
+              <div class="line">"payloadHash": "dd5cd3186d32145b01f8fd0bd23e3b3d72414b59b162d2e664e759db8fe60d46",</div>
+              <div class="line">"generatorPublicKey": "2af8566f8555bafb25df5a50e2e22b91a8577ceabc05d47dbd921572d28330e8",</div>
+              <div class="line">"generatorId": "1170992220085500484",</div>
+              <div class="line">"blockSignature": "a8ed06bfbfd1b630b1628e97a5c7c9383337c4ce32825969fad830890e0af981312be635b775ff46eea4f739da043f668a70efd5a940429e39fe5063852f4a01",</div>
+              <div class="line">"confirmations": "105922",</div>
+              <div class="line">"totalForged": 0</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-16-Check-the-peer-node-status" class="article-heading">4.16 Check the peer/node status</h2>
+              <p><strong>Command:</strong>&nbsp;getpeers [options]</p>
+              <p><strong>Return:</strong>&nbsp;A list containing peer ip, port, operation system, and Asch version, and so on.</p>
+              <p><strong>Usage:</strong>asch-cli getpeers -o [offset] -l [an integer that indicate maximum return data] -t [status value] -s [sort type] -v [version] -p [port number] &ndash;os [OS version]</p>
+              <p><strong>NOTICE:</strong>&nbsp;For further information, try&nbsp;<code>asch-cli getpeers -h</code></p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getpeers -o 1 -l 2</div>
+              <div class="line">[</div>
+              <div class="line">{</div>
+              <div class="line">"ip": "45.32.62.184",</div>
+              <div class="line">"port": 4096,</div>
+              <div class="line">"state": 2,</div>
+              <div class="line">"os": "linux3.13.0-87-generic",</div>
+              <div class="line">"version": "1.0.0"</div>
+              <div class="line">},</div>
+              <div class="line">{</div>
+              <div class="line">"ip": "45.32.22.78",</div>
+              <div class="line">"port": 4096,</div>
+              <div class="line">"state": 2,</div>
+              <div class="line">"os": "linux3.13.0-87-generic",</div>
+              <div class="line">"version": "1.0.0"</div>
+              <div class="line">}</div>
+              <div class="line">]</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-17-Check-unconfirmed-transaction-by-public-key" class="article-heading">4.17 Check unconfirmed transaction by public key</h2>
+              <p><strong>Command:</strong>&nbsp;getunconfirmedtransactions [options]</p>
+              <p><strong>Return:</strong>&nbsp;A list containing details of all transactions that are not confirmed yet</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli getunconfirmedtransactions -p &ldquo;sender&rsquo;s public key&rdquo; -a [recipient&rsquo;s address]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 getunconfirmedtransactions -k "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3"</div>
+              <div class="line">[</div>
+              <div class="line">{</div>
+              <div class="line">"type": 0,</div>
+              <div class="line">"timestamp": 4385190,</div>
+              <div class="line">"senderPublicKey": "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3",</div>
+              <div class="line">"signature": "98d65df3109802c707eeed706e90a907f337bddab58cb4c1fbe6ec2179aa1c85ec2903cc0cf44bf0092926829aa5a0a6ec99458f65b6ebd11f0988772e58740e",</div>
+              <div class="line">"recipientId": "16723473400748954103",</div>
+              <div class="line">"senderId": "15745540293890213312",</div>
+              <div class="line">"amount": 10000000000,</div>
+              <div class="line">"fee": 10000000,</div>
+              <div class="line">"signatures": [],</div>
+              <div class="line">"id": "17192581936339156329",</div>
+              <div class="line">"height": 0,</div>
+              <div class="line">"asset": {}</div>
+              <div class="line">}</div>
+              <div class="line">]</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-18-Check-analyse-transaction-information-in-the-whole-network" class="article-heading">4.18 Check/analyse transaction information in the whole network</h2>
+              <p><strong>Command:</strong>&nbsp;gettransactions [options]</p>
+              <p><strong>Return:</strong>&nbsp;A list containing all selected transaction&rsquo;s detail information</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli gettransactions -b [block ID] -o [offset] -l [an integer that indicate maximum return data]</p>
+              <p><strong>NOTICE:</strong>&nbsp;try&nbsp;<code>asch-cli gettransactions -h</code>&nbsp;to get the information for other parameters.</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransactions -o 1 -l 2 #check the first two transactions' information in the whole network</div>
+              <div class="line">[</div>
+              <div class="line">{</div>
+              <div class="line">"id": "10169086766604015960",</div>
+              <div class="line">"height": "1",</div>
+              <div class="line">"blockId": "1425942128040906871",</div>
+              <div class="line">"type": 2,</div>
+              <div class="line">"timestamp": 0,</div>
+              <div class="line">"senderPublicKey": "991e0dda00d2c33ce68dd99471de8ebea7b58711f22a2e55236b8864c6d24c84",</div>
+              <div class="line">"senderId": "3331250159865474723",</div>
+              <div class="line">"recipientId": "",</div>
+              <div class="line">"amount": 0,</div>
+              <div class="line">"fee": 0,</div>
+              <div class="line">"signature": "60bf38e7a3515aeaa2cac491f7737c94087f448a862099408b90c2cf96d3fe4f709e22e6471dd4e37aca111d8573beeb7b6cff4ef451633d9aaf74ab97ce8d02",</div>
+              <div class="line">"signSignature": "",</div>
+              <div class="line">"signatures": null,</div>
+              <div class="line">"confirmations": "105988",</div>
+              <div class="line">"asset": {}</div>
+              <div class="line">},</div>
+              <div class="line">{</div>
+              <div class="line">"id": "10375311635154792515",</div>
+              <div class="line">"height": "1",</div>
+              <div class="line">"blockId": "1425942128040906871",</div>
+              <div class="line">"type": 2,</div>
+              <div class="line">"timestamp": 0,</div>
+              <div class="line">"senderPublicKey": "1674ae566c633cde3e01db8f04a02ea087081a270de2dd53e0e0b97c029106fb",</div>
+              <div class="line">"senderId": "9948352853509008057",</div>
+              <div class="line">"recipientId": "",</div>
+              <div class="line">"amount": 0,</div>
+              <div class="line">"fee": 0,</div>
+              <div class="line">"signature": "f09c1693cc26c4028c642cb1711cf71c2dee090a50904d1590c74d865b2f5f3ba720ed792704f5379ec9c4a20b018c5e95f325ea179236777a28cddffe8c580d",</div>
+              <div class="line">"signSignature": "",</div>
+              <div class="line">"signatures": null,</div>
+              <div class="line">"confirmations": "105988",</div>
+              <div class="line">"asset": {}</div>
+              <div class="line">}</div>
+              <div class="line">]</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-19-Check-transaction-detail-inforamtion-by-transaction-ID" class="article-heading">4.19 Check transaction detail inforamtion by transaction ID</h2>
+              <p><strong>Command:</strong>&nbsp;gettransaction [id]</p>
+              <p><strong>Return:</strong>&nbsp;A JSON string containing transaction ID, block height, block ID, time stamp, sender&rsquo;s public key, recipient&rsquo;s address, total amount, fee, signature, confirmation quantity, assets, and etc.</p>
+              <p><strong>Usage:</strong>asch-cli gettransaction [transactionID]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 gettransaction 17192581936339156329</div>
+              <div class="line">{</div>
+              <div class="line">"id": "17192581936339156329",</div>
+              <div class="line">"height": "105951",</div>
+              <div class="line">"blockId": "15051364118100195665",</div>
+              <div class="line">"type": 0,</div>
+              <div class="line">"timestamp": 4385190,</div>
+              <div class="line">"senderPublicKey": "d39d6f26869067473d685da742339d1a9117257fe14b3cc7261e3f2ed5a339e3",</div>
+              <div class="line">"senderId": "15745540293890213312",</div>
+              <div class="line">"recipientId": "16723473400748954103",</div>
+              <div class="line">"amount": 10000000000,</div>
+              <div class="line">"fee": 10000000,</div>
+              <div class="line">"signature": "98d65df3109802c707eeed706e90a907f337bddab58cb4c1fbe6ec2179aa1c85ec2903cc0cf44bf0092926829aa5a0a6ec99458f65b6ebd11f0988772e58740e",</div>
+              <div class="line">"signSignature": "",</div>
+              <div class="line">"signatures": null,</div>
+              <div class="line">"confirmations": "17",</div>
+              <div class="line">"asset": {}</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-20-Transfer-money" class="article-heading">4.20 Transfer money</h2>
+              <p><strong>Command:</strong>&nbsp;sendmoney [option]</p>
+              <p><strong>Return:</strong>&nbsp;transaction result. true=success, otherwise error message</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli sendmoney -e &ldquo;[sender&rsquo;s password]&rdquo; -t [recipient&rsquo;s address] -a [transfer amount] [-s &ldquo;second password&rdquo;]</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 sendmoney -e "motion group blossom coral upper warrior pattern fragile sister misery palm admin" -t 16723473400748954103 -a 100</div>
+              <div class="line">true</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-21-Register-delegate" class="article-heading">4.21 Register delegate</h2>
+              <p><strong>Command:</strong>&nbsp;registerdelegate [options]</p>
+              <p><strong>Return:</strong>&nbsp;Registering result，ture=success, otherwise error message</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli registerdelegate -e &ldquo;[password]&rdquo; -s &ldquo;[second password]&rdquo; -u &ldquo;[delegate&rsquo;s name]&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 registerdelegate -e "fault still attack alley expand music basket purse later educate follow ride" -u "delegate_register"</div>
+              <div class="line">true</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-22-Vote-for-delegate" class="article-heading">4.22 Vote for delegate</h2>
+              <p><strong>Command:</strong>&nbsp;upvote [options]</p>
+              <p><strong>Return:</strong>&nbsp;Voting result, ture=success, otherwise error message</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli upvote -e &ldquo;[password]&rdquo; -s &ldquo;[second password]&rdquo; -p &ldquo;delegate&rsquo;s public key&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 upvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</div>
+              <div class="line">true</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-23-Cancel-the-vote-for-delegate" class="article-heading">4.23 Cancel the vote for delegate</h2>
+              <p><strong>Command:</strong>downvote [options]</p>
+              <p><strong>Return:</strong>&nbsp;Cancelling vote result, ture=success, otherwise error message</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli downvote -e &ldquo;[password]&rdquo; -s &ldquo;[second password]&rdquo; -p &ldquo;delegate&rsquo;s public key&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 downvote -e "fault still attack alley expand music basket purse later educate follow ride" -p "bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9"</div>
+              <div class="line">true</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-24-Set-second-password-secret" class="article-heading">4.24 Set second password (secret)</h2>
+              <p><strong>Command:</strong>&nbsp;setsecondsecret [options]</p>
+              <p><strong>Return:</strong>&nbsp;Setting up result, ture=success, otherwise error message</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli setsecondsecret -e &ldquo;[password]&rdquo; -s &ldquo;[second password]&rdquo;</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 setsecondsecret -e "fault still attack alley expand music basket purse later educate follow ride" -s "ce shi er ji mi ma"</div>
+              <div class="line">true</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-25-Register-Dapp-decentralized-application" class="article-heading">4.25 Register Dapp (decentralized application)</h2>
+              <p><strong>Command:</strong>&nbsp;registerdapp [options]</p>
+              <p><strong>Return:</strong></p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli registerdapp -e &ldquo;[password]&rdquo; -s &ldquo;[second password]&rdquo; -f [Dapp meta file]</p>
+              <p><strong>Example:</strong></p>
+              <h2 id="4-26-Contract-related-command" class="article-heading">4.26 Contract related command</h2>
+              <p><strong>Command:</strong>&nbsp;contract [options]</p>
+              <p><strong>Return:</strong></p>
+              <p><strong>Usage:</strong></p>
+              <ul>
+              <li>asch-cli contract -a # create a contract</li>
+              <li>asch-cli contract -d # delete a contract</li>
+              </ul>
+              <p><strong>Example:</strong></p>
+              <h2 id="4-27-Encrypt-related-command" class="article-heading">4.27 Encrypt related command</h2>
+              <p><strong>Command:</strong>&nbsp;crypto [option]</p>
+              <p><strong>Return:</strong>&nbsp;A list</p>
+              <p><strong>Usage:</strong></p>
+              <ul>
+              <li>asch-cli -p # generate public key according to password</li>
+              <li>asch-cli -g # create one or more new account</li>
+              </ul>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 45.32.248.33 -P 4096 crypto -g</div>
+              <div class="line">? Enter number of accounts to generate 1</div>
+              <div class="line">[ { address: '16723473400748954103',</div>
+              <div class="line">secret: 'fault still attack alley expand music basket purse later educate follow ride',</div>
+              <div class="line">publicKey: 'bd1e78c5a10fbf1eca36b28bbb8ea85f320967659cbf1f7ff1603d0a368867b9' } ]</div>
+              <div class="line">Done</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-28-Dapp-related-command" class="article-heading">4.28 Dapp related command</h2>
+              <p><strong>Command:</strong>&nbsp;dapps [options]</p>
+              <p><strong>Return:</strong></p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli dapps -a</p>
+              <p><strong>Example:</strong></p>
+              <h2 id="4-29-Create-genesis-block-file" class="article-heading">4.29 Create genesis block file</h2>
+              <p><strong>Command:</strong>&nbsp;creategenesis [options]</p>
+              <p><strong>Return:</strong>&nbsp;to create a genesis block file (genesisBlock.json) and log file (genGenesisBlock.log) in the current folder</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli creategenesis</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 creategenesis</div>
+              <div class="line">root@asch:~# more genesisBlock.json</div>
+              <div class="line">{</div>
+              <div class="line">"version": 0,</div>
+              <div class="line">"totalAmount": 10000000000000000,</div>
+              <div class="line">"totalFee": 0,</div>
+              <div class="line">"reward": 0,</div>
+              <div class="line">"payloadHash": "baebdb59d0c19a07c2440e22c0512b4efe9794565b352375195c9e7e8a3817b0",</div>
+              <div class="line">"timestamp": 0,</div>
+              <div class="line">"numberOfTransactions": 103,</div>
+              <div class="line">...</div>
+              <div class="line">}</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-30-Check-the-status-of-all-nodes-peers-of-the-whole-network" class="article-heading">4.30 Check the status of all nodes/peers of the whole network</h2>
+              <p><strong>Command:</strong>&nbsp;peerstat</p>
+              <p><strong>Return:</strong>&nbsp;The peer&rsquo;s information, containing peer IP address, port, version and block height and etc.</p>
+              <p><strong>Usage:</strong>asch-cli peerstat</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 peerstat</div>
+              <div class="line">45.32.248.33:4096 1.0.0 106036</div>
+              <div class="line">45.32.62.184:4096 1.0.0 106036</div>
+              <div class="line">45.32.19.241:4096 1.0.0 106036</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-31-Check-delegates&rsquo;-status-in-the-whole-network" class="article-heading">4.31 Check delegates&rsquo; status in the whole network</h2>
+              <p><strong>Command:</strong>&nbsp;delegatestat</p>
+              <p><strong>Return:</strong>&nbsp;Delegates&rsquo; information, containing delegates&rsquo; name, address, approval votes, productivity, the amount of generated blocks, block height, ID, and the time of last block generated and so on.</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli delegatestat</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 delegatestat</div>
+              <div class="line">name address rate approval productivity produced height id time</div>
+              <div class="line">nayimoliuguang 3331976396377269399 93 88.36% 98.39% 1037 105618 12962348710289833740 2016/08/17 21:07:20(1 hour ago)</div>
+              <div class="line">jack 3705405381126069457 86 88.36% 99.41% 506 105628 5876778147855073736 2016/08/17 21:09:00(1 hour ago)</div>
+              <div class="line">node_3 12796761013870716784 81 88.36% 80.51% 814 105784 4575518649204137595 2016/08/17 21:38:10(40 mins ago)</div>
+              <div class="line">wgl_003 9961157415582672274 2 98.65% 99.24% 1047 105852 11175724889329116017 2016/08/17 21:49:40(28 mins ago)</div>
+              <div class="line">xihulongjing 12676662200687508271 59 88.36% 76.92% 150 105853 15273855606472618453 2016/08/17 21:49:50(28 mins ago)</div>
+              <div class="line">liangpeili 4514546945474752928 50 88.37% 99.68% 627 105855 3771943180359756069 2016/08/17 21:50:10(28 mins ago)</div>
+              <div class="line">asch_tea1 8812460086240160222 4 98.58% 98.79% 1059 105857 14968719538781965695 2016/08/17 21:50:30(27 mins ago)</div>
+              <div class="line">intmaster 7321911740133937168 97 88.36% 100% 1032 105871 6757656887343300317 2016/08/17 21:52:50(25 mins ago)</div>
+              <div class="line">mode_6 9248745407080572308 8 88.48% 100% 1060 105873 3777454410915098884 2016/08/17 21:53:10(25 mins ago)</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              <h2 id="4-32-Check-the-original-place-of-all-nodes-peers&rsquo;-IP-address-in-the-whole-network" class="article-heading">4.32 Check the original place of all nodes/peers&rsquo; IP address in the whole network</h2>
+              <p><strong>Command:</strong>&nbsp;ipstat</p>
+              <p><strong>Return:</strong>&nbsp;the original place of each peer&rsquo;s IP address</p>
+              <p><strong>Usage:</strong>&nbsp;asch-cli ipstat</p>
+              <p><strong>Example:</strong></p>
+              <figure class="highlight plain">
+              <table>
+              <tbody>
+              <tr>
+              <td class="code">
+              <div class="line">root@asch:~# asch-cli -H 101.200.162.236 -P 4096 ipstat</div>
+              <div class="line">美国 US</div>
+              <div class="line">美国 US</div>
+              <div class="line">美国 US</div>
+              <div class="line">日本 JP</div>
+              <div class="line">中国 CN</div>
+              <div class="line">中国 CN</div>
+              <div class="line">中国 CN</div>
+              <div class="line">中国 CN</div>
+              <div class="line">中国 CN</div>
+              <div class="line">中国 CN</div>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+              </figure>
+              </header>
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!-- Doc Content ends here-->
+
+    </div>
+    <!-- /.container-fluid-->
+
+
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+
+  </div>
+</body>
+
+</html>
