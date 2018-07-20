@@ -2,7 +2,7 @@
 
 ## 文档索引
 
-- [白皮书](./whitepaper/zh-cn.md)
+- [白皮书](./whitepaper/asch/zh-cn.md)
 - [5 分钟简介](./5_minutes/zh-cn.md)
 - [节点安装](./install/zh-cn.md)
 - [受托人锻造及收益机制](./delegate_forging/zh-cn.md)
@@ -15,7 +15,7 @@
 
 ## Documents index
 
-- [Whitepaper](./whitepaper/en.md)
+- [Whitepaper](./whitepaper/asch/en.md)
 - [5 minutes start](./5_minutes/en.md)
 - [Install](./install/en.md)
 - [Delegate & forging](./delegate_forging/en.md)
@@ -28,7 +28,7 @@
 
 ## Inhaltsverzeichnis
 
-- [Whitepaper](./whitepaper/de.md)
+- [Whitepaper](./whitepaper/asch/de.md)
 - [5 minutes start](./5_minutes/en.md)
 - [Installation](./install/de.md)
 - [Delegation & Schmiede](./delegate_forging/en.md)
