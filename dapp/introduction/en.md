@@ -67,18 +67,18 @@ Then we inplant a customized `require` and some common and secure modules, and t
 
 Here are some tutorials from the begining which will be helpful to the developers to rapidly develop applications.
 
-- [Dapp Development Tutorial 1: Asch Dapp Hello World](./dapp_docs/1_hello_en.md)
+- [Dapp Development Tutorial 1: Asch Dapp Hello World](../hello_world/en.md)
 	This tutorial shows how to create and publish a basic sidechain application, as well as introduces the source code structure of sidechain framework.
 
-- [Dapp Development Tutorial 2: Asch Dapp Asset](./dapp_docs/2_asset_en.md)
+- [Dapp Development Tutorial 2: Asch Dapp Asset]
 	This tutorial shows how to designate a built-in asset to sidechain and then analyse communication interface between the front end and back end. 
 
 
-- [Dapp Development Tutorial 3: Asch Dapp Mini DAO](./dapp_docs/3_mini_dao_en.md)
+- [Dapp Development Tutorial 3: Asch Dapp Mini DAO](../mini-dao/en.md)
 	This tutorial shows how to create a new type transaction or smart contract, and demostrates a mini decentralized autonomous organization (dao) project with project management and voting function.
 
-- [Dapp Development Tutorial 4: Asch Dapp Dice Game](./dapp_docs/4_dice_game_en.md)
+- [Dapp Development Tutorial 4: Asch Dapp Dice Game]
 	This tutorial shows how to crate more complicate transaction or smart contract, how to establish the connection among contracts, and how to carry out the contract based on historic data. The tutorial also demostrates a dice game.
 
-- [Dapp Development Tutorial 5: Publish Dapp online](./dapp_docs/5_dapp_publish_en.md)
+- [Dapp Development Tutorial 5: Publish Dapp online]
 	This tutorial shows how to register the application to online system (testnet, mainnet and how to install/uninstall it.
