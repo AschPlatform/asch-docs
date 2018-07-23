@@ -46,7 +46,15 @@
     - [7.6 app.logger.warn()](#76-apploggerwarn)
     - [7.7 app.logger.error()](#77-apploggererror)
   - [8. Tools](#8-tools)
-    - [8.1 app.validate(type, value)](#81-appvalidatetype-value)
+    - [8.1 app.validate(type, value, option)](#81-appvalidatetype-value-option)
+      - [8.1.1 amount datatype](#811-amount-datatype)
+      - [8.1.2 string datatype](#812-string-datatype)
+        - [8.1.2.1 string length validator](#8121-string-length-validator)
+        - [8.1.2.2 string isEmail validator](#8122-string-isemail-validator)
+        - [8.1.2.3 string url validator](#8123-string-url-validator)
+        - [8.1.2.4 string number validator](#8124-string-number-validator)
+      - [8.1.3 array datatype](#813-array-datatype)
+      - [8.1.4 Register own validator](#814-register-own-validator)
     - [8.2 app.registerContract(type, name)](#82-appregistercontracttype-name)
     - [8.3 app.getContractName(type)](#83-appgetcontractnametype)
     - [8.4 app.registerFee(type, min, currency)](#84-appregisterfeetype-min-currency)
@@ -605,26 +613,321 @@ app.logger.error('hello %s %d %j', 'world', 123, {foo:'bar'}, [1, 2, 3, 4], Obje
 
 ## 8. Tools
 
-### 8.1 app.validate(type, value)
+### 8.1 app.validate(type, value, option)
 
 - `type` The datatype that should be verified
 - `value` Data value which will be verified
+- `option` Optional config object
 
-> Verify that a data is matches the specification. If not, throw an exception.
+> Verify that a data matches the specification. If not, throw an exception.
 
-Example:
+#### 8.1.1 amount datatype
+
+`amount` must be an integer of type string e.g `'124000'`. `amount` must be between 1 and 1e48  
 
 ```js
-app.validate('amount', '10000') // pase
-app.validate('amount', 10000) // throws
-app.validate('amount', 'abc') // throws
-app.validate('amount', '1e10') // throws
+app.validate('amount', '10000')
+// returns: undefined
 
-app.validate('string', title, { length: { minimum: 5, maximum: 256 }})
-app.validate('string', image, { length: { minimum: 15, maximum: 256 }})
-app.validate('string', image, { url: { schemes: ["http", "https"] }})
-app.validate('string', desc, { length: { minimum: 1000, maximum: 4096 }})
+app.validate('amount', 10000)
+// throws: Error: Invalid amount type
+
+app.validate('amount', 'abc')
+// throws: Error: Amount should be integer
+
+app.validate('amount', '1e10')
+// throws: Error: Amount should be integer
 ```
+
+
+#### 8.1.2 string datatype
+
+With the `string` datatype it is possible to validate the following options:  
+
+##### 8.1.2.1 string length validator
+
+Validate the exact length of a string with the `is` keyword:  
+```js
+app.validate('string', 'some', { length: { is: 4 } })
+// returns: undefined
+
+app.validate('string', 'some', { length: { is: 5 } })
+// throws: Error: {"data":["Data is the wrong length (should be 5 characters)"]}
+```
+
+Validate the `minimum` length of a string:  
+
+```js
+app.validate('string', 'test', { length: { minimum: 4 } })
+// returns: undefined
+
+app.validate('string', 'test', { length: { minimum: 5 } })
+// throws: Error: {"data":["Data is too short (minimum is 5 characters)"]}
+```
+
+Validate the `maximum` length of a string: 
+
+```js
+app.validate('string', 'test', { length: { maximum: 4 } })
+// returns: undefined
+
+app.validate('string', 'test', { length: { maximum: 3 } })
+// throws: Error: {"data":["Data is too long (maximum is 3 characters)"]}
+```
+
+##### 8.1.2.2 string isEmail validator
+
+Validate Email's:  
+```js
+app.validate('string', 'liangpeili@asch.io', { isEmail: true })
+// returns: undefined
+
+app.validate('string', 'test@', { isEmail: true })
+// throws: {"email":["Email is not a valid email"]}
+```
+
+##### 8.1.2.3 string url validator
+
+Validate URL's:  
+```js
+app.validate('string', 'https://asch.io', { url: true })
+// returns: undefined
+
+app.validate('string', 'asch.io', { url: true })
+// throws: Error: {"url":["Url is not a valid url"]}
+
+app.validate('string', 'not real url', { url: true })
+// throws: Error: {"url":["Url is not a valid url"]}
+```
+
+Validate URL's schemes other then `http` or `https` (e.g `ftp`):  
+```js
+app.validate('string', 'ftp://asch.io', { 
+  url: { 
+    schemes: ['ftp']
+  }
+})
+// returns: undefined
+
+
+app.validate('string', 'ftp://asch.io', { 
+  url: { 
+    schemes: []
+  }
+})
+// throws: Error: {"url":["Url is not a valid url"]}
+```
+
+Validate local ip address and hostnames URL's:  
+```js
+app.validate('string', 'http://localhost', { url: { allowLocal: true } })
+// returns: undefined
+
+app.validate('string', 'http://localhost', { url: true })
+// throws: Error: {"url":["Url is not a valid url"]}
+
+app.validate('string', 'http://127.0.0.1', { url: true })
+// throws Error: {"url":["Url is not a valid url"]}
+```
+
+Output custom error `message` when URL is not valid:  
+```js
+let url = 'asch.io'
+app.validate('string', url, { url: {
+  message: `Custom error message: "${url}" not valid`
+}})
+// throws: Error: {"url":["Url Custom error message: \"asch.io\" not valid"]}
+```
+
+##### 8.1.2.4 string number validator  
+
+Validate a simple `number`:  
+```js
+app.validate('string', '23', { number: true })
+// returns: undefined
+
+app.validate('string', 'not number', { number: true })
+// throws: Error: {"number":["Number is not a number"]}
+```
+
+Number must be `onlyInteger`:  
+```js
+app.validate('string', '123', { number: { onlyInteger: true } })
+// returns undefined
+
+app.validate('string', '123.4', { number: { onlyInteger: true } })
+// throws: Error: {"number":["Number must be an integer"]}
+```
+
+Validate number in `strict` mode. No leading zeros allowed:  
+```js
+app.validate('string', '993', { number: { strict: true }})
+// returns: undefined
+
+app.validate('string', '0993', { number: { strict: true }})
+// throws: Error: {"number":["Number must be a valid number"]}
+```
+
+Validated number must be `greaterThan` a given value:  
+```js
+app.validate('string', '222', { number: { greaterThan: 200 } })
+// returns: undefined
+
+app.validate('string', '222', { number: { greaterThan: 300 } })
+// throws: Error: {"number":["Number must be greater than 300"]}
+```
+
+Validate number which is `greaterThanOrEqualTo` to a given value:  
+```js
+app.validate('string', '333', { number: { greaterThanOrEqualTo: 333 } })
+// returns: undefined
+
+app.validate('string', '333', { number: { greaterThanOrEqualTo: 334 } })
+// throws: Error: {"number":["Number must be greater than or equal to 334"]}
+```
+
+Validated number must be `equalTo` a given number:  
+```js
+app.validate('string', '444', { number: { equalTo: 444 } })
+// returns: undefined
+
+app.validate('string', '444.00', { number: { equalTo: 444.00 } })
+// returns: undefined
+
+app.validate('string', '444.00', { number: { equalTo: 500.00 } })
+// throws: Error: {"number":["Number must be equal to 500"]}
+```
+
+Validate two numbers one number `lessThanOrEqualTo` the other:  
+```js
+app.validate('string', '581', { number: { lessThanOrEqualTo: 581 }})
+// returns: undefined
+
+app.validate('string', '581', { number: { lessThanOrEqualTo: 580 }})
+// throws: Error: {"number":["Number must be less than or equal to 580"]}
+```
+
+Validate two number one number `lessThan` the other:  
+```js
+app.validate('string', '65', { number: { lessThan: 66 } })
+// returns: undefined
+
+app.validate('string', '65', { number: { lessThan: 65 } })
+// throws: Error: {"number":["Number must be less than 65"]}
+```
+
+First number must be `divisibleBy` second one:  
+```js
+app.validate('string', '10', { number: { divisibleBy: 5 } })
+// returns: undefined
+
+app.validate('string', '12', { number: { divisibleBy: 5 } })
+// throws: Error: {"number":["Number must be divisible by 5"]}
+```
+
+Provided number must be `odd`:  
+```js
+app.validate('string', '7', { number: { odd: true } })
+// returns: undefined
+
+app.validate('string', '6', { number: { odd: true } })
+// throws: Error: {"number":["Number must be odd"]}
+```
+
+Provided number must be `even`:  
+```js
+app.validate('string', '2', { number: { even: true } })
+// returns: undefined
+
+app.validate('string', '5', { number: { even: true }})
+// throws: Error: {"number":["Number must be even"]}
+```
+
+
+#### 8.1.3 array datatype
+
+Validate the exact length of the array with the `is` operator:  
+
+```js
+app.validate('array', ['one', 'two'], { length: { is: 2 } })
+// returns: undefined
+
+app.validate('array', ['one', 'two'], { length: { is: 3 } })
+// throws: Error: Arrary lentgh is incorrect,correct length is {"is":3}
+
+app.validate('array', { id: 2 }, { length: { is: 5 } })
+// throws: Error: Arrary lentgh is incorrect,correct length is 5 (BUG)
+```
+
+Validate the `maximum` length of the array:  
+
+```js
+app.validate('array', [1, 2, 3], { length: { maximum: 3 }})
+// returns: undefined
+
+app.validate('array', [1, 2, 3], { length: { maximum: 2 }})
+// throws: Error: Arrary lentgh is incorrect,correct length is {"maximum":2}
+```
+
+Validate the `minmum` length of the array:  
+
+```js
+app.validate('array', ['one'], { length: { minimum: 1 } })
+// returns: undefined
+
+app.validate('array', [], { length: { minimum: 1 } })
+// throws: Error: Arrary lentgh is incorrect,correct length is {"minimum":1}
+```
+
+#### 8.1.4 Register own validator
+
+Beside the already existing validators [amount](#811-amount-datatype), [string](#812-string-datatype) and [array](#813-array-datatype) is it also possible to register a custom validator:  
+
+Create a new directory `lib` in your Dapp:  
+
+```bash
+mkdir lib
+```
+
+The following file will be our custom validator.  
+Create a new file `lib/onetotwelve.js`:  
+
+```js
+// file-name: lib/onetotwelve.js
+module.exports = {
+  validate: function (value) {
+    if (value < 0 || value > 12) {
+      return "Value must be between 0 and 12"
+    }
+  }
+}
+```
+
+Add the following code to your `init.js` file:  
+```js
+const onetotwelve = require('./lib/onetotwelve.js')
+
+module.exports = async function () {
+
+  app.validators.onetotwelve = onetotwelve.validate
+}
+```
+
+Now you can use your custom validator. If the validation is not valid, it will throw an exception.  
+Example:  
+
+```js
+// file-name: contract/test.js
+
+module.exports = {
+  createArticle: async function (id) {
+    app.validate('onetotwelve', id)
+
+    // further code omitted
+  }
+}
+```
+
 
 ### 8.2 app.registerContract(type, name)
 
