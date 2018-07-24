@@ -65,6 +65,7 @@
         - [8.8.1 beforeCreateBlock](#881-beforecreateblock)
     - [8.9 app.custom[]](#89-appcustom)
     - [8.10 app.meta](#810-appmeta)
+  - [9 Built in packages](#9-built-in-packages)
 
 <!-- /TOC -->
 
@@ -1318,3 +1319,91 @@ module.exports = {
   // other functions ommitted
 }
 ```
+
+
+## 9 Built in packages
+
+The following packages are built into the Asch sandbox. They can be required with a simple `require` call:  
+
+Example:  
+```js
+// file-name: contract/cctime.js
+
+const bignumber = require('bignumber')
+const VOTE_UNIT = 100000000
+
+module.exports = {
+  voteArticle: async function (articleId, amount) {
+    // other code omitted
+    
+    let bAmount = bignumber(amount)
+    if (bAmount.lt(VOTE_UNIT))
+      return 'Amount too small'
+    
+    // other code omitted
+  }
+}
+```
+  
+- assert  
+The built-in node.js [assert](https://nodejs.org/api/assert.html) package
+
+- crypto  
+The built-in node.js [crypto](https://nodejs.org/api/crypto.html) package
+
+- events  
+The built-in node.js [events](https://nodejs.org/api/events.html) package
+
+- os  
+The built-in node.js [os](https://nodejs.org/api/os.html) package
+
+- path  
+The built-in node.js [path](https://nodejs.org/api/path.html) package
+
+- punycode  
+The built-in node.js [punycode](https://nodejs.org/api/punycode.html) package
+
+- querystring  
+The built-in node.js [querystring](https://nodejs.org/api/querystring.html) package
+
+- string_decoder  
+The built-in node.js [string_decoder](https://nodejs.org/api/string_decoder.html) package
+
+- url  
+The built-in node.js [url](https://nodejs.org/api/url.html) package
+
+- util  
+The built-in node.js [util](https://nodejs.org/api/util.html) package
+
+- zlib  
+The built-in node.js [zlib](https://nodejs.org/api/zlib.html) package
+
+- async  
+The package [async](https://github.com/caolan/async/blob/v1.5.2/README.md) version `1.5.2` is a package of the node.js ecosystem
+
+- bignumber  
+Official asch package [bignumber](https://github.com/AschPlatform/bignumber)
+
+- bytebuffer  
+The package [bytebuffer](https://github.com/dcodeIO/bytebuffer.js/tree/f3f310b6786e5d44686d385a2cc60c6720a1069b) version `5.0.1` is a package of the node.js ecosystem
+
+- change-case  
+The package [change-case](https://github.com/blakeembrey/change-case/tree/002a45c7666948512480dd300e324d2ca8aca9b2) version `3.0.0` is a package of the node.js ecosystem
+
+- sodium  
+The package [sodium](https://www.npmjs.com/package/sodium/v/2.0.3) version `2.0.3` is a package of the node.js ecosystem
+
+- extend  
+The package [extend](https://github.com/justmoon/node-extend/tree/1766f482fcf9ca83e07ad6fbeaa079e649d5db0c) version `2.0.0` is a package of the node.js ecosystem
+
+- ip  
+The package [ip](https://www.npmjs.com/package/ip/v/1.1.3) version `1.1.3` is a package of the node.js ecosystem
+
+- z-schema  
+Official asch package [z-schema](https://github.com/AschPlatform/z-schema)
+
+- protocol-buffers  
+The package [protocol-buffers](https://github.com/mafintosh/protocol-buffers/tree/1583634bda4b04a9a101ec5aace1953f3788449b) version `3.2.1` is a package of the node.js ecosystem
+
+- asch-js  
+Official asch package [asch-js](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md)
