@@ -25,6 +25,7 @@
 - [SDK](./sdk_api/en.md)
 - [DApp development](./dapp/api/en.md)
 - [Exchange](./exchange)
+- [How to Create a new Asset](./tokens/en.md)
 
 ## Inhaltsverzeichnis
 
