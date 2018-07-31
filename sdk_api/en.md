@@ -462,12 +462,22 @@ app.model.Transfer.findAll({ senderId: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85'})
 - `path` Path
 - `handler` Http Request Handler (async)
 
+The request handler is called with an object as input. The object will look like that shown below:
+```
+{
+  query: {}
+  parameter: {}
+}
+```
+The `query` is set by a Querystring for GET requests, or `field` for POST and PUT Request. The `parameter` is set by the path. When your `path` is '/articles/:id' and you're calling `http://localhost:4096/api/dapps/<dappId>/articles/33` you'll find that `req.paramter.id=33`.
+
+
 ### 4.1 app.route.get(path, handler)
 
 > Register a `get` type `http` request handler
 
 
-Example:  
+Example 1:  
 ```js
 // file-name: interface/index.js
 // Access this API endpoint with a GET call to `http://localhost:4096/api/dapps/<dappId>/articles`
@@ -485,13 +495,57 @@ app.route.get('/articles', async (req) => {
 
 ```
 
+Example 2:  
+```js
+// file-name: interface/index.js
+// Access this API endpoint with a GET call to `http://localhost:4096/api/dapps/<dappId>/articles/33?votes=1`
+app.route.get('/articles/:id', async (req) => {
+    let id = req.paramter.id; // = 33
+    let votes = req.query.votes // = 1
+})
+```
+
 ### 4.2 app.route.post(path, handler)
 
 > Register a `post` type  `http` request handler
 
+Same as the GET request, but you will have send your data with your request to set `req.query`:
+
+Example:  
+```js
+// file-name: interface/index.js
+// Access this API endpoint with a POST call to `http://localhost:4096/api/dapps/<dappId>/articles/33`
+app.route.post('/articles/:id', async (req) => {
+    let id = req.paramter.id; // = 33
+    let votes = req.query.votes // = 1
+})
+```
+can be called with:
+
+```
+curl --data "votes=1" -X POST http://localhost:4096/api/dapps/<dappId>/articles/33
+```
 ### 4.3 app.route.put(path, handler)
 
 > Register a `put` type `http` request handler
+
+Same as the GET request, but you will have send your data with your request to set `req.query`:
+
+Example:  
+```js
+// file-name: interface/index.js
+// Access this API endpoint with a POST call to `http://localhost:4096/api/dapps/<dappId>/articles/33`
+app.route.put('/articles/:id', async (req) => {
+    let id = req.paramter.id; // = 33
+    let votes = req.query.votes // = 1
+})
+```
+can be called with:
+
+```
+curl --data "votes=1" -X PUT http://localhost:4096/api/dapps/<dappId>/articles/33
+```
+
 
 ## 5. Cost pool
 
