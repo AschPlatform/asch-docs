@@ -22,12 +22,42 @@
     - [2.3 app.balances.decrease(address, currency, amount)](#23-appbalancesdecreaseaddress-currency-amount)
     - [2.4 app.balances.transfer(currency, amount, from, to)](#24-appbalancestransfercurrency-amount-from-to)
   - [3 Data model](#3-data-model)
-    - [3.1 app.model[name]](#31-appmodelname)
-    - [3.2 fields()](#32-fields)
-    - [3.3 count(cond)](#33-countcond)
-    - [3.4 exists(cond)](#34-existscond)
-    - [3.5 findOne(options)](#35-findoneoptions)
-    - [3.6 findAll(options)](#36-findalloptions)
+    - [3.1 Existing Data Models](#31-existing-data-models)
+      - [3.1.1 Account](#311-account)
+      - [3.1.2 Balance](#312-balance)
+      - [3.1.3 Block](#313-block)
+      - [3.1.4 Deposit](#314-deposit)
+      - [3.1.5 RoundFee](#315-roundfee)
+      - [3.1.6 Transaction](#316-transaction)
+      - [3.1.7 Transfer](#317-transfer)
+      - [3.1.8 Variable](#318-variable)
+    - [3.2 Query Data Models](#32-query-data-models)
+      - [3.2.1 app.model[name]](#321-appmodelname)
+      - [3.2.2 fields()](#322-fields)
+      - [3.2.3 count(condition)](#323-countcondition)
+      - [3.2.4 exists(condition)](#324-existscondition)
+      - [3.2.5 findOne(options)](#325-findoneoptions)
+      - [3.2.6 findAll(options)](#326-findalloptions)
+    - [3.3 Query Options](#33-query-options)
+      - [3.3.1 condition](#331-condition)
+      - [3.3.2 fields](#332-fields)
+      - [3.3.3 sort](#333-sort)
+      - [3.3.4 limit](#334-limit)
+      - [3.3.5 offset](#335-offset)
+    - [3.4 Query Operators](#34-query-operators)
+      - [3.4.1 AND](#341-and)
+      - [3.4.2 EQUAL](#342-equal)
+      - [3.4.3 NOT EQUAL](#343-not-equal)
+      - [3.4.4 LIKE](#344-like)
+      - [3.4.5 LESS THAN](#345-less-than)
+      - [3.4.6 LESS THAN OR EQUAL](#346-less-than-or-equal)
+      - [3.4.7 GREATER THAN](#347-greater-than)
+      - [3.4.8 GREATER THAN OR EQUAL](#348-greater-than-or-equal)
+      - [3.4.9 WHERE IN](#349-where-in)
+      - [3.4.10 WHERE NOT IN](#3410-where-not-in)
+      - [3.4.11 IS NULL](#3411-is-null)
+      - [3.4.12 IS NOT NULL](#3412-is-not-null)
+      - [3.4.13 BETWEEN](#3413-between)
   - [4. Routing](#4-routing)
     - [4.1 app.route.get(path, handler)](#41-approutegetpath-handler)
     - [4.2 app.route.post(path, handler)](#42-approutepostpath-handler)
@@ -208,7 +238,7 @@ Example:
 ```js
 app.sdb.replace('Account', {
   address: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85',
-  nickname: 'Nakamoto'
+  str1: 'Nakamoto'
 })
 ```
 
@@ -224,7 +254,7 @@ app.sdb.replace('Account', {
 Example:
 
 ```js
-app.sdb.update('Account', { nickname: 'Nakamoto' }, { nickname: 'Satoshi' })
+app.sdb.update('Account', { str1: 'Nakamoto' }, { str1: 'Satoshi' })
 ```
 
 ### 1.9 app.sdb.increment(model, modifier, cond)
@@ -270,13 +300,12 @@ Example:
 
 ```js
 app.balances.get('AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'XAS')
-/* output:
+// returns:
 {
   address: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85',
   currency: 'XAS',
   balance: '10000000'
 }
-*/
 ```
 
 ### 2.2 app.balances.increase(address, currency, amount)
@@ -327,54 +356,284 @@ app.balances.transfer('XAS', '100000', 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85', 'A4
 
 ## 3 Data model
 
-### 3.1 app.model[name]
+### 3.1 Existing Data Models
+
+Dapps offer numerous inbuilt data models. These data models can be queried ([query data models](#32-query-data-models)). You can also create custom data models and query them.  
+
+
+
+#### 3.1.1 Account
+
+
+> Info:  
+> There will only be an entry in the `Account` model if the nickname (field: `str1`) will be set for this account for this Dapp.  
+
+Example:  
+
+|             address               |  str1   |  
+|  :-----------------------------:  |  :---:  |  
+| AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB | Nakamato |  
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key | Not Null | Index |  
+|------ |-----  |----   |----   |----  |----  |  
+|address|String |The account address  |<ul><li>- [x] </li></ul>|  <ul><li>- [x] </li></ul>| <ul><li>- [ ] </li></ul> |  
+|str1   |String |The nickname of the account for this one specific Dapp.<br/>Every account can have a different nickname on each Dapp. |<ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul>  | <ul><li>- [x] </li></ul> |  
+
+
+<br/>
+
+
+#### 3.1.2 Balance
+
+> Info:  
+> There will only be an entry for an address and a currency if this specific account was refueld (Dapp Refuel) from the mainchain. If an account has 500 XAS on the mainchain, that doesn't mean that it has a balance on the Dapp (Sidechain).  
+
+Example:  
+
+|address   |currency   |balance   |  
+| :---: | :---: | :---: |  
+|AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB |CCTime.XCT |50000000000|  
+|AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB |XAS        |20000000000|  
+
+In this example has the account `AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB` a balance of 500 `CCTime.XCT` tokens and a balance of 200 XAS.
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|address|String |The account address  | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul>  | <ul><li>- [x] </li></ul> |
+|currency   |String | The currency for this account.<br/> e.g `XAS` or `CCTime.XCT` | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |
+|balance  |String | The balance in string format. e.g `'200000'` | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+
+<br/>
+
+
+#### 3.1.3 Block
+
+Example:  
+
+| id | timestamp | height | payloadLength | payloadHash | prevBlockId | pointId | pointHeight | delegate | signature | count |  
+| :---: | :---: | :---: | :---: |  :---: |  :---: |  :---: |    :---: |     :---: |     :---: |     :---: |    
+|`8282d8bc3da94071d29...` |65761840 |3 | 166  |`c09eff...` | `29ab2fc...` | `e9c6be7...` | 10 | `7bbf6...` | `68e28128...` | 1 |  
+
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|id  |String   |The unique identifier for the block  | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|timestamp | BigInt   |The timestamp on which the block was created  | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|height | BigInt   | The block height is an ongoing number that starts at 1 and counts upwards.<br/>If the block height is `100` that means that there are 99 previous blocks  | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|payloadLength | BigInt   |Determines the lenght of the payload | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|payloadHash | String   |A Hash of the payload | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|prevBlockId | String   |The id of the previous Block. Every block has a previous block. Only the first block has no previous block.  | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|pointId | String   |The id of the corresponding block in the mainchain   | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|pointHeight | BigInt   |The height of the corresponding block in the mainchain  | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|delegate | String   | The publicKey of the delegate that generated this block  | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|signature | String   |The signature guarantees that the delegate really created this block  | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|count | BigInt   |The count property specifies how many transactions were included in this block | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+
+<br/>
+
+#### 3.1.4 Deposit
+
+> Info:  
+> The `Deposit` model records Dapp Refuel's. A Dapp Refuel occures when a mainchain account sends an asset from his mainchain balance to his Dapp balance.  
+
+Example:  
+
+| tid | srcId | recipientId | currency | amount |  
+| :---: | :---: | :---: | :---: | :---: |  
+| `39619b5d0828ddfced6d7e25a115ebc14df2b3dc700e310c31bb47796be2eff1` | `aaea72a5771def00b161c0aae534f8069f9414c22f8e34a4648c3f40bc491311` | AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB | XAS | 50000000000 |
+
+In this example refueld the account `AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB` his Dapp balance with 500 XAS.  
+
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|tid | String | A reference to the transactionId in this Dapp (Sidechain) | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|srcId | String | The `srcId` marks the transaction id of the corresponding transaction in the mainchain | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|recipientId | String | The address of the recipient: e.g. `AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB` | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |
+|currency | String | The currency that was deposited<br/>e.g. `XAS` or `CCTime.XCT` | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|amount | String | How much was deposited formatted as string e.g. `15240000` | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+
+<br/>
+
+
+#### 3.1.5 RoundFee
+
+> Info:  
+> The roundfees are fees from transactions and contract operations that are distributed to the delegates in certain rounds.  
+
+Example:  
+
+| round | currency | amount |  
+| :---: | :---: | :---: |  
+| 1 | XAS | 0 | 0 |  
+| 22 | XAS | 0 | 0 |  
+| 23 | XAS | 10000000 | 0 |  
+| 42 | XAS | 10000000 | 0 |  
+| 43 | XAS | 10000000 | 0 |  
+| 47 | XAS | 10000000 | 0 |  
+| 48 | XAS | 10000000 | 0 |  
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|round | Number | The round (block height) in which fees are going to be distributed  | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|currency | String | The currency that is going to be distributed | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|amount | String | The amount that is going to be distributed in this round | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+
+<br/>
+
+#### 3.1.6 Transaction
+
+> Info:  
+> The `Transaction` model records every Dapp Refuel, Withdraw, Transfer and Contract call with a transaction.  
+
+Example:  
+
+| id | timestamp | senderid | senderPublicKey | fee |  signature | type | args | height |  
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |  
+| `be189a12acbcf0a86c4851463bc39bb7801be6e23c942abe4fe0982c3e8d56dd` | 65829840 | AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB | `a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c` | 10000000 | `0651c0ac08c...` | 3 | ["CCTime.XCT","2200000000","AN1yKK47P3MtD5ZgHYoncGQ1gCn4p2vGAC"] | 236 |  
+
+In this example we see a transaction record of a internal asset transfer. A transfer where the sender `AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB` transfers 22 `CCTime.XCT` tokens to `AN1yKK47P3MtD5ZgHYoncGQ1gCn4p2vGAC`.
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|id | String | The unique identifier for a transaction | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|timestamp | BigInt | The timestamp on which the block was created | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|senderId | String | The address of the account that initiated the transaction | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|senderPublicKey | String | The publicKey of the account that initated the transaction | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|fee | String | The fee that the transaction costs | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|signature | String | The signature guarantees that the sender really created this transaction | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|type | Number | The number that identifies which contract was called. Contracts types above `1000` are custom contract. Contracts below `1000` are built in contracts | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|args| Text | The arguments that will be passed to the contract functions: e.g: `["CCTime.XCT", "2200000000", "AN1yKK47P3MtD5ZgHYoncGQ1gCn4p2vGAC"]` | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|height| BigInt | Specifies the block height of the block in which this transaction was recorded | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+
+<br/>
+
+
+#### 3.1.7 Transfer
+
+> Info:  
+> The `Transfer` model records asset transfers that happen in the chain of this Dapp. It does not record Dapp Refuels or Dapp Withdrawals or other contract calls.  
+
+
+Example:  
+
+| tid | senderId | recipientId | currency | amount |  
+| :---: | :---: | :---: | :---: | :---: |  
+| `be189a12acbcf0a86c4851463bc39bb7801be6e23c942abe4fe0982c3e8d56dd` | AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB | AN1yKK47P3MtD5ZgHYoncGQ1gCn4p2vGAC | CCTime.XCT | 2200000000 |   
+
+In this example we sent 22 `CCTime.XCT` tokens from account `AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB` (`sentence weasel match weather apple onion release keen lens deal fruit matrix`) to `AN1yKK47P3MtD5ZgHYoncGQ1gCn4p2vGAC` (`flame bottom dragon rely endorse garage supply urge turtle team demand put`).
+
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|tid | String | The transactionId in which the transfer took place | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|senderId | String | The address of the sender that sent the currency to the recipient | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|recipientId | String | The address that received the currency from the sender | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|currency | String | The currency that was transferred<br/>e.g. `XAS` or `CCTime.XCT` | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |  
+|amount | String | The amount that was transferred | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+
+<br/>
+
+
+#### 3.1.8 Variable
+
+> Info:  
+> The `Variable` model is like a key value store. The `max_id` variables for custom tables are stored there. If you e.g. create your own `Article` model then there will be automatically created an `article_max_id` entry in the `Variable` model.  
+
+Example:  
+
+| key | value |  
+| :---: | :---: |  
+| article_max_id | 2 |  
+
+This example shows the highest id for the custom created `Article` model.  
+
+
+Schema:  
+
+|Fieldname |Type | Description | Primary Key |Not Null |Index |  
+|------ |-----  |----   |----   |----   |----  |  
+|key | String | The key for the key value store | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+|value | String | The value for the corresponding key | <ul><li>- [ ] </li></ul> | <ul><li>- [x] </li></ul> | <ul><li>- [ ] </li></ul> |  
+
+
+<br/>
+<br/>
+<br/>
+
+### 3.2 Query Data Models
+
+All following options can be performed on all [existing](#31-existing-data-models) Data Models but also on new ones.  
+
+#### 3.2.1 app.model[name]
 
 - `name` Model name
 
 > Returns an instance of the model
 
-### 3.2 fields()
+Example:  
+```js
+let block = app.model.Block
+```
+
+#### 3.2.2 fields()
 
 > Returns all fields of the model
 
 ```js
-app.model.Article.fields()
-/* output:
+app.model.Block.fields()
+// returns:
 [
-  'id',
-  'tid',
-  'authorId',
-  'timestamp',
-  'title',
-  'url',
-  'text',
-  'tags',
-  'votes',
-  'comments',
-  'reports'
+  "id",
+  "timestamp",
+  "height",
+  "payloadLength",
+  "payloadHash",
+  "prevBlockId",
+  "pointId",
+  "pointHeight",
+  "delegate",
+  "signature",
+  "count"
 ]
-*/
 ```
 
-### 3.3 count(cond)
+#### 3.2.3 count(condition)
 
-- `cond` Query condition
+- [condition](#331-condition) Query condition object
 
 > Returns a `Number`  
-> The total number of data items that match the specified condition.
+> The total number of data items that match the specified condition.  
 
-Example:
-
+Example:  
 ```js
-app.model.Block.count({ height: { $lt: 100 } })
-/* output:
+let condition = {
+  height: {
+    $lt: 100
+  }
+}
+return await app.model.Block.count(condition)
+// returns:  
 99
-/*
 ```
 
-### 3.4 exists(cond)
+#### 3.2.4 exists(condition)
 
-- `cond` Query condition
+- [condition](#331-condition) Query condition object  
 
 > Returns a `Boolean`  
 > Indicates whether the data item for the specified condition exists.
@@ -382,80 +641,637 @@ app.model.Block.count({ height: { $lt: 100 } })
 Example:
 
 ```js
-app.model.Transaction.exists({ id: '9a5ec0669c79b9f5a1d5a4dbb2c200bc28c9ea829dbff71f41cbb2ad5a7d9b01' })
-/* output:
+let condition = {
+  id: '9a5ec0669c79b9f5a1d5a4dbb2c200bc28c9ea829dbff71f41cbb2ad5a7d9b01'
+}
+return await app.model.Transaction.exists(condition)
+// returns:
 false
-/*
 
-app.model.Account.exists({ nickname: 'Nakamoto' })
-/* output:
+
+let condition = {
+  str1: 'Nakamoto'
+}
+return await app.model.Account.exists(condition)
+// returns:
 true
-*/
 ```
 
-### 3.5 findOne(options)
+#### 3.2.5 findOne(options)
 
 `options` Is an object that has the following properties:
 
-- `condition` Query conditions
-- `fields` The field that should be returned
+- [condition](#331-condition) Query conditions object
+- [fields](#332-fields) Array of fields that should be returned
 
 > Query data items for a specified condition.
 
+If no item for the given condition is found, the return value is:  
+```json
+{
+  "success":true
+}
+```
+
 Example:
 
 ```js
-app.model.Account.findOne({ nickname: 'Nakamoto' })
-/* output:
-{
-  address: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85',
-  nickname: 'Nakamoto',
-  ...other values
+let option = {
+  condition: {
+    str1: 'Nakamoto'
+  }
 }
-*/
+return await app.model.Account.findOne(option)
+
+// returns:
+{
+  "address":"AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
+  "str1":"Nakamoto",
+  "str2":"",
+  "str3":"",
+  "str4":"",
+  "str5":"",
+  "num1":0,
+  "num2":0,
+  "num3":0,
+  "num4":0,
+  "num5":0,
+  "bigint1":0,
+  "bigint2":0,
+  "bigint3":0,
+  "bigint4":0,
+  "bigint5":0,
+  "text1":"",
+  "text2":"",
+  "text3":"",
+  "text4":"",
+  "text5":"",
+  "success":true
+}
 ```
 
-### 3.6 findAll(options)
+#### 3.2.6 findAll(options)
 
-`options` Is an object that has the following properties:
+`options` Is an object that has the following properties:  
 
-- `condition` Query condition
-- `fields` Fields to return
-- `sort` Fields to sort after
-- `limit` The maximum number to return
-- `offset` Offset
+- [condition](#331-condition) Query condition  
+- [fields](#332-fields) Fields to return  
+- [sort](#333-sort) Fields to sort after  
+- [limit](#334-limit) The maximum number to return  
+- [offset](#335-offset) Offset  
 
 > Query all data items for the specified condition
 
+If no items are found, the return value is:  
+
+```json
+[]
+```
+
 Example:
 
 ```js
-app.model.Transfer.findAll({ senderId: 'AC3pinmvz9qX9cj6c7VrGigq7bpPxVJq85'})
-/* output:
-[
-  {
-    tid: "50e062f25946d220b924cb5ec6e52e260e44c9417d9f3c8ea041b704e06895f7",
-    senderId: "AFnwUuET2XddPtqpFb2ns78CQEqc7KZ6vD",
-    recipientId: "asdasdasd",
-    currency: "CCTime.XCT",
-    amount: "100000000",
-    t_timestamp: 38660145,
-    t_type: 3,
-    t_height: 93953
+let option = {
+  condition: {
+    delegate: 'db18d5799944030f76b6ce0879b1ca4b0c2c1cee51f53ce9b43f78259950c2fd'
   },
-  {
-    tid: "f15ce92add809b4a132936d514dce7fa7bdc15e850e7c026a001625b48595af3",
-    senderId: "AFnwUuET2XddPtqpFb2ns78CQEqc7KZ6vD",
-    recipientId: "asdasd",
-    currency: "CCTime.XCT",
-    amount: "100000000",
-    t_timestamp: 38660096,
-    t_type: 3,
-    t_height: 93948
-  }
-]
-*/
+  fields: ['height', 'delegate'],
+  sort: {
+    height: -1
+  },
+  limit: 50,
+  offset: 0
+}
+return await app.model.Block.findAll(option)
 ```
+
+<br/>
+<br/>
+<br/>
+
+
+
+### 3.3 Query Options
+
+The query options describe in detail how to query the Data Models  
+
+#### 3.3.1 condition
+
+The `condition` object is used like a `WHERE` clause in SQL.  
+
+The following operators can be used in the `condition` object:  
+- [AND](#341-and)  
+- [EQUAL](#342-equal) `$eq`  
+- [NOT EQUAL](#343-not-equal) `$ne`  
+- [LIKE](#344-like) `$like`  
+- [LESS THAN](#345-less-than) `$lt`  
+- [LESS THAN OR EQUAL](#346-less-than-or-equal) `lte`  
+- [GREATER THAN](#347-greater-than) `gt`  
+- [GREATER THAN OR EQUAL](#348-greater-than-or-equal) `gte`  
+- [WHERE IN](#349-where-in) `$in`  
+- [WHERE NOT IN](#3410-where-not-in) `nin`  
+- [IS NULL](#3411-is-null) `$is`  
+- [IS NOT NULL](#3412-is-not-null) `$isnot`  
+- [BETWEEN](#3413-between) `$between`  
+
+
+`condition` Example:  
+```js
+let option = {
+  condition: {
+    height: {
+      $lt: 20,
+      $gt: 15
+    },
+    count: {
+      $ne: 1
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+```SQL
+SELECT *
+FROM blocks
+WHERE height < 20 AND height > 15 AND count != 1
+
+```
+
+
+
+#### 3.3.2 fields
+
+Array of `fields` that should be selected from the query  
+
+Example `fields` query:  
+```js
+// show all fields
+let option = {
+  condition: {
+    address: 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
+  }
+}
+return await app.model.Balance.findOne(option)
+// returns:
+{
+  "address": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
+  "currency": "XAS",
+  "balance": "50000000000"
+}
+
+
+// select only two fields
+let option = {
+  condition: {
+    address: 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
+  },
+  fields: ['currency', 'balance']
+}
+return await app.model.Balance.findOne(option)
+// returns:
+{
+  "currency": "XAS",
+  "balance": "50000000000"
+}
+```
+
+#### 3.3.3 sort
+
+`sort` Columns to sort after:  
+
+Sort blocks ascending:  
+```js
+let option = {
+  sort: {
+    height: 1
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+Sort blocks descending:  
+```js
+let option = {
+  sort: {
+    height: -1
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+
+#### 3.3.4 limit
+
+`limit` The maximum number to return
+
+Limit the result set. The `limit` option is often used together with [offset](#335-offset) and [sort](#333-sort) to enable paging.  
+
+Example:  
+```js
+let option = {
+  limit: 100
+}
+return await app.model.Block.findAll(option)
+// returns: up to 100 blocks
+```
+
+
+
+#### 3.3.5 offset
+
+- `offset` Offset
+
+> Offset provide a number
+
+This option __must__ be used with the [limit](#334-limit) option.  
+Otherwise you will get a cryptic error message like `{"error":"Error: Error: near line 77: near \"offset\": syntax error\n","success":false}`:  
+
+Load first 50 blocks:  
+
+```js
+let option = {
+  offset: 0,
+  limit: 50,
+  sort: {
+    height: 1
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+Load second 50 blocks:  
+```js
+let option = {
+  offset: 50,
+  limit: 50,
+  sort: {
+    height: 1
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+### 3.4 Query Operators
+
+#### 3.4.1 AND
+
+The default logical operator is __AND__ if at least two object properties are provided:  
+
+Example:  
+```js
+let options = {
+  condition: {
+    height: 1,
+    timestamp: 0
+  }
+}
+return await app.model.Block.findAll(options)
+```
+
+The equivalent SQL query would be:  
+```SQL
+SELECT *
+FROM blocks
+WHERE height = 1 AND timestamp = 0
+```
+
+
+#### 3.4.2 EQUAL
+
+Find account by nickname:  
+
+Simple Query:  
+```js
+let options = {
+  condition: {
+    str1: 'liangpeili'
+  }
+}
+return await app.model.Account.findOne(options)
+```
+
+Example with the `$eq` keyword:  
+```js
+let options = {
+  condition: {
+    str1: {
+      $eq: 'liangpeili'
+    }
+  }
+}
+return await app.model.Account.findOne(options)
+```
+
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+from accounts
+where str1 = 'liangpeili'
+```
+
+
+#### 3.4.3 NOT EQUAL
+
+Load every account that has __NOT__ the following address:  
+```js
+let options = {
+  condition: {
+    address: {
+      $ne: 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
+    }
+  }
+}
+return await app.model.Account.findAll(options)
+```
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+from accounts
+where address != 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
+```
+
+
+#### 3.4.4 LIKE
+
+Find with the __LIKE__ keyword all nicknames that start with the letter `a`:  
+
+```js
+let option = {
+  condition: {
+    str1: {
+      $like: 'a%'
+    }
+  }
+}
+return await app.model.Account.findAll(option)
+```
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+from accounts
+where str1 like 'a%'
+```
+
+#### 3.4.5 LESS THAN
+
+Load all blocks that have a smaller block height than 10 (`$lt`):  
+```js
+let option = {
+  condition: {
+    height: {
+      $lt: 10
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+```SQL
+SELECT *
+FROM blocks
+WHERE height < 10
+```
+
+
+#### 3.4.6 LESS THAN OR EQUAL
+
+Load all blocks that have a smaller block height or equal block height of 20 (`$lte`):  
+```js
+let option = {
+  condition: {
+    height: {
+      $lte: 20
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+```SQL
+SELECT *
+FROM blocks
+WHERE height <= 20
+```
+
+#### 3.4.7 GREATER THAN
+
+Load all blocks that have a block height greater than 30 (`$gt`):  
+```js
+let option = {
+  condition: {
+    height: {
+      $gt: 30
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+```SQL
+SELECT *
+FROM blocks
+WHERE height > 30
+```
+
+#### 3.4.8 GREATER THAN OR EQUAL
+
+Load all blocks that have a block height greater or equal to 40 (`$gte`):  
+```js
+let option = {
+  condition: {
+    height: {
+      $gte: 40
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+```SQL
+SELECT *
+FROM blocks
+WHERE height >= 40
+```
+
+
+#### 3.4.9 WHERE IN
+
+Load all Blocks which block height is in the following array `[1, 2, 3]`:  
+
+Example:  
+
+```js
+let num = [1, 2, 3]
+let option = {
+  condition: {
+    height: { 
+      $in: num
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+FROM blocks
+WHERE height in (1, 2, 3)
+```
+
+
+
+#### 3.4.10 WHERE NOT IN
+
+Load all blocks which block height is not in the following array `[4, 5]`:  
+
+Example:  
+```js
+let num = [4, 5]
+let option = {
+  condition: {
+    height: {
+      $nin: num
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+FROM blocks
+WHERE height NOT IN (4, 5)
+```
+
+
+
+#### 3.4.11 IS NULL
+
+Get all accounts that have no nickname (`$is` null):  
+
+```js
+let option = {
+  condition: {
+    str1: {
+      $is: null
+    }
+  }
+}
+return await app.model.Account.findAll(option)
+```
+
+The above query could also be written in the following way (`$null` true):  
+```js
+let option = {
+  condition: {
+    str1: {
+      $null: true
+    }
+  }
+}
+return await app.model.Account.findAll(option)
+```
+
+
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+FROM accounts
+WHERE str1 IS NULL
+```
+
+
+
+#### 3.4.12 IS NOT NULL
+
+Get all accounts that have a nickname (__IS NOT NULL__):  
+
+```js
+let option = {
+  condition: {
+    str1: {
+      $isnot: null
+    }
+  }
+}
+return await app.model.Account.findAll(option)
+```
+
+The above query could also be written in the following way:  
+```js
+let option = {
+  condition: {
+    str1: {
+      $null: false
+    }
+  }
+}
+return await app.model.Account.findAll(option)
+```
+
+
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+FROM accounts
+WHERE str1 IS NOT NULL
+```
+
+#### 3.4.13 BETWEEN
+
+Get all blocks where their block heights are `$between` two values:  
+
+```js
+let option = {
+  condition: {
+    height: {
+      $between: [1, 10]
+    }
+  }
+}
+return await app.model.Block.findAll(option)
+```
+
+The equivalent SQL query would be:  
+
+```SQL
+SELECT *
+FROM blocks
+WHERE height BETWEEN 1 AND 10
+```
+
+
+
+<br/>
 
 ## 4. Routing
 
@@ -473,16 +1289,13 @@ Example:
 // Access this API endpoint with a GET call to `http://localhost:4096/api/dapps/<dappId>/articles`
 
 app.route.get('/articles', async (req) => {
-
   let articles = await app.model.Article.findAll({
     limit: 50,
     offset: 0,
     sort: { timestamp: -1 }
   })
-
   return articles
 })
-
 ```
 
 ### 4.2 app.route.post(path, handler)
@@ -501,7 +1314,7 @@ app.route.get('/articles', async (req) => {
 - `amount` Amount
 
 > No return value  
-> The specified asset (currency) is added to the fee pool (the amount is evenly distributed to all accountants at the end of each round).
+> The specified asset (currency) is added to the fee pool (the amount is evenly distributed to all delegates at the end of each round).
 
 Example:
 
@@ -737,7 +1550,7 @@ let url = 'asch.io'
 app.validate('string', url, { url: {
   message: `Custom error message: "${url}" not valid`
 }})
-// throws: Error: {"url":["Url Custom error message: \"asch.io\" not valid"]}
+// throws: Error: {"url":["Url Custom error message: "asch.io" not valid"]}
 ```
 
 ##### 8.1.2.4 string number validator  
