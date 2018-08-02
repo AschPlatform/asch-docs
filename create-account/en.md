@@ -21,9 +21,9 @@ Use the genesis account to send the new user some XAS. The genesis account, see 
 
 **Genesis Account**
 ```
-    address: 14762548536863074694
-    secret: someone manual strong movie roof episode eight spatial brown soldier soup motor
-    publicKey: 8065a105c785a08757727fded3a06f8f312e73ad40f1f3502e0232ea42e67efd
+    address: ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5
+    secret: stone elephant caught wrong spend traffic success fetch inside blush virtual element
+    publicKey: 116025d5664ce153b02c69349798ab66144edd2a395e822b13587780ac9c9c09
 ```
 
 Point your browser to http://localhost:4096/#/login again. Login with the genesis account now. Then Click the "Transfer" tab on the left side of your screen. Now send 1000 XAS to `AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB`.
