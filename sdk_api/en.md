@@ -10,7 +10,7 @@
     - [1.2 app.sdb.get(model, cond)](#12-appsdbgetmodel-cond)
     - [1.3 app.sdb.keys(model)](#13-appsdbkeysmodel)
     - [1.4 app.sdb.entries(model)](#14-appsdbentriesmodel)
-    - [1.5 ap.sdb.lock(key)](#15-apsdblockkey)
+    - [1.5 app.sdb.lock(key)](#15-apsdblockkey)
     - [1.6 app.sdb.create(model, values)](#16-appsdbcreatemodel-values)
     - [1.7 app.sdb.replace(model, values)](#17-appsdbreplacemodel-values)
     - [1.8 app.sdb.update(model, modifier, cond)](#18-appsdbupdatemodel-modifier-cond)
@@ -191,7 +191,7 @@ foo2 bar2
 */
 ```
 
-### 1.5 ap.sdb.lock(key)
+### 1.5 app.sdb.lock(key)
 
 - `key` 
 
