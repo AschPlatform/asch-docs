@@ -73,16 +73,20 @@ First create a new local asch-account.
 ```
 **Our New Account**
 ```
-    address: AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB
-    secret: sentence weasel match weather apple onion release keen lens deal fruit matrix
-    publicKey: a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c
+{
+    "address": AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB
+    "secret": sentence weasel match weather apple onion release keen lens deal fruit matrix
+    "publicKey": a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c
+}    
 ```
 
 **Genesis Account**
 ```
-    address: 14762548536863074694
-    secret: someone manual strong movie roof episode eight spatial brown soldier soup motor
-    publicKey: 8065a105c785a08757727fded3a06f8f312e73ad40f1f3502e0232ea42e67efd
+{
+  "address": "ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5",
+  "publicKey": "116025d5664ce153b02c69349798ab66144edd2a395e822b13587780ac9c9c09",
+  "secret": "stone elephant caught wrong spend traffic success fetch inside blush virtual element" // password  
+}
 ```
 
 
