@@ -160,7 +160,7 @@ var publicKey = AschJS.crypto.getKeys(secret).publicKey;  //根据密码生成�
 // var address = AschJS.crypto.getAddress(publicKey);   //根据公钥生成地址
 
 // 将上面生成的数据通过 POST 方法提交到 Asch server   
-curl -X POST -H "Content-Type: application/json" -k -d '{"publicKey":"116025d5664ce153b02c69349798ab66144edd2a395e822b13587780ac9c9c09"}' 'http://192.168.1.78:7800/api/accounts/open2/'   
+curl -X POST -H "Content-Type: application/json" -k -d '{"publicKey":"116025d5664ce153b02c69349798ab66144edd2a395e822b13587780ac9c9c09"}' 'http://192.168.1.78:4096/api/accounts/open2/'   
 ```
 
 JSON返回示例：   
@@ -208,7 +208,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash
-curl -X POST -H "Content-Type: application/json" -k -d '{"secret":"tunnel hope keep manual balcony quantum phrase deer prefer vivid deer hazard"}' 'http://192.168.1.78:7800/api/accounts/open/'   
+curl -X POST -H "Content-Type: application/json" -k -d '{"secret":"tunnel hope keep manual balcony quantum phrase deer prefer vivid deer hazard"}' 'http://192.168.1.78:4096/api/accounts/open/'   
 ```
 
 JSON返回示例：   
@@ -249,7 +249,7 @@ JSON返回示例：
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/accounts/ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/accounts/ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5'
 ```
 返回参数说明：   
 
@@ -320,7 +320,7 @@ JSON返回示例：
 请求示例：
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/balances/A9Evp9iYWtSUSBQc8yuWtBT2ReBkvzXDxB'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/balances/A9Evp9iYWtSUSBQc8yuWtBT2ReBkvzXDxB'
 ```
 
 返回参数说明：   
@@ -391,7 +391,7 @@ JSON返回示例：
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/accounts/delegates?adddress=APSu9NhiCTtvRGx1EpkeKNubiApiBWMf7T' 
+curl -k -X GET 'http://192.168.1.78:4096/api/accounts/delegates?adddress=APSu9NhiCTtvRGx1EpkeKNubiApiBWMf7T' 
 ```
 
 返回示例
@@ -422,7 +422,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/accounts/delegates?adddress=APSu9Nh
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/accounts/new'   
+curl -k -X GET 'http://192.168.1.78:4096/api/accounts/new'   
 ```
 
 JSON返回示例：   
@@ -451,7 +451,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/accounts/count'    
+curl -k -X GET 'http://192.168.1.78:4096/api/accounts/count'    
 ```
 
 JSON返回示例：   
@@ -482,7 +482,7 @@ JSON返回示例：
 请求示例：
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/transactions?senderId=A7Vbt5h3WgaXLSJhUeHnRRcwvkGF3ecS7r&orderBy=height:desc&offset=1&limit=3'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/transactions?senderId=A7Vbt5h3WgaXLSJhUeHnRRcwvkGF3ecS7r&orderBy=height:desc&offset=1&limit=3'
 ```
 
 返回参数说明：   
@@ -575,7 +575,7 @@ JSON返回示例：
 请求示例：
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/transactions/e19a3ae0090208c3e2e1289d12b80511eca5ceb814d20f0cf37bd2e37942f820'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/transactions/e19a3ae0090208c3e2e1289d12b80511eca5ceb814d20f0cf37bd2e37942f820'
 ```
 
 返回参数说明：   
@@ -632,7 +632,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/transactions/unconfirmed/get?id=e19a3ae0090208c3e2e1289d12b80511eca5ceb814d20f0cf37bd2e37942f820'  // 正常情况，该未确认交易存在时间极短0~10秒   
+curl -k -X GET 'http://192.168.1.78:4096/api/transactions/unconfirmed/get?id=e19a3ae0090208c3e2e1289d12b80511eca5ceb814d20f0cf37bd2e37942f820'  // 正常情况，该未确认交易存在时间极短0~10秒   
 ```
 
 JSON返回示例：   
@@ -681,7 +681,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/transactions/unconfirmed'   
+curl -k -X GET 'http://192.168.1.78:4096/api/transactions/unconfirmed'   
 ```
 
 JSON返回示例：   
@@ -699,7 +699,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/transfers?limit=2'   
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/transfers?limit=2'   
 ```
 
 JSON返回示例：   
@@ -814,7 +814,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/get?id=6076474715648888747'   
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/get?id=6076474715648888747'   
 ```
 
 JSON返回示例：   
@@ -873,7 +873,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks?limit=2&offset=350&orderBy=height:desc'   
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks?limit=2&offset=350&orderBy=height:desc'   
 ```
 
 JSON返回示例：   
@@ -928,7 +928,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/getheight'    
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/getheight'    
 ```
 
 JSON返回示例：   
@@ -954,7 +954,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/getMilestone'    
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/getMilestone'    
 ```
 
 JSON返回示例：   
@@ -982,7 +982,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/getReward'   
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/getReward'   
 ```
 
 JSON返回示例：   
@@ -1010,7 +1010,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/getSupply'   
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/getSupply'   
 ```
 
 JSON返回示例：   
@@ -1042,7 +1042,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/getStatus'   
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/getStatus'   
 ```
 
 JSON返回示例：   
@@ -1080,7 +1080,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/blocks/full?height=34'   
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/full?height=34'   
 ```
 
 JSON返回示例：   
@@ -1174,7 +1174,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/delegates/count'   
+curl -k -X GET 'http://192.168.1.78:4096/api/delegates/count'   
 ```
 
 JSON返回示例：   
@@ -1204,7 +1204,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/delegates/voters?name=asch_g59'   
+curl -k -X GET 'http://192.168.1.78:4096/api/delegates/voters?name=asch_g59'   
 ```
 
 JSON返回示例：   
@@ -1292,8 +1292,8 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/delegates/get?publicKey=ff6ea4945fee31f64439030f84bac934604468cf5d0b441bec761cfc1911653a'   
-curl -k -X GET 'http://192.168.1.78:7800/api/delegates/get?name=asch_g59'   
+curl -k -X GET 'http://192.168.1.78:4096/api/delegates/get?publicKey=ff6ea4945fee31f64439030f84bac934604468cf5d0b441bec761cfc1911653a'   
+curl -k -X GET 'http://192.168.1.78:4096/api/delegates/get?name=asch_g59'   
 ```
 
 JSON返回示例：   
@@ -1346,7 +1346,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/delegates?limit=5'
+curl -k -X GET 'http://192.168.1.78:4096/api/delegates?limit=5'
 ```
 
 JSON返回示例：   
@@ -1411,7 +1411,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/delegates/forging/status?publicKey=fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575'        
+curl -k -X GET 'http://192.168.1.78:4096/api/delegates/forging/status?publicKey=fafcd01f6b813fdeb3c086e60bc7fa9bfc8ef70ae7be47ce0ac5d06e7b1a8575'        
 ```
 
 JSON返回示例：   
@@ -1450,7 +1450,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/peers?limit=3'   
+curl -k -X GET 'http://192.168.1.78:4096/api/peers?limit=3'   
 ```
 
 JSON返回示例：   
@@ -1505,7 +1505,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X 'GET http://192.168.1.78:7800/api/peers/version'   
+curl -k -X 'GET http://192.168.1.78:4096/api/peers/version'   
 ```
 
 JSON返回示例：   
@@ -1541,7 +1541,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/peers/get?ip=45.32.248.33&port=4096'   
+curl -k -X GET 'http://192.168.1.78:4096/api/peers/get?ip=45.32.248.33&port=4096'   
 ```
 
 JSON返回示例：   
@@ -1568,7 +1568,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/loader/status'
+curl -k -X GET 'http://192.168.1.78:4096/api/loader/status'
 ```
 
 JSON返回示例：   
@@ -1596,7 +1596,7 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:7800/api/loader/status/sync'
+curl -k -X GET 'http://192.168.1.78:4096/api/loader/status/sync'
 ```
 
 JSON返回示例：   
@@ -1620,7 +1620,7 @@ JSON返回示例：
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/proposals?limit=2'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/proposals?limit=2'
 ```
 
 返回示例
@@ -1675,7 +1675,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/proposals?limit=2'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/proposals/c58fbea59446364f1d0f9b780bc7bd5d137746b6e1032e6a2ed4ff4f8cd45a9e'  
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/proposals/c58fbea59446364f1d0f9b780bc7bd5d137746b6e1032e6a2ed4ff4f8cd45a9e'  
 ```
 
 返回示例
@@ -1710,7 +1710,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/proposals/c58fbea59446364f1d0f9b
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways?limit=2'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways?limit=2'
 ```
 
 返回示例
@@ -1765,7 +1765,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways?limit=2'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/bitcoin/validators'  
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/validators'  
 ```
 
 返回示例
@@ -1824,7 +1824,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/bitcoin/validators'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/currencies' 
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/currencies' 
 ```
 
 返回示例
@@ -1869,7 +1869,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/currencies'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/bitcoin/currencies'  
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/currencies'  
 ```
 
 返回示例
@@ -1907,7 +1907,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/bitcoin/currencies'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/bitcoin/accounts/AGw5h2cYK2iYGwp8czhn59Dbr8LMz2BaU'   
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/accounts/AGw5h2cYK2iYGwp8czhn59Dbr8LMz2BaU'   
 ```
 
 返回示例
@@ -1941,7 +1941,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/bitcoin/accounts/AGw5h2
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/accounts/AGw5h2cYK2iYGwp8czhn59Dbr8LMz2BaUC'    
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/accounts/AGw5h2cYK2iYGwp8czhn59Dbr8LMz2BaUC'    
 ```
 
 返回示例
@@ -1977,7 +1977,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/accounts/AGw5h2cYK2iYGw
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/deposits/mvGfGo9YfNiTJK6MDnfwDwr5jTdWR1ovdC/BTC'    
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/deposits/mvGfGo9YfNiTJK6MDnfwDwr5jTdWR1ovdC/BTC'    
 ```
 
 返回示例
@@ -2014,7 +2014,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/deposits/mvGfGo9YfNiTJK
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/withdrawals/APSu9NhiCTtvRGx1EpkeKNubiApiBWMf7T/BTC'   
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/withdrawals/APSu9NhiCTtvRGx1EpkeKNubiApiBWMf7T/BTC'   
 ```
 
 返回示例
@@ -2053,7 +2053,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/gateways/withdrawals/APSu9NhiCTt
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/agents'      
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/agents'      
 ```
 
 返回示例
@@ -2114,7 +2114,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/agents'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/agents/agent001/clienteles'     
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/agents/agent001/clienteles'     
 ```
 
 返回示例
@@ -2163,7 +2163,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/agents/agent001/clienteles'
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/groups/G3sQzuWpvXZjxhoYnvvJvnfUUEo8aNzKdj'     
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/groups/G3sQzuWpvXZjxhoYnvvJvnfUUEo8aNzKdj'     
 ```
 
 返回示例
@@ -2220,7 +2220,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/groups/G3sQzuWpvXZjxhoYnvvJvnfUU
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:7800/api/v2/chains'   
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/chains'   
 ```
 
 返回示例
@@ -2267,7 +2267,7 @@ curl -k -X GET 'http://192.168.1.78:7800/api/v2/chains'
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:7800/api/v2/uia/issuers?offset=0&limit=2' && echo
+curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/v2/uia/issuers?offset=0&limit=2' && echo
 ```
 
 JSON返回示例：   
@@ -2314,7 +2314,7 @@ JSON返回示例：
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:7800/api/uia/issuers/ChinaBank' 
+curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/uia/issuers/ChinaBank' 
 ```
 
 JSON返回示例：   
@@ -2355,7 +2355,7 @@ JSON返回示例：
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:7800/api/v2/uia/issuers/CCTime/assets/'
+curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/v2/uia/issuers/CCTime/assets/'
 ```
 
 JSON返回示例：   
@@ -2401,7 +2401,7 @@ JSON返回示例：
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:7800/api/uia/assets?offset=0&limit=2' && echo
+curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/uia/assets?offset=0&limit=2' && echo
 ```
 
 JSON返回示例：   
@@ -2467,7 +2467,7 @@ JSON返回示例：
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:7800/api/uia/assets/CCTime.XCT'
+curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/uia/assets/CCTime.XCT'
 ```
 
 JSON返回示例：   
@@ -2511,7 +2511,7 @@ JSON返回示例：
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:7800/api/uia/balances/AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a' && echo
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/uia/balances/AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a' && echo
 ```
 
 JSON返回示例：   
