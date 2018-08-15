@@ -57,7 +57,7 @@ sudo apt-get install curl sqlite3 ntp wget git libssl-dev openssl make gcc g++ a
 # libsodium for ubuntu 14.04
 sudo apt-get install libtool -y
 # libsodium for ubuntu 16.04
-sudo apt-get install libtool libtool-bin -y# Install dependency package sudo apt-get 
+sudo apt-get install libtool libtool-bin -y
 ```
 
 ### 1.3 Node.js 安装
