@@ -193,7 +193,7 @@ f9ccac2a7d353f708c838cc49b54dfb31ea50e7120d5162efc6882274fca20cb
 
 此时进客户端查看，会显示
 
-![](../pics/WX20180816-185028@2x.png)
+![](../../pics/WX20180816-185028@2x.png)
 
 ## 十一、部署应用
 
@@ -226,11 +226,11 @@ cp -r asch-dapp-demo asch-linux-1.4.3-localnet/chains/
 
 DApp 的登录界面为：http://192.168.1.155:4096/chains/asch-dapp-demo/, 登录后可以查看账户基本信息以及进行调用合约的操作：
 
-![](../pics/WX20180816-173409.png)
-![](../pics/WX20180816-173442.png)
+![](../../pics/WX20180816-173409.png)
+![](../../pics/WX20180816-173442.png)
 
 DApp 的日志目录为 asch/chains/chainname/logs/debug.2018xxxx.log
 
-![](../pics/WX20180816-174419@2x.png)
+![](../../pics/WX20180816-174419@2x.png)
 
 查看 DApp 区块高度可以访问接口：http://192.168.1.155:4096/api/chains/asch-dapp-demo/blocks/height
