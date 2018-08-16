@@ -1,316 +1,236 @@
-# Dapp开发教程一 Asch Dapp Hello World
+# DApp 的开发及部署
 
-## 1 基本流程
+## 一、概述
 
-Asch有三种网络类型，分别是localnet，testnet，mainnet，后两种是发布到线上的，可通过公网访问。下面对这三种网络做一个介绍：    
+利用阿希提供的侧链技术，企业或者开发者可以根据自己的业务很容易的开发一个 DApp。基于阿希开发的 DApp 拥有自己独立的数据库。数据模型可以灵活设计，手续费也可以指定为自己发行的资产。开发一个 DApp 使用的编程语言为 JavaScript。
 
-- localnet：运行在本地的、只有一个节点（101个受托人都配置在本地的config.json文件中）的私链，主要是为了方便本地测试和开发。locanet就是私有链。    
-- testnet：Asch链公网测试环境，由多个服务器组成，具备完整的p2p广播、分布式存储等，在功能上跟mainnet一致，和mainnet的区别在于magic不同（可以理解为用于区分不同链的id，目前Asch testnet的magic为594fe0f3，mainnet的magic为：5f5b3cf5）    
-- mainnet：Asch主网正式环境，这上面的XAS Token会在各大交易平台进行交易。    
+在正式开发 DApp 之前，开发者需要了解一些阿希的基本情况，详细可以参考[官网](https://www.asch.io)或者[白皮书]()。这里仅强调一下阿希的网络类型：
 
+Asch 有三种网络类型，分别是 Localnet，Testnet 以及 Mainnet。其中 Localnet 可以用于本地搭建环境进行开发和测试，Testnet 和 Mainnet 由社区进行维护，访问地址分别为 https://testnet.asch.io 和 https://mainnet.asch.io .
 
+新的功能更新会首先发布到 Testnet 上进行测试，Testnet 在功能上基本和 Mainnet 一致。它和 Mainnet 的区别在于部署时的 magic 值不同（Testnet 的 magic 为594fe0f3， Mainnet 的 magic 为 5f5b3cf5）。另外一个区别就是 Mainnet 上的资产是有价值的，可以在交易所进行流通。Testnet 上的币没有价值，仅用于测试。如果开发者需要测试币，请联系官方团队索取。
 
-Dapp的开发同样要涉及到这三种网络，即
+## 二、DApp 开发的基本流程
 
-- 第一步，在localnet开发、本地调试
-- 第二步，在testnet测试
-- 第三步，正式发布到mainnet，其他节点可以安装
+DApp 的开发流程一般为：
 
-## 2 启动localnet
+- 第一步，在 Localnet 开发、本地调试
+- 第二步，部署到 Testnet 进行发布前的测试
+- 第三步，正式发布到 Mainnet，其他节点也可以选择安装
 
-每个开发者都可以在本地启动自己的localnet，需要先下载[asch源码](https://github.com/AschPlatform/asch)。
+## 三、配置 Localnet
 
-```
-> git clone https://github.com/AschPlatform/asch.git
-```
+### 3.1 安装系统依赖
 
-下载后就可以参照该项目的[README](https://github.com/AschPlatform/asch/blob/master/README.md)进行后面的安装、运行操作。
+请参考文档[安装系统依赖](https://github.com/AschPlatform/asch-docs/blob/master/install/zh-cn.md#%E4%B8%80%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83%E5%92%8C%E4%BE%9D%E8%B5%96)
 
-## 3 安装asch-cli
-建议用nvm安装node和npm
-```
-# Install nvm
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-# This loads nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+### 3.2 安装 Localnet
 
-# Install node and npm for current user.
-nvm install node 8
-# check node version and it should be v8.x.x
-node --version
+请参考文档[安装 Localnet](https://github.com/AschPlatform/asch-docs/blob/master/install/zh-cn.md#%E5%9B%9Basch-localnet-%E8%8A%82%E7%82%B9%E5%AE%89%E8%A3%85)
+
+此时打开浏览器，输入 http://your-ip:4096，应该可以看到网页客户端界面了。
+
+创世账户为`stone elephant caught wrong spend traffic success fetch inside blush virtual element`，登录到客户端后会有1亿 XAS。
+
+## 四、安装 asch-cli
+
+运行命令
+
+```JavaScript
+npm install asch-cli
 ```
 
-```
-> npm install -g asch-cli
-```
+（由于最新版 asch-cli 还没有推送，大家可以使用git clone https://github.com/AschPlatform/asch-cli 克隆到本地，然后执行npm install）
 
-注意这一步不要用淘宝的```cnpm```， **有bug**
+## 五、生成新账户
 
-## 4 在本地创建一个应用
+每个 DApp 都有独立的受托人，这些受托人也是默认的记账人，他们负责区块的生产，跨链资产的中转，与此同时可以获得 DApp 内部交易的手续费。注册 DApp 的时候，我们只需要收集受托人的公钥就行，为了权力分散，最好每个秘钥分别由一个人保管。
 
-首先要进入你的asch源码目录，并确保localnet启动（访问http://127.0.0.1:4096,如能打开钱包页面说明启动成功）
+DApp 的受托人是 DApp 里非常重要的角色。这里生成的账户一定要记好。为了演示，这里使用 `asch-cli` 生成5个新账户。一个 DApp 最多有101个受托人，最少是5个。
 
-```
-> cd <asch source code dir>
-> npm install
-> node app.js
-```
-
-### 4.1 创建你的受托人账户
-
-每个dapp都有独立的受托人，这些受托人也是默认的记账人，他们负责区块的生产，跨链资产的中转，与此同时可以获得交易手续费。     
-注册dapp的时候，我们只需要收集受托人的公钥就行，为了权力分散，最好每个秘钥分别由一个人保管。     
-这里为了演示，我们一次性创建5个账户，一个dapp最多有101个受托人，最少是5个。     
-
-```
-// 注意这里的密码都是演示用途，且不可用于正式的dapp中
-> asch-cli crypto -g
-
-#　接下来输入 5 即可生成5个账户
-[ { address: 'AijfU9bAE6Jpt5ve7zG3LoriDamH67eLb', // 地址
-    secret: 'easy snap cable harvest plate tone planet yellow spot employ humble what', // 主密码，也叫一级密码，可以生成公钥和地址，实质为私钥的助记词，必须记录下来
-    publicKey: 'a437a1d4bedf738e8620920ef29542644e3366c635b16fc9faa6f5db744bcd5c' },// 公钥，用于4.2章节配置受托人公钥
-  { address: 'ABGGUL5D2SoBaQTqDMAb3u9RdUjYBcmRxx',
-    secret: 'adjust edge exist hurry joke carbon spice envelope battle shuffle hawk thought',
-    publicKey: '522cdc822d3bec74aa5c4e972ed6cba84850f9c4d521e43fe08675e9e4759bb9' },
-  { address: 'AMg37s4avDUojJd6d3df7HPA3vqtRRwved',
-    secret: 'survey spoil submit select warm chapter crazy link actual lonely pig grain',
-    publicKey: '6ee3ae36166f69e8b9408d277486c9870f40c1b7c16016328737d6445409b99f' },
-  { address: 'AL5p8BHzhCU3e5pkjMYbcjUSz771MrQcQr',
-    secret: 'march struggle gap piece entry route kind pistol chunk spell honey summer',
-    publicKey: 'ad558e44b347a54981295fcb5ee163c2915ca03536496129103e9d72c5025d69' },
-  { address: 'A2WassKticpB7cx15RZfenBekthwmqXRXd',
-    secret: 'response modify knife brass excess absurd chronic original digital surge note spare',
-    publicKey: '6b2594ebeee9b072087e5f1e89e5c41ee2d73eb788b63abeedf5c04664f0ce5b' } ]
-```
-
-## 4.2 生成应用模板
-
-应用模板包括注册dapp必须的元信息、创世块以及一个初始的目录结构
-
-生成应用模板需要使用`dapps`子命令，如下所示
-
-```
-# 生成应用模板的时候，最好建立一个新目录
-> mkdir asch-test-dapp && cd asch-test-dapp
-> asch-cli dapps -a
-```
-
-接下来，我们要回答一系列的问题，以生成应用的注册信息与创世块
-
-```
-? Enter DApp name Asch-test-dapp
-? Enter DApp description Demo of asch dapp
-? Enter DApp tags asch,dapp,demo
-? Choose DApp category Common
-? Enter DApp link https://github.com/AschPlatform/Asch-test-dapp.zip
-? Enter DApp icon url https://yourdomain.com/logo.png
-? Enter public keys of dapp delegates - hex array, use ',' for separator //这里是4.1章节生存的5个受托人对应的公钥
-a437a1d4bedf738e8620920ef29542644e3366c635b16fc9faa6f5db744bcd5c,522cdc822d3bec74aa5c4e972ed6cba84850f9c4d521e43fe08675e9e4759bb9,6ee3ae36166f69e8b9408d277486c9870f40c1b7c16016328737d6445409b99f,ad558e44b347a54981295fcb5ee163c2915ca03536496129103e9d72c5025d69,6b2594ebeee9b072087e5f1e89e5c41ee2d73eb788b63abeedf5c04664f0ce5b
-? How many delegates are needed to unlock asset of a dapp? 3
-DApp meta information is saved to ./dapp.json ...
-? Enter master secret of your genesis account [hidden]
-? Do you want publish a inbuilt asset in this dapp? Yes
-? Enter asset name, for example: BTC, CNY, USD, MYASSET XCT
-? Enter asset total amount 1000000
-? Enter asset precision 8
-```
-
-有几个注意事项
-
-1. `DApp link`是为了方便普通用户自动安装，必须以`.zip`结尾, 如果您的dapp不打算开源或者没有准备好，可以把这个选项当做占位符，它所在的地址不必真实存在
-2. `DApp icon url`这是在阿希应用中心展示用的应用图标, 必须以`.jpg`或`.png`结尾，如果该图片无法访问，阿希应用中心会展示一个默认的图标
-3. `How many delegates ...`这个选项表示从`dapp`跨链转账资产时需要多少个受托人联合签名，该数字必须大于等于3、小于等于你配置的受托人公钥个数且小于等于101，数字越大越安全，但效率和费用越高
-4. Dapp的创世块中可以创建内置资产，但不是必须的，内置资产无法跨链转账，只能在链内使用。在主链发行的UIA（用户自定义资产）可以充值到任意dapp中，也可从dapp提现到主链，这是dapp内置资产和UIA最大的区别。“一链多币，一币多链”指的就是主链可以发行多个UIA，而每个UIA都可以充值到多个dapp中。
-
-## 4.3 注册应用到主链
-
-注意这里的`主链`不是指`mainnet`， 每个`net`下都有相应的主链， 主链是相对Dapp（侧链）而言。
-
-我们可以使用`registerdapp`注册应用到主链，如下所示
-
-```
-// 先生成一个dapp注册账户
-// 注意这里的密码都是演示用途，且不可用于正式的dapp中
-> asch-cli crypto -g
-? Enter number of accounts to generate 1
-[ { address: 'A9rhsV5xDny4G45gD2TXmFFpeiTfvAAQ7W',
-    secret: 'possible melt adapt spoon wing coyote found flower bitter warm tennis easily',
-    publicKey: '74db8511d0021206abfdc993a97312e3eb7f8595b8bc855d87b0dc764cdfa5a8' } ]
+```shell
+asch@asch-16:~/asch-cli$ ./bin/asch-cli crypto -g
+? Enter number of accounts to generate 5
+[ { address: 'AL7MfrDrUCysvSotoDZ9ir2YESqRUqah4T',
+    secret: 'code flush merit drop april theory element during avoid device large plunge',
+    publicKey: '9cb5be153e78bfb110790a2210634da58206aabed769ebc51ad6884239995f1c' },
+  { address: 'APh8DfNJgiSuPVi196BgnPNVUM3KWPc7zR',
+    secret: 'logic field kiss upper lock park wife invest effort exact poverty confirm',
+    publicKey: 'e446e798b64d74cb4825872cc217d22d35db67d8f97e73d78d9cc9cd2b2d7214' },
+  { address: 'A9T6JRytQmaHrN9NAcma1TYnUhMX69iHay',
+    secret: 'kite vapor nest net gesture present prison climb dad salon title donate',
+    publicKey: '643d2658656feb41631d2c4800fa7c4f7d117693d789a77c89367d627ddc8fb6' },
+  { address: 'AEQfSifHXmQrQA9mtDKbGqA1sREPxHziJo',
+    secret: 'parrot couple chef neglect cinnamon attitude discover lecture mask fantasy worth board',
+    publicKey: '7bd25b08d1a3f3e61b805eac6a3bc94c2c51ae437f3eb00152317db01020d998' },
+  { address: 'A2fH3HzbC3f9XfhVUfhPLHwkUz5wFTnXCt',
+    secret: 'upset angle august army problem size glow poem mandate claim toss join',
+    publicKey: 'a3efd2079543483f6b54573f0bac9b239e20c5e7e09a173e01eefb2179e1ed8b' } ]
 Done
-
-// 在http://127.0.0.1:4096用localnet的创世账户“someone manual strong movie roof episode eight spatial brown soldier soup motor”登陆（该账户中有初始发行的1亿xas token），然后给A8QCwz5Vs77UGX9YqBg9kJ6AZmsXQBC8vj地址转10000个xas
-
-> asch-cli registerdapp -f dapp.json -e "possible melt adapt spoon wing coyote found flower bitter warm tennis easily"
-# 返回结果如下,这就是应用id。每个应用注册时返回的id不同，请记下你自己的应用id
-0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb
 ```
 
-使用浏览器访问`http://localhost:4096/api/dapps/get?id=0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb`, 可以查询到该dapp了，下面是返回信息
+## 六、生成应用模板
 
+这一步会生成一个应用的模板目录，可以作为 DApp 开发的起点。
+
+```shell
+asch@asch-16:~$ mkdir asch-dapp-demo
+asch@asch-16:~$ cd asch-dapp-demo
+asch@asch-16:~/asch-cli$ ./bin/asch-cli chain -c
+Copying template to the current directory ...
+? Enter chain name asch-dapp-demo
+? Enter chain description This is a demo  DApp , used for showing how to build a  DApp 
+? Enter chain link https://your-domain/dapp.zip
+? Enter chain icon url https://your-domain/dapp.png
+? Enter public keys of chain delegates - hex array, use "," for separator 9cb5be153e78bfb110790a2210634da58206aabed769ebc51ad6
+884239995f1c,e446e798b64d74cb4825872cc217d22d35db67d8f97e73d78d9cc9cd2b2d7214,643d2658656feb41631d2c4800fa7c4f7d117693d789a77c
+89367d627ddc8fb6,7bd25b08d1a3f3e61b805eac6a3bc94c2c51ae437f3eb00152317db01020d998,a3efd2079543483f6b54573f0bac9b239e20c5e7e09a
+173e01eefb2179e1ed8b
+? How many delegates are needed to unlock asset of a chain? 3
+Chain meta information is saved to ./chain.json ...
 ```
+
+这一步会生成一个名字为`chain.json`的文件。此时的文件目录结构应该为：
+
+```shell
+asch@asch-16:~/asch-dapp-demo$ ll
+总用量 36
+drwxrwxr-x  6 asch asch 4096 8月  16 16:29 ./
+drwxr-xr-x 25 asch asch 4096 8月  16 16:27 ../
+-rw-rw-r--  1 asch asch  590 8月  16 16:26 chain.json
+-rw-rw-r--  1 asch asch   23 8月  16 16:24 config.json
+drwxrwxr-x  2 asch asch 4096 8月  16 16:24 contract/
+-rw-rw-r--  1 asch asch  266 8月  16 16:24 init.js
+drwxrwxr-x  2 asch asch 4096 8月  16 16:24 interface/
+drwxrwxr-x  2 asch asch 4096 8月  16 16:24 model/
+drwxrwxr-x  2 asch asch 4096 8月  16 16:24 public/
+```
+
+注意事项：
+
+1. `chain link`是为了方便普通用户自动安装，必须以`.zip`结尾, 如果您的 DApp 不打算开源或者没有准备好，可以把这个选项当做占位符，它所在的地址不必真实存在
+2. `chain icon url`这是在阿希应用中心展示用的应用图标, 必须以`.jpg`或`.png`结尾，如果该图片无法访问，阿希应用中心会展示一个默认的图标
+3. `How many delegates ...`这个选项表示从` DApp `跨链转账资产时需要多少个受托人联合签名，该数字必须大于等于3、小于等于你配置的受托人公钥个数且小于等于101，数字越大越安全，但效率会变低和费用越高
+
+## 七、生成创世区块
+
+ DApp 的创世块中可以创建内置资产，但不是必须的，内置资产无法跨链转账，只能在链内使用。在主链发行的 UIA（用户自定义资产）可以充值到任意 DApp 中，也可从 DApp 提现到主链，这是 DApp 内置资产和 UIA 最大的区别。“一链多币，一币多链”指的就是主链可以发行多个 UIA，而每个 UIA 都可以充值到多个 DApp 中。
+
+不发行资产的情况：
+
+```shell
+asch@asch-16:~/asch-dapp-demo$ ../asch-cli/bin/asch-cli chain -g
+? Enter master secret of your genesis account [hidden]
+? Do you want publish a inbuilt asset in this chain? No
+New genesis block is created at: ./genesis.json
+```
+
+发行资产的情况
+
+```shell
+asch@asch-16:~/asch-dapp-demo$ ../asch-cli/bin/asch-cli chain -g
+? Enter master secret of your genesis account [hidden]
+? Do you want publish a inbuilt asset in this chain? Yes
+? Enter asset name, for example: BTC, CNY, USD, MYASSET CNY
+? Enter asset total amount 100000000
+? Enter asset precision 8
+New genesis block is created at: ./genesis.json
+```
+
+此时在目录里应该生成了一个 `genesis.json` 的文件。
+
+## 八、目录结构
+
+下面我们分析下 DApp 的目录结构
+
+```shell
+.
+└── asch-dapp-demo
+    ├── blockchain.db     //  DApp 数据库文件，与主链的数据是分开存放的
+    ├── chain.json
+    ├── config.json       // 应用的节点配置文件，目前主要用于配置受托人秘钥
+    ├── contract          // 合约目录
+    │   └── domain.js     // 域名合约的实现代码
+    ├── genesis.json      // 创世区块
+    ├── init.js           // 应用初始化代码，可以在该文件进行一些设置、事件注册等
+    ├── interface         // 查询接口的实现目录
+    │   ├── domain.js     // 域名查询接口实现
+    │   └── helloworld.js
+    ├── logs              // 日志目录
+    │   └── debug.20180816.log
+    ├── model
+    │   └── domain.js     // 域名业务数据模型定义
+    └── public
+        └── index.html    // 默认前端页面
+```
+
+## 九、DApp 的开发过程
+
+阿希创始人单青峰曾经在这个[博客里](http://blog.asch.so/2017/06/30/asch-1.3-foresight-2/)写过开发理念。在 DApp 中实现一个业务逻辑，大概步骤如下：
+
+### 9.1 定义你的数据模型
+
+在这个环节，你需要考虑的是在区块链中保存什么数据或状态，你的账本内容是什么、哪些字段需要建立索引来以提高客户端查询速度。
+DApp 有自己的 db 文件（sqlite3)，位置在 chains/chainname/blockchain.db。所有的表结构定义以及数据都存在这里。这里的数据跟主链的数据是隔离的，主链的db文件在 asch 目录下。
+
+### 9.2 实现合约逻辑
+
+这个环节，你需要考虑的是一个事务或一个调用会修改哪些状态，比如资产余额，账户属性等。我们在 SDK 中提供了丰富的接口可供调用，具体可参考[SDK接口文档](../asch_sdk_api.md)
+
+### 9.3 实现查询接口
+
+在这个环节，你需要考虑的是如何给前端返回数据，比如区块、交易，各种合约业务状态的查询等。也可以可用这个通道将一些非全局状态保存到本地节点，我们会在后续章节介绍这些高级用法。
+目前 DApp 有[预置的通用查询接口](../asch_ DApp _default_api.md)，这些是由 asch-sandbox 提供的。另外一部分就是用户自定义的查询接口，在 chains/chainname/interface/xx.js中进行定义。
+
+## 十、注册应用到区块链
+
+利用 `asch-cli` 提供的 `registerchain`来完成应用到区块链的注册。 要选择一个有 XAS 的账户，这里我们使用创世账户。
+
+```shell
+asch@asch-16:~/asch-dapp-demo$ ../asch-cli/bin/asch-cli -H 127.0.0.1 -P 4096 registerchain -e "stone elephant caught wrong spend traffic success fetch inside blush virtual element" -f chain.json
+f9ccac2a7d353f708c838cc49b54dfb31ea50e7120d5162efc6882274fca20cb
+```
+
+此时进客户端查看，会显示
+
+![](../pics/WX20180816-185028@2x.png)
+
+## 十一、部署应用
+
+在正式部署应用之前，我们需要先修改 config.json ，添加之前生成的受托人以及 peers。其中 peers 里的 ip 要改成自己服务器的 IP 地址。
+
+```json
 {
-    "success": true, 
-    "dapp": {
-        "name": "asch-dapp-helloworld", 
-        "description": "A hello world demo for asch dapp", 
-        "tags": "asch,dapp,demo", 
-        "link": "https://github.com/AschPlatform/asch-dapp-helloworld/archive/master.zip", 
-        "type": 0, 
-        "category": 1, 
-        "icon": "http://o7dyh3w0x.bkt.clouddn.com/hello.png", 
-        "delegates": [
-            "a518e4390512e43d71503a02c9912413db6a9ffac4cbefdcd25b8fa2a1d5ca27", 
-            "c7dee266d5c85bf19da8fab1efc93204fed7b35538a3618d7f6a12d022498cab", 
-            "9cac187d70713b33cc4a9bf3ff4c004bfca94802aed4a32e2f23ed662161ea50", 
-            "01944ce58570592250f509214d29171a84f0f9c15129dbea070251512a08f5cc", 
-            "f31d61066c902bebc80155fed318200ffbcfc97792511ed18d85bd5af666639f"
-        ], 
-        "unlockDelegates": 3, 
-        "transactionId": "0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb"
-    }
+  "secrets": [
+    "code flush merit drop april theory element during avoid device large plunge",
+    "logic field kiss upper lock park wife invest effort exact poverty confirm",
+    "kite vapor nest net gesture present prison climb dad salon title donate",
+    "parrot couple chef neglect cinnamon attitude discover lecture mask fantasy worth board",
+    "upset angle august army problem size glow poem mandate claim toss join"
+  ],
+  "peers":[{"ip":"192.168.1.155","port":4097}]
 }
 ```
 
-## 4.4 部署应用代码及子网络
+然后执行命令：
 
-现在我们把4.2章节中创建的模板代码拷贝到asch的安装目录下的dapp子目录，并改名为dapp的id
-
-```
-> cp -r asch-test-dapp path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb
-```
-
-然后把4.1章节创建的5个受托人密码写入这个dapp的配置文件中
-
-```
-> cat path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/config.json
-{
-    "secrets": [
-        "easy snap cable harvest plate tone planet yellow spot employ humble what", 
-        "adjust edge exist hurry joke carbon spice envelope battle shuffle hawk thought", 
-        "survey spoil submit select warm chapter crazy link actual lonely pig grain", 
-        "march struggle gap piece entry route kind pistol chunk spell honey summer", 
-        "response modify knife brass excess absurd chronic original digital surge note spare"
-    ]
-}
+```shell
+cp -r asch-dapp-demo asch-linux-1.4.3-localnet/chains/
+./aschd restart // 进入 asch 目录，重启节点
 ```
 
-这里我们把所有受托人的配置到同一个节点了，在生产环境中不推荐这样做，应该把秘钥尽量分散到多个节点，以防止单点故障。    
-至此，dapp手工安装部署完成，开发调试阶段需要这样。等以后正式发布到mainnet后，其他节点只需要在钱包页面点击dapp就可以安装。
+此时查看主链日志，应该有如下字样
+`2018-08-16T17:31:25+0800 <info> chains.js:405 (priv.launch) Launched chain[asch-dapp-demo] successfully`
 
-## 4.5 重启asch节点程序
+## 十二、查看应用状态
 
-```
-> ./aschd restart
-```
+DApp 的登录界面为：http://192.168.1.155:4096/chains/asch-dapp-demo/, 登录后可以查看账户基本信息以及进行调用合约的操作：
 
-使用浏览器打开`http://localhost:4096/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/`，可以访问默认的一个前端页面，该页面可以进行一些简单的接口测试
+![](../pics/WX20180816-173409.png)
+![](../pics/WX20180816-173442.png)
 
-也可以观察dapp的日志来排查一些问题
+DApp 的日志目录为 asch/chains/chainname/logs/debug.2018xxxx.log
 
-```
-> tail -f path/to/asch/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/logs/debug.*.log
-```
+![](../pics/WX20180816-174419@2x.png)
 
-## 4.6 跨链充值
-
-dapp的前后端通讯协议一般可以分为两大类：读和写。     
-读指的是数据查询，比如内置的区块查询、交易查询、转账记录，以及自己定义和实现的一些查询接口。    
-写指的是合约调用或事务执行，比如发起转账、设置昵称、提现等，同样，也包括其他的由开发者实现的各种合约或事务。     
-
-每一个写入操作都需要消耗燃料资产，模板dapp默认的燃料是XAS，开发者可以通过调用相关接口改为适合您的燃料类型，可以设置成任意其他资产，包括dapp内置资产。
-如果你您设置的燃料为外部资产，则需要从主链转入资产到这个dapp，这个过程叫充值，相反的过程叫做提现，这都是通过asch的跨链协议实现的。
-
-充值有三种方式：
-
-1. 使用交互式的web图型界面，在【应用中心】的【已安装应用列表】，选择“充值”即可
-2. 使用`asch-cli deposit`命令，具体可参考[asch-cli文档](../asch_cli_usage.md)的“4.6.2 dapp充值章节”
-3. 调用`asch-js`的`createInTransfer`函数，具体可参考[asch-js接口文档](../asch_js_api.md)
-
-## 4.7 查询接口调用
-
-查询接口一般通过http get协议，比如
-
-```
-// 获取dapp区块数据
-> curl http://localhost:4096/api/dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/blocks
-# 返回结果如下
-{
-    "blocks": [
-        {
-            "id": "9fae0c8200b7f4ef8c96f264e621f01a39a0b365ff42b80232aece0f3136b0e5", 
-            "timestamp": 0, 
-            "height": 1, 
-            "payloadLength": 103, 
-            "payloadHash": "c3674e36954811f869865a3b106ada847d47b6bc1ffc0a69c1859756d34cb5ad", 
-            "prevBlockId": "", 
-            "pointId": "", 
-            "pointHeight": 0, 
-            "delegate": "8065a105c785a08757727fded3a06f8f312e73ad40f1f3502e0232ea42e67efd", 
-            "signature": "fd7423c1ce4cb82e79125e39fc13e040cefce158af69b45d035aaf5a4c78db8f66aa3e93bbdfb72bfa0dd604f64f8bebc66dd08fd17715bb77225fc0743f680b", 
-            "count": 1
-        }
-    ], 
-    "count": 1, 
-    "success": true
-}
-```
-
-更多接口（外部获取dapp数据，非内部通讯）可以参考[dapp默认接口文档](../asch_dapp_default_api.md)
-
-## 4.8 合约或事务调用
-
-合约调用也有三种方式
-
-1. 在模板应用的默认前端页面，通过交互式web图型界面进行
-2. 使用`asch-cli dapptransaction`命令， 具体可参考[asch-cli使用说明](../asch_cli_usage.md)
-3. 使用`asch-js`的`createInnerTransaction`函数, 具体可参考[asch-js接口文档](../asch_js_api.md)
-
-## 5 目录结构
-
-下面我们分析下asch dapp的目录结构
-
-```
-dapps/0599a6100280df0d296653e89177b9011304d971fb98aba3edcc5b937c4183fb/
-├── blockchain.db         // dapp数据库文件，与主链的数据是分开存放的
-├── config.json           // 应用的节点配置文件，目前主要用于配置受托人秘钥
-├── contract              // 合约目录
-│   └── domain.js         // 域名合约的实现代码
-├── dapp.json             // 注册dapp时用到的元文件
-├── genesis.json          // 创世区块
-├── init.js               // 应用初始化代码，可以在该文件进行一些设置、事件注册等
-├── interface             // 查询接口的实现目录
-│   ├── domain.js         // 域名查询接口实现
-│   └── helloworld.js
-├── logs                  // 日志目录
-│   └── debug.20170928.log
-├── model
-│   └── domain.js         // 域名业务数据模型定义
-└── public
-    └── index.html        // 默认前端页面
-```
-
-## 6 实现你的业务逻辑
-
-我曾经在这个[博客里](http://blog.asch.so/2017/06/30/asch-1.3-foresight-2/)写过我们的开发理念
-
-在asch dapp中实现一个业务逻辑，大概思路如下
-
-### 6.1 定义你的数据模型
-
-在这个环节，你需要考虑的是在区块链中保存什么数据或状态，你的账本内容是什么。     
-哪些字段需要建立索引，以提高客户端查询速度。     
-dapp有自己的db文件（sqlite3)，在dapps/dappId/blockchain.db，所有的表结构定义以及数据都存在这里。跟主链的数据是隔离的，主链的db文件在asch根目录下。
-
-### 6.2 实现合约逻辑
-
-这个环节，你需要考虑的是一个事务或一个调用会修改哪些状态，比如资产余额，账户属性等。     
-我们在sdk中提供了丰富的接口可供调用，具体可参考[sdk接口文档](../asch_sdk_api.md)
-
-### 6.3 实现查询接口
-
-在这个环节，你需要考虑的是如何给前端返回数据，比如区块、交易，各种合约业务状态的查询等    
-也可以可用这个通道将一些非全局状态保存到本地节点，我们会在后续章节介绍这些高级用法。     
-目前dapp有[预置的通用查询接口](../asch_dapp_default_api.md)，这些是由asch-sandbox提供的。另外一部分就是用户自定义的查询接口，在dapps/dappID/interface/xx.js中进行定义。
+查看 DApp 区块高度可以访问接口：http://192.168.1.155:4096/api/chains/asch-dapp-demo/blocks/height
