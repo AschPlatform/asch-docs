@@ -697,7 +697,24 @@ JSON返回示例：
 请求方式：GET  
 支持格式：urlencoded   
 
+请求参数说明
+
+|   名称   |  类型  |          说明          |
+| :------: | :----: | :--------------------: |
+|  limit   | string | 返回个数限制（默认10） |
+|  offset  | string |          偏移          |
+| ownerId  | string |     发送/接收者ID      |
+| currency | string |          币种          |
+
+返回参数
+
+|   名称    |  类型   |           说明           |
+| :-------: | :-----: | :----------------------: |
+|  success  | boolean | 是否成功获得response数据 |
+| transfers |  Array  |         转账数组         |
+
 请求示例：   
+
 ```bash   
 curl -k -X GET 'http://192.168.1.78:4096/api/v2/transfers?limit=2'   
 ```
@@ -1617,6 +1634,13 @@ JSON返回示例：
 请求方式：GET      
 支持格式：urlencoded 
 
+请求参数
+
+|  名称  |  类型  |            说明            |
+| :----: | :----: | :------------------------: |
+| limit  | string | 返回数据个数限制（默认20） |
+| offset | string |           偏移量           |
+
 请求示例
 
 ```bash
@@ -1756,7 +1780,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways?limit=2'
 请求方式：GET   
 支持格式：urlencoded 
 
-参数说明
+请求参数说明
 
 | 名称 |  类型  |   说明   |
 | :--: | :----: | :------: |
@@ -1821,6 +1845,8 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/validators'
 请求方式：GET   
 支持格式：urlencoded 
 
+请求参数说明：无
+
 请求示例
 
 ```bash
@@ -1860,7 +1886,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/currencies'
 请求方式：GET   
 支持格式：urlencoded 
 
-参数说明
+请求参数说明
 
 | 名称 |  类型  |   说明   |
 | :--: | :----: | :------: |
@@ -1897,7 +1923,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/currencies'
 请求方式：GET   
 支持格式：urlencoded 
 
-参数说明
+请求参数说明
 
 |  名称   |  类型  |   说明   |
 | :-----: | :----: | :------: |
@@ -2004,7 +2030,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/deposits/mvGfGo9YfNiTJK
 请求方式：GET   
 支持格式：urlencoded 
 
-参数说明
+请求参数说明
 
 |   名称   |  类型  |   说明   |
 | :------: | :----: | :------: |
@@ -2049,6 +2075,13 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/withdrawals/APSu9NhiCTt
 接口地址：/api/v2/agents  
 请求方式：GET   
 支持格式：urlencoded 
+
+请求参数说明
+
+|  名称  |  类型  |          说明          |
+| :----: | :----: | :--------------------: |
+| limit  | string | 返回个数限制（默认20） |
+| offset | string |         偏移量         |
 
 请求示例
 
@@ -2154,7 +2187,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/agents/agent001/clienteles'
 请求方式：GET   
 支持格式：urlencoded 
 
-参数说明
+请求参数说明
 
 |  名称   |  类型  |   说明    |
 | :-----: | :----: | :-------: |
@@ -2218,6 +2251,12 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/groups/G3sQzuWpvXZjxhoYnvvJvnfUU
 支持格式：urlencoded 
 
 请求示例
+
+|  名称  |  类型  |          说明          |
+| :----: | :----: | :--------------------: |
+| limit  | string | 返回个数限制（默认20） |
+| offset | string |         偏移量         |
+
 
 ```bash
 curl -k -X GET 'http://192.168.1.78:4096/api/v2/chains'   
