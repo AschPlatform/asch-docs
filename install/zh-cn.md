@@ -117,7 +117,7 @@ tar zvxf blockchain-mainnet-snapshot.tar.gz
 
 ## 三、Asch Testnet 节点安装
 
-Mainnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请两者一并修改，P2P 端口 = 默认端口 + 1
+Testnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请两者一并修改，P2P 端口 = 默认端口 + 1
 
 ### 3.1 下载安装包并解压
 
@@ -152,7 +152,7 @@ tar zvxf blockchain-testnet-snapshot.tar.gz
 
 ## 四、Asch Localnet 节点安装
 
-Mainnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请两者一并修改，P2P 端口 = 默认端口 + 1
+Localnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请两者一并修改，P2P 端口 = 默认端口 + 1
 
 ### 4.1 下载安装包并解压
 
