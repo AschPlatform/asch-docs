@@ -1,6 +1,5 @@
-# Asch Full Node Installation
-
-* [1. System Requirements and dependencies](#1-system-requirements-and-dependencies)
+   * [Asch Full Node Installation](#asch-full-node-installation)
+      * [1. System Requirements and dependencies](#1-system-requirements-and-dependencies)
          * [1.1 System Requirements](#11-system-requirements)
          * [1.2 Install dependencies](#12-install-dependencies)
          * [1.3 Install Node.js](#13-install-nodejs)
@@ -36,6 +35,8 @@
       * [8. Frequently used commands](#8-frequently-used-commands)
       * [9. Configure delegate](#9-configure-delegate)
 
+
+# Asch Full Node Installation
 
 ## 1. System Requirements and dependencies
 
