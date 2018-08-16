@@ -2698,7 +2698,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 
 - **type：3**
 
-- **fee：   0.1*XAS**
+- **fee：   5*XAS**
 
 - **args： [secondSecret]**
 
@@ -2717,7 +2717,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造params对象
   let params = {
           type:3,  
-          fee:0.1*100000000,    
+          fee:5*100000000,    
           args：args
           message,   
           secret:mySecret,   
