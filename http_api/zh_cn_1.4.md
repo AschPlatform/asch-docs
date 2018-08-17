@@ -1,3 +1,7 @@
+
+
+
+
 # ASCH HTTP API文档
 
 Table of Contents
@@ -2601,7 +2605,32 @@ let aschjs = require('asch-js')
 //这个方法返回的transaction就是需要提交到服务器的交易数据
 let transaction = aschjs.transaction.createTransactionEx(params) 
 
-http.POST(transaction)
+//http.POST(transaction)  transaction
+//这里的http.POST就是将transaction提交上去的概念，并非有效代码
+
+//下面使用curl命令举个例子
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":transaction}' 'http://192.168.1.78:4096/peer/transaction'
+
+//JS代码举例  http.POST()函数内容示例如下 
+ axios({
+        method: 'post',
+        url: 'http://192.168.1.78:4096/peer/transactions',
+        json:true,
+        data:{
+            transaction:transaction
+        },
+        headers:{
+            'Content-Type':'application/json',
+            'version':'',
+            'magic':'594fe0f3'
+        }
+    }).then(function(response){
+        console.log(response.data)
+    }).catch(function(error){
+        //logger.error(error)
+        console.error(error)
+    })
+
 //上述步骤成功后应该返回的是成功交易的交易ID
 {success: true,transactionId:"609074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502"}
 ```
@@ -2646,7 +2675,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 ####**3.1.2 设置昵称**
@@ -2691,7 +2720,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+   http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.3 设置二级密码 **   
@@ -2707,6 +2736,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   | secondSecret | string | 二级密码(加密后) |
 
   ```js
+  
   //这个SecondSecret是加密后的字符串
   let password = 'asch123456'
   let hash = sha256Bytes(new Buffer(password))
@@ -2724,7 +2754,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:null} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 
@@ -2757,7 +2787,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.5 解锁仓库**
@@ -2780,7 +2810,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.6 设置理事会**
@@ -2803,7 +2833,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.7 注册代理人**
@@ -2828,7 +2858,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.8 设置代理人**
@@ -2856,7 +2886,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.9 取消代理人**
@@ -2879,7 +2909,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.10 注册委托人**
@@ -2902,7 +2932,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.11 给委托人投票**
@@ -2933,7 +2963,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.1.12 取消给委托人投票**
@@ -2962,7 +2992,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 ###  **3.2 资产**
@@ -2997,7 +3027,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.2.2 注册资产**
@@ -3034,7 +3064,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.2.3 发行资产**
@@ -3066,7 +3096,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.2.4 内部转账**
@@ -3101,7 +3131,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 ### **3.3 DApp合约**
@@ -3153,7 +3183,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.3.2 修改委托人 **
@@ -3206,7 +3236,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.3.6 从 DApp 提现**
@@ -3266,7 +3296,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
   对不同提案类型给出不同的参数
@@ -3369,7 +3399,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.4.3 激活提案**
@@ -3400,7 +3430,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 ### **3.5 网关合约**
@@ -3432,7 +3462,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.5.2 注册成员**
@@ -3468,7 +3498,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.5.3 对网关充值**
@@ -3507,7 +3537,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.5.4 从网关提现**
@@ -3546,7 +3576,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.5.5 提交提现交易**
@@ -3625,7 +3655,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.6.2 激活理事会**
@@ -3655,7 +3685,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.6.3 增加成员**
@@ -3689,7 +3719,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
 
 #### **3.6.4 移除成员**
@@ -3721,5 +3751,5 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
           secondSecret:mySecondSecret} 
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)
+  http.POST(trs)  //详情见请求过程说明
   ```
