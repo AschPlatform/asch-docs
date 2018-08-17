@@ -2,16 +2,16 @@
 
 ## 1 Asch基本信息
 
-代币名称：阿希币
-英文标识：XAS
-主网上线时间：2016-08-16
-发行总量：1亿，目前总的供应量为1.11亿XAS（有一个动态变化的通胀率,发行时间越长,通胀率越低）
-共识算法：DPoS + PBFT
-交易模式：账户余额模式，非UTXO
-官网：https://www.asch.io
-在线钱包：https://mainnet.asch.io，基本功能可以在这里进行体验
-区块链浏览器：https://explorer.asch.io/
-地址格式：字母数字混合，base58格式且以大写字母A开头且长度不低于10，比如A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5
+代币名称：阿希币<br>
+英文标识：XAS<br>
+主网上线时间：2016-08-16<br>
+发行总量：1亿，目前总的供应量为1.11亿XAS（有一个动态变化的通胀率,发行时间越长,通胀率越低）<br>
+共识算法：DPoS + PBFT<br>
+交易模式：账户余额模式，非UTXO<br>
+官网：https://www.asch.io<br>
+在线钱包：https://mainnet.asch.io，基本功能可以在这里进行体验<br>
+区块链浏览器：https://explorer.asch.io/<br>
+地址格式：字母数字混合，base58格式且以大写字母A开头且长度不低于10，比如A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5<br>
 
 Asch 不是 BTC 源码的山寨，而是用 Node.js 全新开发的，目前都是纯 HTTP API，所以对接的时候请勿用 BTC 模板的交易网站代码去生拉硬套，目前有 Java 和 Node.js 版本的 SDK，交易平台可以直接用，其它开发语言，需要自己封装 HTTP API。
 Asch 没有钱包的概念，每个密码对应一个账户地址，也就是说一个“钱包”中只包含一个地址(实质为脑钱包)，与BTC、ETH等区别较大。
