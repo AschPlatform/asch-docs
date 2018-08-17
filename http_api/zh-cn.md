@@ -2815,15 +2815,56 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 
 - **fee：   5*XAS**
 
-- **args： []**
+- **args： [name,members,min,max,m,updateInterval]**
+
+  |      名称      |  类型  |        说明         |
+  | :------------: | :----: | :-----------------: |
+  |      name      | string |     理事会名称      |
+  |    members     | array  |       成员组        |
+  |      min       | number | 最少决策数(最少为3) |
+  |      max       | number |     最多决策数      |
+  |       m        | number |   决策权值最小值    |
+  | undateInterval | number |      更新间隔       |
 
   代码示例
 
   ```js
+  let name = 'group1'
+  let members = [
+      {
+          name:'asch_g1',      //成员名称
+          weight:2,            //成员的权重
+          address:'ANge1aRG19tdXcFKu8x6mGHg9PgGdXN69L'   //成员地址
+      },
+      {
+          name:'asch_g2',
+          weight:3,
+          address:'AFr8jiEcwDV4P1t73xTF19N86HvufFGCzE'
+      },
+      {
+          name:'asch_g1',
+          weight:6,
+          address:'AMshd1Q5rp3jWpkx9BvgYT6NmeBMxe5TZo'
+      },
+      {
+          name:'asch_g1',
+          weight:1
+          address:'ADSGULRigKYJAtc29zAqM4gGk9LuCJmryv'
+      },
+      {
+          name:'asch_g1',
+          weight:1,
+          address:'A3rfxqBbL1bkEnAXT8CsJEnoRg2NzGiXFQ'
+      }
+  ]
+  let min = 3
+  let max = 5
+  let m = 6
+  let undateInterval = 1
   let params = {
           type:6,   
           fee:5*100000000,  
-          args：[]  
+          args：[name,members,min,max,m,undateInterval]  
           message, 
           secret:mySecret,  
           secondSecret:mySecondSecret} 
