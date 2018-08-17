@@ -3052,8 +3052,8 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //组成args
   let args = [symbol,desc,maximum,precsion]
   let params = {
-          type:500,   
-          fee:101*100000000,  
+          type:101,   
+          fee:500*100000000,  
           args：args  
           message, 
           secret:mySecret,  
