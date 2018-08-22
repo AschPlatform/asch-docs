@@ -25,8 +25,8 @@ Table of Contents
          * [<strong>2.3 区块blocks</strong>](#23-区块blocks)
             * [<strong>2.3.1 获取指定区块的详情</strong>](#231-获取指定区块的详情)
             * [<strong>2.3.2 获取区块数据</strong>](#232-获取区块数据)
-            * [<strong>2.3.3 获取区块链高度</strong>](#233-获取区块链高度)
-            * [<strong>2.3.4 根据id或高度获取区块</strong>](#234-根据id或高度获取区块)
+            * [<strong>2.3.3 根据id或高度获取区块</strong>](#233-根据id或高度获取区块)
+            * [<strong>2.3.4 获取区块链高度</strong>](#234-获取区块链高度)
             * [<strong>2.3.5 获取里程碑</strong>](#235-获取里程碑)
             * [<strong>2.3.6 查看单个区块奖励</strong>](#236-查看单个区块奖励)
             * [<strong>2.3.7 获取XAS当前供应量</strong>](#237-获取xas当前供应量)
@@ -870,8 +870,10 @@ JSON返回示例：
 
 |名称	|类型   |说明 |
 |:----: |:---:  |:-:  |
-|limit |integer |个数限制（默认）    |
-|offset |integer |偏移量 |
+|limit |Integer |个数限制（默认）    |
+|offset |Integer |偏移量 |
+|orderBy |String |height:desc(目前提供的排序方法) |
+|transactions |String |如果有该关键字，区块会附带交易信息 |
 
 返回参数说明：   
 
@@ -1488,7 +1490,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |
 |------ |-----  |---  |----              |
-|state |integer |N    |节点状态,0: ,1:,2:,3:     |
+|state |integer |N    |节点状态,0 ,1,2,3     |
 |os|string|N|内核版本|
 |version|string|N|asch版本号|
 |limit |integer |N    |限制结果集个数，最小值：0,最大值：100   |
