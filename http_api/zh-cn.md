@@ -12,7 +12,7 @@ Table of Contents
                * [<strong>2.1.1.1 本地加密后再登陆（推荐使用）</strong>](#2111-本地加密后再登陆推荐使用)
                * [<strong>2.1.1.2 本地不加密直接登陆</strong>](#2112-本地不加密直接登陆)
             * [<strong>2.1.2 根据地址获取账户信息</strong>](#212-根据地址获取账户信息)
-            * [<strong>2.1.3 获取账户余额</strong>](#213-获取账户余额)
+            * [<strong>2.1.3 获取账户资产余额</strong>](#213-获取账户余额)
             * [<strong>2.1.4 根据地址获取其投票列表</strong>](#214-根据地址获取其投票列表)
             * [<strong>2.1.5 生成新账户</strong>](#215-生成新账户)
             * [<strong>2.1.6 获取当前链上账户总个数</strong>](#216-获取当前链上账户总个数)
@@ -20,17 +20,18 @@ Table of Contents
             * [<strong>2.2.1 获取交易信息</strong>](#221-获取交易信息)
             * [<strong>2.2.2 根据交易id查看交易详情</strong>](#222-根据交易id查看交易详情)
             * [<strong>2.2.3 根据未确认交易id查看详情</strong>](#223-根据未确认交易id查看详情)
-            * [<strong>2.2.4 获取[全网所有]未确认的交易详情</strong>](#224-获取全网所有未确认的交易详情)
+            * [<strong>2.2.4 获取全网所有未确认的交易详情</strong>](#224-获取全网所有未确认的交易详情)
             * [<strong>2.2.5 获取转账记录</strong>](#225-获取转账记录)
          * [<strong>2.3 区块blocks</strong>](#23-区块blocks)
             * [<strong>2.3.1 获取指定区块的详情</strong>](#231-获取指定区块的详情)
             * [<strong>2.3.2 获取区块数据</strong>](#232-获取区块数据)
             * [<strong>2.3.3 获取区块链高度</strong>](#233-获取区块链高度)
-            * [<strong>2.3.4 获取里程碑</strong>](#234-获取里程碑)
-            * [<strong>2.3.5 查看单个区块奖励</strong>](#235-查看单个区块奖励)
-            * [<strong>2.3.6 获取XAS当前供应量</strong>](#236-获取xas当前供应量)
-            * [<strong>2.3.7 获取区块链状态</strong>](#237-获取区块链状态)
-            * [<strong>2.3.8 获取指定区块的交易信息</strong>](#238-获取指定区块的交易信息)
+            * [<strong>2.3.4 根据id或高度获取区块</strong>](#234-根据id或高度获取区块)
+            * [<strong>2.3.5 获取里程碑</strong>](#235-获取里程碑)
+            * [<strong>2.3.6 查看单个区块奖励</strong>](#236-查看单个区块奖励)
+            * [<strong>2.3.7 获取XAS当前供应量</strong>](#237-获取xas当前供应量)
+            * [<strong>2.3.8 获取区块链状态</strong>](#238-获取区块链状态)
+            * [<strong>2.3.9 获取指定区块的交易信息</strong>](#239-获取指定区块的交易信息)
          * [<strong>2.4 受托人delegates</strong>](#24-受托人delegates)
             * [<strong>2.4.1 获取受托人总个数</strong>](#241-获取受托人总个数)
             * [<strong>2.4.2 根据受托人名字查看哪些人为其投了票</strong>](#242-根据受托人名字查看哪些人为其投了票)
@@ -47,28 +48,28 @@ Table of Contents
          * [<strong>2.7 提案</strong>](#27-提案)
             * [<strong>2.7.1 获取提案列表</strong>](#271-获取提案列表)
             * [<strong>2.7.2 根据提案id获取提案</strong>](#272-根据提案id获取提案)
-         * [<strong>2.7 网关</strong>](#27-网关)
-            * [<strong>2.7.1 获取所有网关</strong>](#271-获取所有网关)
-            * [<strong>2.7.2 获取指定网关的验证者</strong>](#272-获取指定网关的验证者)
-            * [<strong>2.7.3 获取支持的所有跨链币种</strong>](#273-获取支持的所有跨链币种)
-            * [<strong>2.7.4 获取指定网关的支持币种</strong>](#274-获取指定网关的支持币种)
-            * [<strong>2.7.5 获取指定网关的指定账户</strong>](#275-获取指定网关的指定账户)
-            * [<strong>2.7.6 获取指定用户地址的所有网关账户</strong>](#276-获取指定用户地址的所有网关账户)
-            * [<strong>2.7.7 获取指定用户地址指定币种的所有充值记录</strong>](#277-获取指定用户地址指定币种的所有充值记录)
-            * [<strong>2.7.8 获取指定用户地址指定币种的所有充值记录</strong>](#278-获取指定用户地址指定币种的所有充值记录)
-         * [<strong>2.8 代理人和Group</strong>](#28-代理人和group)
-            * [<strong>2.8.1 获取所有代理人账户</strong>](#281-获取所有代理人账户)
-            * [<strong>2.8.2 获取某个代理下的委托客户</strong>](#282-获取某个代理下的委托客户)
-            * [<strong>2.8.3 获取Group信息</strong>](#283-获取group信息)
-         * [<strong>2.9 Dapp查询接口</strong>](#29-dapp查询接口)
-            * [<strong>2.9.1 获取所有已注册侧链</strong>](#291-获取所有已注册侧链)
-         * [<strong>2.10 用户自定义资产uia</strong>](#210-用户自定义资产uia)
-            * [<strong>2.10.1 获取全网所有发行商</strong>](#2101-获取全网所有发行商)
-            * [<strong>2.10.2 查询指定发行商的信息</strong>](#2102-查询指定发行商的信息)
-            * [<strong>2.10.3 查看指定发行商的资产</strong>](#2103-查看指定发行商的资产)
-            * [<strong>2.10.4 获取全网所有资产信息</strong>](#2104-获取全网所有资产信息)
-            * [<strong>2.10.5 获取指定资产信息</strong>](#2105-获取指定资产信息)
-            * [<strong>2.10.6 获取指定账户所有uia的余额</strong>](#2106-获取指定账户所有uia的余额)
+         * [<strong>2.8 网关</strong>](#28-网关)
+            * [<strong>2.8.1 获取所有网关</strong>](#281-获取所有网关)
+            * [<strong>2.8.2 获取指定网关的验证者</strong>](#282-获取指定网关的验证者)
+            * [<strong>2.8.3 获取支持的所有跨链币种</strong>](#283-获取支持的所有跨链币种)
+            * [<strong>2.8.4 获取指定网关的支持币种</strong>](#284-获取指定网关的支持币种)
+            * [<strong>2.8.5 获取指定网关的指定账户</strong>](#285-获取指定网关的指定账户)
+            * [<strong>2.8.6 获取指定用户地址的所有网关账户</strong>](#286-获取指定用户地址的所有网关账户)
+            * [<strong>2.8.7 获取指定用户地址指定币种的所有充值记录</strong>](#287-获取指定用户地址指定币种的所有充值记录)
+            * [<strong>2.8.8 获取指定用户地址指定币种的所有充值记录</strong>](#288-获取指定用户地址指定币种的所有充值记录)
+         * [<strong>2.9 代理人和Group</strong>](#29-代理人和group)
+            * [<strong>2.9.1 获取所有代理人账户</strong>](#291-获取所有代理人账户)
+            * [<strong>2.9.2 获取某个代理下的委托客户</strong>](#292-获取某个代理下的委托客户)
+            * [<strong>2.9.3 获取Group信息</strong>](#293-获取group信息)
+         * [<strong>2.10 Dapp查询接口</strong>](#210-dapp查询接口)
+            * [<strong>2.10.1 获取所有已注册侧链</strong>](#2101-获取所有已注册侧链)
+         * [<strong>2.11 用户自定义资产uia</strong>](#211-用户自定义资产uia)
+            * [<strong>2.11.1 获取全网所有发行商</strong>](#2111-获取全网所有发行商)
+            * [<strong>2.11.2 查询指定发行商的信息</strong>](#2112-查询指定发行商的信息)
+            * [<strong>2.11.3 查看指定发行商的资产</strong>](#2113-查看指定发行商的资产)
+            * [<strong>2.11.4 获取全网所有资产信息</strong>](#2114-获取全网所有资产信息)
+            * [<strong>2.11.5 获取指定资产信息</strong>](#2115-获取指定资产信息)
+            * [<strong>2.11.6 获取指定账户所有uia的余额</strong>](#2116-获取指定账户所有uia的余额)
       * [<strong>3. 事务接口</strong>](#3-事务接口)
          * [<strong>请求过程说明</strong>](#请求过程说明)
          * [<strong>3.1 基础合约</strong>](#31-基础合约)
@@ -399,7 +400,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/accounts/delegates?adddress=APSu9Nh
 ```js
 {
     "success": true,
-    "delegates": []    //如果有人投票，会有投票人信息
+    "delegates": []    //如果给人投票，会有被投票者信息
 }
 ```
 
@@ -861,23 +862,16 @@ JSON返回示例：
 
 #### **2.3.2 获取区块数据**   
 
-接口地址：/api/blocks   
+接口地址：/api/v2/blocks
 请求方式：GET      
 支持格式：urlencoded   
-接口说明：不加参数则获取全网区块详情   
+接口说明：不加参数默认获取前20块   
 请求参数说明：   
 
-|名称	|类型   |必填 |说明              |
-|------ |-----  |---  |----              |
-|limit |integer |N    |限制结果集个数，最小值：0,最大值：100   |
-|orderBy|string  |N      |根据表中字段排序，如height:desc  |
-|offset|integer  |N      |偏移量，最小值0  |
-|generatorPublicKey|string  |N      |区块生成者公钥  |
-|totalAmount|integer  |N       |交易总额，最小值：0，最大值：10000000000000000 |
-|totalFee|integer  |N      |手续费总额，最小值：0，最大值：10000000000000000  |
-|reward|integer  |N      |奖励金额，最小值：0  |
-|previousBlock|string  |N      |上一个区块  |
-|height|integer  |N      |区块高度  |
+|名称	|类型   |说明 |
+|:----: |:---:  |:-:  |
+|limit |integer |个数限制（默认）    |
+|offset |integer |偏移量 |
 
 返回参数说明：   
 
@@ -890,46 +884,93 @@ JSON返回示例：
 
 请求示例：   
 ```bash   
-curl -k -X GET 'http://192.168.1.78:4096/api/blocks?limit=2&offset=350&orderBy=height:desc'   
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/blocks?limit=2&offset=350'   
 ```
 
 JSON返回示例：   
 ```js   
 {
     "success": true,
-    "count": 31354,
+    "count": 72470,
     "blocks": [
         {
-            "id": "ebd8cbfe7e23dd92d540c74e5cbfcdd4b37820c33d06daee85ad91629a14bab1",
             "version": 0,
-            "timestamp": 66766780,
+            "delegate": "fb44b7597d9cca1edbfa5a6f9bb0cf90a1f060921908f9138e25fe4892030ef5",
             "height": 350,
+            "prevBlockId": "731edb7ffa2e0d25b6ed33d47dc913e4ef539e496552d78c8ece62d4424625c9",
+            "timestamp": 67078540,
+            "count": 0,
+            "fees": 0,
             "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "previousBlock": "7e3723ee2f7cc9a6db4969c18c03bb9eca5c03c3b2621a354e5fde7febe270ae",
-            "numberOfTransactions": 0,
-            "totalFee": 0,
-            "generatorPublicKey": "462f9b3bf59811b33d62b71c33f52054dd0b823c590a4724dddbf4a702de71d8",
-            "blockSignature": "169e313644a26977ec5f8793cfd323a8ce5450d479cd37379a80937a9df5c69a8066d7583b4c972c5e5593068578da0ed8b1f268f3b1fa8c19695ce392370906",
-            "confirmations": 31003
+            "reward": 350000000,
+            "signature": "7222d07abe4a97c02824981e76eb7d7409f5b427387f9672681eebb89731281691d10dfae948f440a863acea0e4d57ef55764a155969f5f7dfe98a07afac1e0a",
+            "id": "d6a0cc3d2c09e1105d3fb8479c8fc235baeb35d262968be6e46f4a971e42bb46"
         },
         {
-            "id": "8525943d43661e23d47767a60886f465ad8b93fc59c9bc850f69112ed2e09fa0",
             "version": 0,
-            "timestamp": 66766790,
+            "delegate": "4c67e2710cc368019668e7a08deb293bc066ab638c7e9dbb280815bcb79f10e9",
             "height": 351,
+            "prevBlockId": "d6a0cc3d2c09e1105d3fb8479c8fc235baeb35d262968be6e46f4a971e42bb46",
+            "timestamp": 67078550,
+            "count": 0,
+            "fees": 0,
             "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "previousBlock": "ebd8cbfe7e23dd92d540c74e5cbfcdd4b37820c33d06daee85ad91629a14bab1",
-            "numberOfTransactions": 0,
-            "totalFee": 0,
-            "generatorPublicKey": "97b43c8f58a395a0dc8e4e95d35e67772b70e4a00de611e1c2f73501e8e3bf15",
-            "blockSignature": "79685c090b6725496d6fd96791d1ef4af0f4b25d81596047be6a3988aaf976dcce56b64298936fad43a1a31b8d350cc55b78999979a348871f1d6b5df7eea30e",
-            "confirmations": 31002
+            "reward": 350000000,
+            "signature": "cf8316cf84253dcde0148ea343805433df6f41b653e95a1ff4638beb1a4a116d4e1f6f3d0eba0c1fc1fd6661657b6db9fd4a571c3fb4838439ab078e69baa40f",
+            "id": "426e6b99b7308416d87509da9a485fdbecd61e19fdd139a306ee4938949f1844"
         }
     ]
 }
 ```
 
-#### **2.3.3 获取区块链高度**   
+####  **2.3.3 根据id或高度获取区块**
+
+接口地址：/api/v2/blocks/:idOrHeight
+请求方式：GET      
+支持格式：urlencoded     
+
+请求参数说明：
+
+|    名称    |  类型  |   说明   |
+| :--------: | :----: | :------: |
+| idOrHeight | String | id或高度 |
+
+返回参数说明：
+
+|  名称   |  类型   |           说明           |
+| :-----: | :-----: | :----------------------: |
+| success | boolean | 是否成功获得response数据 |
+| blocks  |  Json   |      由区块详情JSON      |
+
+请求示例：
+
+```js
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/blocks/351'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/blocks/426e6b99b7308416d87509da9a485fdbecd61e19fdd139a306ee4938949f1844'
+```
+
+返回示例：
+
+```js
+{
+    "success": true,
+    "block": {
+        "version": 0,
+        "delegate": "4c67e2710cc368019668e7a08deb293bc066ab638c7e9dbb280815bcb79f10e9",
+        "height": 351,
+        "prevBlockId": "d6a0cc3d2c09e1105d3fb8479c8fc235baeb35d262968be6e46f4a971e42bb46",
+        "timestamp": 67078550,
+        "count": 0,
+        "fees": 0,
+        "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reward": 350000000,
+        "signature": "cf8316cf84253dcde0148ea343805433df6f41b653e95a1ff4638beb1a4a116d4e1f6f3d0eba0c1fc1fd6661657b6db9fd4a571c3fb4838439ab078e69baa40f",
+        "id": "426e6b99b7308416d87509da9a485fdbecd61e19fdd139a306ee4938949f1844"
+    }
+}
+```
+
+#### **2.3.4 获取区块链高度**   
 
 接口地址：/api/blocks/getHeight   
 请求方式：GET     
@@ -956,7 +997,7 @@ JSON返回示例：
 } 
 ```
 
-#### **2.3.4 获取里程碑**   
+#### **2.3.5 获取里程碑**   
 接口地址：/api/blocks/getMilestone   
 请求方式：GET      
 支持格式：无   
@@ -982,7 +1023,7 @@ JSON返回示例：
 }
 ```
 
-#### **2.3.5 查看单个区块奖励**  
+#### **2.3.6 查看单个区块奖励**  
 
 接口地址：/api/blocks/getReward   
 请求方式：GET   
@@ -1010,7 +1051,7 @@ JSON返回示例：
 } //每个生成一个block奖励3.5 XAS   
 ```
 
-#### **2.3.6 获取XAS当前供应量**   
+#### **2.3.7 获取XAS当前供应量**   
 
 接口地址：/api/blocks/getSupply   
 请求方式：GET      
@@ -1038,7 +1079,7 @@ JSON返回示例：
 } //当前testnet共有100109581.5XAS   
 ```
 
-#### **2.3.7 获取区块链状态**  
+#### **2.3.8 获取区块链状态**  
 
 接口地址：/api/blocks/getStatus   
 请求方式：GET   
@@ -1074,7 +1115,7 @@ JSON返回示例：
 }  
 ```
 
-#### **2.3.8 获取指定区块的交易信息**   
+#### **2.3.9 获取指定区块的交易信息**   
 
 接口地址：/api/blocks/full   
 请求方式：GET   
@@ -1723,9 +1764,9 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/proposals/c58fbea59446364f1d0f9b
 }
 ```
 
-### **2.7 网关**
+### **2.8 网关**
 
-#### **2.7.1 获取所有网关**
+#### **2.8.1 获取所有网关**
 
 接口地址：/api/v2/gateways 
 请求方式：GET      
@@ -1774,7 +1815,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways?limit=2'
 }
 ```
 
-#### **2.7.2 获取指定网关的验证者**
+#### **2.8.2 获取指定网关的验证者**
 
 接口地址：/api/v2/gateways/:name/validators 
 请求方式：GET   
@@ -1839,7 +1880,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/validators'
 }
 ```
 
-#### **2.7.3 获取支持的所有跨链币种**
+#### **2.8.3 获取支持的所有跨链币种**
 
 接口地址：/api/v2/gateways/currencies  
 请求方式：GET   
@@ -1880,7 +1921,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/currencies'
 }
 ```
 
-#### **2.7.4 获取指定网关的支持币种**
+#### **2.8.4 获取指定网关的支持币种**
 
 接口地址：/api/v2/gateways/:name/currencies  
 请求方式：GET   
@@ -1917,7 +1958,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/currencies'
 }
 ```
 
-#### **2.7.5 获取指定网关的指定账户**
+#### **2.8.5 获取指定网关的指定账户**
 
 接口地址：/api/v2/gateways/:name/accounts/:address
 请求方式：GET   
@@ -1952,7 +1993,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/bitcoin/accounts/AGw5h2
 }
 ```
 
-#### **2.7.6 获取指定用户地址的所有网关账户**
+#### **2.8.6 获取指定用户地址的所有网关账户**
 
 接口地址：/api/v2/gateways/accounts/:address   
 请求方式：GET      
@@ -1987,7 +2028,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/accounts/AGw5h2cYK2iYGw
 }
 ```
 
-#### **2.7.7 获取指定用户地址指定币种的所有充值记录**
+#### **2.8.7 获取指定用户地址指定币种的所有充值记录**
 
 接口地址：/api/v2/gateways/deposits/:address/:currency    
 请求方式：GET   
@@ -2024,7 +2065,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/deposits/mvGfGo9YfNiTJK
 }
 ```
 
-#### **2.7.8 获取指定用户地址指定币种的所有充值记录**
+#### **2.8.8 获取指定用户地址指定币种的所有充值记录**
 
 接口地址：/api/v2/gateways/withdrawals/:address/:currency    
 请求方式：GET   
@@ -2068,9 +2109,9 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/gateways/withdrawals/APSu9NhiCTt
 
 ```
 
-### **2.8 代理人和Group**
+### **2.9 代理人和Group**
 
-#### **2.8.1 获取所有代理人账户**
+#### **2.9.1 获取所有代理人账户**
 
 接口地址：/api/v2/agents  
 请求方式：GET   
@@ -2132,7 +2173,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/agents'
 }
 ```
 
-#### **2.8.2 获取某个代理下的委托客户**
+#### **2.9.2 获取某个代理下的委托客户**
 
 接口地址：api/v2/agents/:name/clienteles   
 请求方式：GET   
@@ -2181,7 +2222,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/agents/agent001/clienteles'
 }
 ```
 
-#### **2.8.3 获取Group信息**
+#### **2.9.3 获取Group信息**
 
 接口地址：api/v2/groups/:address    
 请求方式：GET   
@@ -2242,9 +2283,9 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/groups/G3sQzuWpvXZjxhoYnvvJvnfUU
 }
 ```
 
-### **2.9 Dapp查询接口**
+### **2.10 Dapp查询接口**
 
-#### **2.9.1 获取所有已注册侧链**
+#### **2.10.1 获取所有已注册侧链**
 
 接口地址：api/v2/chains
 请求方式：GET   
@@ -2282,9 +2323,9 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/chains'
 }
 ```
 
-###  **2.10 用户自定义资产uia**  
+###  **2.11 用户自定义资产uia**  
 
-#### **2.10.1 获取全网所有发行商**  
+#### **2.11.1 获取全网所有发行商**  
 接口地址：/api/v2/uia/issuers  
 请求方式：GET   
 支持格式：urlencoded 
@@ -2333,7 +2374,7 @@ JSON返回示例：
 }
 ```
 
-#### **2.10.2 查询指定发行商的信息** 
+#### **2.11.2 查询指定发行商的信息** 
 接口地址：/api/v2/uia/issuers/:name  
 请求方式：GET   
 支持格式：urlencoded 
@@ -2370,7 +2411,7 @@ JSON返回示例：
 }
 ```
 
-#### **2.10.3 查看指定发行商的资产** 
+#### **2.11.3 查看指定发行商的资产** 
 接口地址：/api/v2/uia/issuers/:name/assets  
 请求方式：GET      
 支持格式：urlencoded 
@@ -2418,7 +2459,7 @@ JSON返回示例：
 }
 ```
 
-#### **2.10.4 获取全网所有资产信息** 
+#### **2.11.4 获取全网所有资产信息** 
 接口地址：/api/v2/uia/assets  
 请求方式：GET   
 支持格式：urlencoded 
@@ -2486,7 +2527,7 @@ JSON返回示例：
 }
 ```
 
-#### **2.10.5 获取指定资产信息** 
+#### **2.11.5 获取指定资产信息** 
 接口地址：/api/v2/uia/assets/:name  
 请求方式：GET   
 支持格式：urlencoded 
@@ -2527,7 +2568,7 @@ JSON返回示例：
 }
 ```
 
-#### **2.10.6 获取指定账户所有uia的余额** 
+#### **2.11.6 获取指定账户所有uia的余额** 
 接口地址：/api/uia/balances/:address  
 请求方式：GET   
 支持格式：urlencoded 
@@ -3345,16 +3386,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let topic = 'gateway_register'
   //下面构造content,对于新增网关提案，需要提供提案的名称，描述，最少成员，更新间隔，资产信息等
   let name = 'aschCoin'   //3-16位大小写字母数字
-  let desc = 'aschyu: test the gateway register'
+  let desc = 'test the gateway register'
   let minimumMembers = 3      //网关最少成员数，这个数值的范围应当在3-33之间的整数，
   let updateInterval = 8640   //更新频率，这个值应当是大于8640的
   
   let symbol = 'TEC'   //比如发行的币叫TEC
   let currencyDesc = 'some describes of currency'    //资产描述
-  let precsion = 1      //资产精度
+  let precision = 1      //资产精度
   let currency = {symbol:symbol,
-                  currencyDesccurrencyDesc,
-                  precsion:precsion}
+                  desc:currencyDesc,
+                  precision:precision}
   //下面构造这个content
   let content = {name:name,
                  desc:desc,
@@ -3522,7 +3563,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let gateway = 'bitcoin'
   let publicKey = 'c03e43c7e8aefe3b5a83e02a7b4dc8cce84bb787202650338e85d1b7758065d6'
-  let desc = 'aschyu: some describes of resgiter member'
+  let desc = 'some describes of resgiter member'
   //构造args
   let args = [gateway,publicKey,desc]
   
