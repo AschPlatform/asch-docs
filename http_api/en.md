@@ -26,12 +26,13 @@ Table of Contents
     - [**2.3 Blocks**](#23-blocks)
       - [**2.3.1 Get detail of a specified block**](#231-get-detail-of-a-specified-block)
       - [**2.3.2 Get block data**](#232-get-block-data)
-      - [**2.3.3 Get the blockchain height**](#233-get-the-blockchain-height)
-      - [**2.3.4 Get current Milestone**](#234-get-current-milestone)
-      - [**2.3.5 View current block rewards**](#235-view-current-block-rewards)
-      - [**2.3.6 Get current supply of XAS**](#236-get-current-supply-of-xas)
-      - [**2.3.7 Get the blockchain status**](#237-get-the-blockchain-status)
-      - [**2.3.8 Get transaction information for a specific block**](#238-get-transaction-information-for-a-specific-block)
+      - [**2.3.3 Get blocks by id or height**](#233-get-blocks-by-id-or-height)
+      - [**2.3.4 Get current blockchain height**](#234-get-current-blockchain-height)
+      - [**2.3.5 Get current Milestone**](#235-get-current-milestone)
+      - [**2.3.6 View current block rewards**](#236-view-current-block-rewards)
+      - [**2.3.7 Get current supply of XAS**](#237-get-current-supply-of-xas)
+      - [**2.3.8 Get the blockchain status**](#238-get-the-blockchain-status)
+      - [**2.3.9 Get transaction information for a specific block**](#239-get-transaction-information-for-a-specific-block)
     - [**2.4 Delegates**](#24-delegates)
       - [**2.4.1 Get the total number of delegates**](#241-get-the-total-number-of-delegates)
       - [**2.4.2 Get the voters for a delegate by his name**](#242-get-the-voters-for-a-delegate-by-his-name)
@@ -43,36 +44,36 @@ Table of Contents
       - [**2.5.2 Get version information about an ASCH node**](#252-get-version-information-about-an-asch-node)
       - [**2.5.3 Get the specified ip node information**](#253-get-the-specified-ip-node-information)
     - [**2.6 Sync and load**](#26-sync-and-load)
-      - [**2.6.1 View the blockchain loader status**](#261-view-the-blockchain-loader-status)
+      - [**2.6.1 View the blockchain loading status**](#261-view-the-blockchain-loading-status)
       - [**2.6.2 View block sync information**](#262-view-block-sync-information)
     - [**2.7 Proposals**](#27-proposals)
       - [**2.7.1 Get a list of proposals**](#271-get-a-list-of-proposals)
       - [**2.7.2 Get Proposal by ID**](#272-get-proposal-by-id)
-    - [**2.7 Gateway**](#27-gateway)
-      - [**2.7.1 List of gateways**](#271-list-of-gateways)
-      - [**2.7.2 Get validators for a specific gateway**](#272-get-validators-for-a-specific-gateway)
-      - [**2.7.3 Get all supported cross chain currencies**](#273-get-all-supported-cross-chain-currencies)
-      - [**2.7.4 Get the supported currency of the specified gateway**](#274-get-the-supported-currency-of-the-specified-gateway)
-      - [**2.7.5 Get a specific account for a specified gateway**](#275-get-a-specific-account-for-a-specified-gateway)
-      - [**2.7.6 Get all gateway accounts for the specified user address**](#276-get-all-gateway-accounts-for-the-specified-user-address)
-      - [**2.7.7 Get all recharge records for a currency and gateway**](#277-get-all-recharge-records-for-a-currency-and-gateway)
-      - [**2.7.8 Get all recharge records for a currency and user address**](#278-get-all-recharge-records-for-a-currency-and-user-address)
-    - [**2.8 Agents and Groups**](#28-agents-and-groups)
-      - [**2.8.1 Get all agents accounts**](#281-get-all-agents-accounts)
-      - [**2.8.2 Get a clientless agent**](#282-get-a-clientless-agent)
-      - [**2.8.3 Get Group information**](#283-get-group-information)
-    - [**2.9 Sidechain Endpoint**](#29-sidechain-endpoint)
-      - [**2.9.1 Get all registered Sidechains**](#291-get-all-registered-sidechains)
-    - [**2.10 User Defined Asset UIA**](#210-user-defined-asset-uia)
-      - [**2.10.1 Get all publishers**](#2101-get-all-publishers)
-      - [**2.10.2 Query information about a publisher by name**](#2102-query-information-about-a-publisher-by-name)
-      - [**2.10.3 View assets of a specified publisher**](#2103-view-assets-of-a-specified-publisher)
-      - [**2.10.4 Get all assets**](#2104-get-all-assets)
-      - [**2.10.5 Get specified asset information**](#2105-get-specified-asset-information)
-      - [**2.10.6 Get the balance of all user created assets for an account**](#2106-get-the-balance-of-all-user-created-assets-for-an-account)
+    - [**2.8 Gateway**](#28-gateway)
+      - [**2.8.1 List of gateways**](#281-list-of-gateways)
+      - [**2.8.2 Get validators for a specific gateway**](#282-get-validators-for-a-specific-gateway)
+      - [**2.8.3 Get all supported cross chain currencies**](#283-get-all-supported-cross-chain-currencies)
+      - [**2.8.4 Get the supported currency of the specified gateway**](#284-get-the-supported-currency-of-the-specified-gateway)
+      - [**2.8.5 Get a specific account for a specified gateway**](#285-get-a-specific-account-for-a-specified-gateway)
+      - [**2.8.6 Get all gateway accounts for the specified user address**](#286-get-all-gateway-accounts-for-the-specified-user-address)
+      - [**2.8.7 Get all recharge records for a currency and gateway**](#287-get-all-recharge-records-for-a-currency-and-gateway)
+      - [**2.8.8 Get all recharge records for a currency and user address**](#288-get-all-recharge-records-for-a-currency-and-user-address)
+    - [**2.9 Agents and Groups**](#29-agents-and-groups)
+      - [**2.9.1 Get all agents accounts**](#291-get-all-agents-accounts)
+      - [**2.9.2 Get a clientless agent**](#292-get-a-clientless-agent)
+      - [**2.9.3 Get Group information**](#293-get-group-information)
+    - [**2.10 Sidechain Endpoint**](#210-sidechain-endpoint)
+      - [**2.10.1 Get all registered Sidechains**](#2101-get-all-registered-sidechains)
+    - [**2.11 User Defined Asset UIA**](#211-user-defined-asset-uia)
+      - [**2.11.1 Get all publishers**](#2111-get-all-publishers)
+      - [**2.11.2 Query information about a publisher by name**](#2112-query-information-about-a-publisher-by-name)
+      - [**2.11.3 View assets of a specified publisher**](#2113-view-assets-of-a-specified-publisher)
+      - [**2.11.4 Get all assets**](#2114-get-all-assets)
+      - [**2.11.5 Get specified asset information**](#2115-get-specified-asset-information)
+      - [**2.11.6 Get the balance of all user created assets for an account**](#2116-get-the-balance-of-all-user-created-assets-for-an-account)
   - [**3. Transaction**](#3-transaction)
     - [**Description of the request process**](#description-of-the-request-process)
-    - [**3.1 Basic contracts**](#31-basic-contracts)
+    - [**3.1 Basic Contracts**](#31-basic-contracts)
       - [**3.1.1 Transfer**](#311-transfer)
       - [**3.1.2 Set nickname**](#312-set-nickname)
       - [**3.1.3 Set second secret**](#313-set-second-secret)
@@ -85,23 +86,23 @@ Table of Contents
       - [**3.1.10 Register Delegate**](#3110-register-delegate)
       - [**3.1.11 Vote for Delegate**](#3111-vote-for-delegate)
       - [**3.1.12 Cancel Delegate Vote**](#3112-cancel-delegate-vote)
-    - [**3.2 Assets**](#32-assets)
+    - [**3.2 Asset Contracts**](#32-asset-contracts)
       - [**3.2.1 Register publisher**](#321-register-publisher)
       - [**3.2.2 Register Asset**](#322-register-asset)
       - [**3.2.3 Mint Asset tokens**](#323-mint-asset-tokens)
       - [**3.2.4 Asset transfer**](#324-asset-transfer)
-    - [**3.3 DApps**](#33-dapps)
+    - [**3.3 DApp Contracts**](#33-dapp-contracts)
       - [**3.3.1 Register DApp**](#331-register-dapp)
       - [**3.3.2 Update DApp delegate**](#332-update-dapp-delegate)
       - [**3.3.3 Add DApp delegate**](#333-add-dapp-delegate)
       - [**3.3.4 Delete DApp delegate**](#334-delete-dapp-delegate)
       - [**3.3.5 Transfer money to own DApp account (Refuel Operation)**](#335-transfer-money-to-own-dapp-account-refuel-operation)
       - [**3.3.6 Withdaw from own DApp account to Mainchain acount (Withdraw operation)**](#336-withdaw-from-own-dapp-account-to-mainchain-acount-withdraw-operation)
-    - [**3.4 Proposals**](#34-proposals)
+    - [**3.4 Proposal Contracts**](#34-proposal-contracts)
       - [**3.4.1 Initiate a proposal**](#341-initiate-a-proposal)
       - [**3.4.2 Vote for proposal**](#342-vote-for-proposal)
       - [**3.4.3 Activate Proposal**](#343-activate-proposal)
-    - [**3.5 Gateway contract**](#35-gateway-contract)
+    - [**3.5 Gateway Contracts**](#35-gateway-contracts)
       - [**3.5.1 Open gateway account**](#351-open-gateway-account)
       - [**3.5.2 Register member**](#352-register-member)
       - [**3.5.3 Recharge the gateway**](#353-recharge-the-gateway)
@@ -109,7 +110,7 @@ Table of Contents
       - [**3.5.5 Submit a withdrawl transaction**](#355-submit-a-withdrawl-transaction)
       - [**3.5.6 Submit transaction signature**](#356-submit-transaction-signature)
       - [**3.5.7 Submit a transaction agreement**](#357-submit-a-transaction-agreement)
-    - [**3.6 Group contract**](#36-group-contract)
+    - [**3.6 Group Contracts**](#36-group-contracts)
       - [**3.6.1 Vote**](#361-vote)
       - [**3.6.2 Activate Group**](#362-activate-group)
       - [**3.6.3 Add member**](#363-add-member)
@@ -923,24 +924,19 @@ JSON Response:
 
 #### **2.3.2 Get block data**   
 
-API Endpoint: /api/blocks   
+API Endpoint: /api/v2/blocks   
 HTTP Verb: GET      
 Format: urlencoded   
-Description: Get all blocks without parameters  
+Description: Get the first 20 blocks by default without parameters  
 
 Request Parameter Description:  
 
 |Name  |Type  |Required  |Description  |
 |------ |-----  |---  |----              |
 |limit |integer |N    |maximum number of records to return, between 0 and 100  |
-|orderBy|string  |N      |Sort by various properties, such es `height:desc`  |
 |offset|integer  |N      |offset, minimum 0  |
-|generatorPublicKey|string  |N      |public key of the block generator  |
-|totalAmount|integer  |N       |total amount of all transactions, from 0 to 10000000000000000 |
-|totalFee|integer  |N      |total fee of all transaction, from 0 to 10000000000000000|
-|reward|integer  |N      |the reward amount for forging this block, minimum: 0 |
-|previousBlock|string  |N      |previous block  |
-|height|integer  |N      |block height  |
+|orderBy|string  |N      |Sort by various properties, such es `height:desc`  |
+|transactions|string|N   |If this keyword is added with `transactions=true` then the block will be accompanied by transaction information |
 
 Response Parameter Description:     
 
@@ -953,51 +949,56 @@ Response Parameter Description:
 
 Request example:     
 ```bash   
-curl -k -X GET 'http://localhost:4096/api/blocks?limit=2&offset=350&orderBy=height:desc'   
+curl -k -X GET 'http://localhost:4096/api/v2/blocks?limit=2&offset=350'   
 ```
 
-JSON Response:     
-```js   
+JSON Response:  
+```js  
 {
     "success": true,
-    "count": 31354,
+    "count": 72470,
     "blocks": [
         {
-            "id": "ebd8cbfe7e23dd92d540c74e5cbfcdd4b37820c33d06daee85ad91629a14bab1",
             "version": 0,
-            "timestamp": 66766780,
+            "delegate": "fb44b7597d9cca1edbfa5a6f9bb0cf90a1f060921908f9138e25fe4892030ef5",
             "height": 350,
+            "prevBlockId": "731edb7ffa2e0d25b6ed33d47dc913e4ef539e496552d78c8ece62d4424625c9",
+            "timestamp": 67078540,
+            "count": 0,
+            "fees": 0,
             "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "previousBlock": "7e3723ee2f7cc9a6db4969c18c03bb9eca5c03c3b2621a354e5fde7febe270ae",
-            "numberOfTransactions": 0,
-            "totalFee": 0,
-            "generatorPublicKey": "462f9b3bf59811b33d62b71c33f52054dd0b823c590a4724dddbf4a702de71d8",
-            "blockSignature": "169e313644a26977ec5f8793cfd323a8ce5450d479cd37379a80937a9df5c69a8066d7583b4c972c5e5593068578da0ed8b1f268f3b1fa8c19695ce392370906",
-            "confirmations": 31003
+            "reward": 350000000,
+            "signature": "7222d07abe4a97c02824981e76eb7d7409f5b427387f9672681eebb89731281691d10dfae948f440a863acea0e4d57ef55764a155969f5f7dfe98a07afac1e0a",
+            "id": "d6a0cc3d2c09e1105d3fb8479c8fc235baeb35d262968be6e46f4a971e42bb46"
         },
         {
-            "id": "8525943d43661e23d47767a60886f465ad8b93fc59c9bc850f69112ed2e09fa0",
             "version": 0,
-            "timestamp": 66766790,
+            "delegate": "4c67e2710cc368019668e7a08deb293bc066ab638c7e9dbb280815bcb79f10e9",
             "height": 351,
+            "prevBlockId": "d6a0cc3d2c09e1105d3fb8479c8fc235baeb35d262968be6e46f4a971e42bb46",
+            "timestamp": 67078550,
+            "count": 0,
+            "fees": 0,
             "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-            "previousBlock": "ebd8cbfe7e23dd92d540c74e5cbfcdd4b37820c33d06daee85ad91629a14bab1",
-            "numberOfTransactions": 0,
-            "totalFee": 0,
-            "generatorPublicKey": "97b43c8f58a395a0dc8e4e95d35e67772b70e4a00de611e1c2f73501e8e3bf15",
-            "blockSignature": "79685c090b6725496d6fd96791d1ef4af0f4b25d81596047be6a3988aaf976dcce56b64298936fad43a1a31b8d350cc55b78999979a348871f1d6b5df7eea30e",
-            "confirmations": 31002
+            "reward": 350000000,
+            "signature": "cf8316cf84253dcde0148ea343805433df6f41b653e95a1ff4638beb1a4a116d4e1f6f3d0eba0c1fc1fd6661657b6db9fd4a571c3fb4838439ab078e69baa40f",
+            "id": "426e6b99b7308416d87509da9a485fdbecd61e19fdd139a306ee4938949f1844"
         }
     ]
 }
 ```
 
-#### **2.3.3 Get the blockchain height**   
+#### **2.3.3 Get blocks by id or height**   
 
-API Endpoint: /api/blocks/getHeight  
+API Endpoint: /api/blocks/:IdOrHeight  
 HTTP Verb: GET  
 Format: No  
-Request Parameter Description: No  
+
+Request Parameter Description:   
+
+|Name  |Type  |Description  |
+|------ |-----  |----              |
+|idOrHeight |String |Block id or height|
 
 Response Parameter Description:  
 
@@ -1008,18 +1009,59 @@ Response Parameter Description:
 
 Request example:     
 ```bash   
-curl -k -X GET 'http://localhost:4096/api/blocks/getheight'    
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/blocks/351'
+curl -k -X GET 'http://192.168.1.78:4096/api/v2/blocks/426e6b99b7308416d87509da9a485fdbecd61e19fdd139a306ee4938949f1844'
 ```
 
 JSON Response:     
 ```js   
 {
     "success": true,
-    "height": 31363
-} 
+    "block": {
+        "version": 0,
+        "delegate": "4c67e2710cc368019668e7a08deb293bc066ab638c7e9dbb280815bcb79f10e9",
+        "height": 351,
+        "prevBlockId": "d6a0cc3d2c09e1105d3fb8479c8fc235baeb35d262968be6e46f4a971e42bb46",
+        "timestamp": 67078550,
+        "count": 0,
+        "fees": 0,
+        "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reward": 350000000,
+        "signature": "cf8316cf84253dcde0148ea343805433df6f41b653e95a1ff4638beb1a4a116d4e1f6f3d0eba0c1fc1fd6661657b6db9fd4a571c3fb4838439ab078e69baa40f",
+        "id": "426e6b99b7308416d87509da9a485fdbecd61e19fdd139a306ee4938949f1844"
+    }
+}
 ```
 
-#### **2.3.4 Get current Milestone**   
+#### **2.3.4 Get current blockchain height**  
+API Endpoint: /api/blocks/getHeight   
+HTTP Verb: GET      
+Format: No  
+Request Parameter Description: No  
+
+Response Parmeter Description:  
+
+|Name  |Type   |Description  |
+|:----: |:---:  |:--:              |
+|success|boolean  |true: response data returned successfully  |
+|height|integer|Blockchain height  |
+
+Example:  
+
+```bash
+curl -k -X GET 'http://192.168.1.78:4096/api/blocks/getheight'  
+```
+
+JSON Response:  
+
+```json
+{
+    "success": true,
+    "height": 31363
+}
+```
+
+#### **2.3.5 Get current Milestone**   
 API Endpoint: /api/blocks/getMilestone   
 HTTP Verb: GET      
 Format: No  
@@ -1068,7 +1110,7 @@ JSON Response:
 }
 ```
 
-#### **2.3.5 View current block rewards**  
+#### **2.3.6 View current block rewards**  
 
 API Endpoint: /api/blocks/getReward   
 HTTP Verb: GET   
@@ -1096,7 +1138,7 @@ JSON Response:
 } // each delegate gets 3.5 XAS as reward for forging a block
 ```
 
-#### **2.3.6 Get current supply of XAS**   
+#### **2.3.7 Get current supply of XAS**   
 
 API Endpoint: /api/blocks/getSupply   
 HTTP Verb: GET      
@@ -1124,7 +1166,7 @@ JSON Response:
 } // current testnet has a total of 100109581.5 XAS  
 ```
 
-#### **2.3.7 Get the blockchain status**  
+#### **2.3.8 Get the blockchain status**  
 
 API Endpoint: /api/blocks/getStatus   
 HTTP Verb: GET   
@@ -1160,7 +1202,7 @@ JSON Response:
 }  
 ```
 
-#### **2.3.8 Get transaction information for a specific block**   
+#### **2.3.9 Get transaction information for a specific block**   
 
 API Endpoint: /api/blocks/full   
 HTTP Verb: GET   
@@ -1660,7 +1702,7 @@ JSON Response:
 ```
 
 ### **2.6 Sync and load**   
-#### **2.6.1 View the blockchain loader status**   
+#### **2.6.1 View the blockchain loading status**   
 API Endpoint: /api/loader/status  
 HTTP Verb: GET  
 Format: No   
@@ -1814,9 +1856,9 @@ Response Example:
 }
 ```
 
-### **2.7 Gateway**
+### **2.8 Gateway**
 
-#### **2.7.1 List of gateways**
+#### **2.8.1 List of gateways**
 
 API Endpoint: /api/v2/gateways  
 HTTP Verb: GET  
@@ -1865,7 +1907,7 @@ Response Example:
 }
 ```
 
-#### **2.7.2 Get validators for a specific gateway**
+#### **2.8.2 Get validators for a specific gateway**
 
 API Endpoint: /api/v2/gateways/:name/validators  
 HTTP Verb: GET  
@@ -1930,7 +1972,7 @@ Response Example:
 }
 ```
 
-#### **2.7.3 Get all supported cross chain currencies**
+#### **2.8.3 Get all supported cross chain currencies**
 
 API Endpoint: /api/v2/gateways/currencies  
 HTTP Verb: GET  
@@ -1970,7 +2012,7 @@ Response Example:
 }
 ```
 
-#### **2.7.4 Get the supported currency of the specified gateway**
+#### **2.8.4 Get the supported currency of the specified gateway**
 
 API Endpoint: /api/v2/gateways/:name/currencies  
 HTTP Verb: GET  
@@ -2015,7 +2057,7 @@ Response Example:
 }
 ```
 
-#### **2.7.5 Get a specific account for a specified gateway**
+#### **2.8.5 Get a specific account for a specified gateway**
 
 API Endpoint: /api/v2/gateways/:name/accounts/:address  
 HTTP Verb: GET  
@@ -2050,7 +2092,7 @@ Response Example:
 }
 ```
 
-#### **2.7.6 Get all gateway accounts for the specified user address**
+#### **2.8.6 Get all gateway accounts for the specified user address**
 
 API Endpoint: /api/v2/gateways/accounts/:address  
 HTTP Verb: GET  
@@ -2085,7 +2127,7 @@ Response Example:
 }
 ```
 
-#### **2.7.7 Get all recharge records for a currency and gateway**
+#### **2.8.7 Get all recharge records for a currency and gateway**
 
 API Endpoint: /api/v2/gateways/deposits/:address/:currency  
 HTTP Verb: GET  
@@ -2122,7 +2164,7 @@ Response Example:
 }
 ```
 
-#### **2.7.8 Get all recharge records for a currency and user address**
+#### **2.8.8 Get all recharge records for a currency and user address**
 
 API Endpoint: /api/v2/gateways/withdrawals/:address/:currency  
 HTTP Verb: GET  
@@ -2170,9 +2212,9 @@ Response Example:
 }
 ```
 
-### **2.8 Agents and Groups**
+### **2.9 Agents and Groups**
 
-#### **2.8.1 Get all agents accounts**
+#### **2.9.1 Get all agents accounts**
 
 API Endpoint: /api/v2/agents  
 HTTP Verb: GET   
@@ -2234,7 +2276,7 @@ Response Example:
 }
 ```
 
-#### **2.8.2 Get a clientless agent**
+#### **2.9.2 Get a clientless agent**
 
 API Endpoint: /api/v2/agents/:name/clienteles   
 HTTP Verb: GET   
@@ -2283,7 +2325,7 @@ Response Example:
 }
 ```
 
-#### **2.8.3 Get Group information**
+#### **2.9.3 Get Group information**
 
 API Endpoint: /api/v2/groups/:address    
 HTTP Verb: GET   
@@ -2344,9 +2386,9 @@ Response Example:
 }
 ```
 
-### **2.9 Sidechain Endpoint**
+### **2.10 Sidechain Endpoint**
 
-#### **2.9.1 Get all registered Sidechains**
+#### **2.10.1 Get all registered Sidechains**
 
 API Endpoint: /api/v2/chains  
 HTTP Verb: GET   
@@ -2384,9 +2426,9 @@ Response Example:
 }
 ```
 
-###  **2.10 User Defined Asset UIA**  
+###  **2.11 User Defined Asset UIA**  
 
-#### **2.10.1 Get all publishers**  
+#### **2.11.1 Get all publishers**  
 API Endpoint: /api/v2/uia/issuers  
 HTTP Verb: GET   
 Format: urlencoded 
@@ -2435,7 +2477,7 @@ JSON Response:
 }
 ```
 
-#### **2.10.2 Query information about a publisher by name** 
+#### **2.11.2 Query information about a publisher by name** 
 API Endpoint: /api/v2/uia/issuers/:name  
 HTTP Verb: GET  
 Format: urlencoded  
@@ -2472,7 +2514,7 @@ JSON Response:
 }
 ```
 
-#### **2.10.3 View assets of a specified publisher** 
+#### **2.11.3 View assets of a specified publisher** 
 API Endpoint: /api/v2/uia/issuers/:name/assets  
 HTTP Verb: GET      
 Format: urlencoded 
@@ -2520,7 +2562,7 @@ JSON Response:
 }
 ```
 
-#### **2.10.4 Get all assets** 
+#### **2.11.4 Get all assets** 
 API Endpoint: /api/v2/uia/assets  
 HTTP Verb: GET   
 Format: urlencoded 
@@ -2588,7 +2630,7 @@ JSON Response:
 }
 ```
 
-#### **2.10.5 Get specified asset information** 
+#### **2.11.5 Get specified asset information** 
 API Endpoint: /api/v2/uia/assets/:name  
 HTTP Verb: GET   
 Format: urlencoded 
@@ -2629,7 +2671,7 @@ JSON Response:
 }
 ```
 
-#### **2.10.6 Get the balance of all user created assets for an account** 
+#### **2.11.6 Get the balance of all user created assets for an account** 
 API Endpoint: /api/uia/balances/:address  
 HTTP Verb: GET   
 Format: urlencoded 
@@ -2776,7 +2818,7 @@ const XAS = 100000000
 ```
 
 
-### **3.1 Basic contracts**   
+### **3.1 Basic Contracts**   
 
 #### **3.1.1 Transfer**   
 - **type: 1**
@@ -3181,7 +3223,7 @@ const XAS = 100000000
   http.POST(trs)  // see the description of the request process for detail
   ```
 
-###  **3.2 Assets**
+###  **3.2 Asset Contracts**
 
 #### **3.2.1 Register publisher**
 
@@ -3229,7 +3271,7 @@ const XAS = 100000000
   |  symbol  | string | Asset name |
   |   desc   | string | Asset description |
   | maximum  | string |  Maximum circulation  |
-  | precsion | number |  Accuracy |
+  | precision | number |  Accuracy |
 
   Example:  
 
@@ -3237,9 +3279,9 @@ const XAS = 100000000
   let symbol = 'TXC'
   let desc = 'my first asset'
   let maximum = '100000000000'
-  let precsion = 1     // possible values are: 1 up to 16
+  let precision = 1     // possible values are: 1 up to 16
   // construct args array
-  let args = [symbol,desc,maximum,precsion]
+  let args = [symbol,desc,maximum,precision]
   let params = {
     type:101,   
     fee:500*100000000,  
@@ -3319,7 +3361,7 @@ const XAS = 100000000
   http.POST(trs)  // see the description of the request process for detail
   ```
 
-### **3.3 DApps**
+### **3.3 DApp Contracts**
 
 #### **3.3.1 Register DApp**
 
@@ -3443,11 +3485,11 @@ const XAS = 100000000
 
   **Note**: Developers shouldn't call this contract. This contract is called by the ASCH sandbox if the user initiates a [DApp withdrawal contract call](https://github.com/AschPlatform/asch-docs/blob/master/dapp/api/en.md#3112-dapp-withdraw-money-type2). 
 
-### **3.4 Proposals**
+### **3.4 Proposal Contracts**
 
 #### **3.4.1 Initiate a proposal**
 
-- **type: 301**
+- **type: 300**
 
 - **fee:    10*XAS**
 
@@ -3472,7 +3514,7 @@ const XAS = 100000000
   // construct args array
   let args = [title,desc,topic,content,endHeight]
   let params = {
-    type:301,   
+    type:300,   
     fee:10*100000000,  
     args: args,
     message, 
@@ -3502,8 +3544,8 @@ const XAS = 100000000
   let precsion = 1      // Asset currency
   let currency = {
     symbol:symbol,
-    currencyDesccurrencyDesc,
-    precsion:precsion
+    desc:currencyDesc,
+    precision:precision
   }
   // construct the content
   let content = {
@@ -3566,7 +3608,7 @@ const XAS = 100000000
 
 #### **3.4.2 Vote for proposal**
 
-- **type: 302**
+- **type: 301**
 
 - **fee:    0.1*XAS**
 
@@ -3583,7 +3625,7 @@ const XAS = 100000000
   let pid = 'aer074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502'
   let args = [pid]
   let params = {
-    type:302,
+    type:301,
     fee:0.1*100000000,
     args: args,
     message,
@@ -3597,7 +3639,7 @@ const XAS = 100000000
 
 #### **3.4.3 Activate Proposal**
 
-- **type: 303**
+- **type: 302**
 
 - **fee:    0*XAS**
 
@@ -3625,7 +3667,7 @@ const XAS = 100000000
   http.POST(trs)  // see the description of the request process for detail
   ```
 
-### **3.5 Gateway contract**
+### **3.5 Gateway Contracts**
 
 #### **3.5.1 Open gateway account**
 
@@ -3817,7 +3859,7 @@ const XAS = 100000000
   | oid  | string |        |
 
 
-### **3.6 Group contract**
+### **3.6 Group Contracts**
 
 #### **3.6.1 Vote**
 
