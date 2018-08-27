@@ -27,12 +27,15 @@
 - [Full node installation document](./install/en.md)
 - [Delegate & forging](./delegate_forging/en.md)
 - [asch-cli document](./cli_usage/en.md)
+- [Exchange list instruction](./exchange)
 - [asch-js document](./js_api/en.md)
 - [HTTP API](./http_api/en.md)
-- [SDK document](./sdk_api/en.md)
-- [DApp development document](./dapp/api/en.md)
-- [Exchange list instruction](./exchange)
 - [How to Create a new Asset](./tokens/en.md)
+- [DApp Documents](./dapp)
+  + [DApp SDK document](./sdk_api/en.md)
+  + [DApp HTTP document](./dapp/api/en.md)
+  + [Common DApp Development Problems](./dapp/common_dapp_dev_problems_en.md)
+
 
 ## Inhaltsverzeichnis
 
