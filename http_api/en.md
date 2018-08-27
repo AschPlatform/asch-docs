@@ -2478,7 +2478,7 @@ JSON Response:
 ```
 
 #### **2.11.2 Query information about a publisher by name** 
-API Endpoint: /api/v2/uia/issuers/:name  
+API Endpoint: /api/v2/uia/issuers/:address  
 HTTP Verb: GET  
 Format: urlencoded  
 
@@ -2486,7 +2486,7 @@ Request Parameter Description:
 
 |Name  |Type  |Required  |Description  |
 |------ |-----  |---  |----              |
-|name|string|Y|Can be the name of the publisher or the ASCH account address  |
+|name|string|Y|Can be the ASCH account address  |
 
 Response Parameter Description:     
 
