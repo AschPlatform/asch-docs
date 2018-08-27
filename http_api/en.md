@@ -2515,7 +2515,7 @@ JSON Response:
 ```
 
 #### **2.11.3 View assets of a specified publisher** 
-API Endpoint: /api/v2/uia/issuers/:name/assets  
+API Endpoint: /api/v2/uia/issuers/:address/assets  
 HTTP Verb: GET      
 Format: urlencoded 
 
@@ -2523,7 +2523,7 @@ Request Parameter Description:
 
 |Name  |Type  |Required  |Description  |
 |------ |-----  |---  |----              |
-|name|string|Y|Can be publisher name or ASCH account address |
+|address|string|Y|Can be  ASCH account address |
 |limit|integer|N|maximum number of records to return, between 0 and 100  |
 |offset|integer|N| Offset, minimum 0  |
 
@@ -2650,7 +2650,7 @@ Response Parameter Description:
 
 Request example:     
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://localhost:4096/api/uia/assets/CCTime.XCT'
+curl -X GET -H "Content-Type: application/JSON"  'http://localhost:4096/api/v2/uia/assets/CCTime.XCT'
 ```
 
 JSON Response:     

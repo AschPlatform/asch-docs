@@ -2414,7 +2414,7 @@ JSON返回示例：
 ```
 
 #### **2.11.3 查看指定发行商的资产** 
-接口地址：/api/v2/uia/issuers/:name/assets  
+接口地址：/api/v2/uia/issuers/:address/assets  
 请求方式：GET      
 支持格式：urlencoded 
 
@@ -2422,7 +2422,7 @@ JSON返回示例：
 
 |名称	|类型   |必填 |说明              |
 |------ |-----  |---  |----              |
-|name|string|Y|可以为发行商名称或Asch账户地址|
+|address|string|Y|Asch账户地址|
 |limit|integer|N|限制结果集个数，最小值：0,最大值：100|
 |offset|integer|N|偏移量，最小值0|
 
@@ -2549,7 +2549,7 @@ JSON返回示例：
 
 请求示例：   
 ```js   
-curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/uia/assets/CCTime.XCT'
+curl -X GET -H "Content-Type: application/JSON"  'http://192.168.1.78:4096/api/v2/uia/assets/CCTime.XCT'
 ```
 
 JSON返回示例：   
