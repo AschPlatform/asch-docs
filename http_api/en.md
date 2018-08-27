@@ -2486,7 +2486,7 @@ Request Parameter Description:
 
 |Name  |Type  |Required  |Description  |
 |------ |-----  |---  |----              |
-|name|string|Y|Can be the ASCH account address  |
+|address|string|Y|Can be the ASCH account address  |
 
 Response Parameter Description:     
 
