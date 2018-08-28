@@ -1493,9 +1493,6 @@ JSON返回示例：
 |state |integer |N    |节点状态,0 ,1,2,3     |
 |os|string|N|内核版本|
 |version|string|N|asch版本号|
-|limit |integer |N    |限制结果集个数，最小值：0,最大值：100   |
-|orderBy|string|N||
-|offset|integer  |N      |偏移量，最小值0  |
 |port|integer|N|端口，1~65535|
 
 
