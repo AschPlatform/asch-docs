@@ -3365,7 +3365,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造args
   let args = [title,desc,topic,content,endHeight]
   let params = {
-          type:301,   
+          type:300,   
           fee:10*100000000,  
           args：args  
           message, 
@@ -3468,7 +3468,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造args
   let args = [pid]
   let params = {
-          type:302,   
+          type:301,   
           fee:0.1*100000000,  
           args：args  
           message, 
@@ -3499,7 +3499,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造args
   let args = [pid]
   let params = {
-          type:303,   
+          type:302,   
           fee:0*100000000,  
           args：args  
           message, 
