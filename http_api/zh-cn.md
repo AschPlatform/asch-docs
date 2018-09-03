@@ -3428,7 +3428,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let topic = 'gateway_update_member'
   //下面构造content
   let gateway = 'bitcoin'     //网关的名字
-  let form = 'A3SmW61ZwxmNc26BbfKLbHkaNbmUQzexuj'   //要撤销的成员地址
+  let from = 'A3SmW61ZwxmNc26BbfKLbHkaNbmUQzexuj'   //要撤销的成员地址
   let to = 'A7w7Rx5bCerJFbfG5BKdQ77bPqfWeyrmgJ'     //要添加的成员地址
   //下面构造这个content
   let content = {gateway:gateway,
