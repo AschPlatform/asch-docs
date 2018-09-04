@@ -3480,8 +3480,8 @@ const XAS = 100000000
   | recipient | string | Receiving address |
   | currency  | string |  Asset name  |
   |  amount   | string | Amount to withdraw |
-  |    oid    | string |          |
-  |    seq    | string |          |
+  |    oid    | string | The corresponding transactionId on the sidechain |
+  |    seq    | string | A sequence of numbers in the sidechain `withdrawals` table starting at 1 |
 
   **Note**: Developers shouldn't call this contract. This contract is called by the ASCH sandbox if the user initiates a [DApp withdrawal contract call](https://github.com/AschPlatform/asch-docs/blob/master/dapp/api/en.md#3112-dapp-withdraw-money-type2). 
 
