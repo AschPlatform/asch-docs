@@ -3365,7 +3365,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造args
   let args = [title,desc,topic,content,endHeight]
   let params = {
-          type:301,   
+          type:300,   
           fee:10*100000000,  
           args：args  
           message, 
@@ -3428,7 +3428,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let topic = 'gateway_update_member'
   //下面构造content
   let gateway = 'bitcoin'     //网关的名字
-  let form = 'A3SmW61ZwxmNc26BbfKLbHkaNbmUQzexuj'   //要撤销的成员地址
+  let from = 'A3SmW61ZwxmNc26BbfKLbHkaNbmUQzexuj'   //要撤销的成员地址
   let to = 'A7w7Rx5bCerJFbfG5BKdQ77bPqfWeyrmgJ'     //要添加的成员地址
   //下面构造这个content
   let content = {gateway:gateway,
@@ -3468,7 +3468,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造args
   let args = [pid]
   let params = {
-          type:302,   
+          type:301,   
           fee:0.1*100000000,  
           args：args  
           message, 
@@ -3499,7 +3499,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //构造args
   let args = [pid]
   let params = {
-          type:303,   
+          type:302,   
           fee:0*100000000,  
           args：args  
           message, 
