@@ -10,7 +10,7 @@
     - [1.2 app.sdb.get(model, cond)](#12-appsdbgetmodel-cond)
     - [1.3 app.sdb.keys(model)](#13-appsdbkeysmodel)
     - [1.4 app.sdb.entries(model)](#14-appsdbentriesmodel)
-    - [1.5 app.sdb.lock(key)](#15-apsdblockkey)
+    - [1.5 app.sdb.lock(key)](#15-appsdblockkey)
     - [1.6 app.sdb.create(model, values)](#16-appsdbcreatemodel-values)
     - [1.7 app.sdb.replace(model, values)](#17-appsdbreplacemodel-values)
     - [1.8 app.sdb.update(model, modifier, cond)](#18-appsdbupdatemodel-modifier-cond)
@@ -58,6 +58,11 @@
       - [3.4.11 IS NULL](#3411-is-null)
       - [3.4.12 IS NOT NULL](#3412-is-not-null)
       - [3.4.13 BETWEEN](#3413-between)
+    - [3.4 Create DApp Data Model](#34-create-dapp-data-model)
+      - [3.4.1 Create a Table](#341-create-a-table)
+      - [3.4.2 Define Table Columns](#342-define-table-columns)
+      - [3.4.3 Foreign key](#343-foreign-key)
+      - [3.4.4 Best Practises](#344-best-practises)
   - [4. Routing](#4-routing)
     - [4.1 app.route.get(path, handler)](#41-approutegetpath-handler)
     - [4.2 app.route.post(path, handler)](#42-approutepostpath-handler)
@@ -1268,6 +1273,399 @@ SELECT *
 FROM blocks
 WHERE height BETWEEN 1 AND 10
 ```
+
+
+
+<br/>
+
+### 3.4 Create DApp Data Model
+
+
+#### 3.4.1 Create a Table
+
+Each DApp underlies a [SQLite](https://www.sqlite.org/index.html) database. DApp data can be saved in relational form. Queries can be written in a SQL like manner. But this section is dedicated to creating the tables in which the smart contract data will be saved. The existing DApp tables are described in [3.1 Existing Data Models](#31-existing-data-models). This section only deals with the creation of __custom__ DApp tables.
+
+
+Under the `model/` directory create a new `article.js` file:  
+
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'id',
+      type: 'String',
+      length: '20',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 64,
+      not_null: true,
+      unique: true
+    },
+    {
+      name: 'authorId',
+      type: 'String',
+      length: 50,
+      not_null: true
+    },
+    {
+      name: 'timestamp',
+      type: 'Number',
+      not_null: true
+    },
+    {
+      name: 'title',
+      type: 'String',
+      length: 256,
+      not_null: true
+    },
+    {
+      name: 'url',
+      type: 'String',
+      length: 256
+    },
+    {
+      name: 'text',
+      type: 'String',
+      length: 4096,
+      not_null: true,
+    },
+    {
+      name: 'tags',
+      type: 'String',
+      length: 20
+    },
+    {
+      name: 'votes',
+      type: 'Number',
+      not_null: true
+    },
+    {
+      name: 'comments',
+      type: 'Number',
+      not_null: true,
+      default: 0
+    },
+    {
+      name: 'reports',
+      type: 'Number',
+      not_null: true,
+      default: 0
+    }
+  ]
+}
+```
+
+#### 3.4.2 Define Table Columns
+
+Each column is represented by an JavaScript object. Each column needs at least a __name__ and __type__ property:  
+```js
+{
+  name: 'id',
+  type: 'String',
+  length: 64,
+  not_null: true,
+  primary_key: true
+}
+```
+
+Columns should be defined in the __fields__ array:  
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    // column objects come here
+  ]
+}
+```
+
+> Warning:  
+If the `type`=String then also the `lenght` property must be provided!
+
+
+Available Properties:  
+
+| Name | Required | Description |
+| :---: | :---: | :---: |
+| type | Y | See table __below__ |
+| name | Y | Specify the name of the column |
+| length | Y/N | This property __must__ be provided if `type`=String |
+| not_null | N | The column can't be null |
+| primary_key | N | Only __one__ column can have a primary key |
+| unique | N | Creates a __unique__ constraint |
+| index | N | creates an index |
+
+Available Types:  
+
+| Name | Underlying Sqlite Type |
+| :---: | :---: |
+| Number | int |
+| BigInt | bigint |
+| String | varchar |
+| Text | text |
+| Real | real |
+| Boolean | tinyint |
+| Blob | blob |
+| Binary | binary |
+
+
+#### 3.4.3 Foreign key
+
+With the `foreignKeys` property it is possible to create real __FOREIGN KEYS__ in the database.  
+
+Example of how a comment references an article by a __FOREIGN KEY__:  
+
+`init.js` file:  
+```js
+module.exports = async function () {
+  app.registerContract(1000, 'article.post')
+  app.registerContract(1001, 'comment.post')
+  // default fee 0.1 XAS
+  app.setDefaultFee(String(0.1 * 1e8), 'XAS')
+}
+```
+
+`contract/article.js` file:  
+```js
+module.exports = {
+  post: async function(title, content) {
+    let exists = await app.model.Article.exists({
+      title: title
+    })
+    if (exists) return 'Title already exist'
+    let transactionId = this.trs.id
+    app.sdb.create('Article', {
+      id: app.autoID.increment('article_max_id'),
+      title: title,
+      content: content,
+      tid: transactionId
+    })
+  }
+}
+```
+
+`contract/comment.js` file:  
+```js
+module.exports = {
+  post: async function (articleId, content) {
+    let exists = await app.model.Article.exists({
+      id: articleId
+    })
+    if (!exists) return `articleId "${articleId}" does not exists`
+
+    let transactionId = this.trs.id
+    app.sdb.create('Comment', {
+      id: app.autoID.increment('comment_max_id'),
+      articleId: articleId,
+      content: content,
+      tid: transactionId
+    })
+  }
+}
+```
+
+`model/article.js` file:  
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'title',
+      type: 'String',
+      length: 200,
+      not_null: true
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096,
+      not_null: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 200,
+      not_null: true
+    }
+  ]
+}
+```
+
+`model/comment.js` file:  
+```js
+module.exports = {
+  name: 'comments',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'articleId',
+      type: 'Number',
+      not_null: true
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096,
+      not_null: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 200,
+      not_null: true
+    }
+  ],
+  foreignKeys: [
+    {
+      field: 'articleId',
+      table: 'articles',
+      table_field: 'id'
+    }
+  ]
+}
+```
+
+
+![img](../assets/sdk_api/filled_custom_articles_table.png)
+![img](../assets/sdk_api/filled_custom_comments_table.png)
+
+The `article.js` and `comment.js` file in the `model/` directory created the following SQLite SQL create statements in the DApp database:  
+
+```SQL
+CREATE TABLE "articles" (
+  "id" int NOT NULL PRIMARY KEY,
+  "title" varchar(200) NOT NULL,
+  "content" varchar(4096) NOT NULL,
+  "tid" varchar(200) NOT NULL,
+  "_deleted_" int default 0
+)
+
+CREATE TABLE "comments" (
+  "id" int NOT NULL PRIMARY KEY,
+  "articleId" int NOT NULL,
+  "content" varchar(4096) NOT NULL,
+  "tid" varchar(200) NOT NULL,
+  "_deleted_" int default 0,
+  FOREIGN KEY (articleId) REFERENCES articles(id)
+)
+```
+
+
+<br/>
+
+#### 3.4.4 Best Practises
+
+In the context of a smart contract function execution there are the corresponding `Transaction` (via `trs`) and `Block` (via `block`) objects bound to the __this__ context:  
+
+Example of a `this` variable during the smart contract `1000` call (`article.post`):
+
+```json
+{
+  "trs": {
+    "fee": "10000000",
+    "timestamp": 71207092,
+    "senderPublicKey": "a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c",
+    "type": 1000,
+    "args": ["blog title", "blog content"],
+    "signature": "92d273832a8560c712eeee2514506a33e74056d72b3c1cbcb3e711b12318f743de8b781bfbd38e677e9764e9cac6b3b8073554539cef4b19befe4054ead8b202",
+    "id": "29bc145f934adb24afb2a9b19b53d46b280296dcea935ad24832da10961375c5",
+    "senderId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB"
+  },
+  "block": {
+    "height": 9,
+    "delegate": "A7NWaYUkpa543hdTsfw57AoZAgCBr2NFY6"
+  }
+}
+```
+
+
+In depth example of how to save the `TransactionId` next to the just saved Blog entry:  
+
+Define the Blog model in `model/blog.js`:  
+```js
+module.exports = {
+  name: 'blogs',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'title',
+      type: 'String',
+      length: 200,
+      not_null: true
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096,
+      not_null: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 200,
+      not_null: true
+    }
+  ]
+}
+```
+
+Blog contract function in `contract/blog.js`
+```js
+module.exports = {
+  blog: async function(title, content) {
+    let exists = await app.model.Blog.exists({
+      title: title
+    })
+    if (exists) return 'Title already exist'
+    let transactionId = this.trs.id
+    app.sdb.create('Blog', {
+      id: app.autoID.increment('blog_max_id'),
+      title: title,
+      content: content,
+      tid: transactionId
+    })
+  }
+}
+```
+
+Register smart contract in `init.js`
+```js
+module.exports = async function () {
+  app.registerContract(1000, 'blog.blog')
+  app.setDefaultFee(String(0.1 * 1e8), 'XAS')
+}
+```
+
+After we started the DApp and called the `1000` contract we can see the new custom `blogs` table with one example entry:  
+
+![custom_table](../assets/sdk_api/filled_custom_dapp_table.png)
+
+
+
+Even if the `tid` column of the `Blog` table has no foreign key to `transactions.id`, it is still very useful to save this information along.
+
+The corresponding transaction can be seen here:  
+![custom_table](../assets/sdk_api/filled_custom_dapp_table_trs.png)
 
 
 
