@@ -12,6 +12,7 @@ Table of Contents
     - [**DApp needs right folder structure**](#dapp-needs-right-folder-structure)
     - [**Is DApp correctly registered and installed**](#is-dapp-correctly-registered-and-installed)
     - [**Directory asch/public/dist/chains must exist**](#directory-aschpublicdistchains-must-exist)
+    - [**Missing length property in conjunction with string type of new DApp model**](#missing-length-property-in-conjunction-with-string-type-of-new-dapp-model)
   - [**DApp is not producing blocks**](#dapp-is-not-producing-blocks)
     - [**Not enough DApp delegates in config.json**](#not-enough-dapp-delegates-in-configjson)
   - [**Transaction failed**](#transaction-failed)
@@ -119,6 +120,37 @@ Make sure, that that your Dapp is correctly located under `asch/chains/your-dapp
 Make sure that the `asch/public/dist/chains` exists.
 
 ![img](../assets/common-dapp-problems/asch_public_dist_chains_dir.png)
+
+### **Missing length property in conjunction with string type of new DApp model**
+
+In the DApp directory under the `model/` directory are definitions for all custom table fields. If you declare a column with the type `string` then you __must__ also provide the `length` property for this column!
+
+Wrong:  
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'tid',
+      type: 'String'
+    }
+  ]
+}
+```
+
+Right:  
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'tid',
+      type: 'String',
+      length: 64
+    }
+  ]
+}
+```
 
 <br/><br/>
 
