@@ -87,7 +87,7 @@ Mainnet 默认端口为8192， P2P 端口为8193。如果要修改端口，请�
 ### 2.1 下载安装包并解压
 
 ```
-wget https://china.aschcdn.com/package/asch-linux-latest-mainnet.tar.gz
+wget http://downloads.asch.cn/package/asch-linux-latest-mainnet.tar.gz
 tar zxvf asch-linux-latest-mainnet.tar.gz
 cd asch-linux-1.4.2-mainnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
 ```
@@ -105,7 +105,7 @@ vim config.json
 主网数据库较大，不建议从头开始同步。可以下载数据库快照，直接解压后替换 asch 目录下的 data 目录。
 
 ```
-wget https://china.aschcdn.com/package/blockchain-mainnet-snapshot.tar.gz
+wget http://downloads.asch.cn/package/blockchain-mainnet-snapshot.tar.gz
 tar zvxf blockchain-mainnet-snapshot.tar.gz
 ```
 
@@ -122,7 +122,7 @@ Testnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请�
 ### 3.1 下载安装包并解压
 
 ```
-wget https://china.aschcdn.com/package/asch-linux-latest-testnet.tar.gz
+wget http://downloads.asch.cn/package/asch-linux-latest-testnet.tar.gz
 tar zxvf asch-linux-latest-testnet.tar.gz
 cd asch-linux-1.4.2-testnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
 ```
@@ -140,7 +140,7 @@ vim config.json
 主网数据库较大，不建议从头开始同步。可以下载数据库快照，直接解压后替换 asch 目录下的 data 目录。
 
 ```
-wget https://china.aschcdn.com/package/blockchain-testnet-snapshot.tar.gz
+wget http://downloads.asch.cn/package/blockchain-testnet-snapshot.tar.gz
 tar zvxf blockchain-testnet-snapshot.tar.gz
 ```
 
@@ -157,7 +157,7 @@ Localnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请�
 ### 4.1 下载安装包并解压
 
 ```
-wget https://china.aschcdn.com/package/asch-linux-latest-localnet.tar.gz
+wget http://downloads.asch.cn/package/asch-linux-latest-localnet.tar.gz
 tar zxvf asch-linux-latest-localnet.tar.gz
 cd asch-linux-1.4.2-localnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
 ```
@@ -226,7 +226,7 @@ mkdir chains
 
 ```
 cd public/dist
-wget https://china.aschcdn.com/package/frontend-mainnet-5f5b3cf5.zip
+wget http://downloads.asch.cn/package/frontend-mainnet-5f5b3cf5.zip
 unzip frontend-mainnet-5f5b3cf5.zip
 ```
 
