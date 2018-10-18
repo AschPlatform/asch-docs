@@ -105,6 +105,10 @@
     - [8.9 app.custom[]](#89-appcustom)
     - [8.10 app.meta](#810-appmeta)
   - [9 Built in packages](#9-built-in-packages)
+  - [10 Contracts](#10-contracts)
+    - [10.1 Inbuilt contracts](#101-inbuilt-contracts)
+      - [10.1.1 Overwrite Fee](#1011-overwrite-fee)
+      - [10.1.2 Overwrite Asset](#1012-overwrite-asset)
 
 <!-- /TOC -->
 
@@ -2814,3 +2818,35 @@ The package [protocol-buffers](https://github.com/mafintosh/protocol-buffers/tre
 
 - asch-js  
 Official asch package [asch-js](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md)
+
+## 10 Contracts
+
+### 10.1 Inbuilt contracts
+
+Every Sidechain has 4 inbuilt contracts. Details to these contracts can be found [asch-docs/dapp/api/en.md](https://github.com/AschPlatform/asch-docs/blob/master/dapp/api/en.md#3-transactions) or at [asch-docs/js_api/en.md](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md#6-dapp)
+
+
+#### 10.1.1 Overwrite Fee
+
+In the `init.js` file we can increase or decrease the fee for the inbuilt contract.
+
+Example (set the fee for the __nickname__ transaction (type 4) to 50 XAS):  
+```js
+module.exports = async function () {
+  let contract = 4
+  let fee = String(50 * 1e8)
+  let currency = 'XAS'
+  app.registerFee(contract, fee, currency)
+}
+```
+
+#### 10.1.2 Overwrite Asset
+
+We can specify another asset (default asset is `XAS`) for the inbuilt contracts in the `init.js` file:  
+
+Example (set the fee for the __internal transfer__ transaction (type 3) to `10 CCTime.XCT`):  
+```js
+module.exports = async function () {
+  app.registerFee(3, String(10 * 1e8), 'CCTime.XCT')
+}
+```
