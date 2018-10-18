@@ -87,7 +87,7 @@ Default port for mainnet is 8192, P2P port is 8193. If you change the default po
 ### 2.1 Download installation package
 
 ```
-wget https://downloads.asch.cn/package/asch-linux-latest-mainnet.tar.gz
+wget http://china.aschcdn.com/asch-linux-latest-mainnet.tar.gz
 tar zxvf asch-linux-latest-mainnet.tar.gz
 cd asch-linux-1.4.2-mainnet // This version varies in different time 
 ```
@@ -105,7 +105,7 @@ add your IP address to the field publicIp
 Download the database snapshot and then unpack it. Replace the original data folder.
 
 ```
-wget https://downloads.asch.cn/package/blockchain-mainnet-snapshot.tar.gz
+wget http://china.aschcdn.com/blockchain-mainnet-snapshot.tar.gz
 tar zvxf blockchain-mainnet-snapshot.tar.gz
 ```
 
@@ -124,7 +124,7 @@ Default port for testnet is 4096, P2P port is 4097. If you change the default po
 ### 3.1 Download installation package
 
 ```
-wget https://downloads.asch.cn/package/asch-linux-latest-testnet.tar.gz
+wget http://china.aschcdn.com/asch-linux-latest-testnet.tar.gz
 tar zxvf asch-linux-latest-testnet.tar.gz
 cd asch-linux-1.4.2-testnet // This version varies in different time 
 ```
@@ -142,7 +142,7 @@ add your IP address to the field publicIp
 Download the database snapshot and then unpack it. Replace the original data folder.
 
 ```
-wget https://downloads.asch.cn/package/blockchain-testnet-snapshot.tar.gz
+wget http://china.aschcdn.com/blockchain-testnet-snapshot.tar.gz
 tar zvxf blockchain-testnet-snapshot.tar.gz
 ```
 
@@ -159,7 +159,7 @@ Default port for localnet is 4096, P2P port is 4097. If you change the default p
 ### 4.1 Download installation package
 
 ```
-wget https://downloads.asch.cn/package/asch-linux-latest-localnet.tar.gz
+wget http://china.aschcdn.com/asch-linux-latest-localnet.tar.gz
 tar zxvf asch-linux-latest-localnet.tar.gz
 cd asch-linux-1.4.2-localnet // This version varies in different time
 ```
@@ -226,7 +226,7 @@ mkdir chains
 
 ```
 cd public/dist
-wget https://downloads.asch.cn/package/frontend-mainnet-5f5b3cf5.zip
+wget http://china.aschcdn.com/frontend-mainnet-5f5b3cf5.zip
 unzip frontend-mainnet-5f5b3cf5.zip
 ```
 
