@@ -4,7 +4,7 @@ Table of Contents
 
 <!-- TOC -->
 
-- [Asch Dapp Default API](#asch-dapp-default-api)
+- [Asch Dapp Inbuilt HTTP API](#asch-dapp-inbuilt-http-api)
   - [**1 Blocks**](#1-blocks)
     - [**1.1 Get the Dapp Block Height**](#11-get-the-dapp-block-height)
     - [**1.2 Get Dapp Block Data**](#12-get-dapp-block-data)
@@ -15,13 +15,13 @@ Table of Contents
       - [**3.1.1 Client signed transaction - more secure**](#311-client-signed-transaction---more-secure)
         - [**3.1.1.1 Dapp Recharge**](#3111-dapp-recharge)
         - [**3.1.1.2 Dapp Withdraw Money, Type=2**](#3112-dapp-withdraw-money-type2)
-        - [**3.1.1.2 Dapp Internal Transfer,Type=3**](#3112-dapp-internal-transfertype3)
-        - [**3.1.1.2 Dapp set a Nickname, Type=4**](#3112-dapp-set-a-nickname-type4)
+        - [**3.1.1.3 Dapp Internal Transfer,Type=3**](#3113-dapp-internal-transfertype3)
+        - [**3.1.1.4 Dapp set a Nickname, Type=4**](#3114-dapp-set-a-nickname-type4)
       - [**3.1.2 Server Side Signed Transaction (unsigned)**](#312-server-side-signed-transaction-unsigned)
         - [**3.1.2.1 Dapp recharge**](#3121-dapp-recharge)
         - [**3.1.2.2 Dapp Withdraw money, Type=2**](#3122-dapp-withdraw-money-type2)
-        - [**3.1.2.2 Dapp Internal Transfer, Type=3**](#3122-dapp-internal-transfer-type3)
-        - [**3.1.2.2 set a dapp nickname, type=4**](#3122-set-a-dapp-nickname-type4)
+        - [**3.1.2.3 Dapp Internal Transfer, Type=3**](#3123-dapp-internal-transfer-type3)
+        - [**3.1.2.4 set a dapp nickname, type=4**](#3124-set-a-dapp-nickname-type4)
     - [**3.2 Get unconfirmed transactions**](#32-get-unconfirmed-transactions)
     - [**3.3 Get already confirmed transactions**](#33-get-already-confirmed-transactions)
     - [**3.4 Get transaction details for one transaction by id**](#34-get-transaction-details-for-one-transaction-by-id)
@@ -32,16 +32,15 @@ Table of Contents
 
 <!-- /TOC -->
 
+# Asch Dapp Inbuilt HTTP API
 
-# Asch Dapp Default API
-
-This documents describes the default API that every Dapp inherits from the asch-sandbox.
+This document describes the inbuilt HTTP API endpoints that every Dapp/Sidechain inherits from the [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist).
 
 ## **1 Blocks**
 ### **1.1 Get the Dapp Block Height**  
-__API Endpoint:__ /api/dapps/dappID/blocks/height  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
+API Endpoint: /api/chains/`chain-name`/blocks/height  
+HTTP Header: GET  
+Supported Format: urlencode  
 
 Return Parameter:
 
@@ -50,12 +49,12 @@ Return Parameter:
 |success|boolean|Was the operation successful |
 |height |integer|Dapp Block Height |
 
-Javscript Request:
+Javascript Request:
 ```js
 const axios = require('axios')
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/blocks/height`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/blocks/height`
 
 axios.get(url)
   .then((response) => {
@@ -68,7 +67,7 @@ axios.get(url)
 
 Bash Request:  
 ```bash
-curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/blocks/height && echo
+curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/chains/my-custom-dapp/blocks/height && echo
 ```
 
 JSON Response
@@ -81,23 +80,17 @@ JSON Response
 
 
 ### **1.2 Get Dapp Block Data**
-__API Endpoint:__ /api/dapps/dappID/blocks  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
-__Endpoint Description:__ Get all blocks from the Dapp  
+API Endpoint: /api/chains/`chain-name`/blocks  
+HTTP Verb: GET  
+Supported Format: urlencode  
+Endpoint Description: Get all blocks from the Dapp  
 
 Request Parameters:
 
-|Name	  |Type   |Required |Description              |   
+|Name   |Type   |Required |Description              |   
 |------ |-----  |---  |----              |   
 |limit |integer |No    |Limit the number of results, Minimum: 0, Maximum: 100  |   
-|orderBy|string  |No      |Sort by a field of the table, e.g. height:desc (sorts after height descending)  |   
 |offset|integer  |No     |Offset, Minimum: 0 |   
-|generatorPublicKey|string  |No      |The public key of the generator (delegate) of this block.  |   
-|totalAmount|integer  |No       |Total amount of transactions, Minimum: 0, Maximum: 10000000000000000 |   
-|totalFee|integer  |No      |Total fee, Minimum: 0，Maximum: 10000000000000000  |   
-|previousBlock|string  |No      |Previous Block  |   
-|height|integer  |No      |Block height  |    
 
 Return Parameter:
 
@@ -118,8 +111,8 @@ let parameters = {
   }
 }
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/blocks`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/blocks`
 
 axios.get(url, parameters)
   .then((response) => {
@@ -132,7 +125,7 @@ axios.get(url, parameters)
 
 Bash Request:  
 ```bash
-curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/blocks?limit=1 && echo
+curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/chains/my-custom-dapp/blocks?limit=1 && echo
 ```
 
 JSON Response:
@@ -158,9 +151,9 @@ JSON Response:
 
 ## **2 Accounts**
 ### **2.1 Get Information to a Single Account** 
-__API Endpoint:__ /api/dapps/dappID/accounts/:address  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
+API Endpoint: /api/chains/`chain-name`/accounts/:address  
+HTTP Verb: GET  
+Supported Format: urlencode  
 
 Request Parameter:  
   
@@ -180,10 +173,10 @@ Javascript Request:
 ```js
 const axios = require('axios')
 
-let address = 'ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M'
+let address = 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/accounts/${address}`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/accounts/${address}`
 
 axios.get(url)
   .then((response) => {
@@ -196,7 +189,7 @@ axios.get(url)
   
 Bash Request:  
 ```bash
-curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/accounts/ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M && echo   
+curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/chains/my-custom-dapp/accounts/AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB && echo   
 ```
 
 JSON Response:
@@ -214,21 +207,64 @@ JSON Response:
 }
 ```
 
+JSON Response (address with __no balance__):
+```js
+{
+  "account":{
+    "balances":[],
+    "extra":null,
+    "isDelegate":false
+  },
+  "success":true
+}
+```
+
 
 ## **3 Transactions**  
 ### **3.1 Signature**
-The HTTP Endpoint is divided into ___signed___ und ___unsigned___. Either will the transaction be signed locally and then send to the server (signed) or the secret must be send to the server and there the transaction will be signed (unsigned).
+The transaction HTTP API Endpoint is divided into ___signed___ und ___unsigned___ transactions. Either will the transaction be signed locally (usually with [asch-js](https://github.com/aschplatform/asch-js)) and then send to the server (signed endpoint) or the secret must be send to the server and there the transaction will be signed (unsigned endpoint).
 
 #### **3.1.1 Client signed transaction - more secure**
-Peer related API, you need to set the a header at a request.
+This is a peer related API endpoint, you need to set the a header at a request.
 
- - key is magic:
-    - testnet: 594fe0f3
-    - mainnet: 5f5b3cf5
- - key version is '' (empty)
+ - __magic__ header:
+    - testnet / localnet: `594fe0f3`
+    - mainnet: `5f5b3cf5`
+ - __version__ header: `''` (empty)
 
-All write operations in Asch start with a transaction.  
-The transaction data is created through a library called [asch-js](https://github.com/AschPlatform/asch-js) and then published via a POST interface.
+Set Headers (with Axios and Headers for testnet or localnet):  
+```js
+const aschJS = require('asch-js')
+const axios = require('axios')
+
+let secret = 'sentence weasel match weather apple onion release keen lens deal fruit matrix'
+
+let transaction = aschJS.basic.setName('sqfasd', secret)
+let data = {
+  transaction: transaction
+}
+let headers = {
+  headers: {
+    magic: '594fe0f3',
+    version: ''
+  }
+}
+let url = 'http://localhost:4096/peer/transactions'
+
+axios.post(url, data, headers)
+  .then(result => {
+    
+  })
+
+```
+
+<br/>
+
+All write operations to the sidechain database start in Asch with a transaction.  
+
+The data for the __signed__ transactions are created through the [asch-js](https://github.com/AschPlatform/asch-js) library and are then send to the `/peer/transactions` endpoint via HTTP POST.
+
+
 The HTTP-POST API specification are as follows:
 
 |Matter   |Description  |
@@ -239,13 +275,15 @@ The HTTP-POST API specification are as follows:
 |Supported format|json |
   
 ##### **3.1.1.1 Dapp Recharge**  
-__API Endpoint:__ /peer/transactions  
-__HTTP Header:__ POST   
-__Supported Format:__ json   
-Note: When the recharge occurs in the main chain (mainchain-transaction-type 6, intransfer) then the Dapp will automatically call the dapp smart contract number 1 for a dapp internal recharge.  
+API Endpoint: /peer/transactions  
+HTTP Verb: POST   
+Supported Format: json   
+
+> Note:  
+> When the recharge is initiated in the mainchain (mainchain-transaction-type 204) then the Dapp will automatically call the smart contract number 1 for a dapp internal recharge. This happens behind the scenes in the [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist).  
 
 Info:  
-A Dapp Recharge is necessary if you want to spend XAS or an other currency in the Dapp. If you have 2000 XAS on your mainchain account that doesn't mean that you can spend 2000 XAS in the Dapp. You have to first "recharge" the Dapp with money. You send some XAS to the Dapp and the balance will be credited on your Dapp account.
+A Dapp Recharge is necessary if you want to spend XAS or another currency in the Dapp. If you have 2000 XAS on your mainchain account that doesn't mean that you can spend 2000 XAS in the Dapp. You have to first "recharge" the Dapp with money. If you send some XAS to the Dapp this gets credited to your Dapp balance.
 
 Request Parameter:
 
@@ -263,16 +301,19 @@ Return Parameter:
   
 Javascript Request:
 ```js
-// this account must have enough XAS on the mainchain
+
 const aschJS = require('asch-js')
 const axios = require('axios')
 
-let dappid = "bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024"
-let secret = 'found knife gather faith wrestle private various fame cover response security predict'
+let chainName = 'my-custom-dapp'
+
+// this account must have enough XAS on the mainchain
+let secret = 'sentence weasel match weather apple onion release keen lens deal fruit matrix'
+let secondSecret = undefined
 
 let currency = 'XAS'
 let amount = 500 * 1e8
-let transaction = aschJS.transfer.createInTransfer(dappid, currency, amount, secret, secondSecret || undefined)
+let transaction = aschJS.transfer.createInTransfer(chainName, currency, amount, secret, secondSecret)
 
 let data = {
   transaction: transaction
@@ -300,21 +341,21 @@ axios.post(url, data, headers)
 
 Bash Request
 ```bash
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":6,"amount":1000000000,"fee":10000000,"recipientId":null,"senderPublicKey":"2856bdb3ed4c9b34fd2bba277ffd063a00f703113224c88c076c0c58310dbec4","timestamp":39721503,"asset":{"inTransfer":{"dappId":"bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024","currency":"XAS"}},"signature":"8cefc8fa933e4d5e8699828dc8cd5d1b4737ffa82175c744fd681bad0b1a6b68526e0783e85d7979f894fc38850bd2ed0a983ce3cb3f5d16b68fd37dfb9dfb0a","id":"4b580f8f61f4586920a4c0d37b6fad21daf3453fe9ccc5426c2cae7a263c160c"}}' http://localhost:4096/peer/transactions && echo    
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":{"type":204,"timestamp":72915427,"fee":10000000,"args":["my-custom-dapp","XAS",50000000000],"senderPublicKey":"a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c","senderId":"AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB","signatures":["88a10986431d15c1cc7309af6f9563fa75a5dbb8f1a2dbe82abf4ac0e8b4467a9a0329eacdda8ce5127718b951d36d511832b112fcb282062f2b994b0e8ea409"],"id":"209fada537763875c28fcea1a918ca13172a9a1abb3e685c6549aaee85a281bb"}}' http://localhost:4096/peer/transactions && echo  
 ```
 
 JSON Response:
 ```js
 {
   "success": true,
-  "transactionId": "4b580f8f61f4586920a4c0d37b6fad21daf3453fe9ccc5426c2cae7a263c160c"
+  "transactionId": "209fada537763875c28fcea1a918ca13172a9a1abb3e685c6549aaee85a281bb"
 }
 ```
 
 ##### **3.1.1.2 Dapp Withdraw Money, Type=2**
-__API Endpoint:__ /api/dapps/dappID/transactions/signed  
-__HTTP Header:__ PUT  
-__Supported Format:__ json
+API Endpoint: /api/chains/`chain-name`/transactions/signed  
+HTTP Verb: PUT  
+Supported Format: json
 
 Info:  
 This operation is the opposite to [**3.1.1.1 Dapp Recharge**](#3111-dapp-recharge). This operation withdraws money from the Dapp to the mainchain.
@@ -324,7 +365,6 @@ Request Parameter:
 
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|dappID|string|Yes|Dapp Id|
 |transaction|json|Yes|Transaction data generated by a function call to `aschJS.dapp.createInnerTransaction`|
 
 
@@ -338,23 +378,24 @@ Return Parameter:
 
 Example:
 ```js
-// you need at least 1 CCTime.XCT on your sidechain account
+// you need at least 0.1 XAS on your sidechain account
 const aschJS = require('asch-js')
 const axios = require('axios')
 
 let fee = String(0.1 * 100000000)
+let amount = String(1 * 1e8)
 let type = 2 // withdraw money to mainchain
-let options = {
+var options = {
   fee: fee,
   type: type,
-  args: JSON.stringify(['CCTime.XCT', '100000000'])
-}
-let secret = "elite brush pave enable history risk ankle shrimp debate witness ski trend"
+  args: JSON.stringify(['XAS', amount])
+};
+
+let secret = 'sentence weasel match weather apple onion release keen lens deal fruit matrix'
 let transaction = aschJS.dapp.createInnerTransaction(options, secret)
 
-let dappId = 'b12906bcb8de449e8d41fada9227f1cde206daca17f9bc366666c206ad4d7e20'
-
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/signed`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/signed`
 let data = {
   transaction: transaction
 }
@@ -375,21 +416,21 @@ axios.put(url, data, headers)
 Bash Request:  
 ```bash
 # The Money withdraw transaction (type=2) is send to the server
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d '{"transaction":{"fee":"10000000","timestamp":40384202,"senderPublicKey":"aa4e4ac1336a1e9db1ee5ce537a59d3fcb0f068cb4b25aac9f48e0e8bc6259c9","type":2,"args":"[\"CCTime.XCT\", \"100000000\"]","signature":"05dba744705fd1dbc1854b415392364cdbae11778671be8eb5fdbce57855a87b3dde5bf2d0219059411253fb304497758422c8d1546ec45eb5521b4a6577d507"}}' http://localhost:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1/transactions/signed && echo
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d '{"transaction":{"fee":"10000000","timestamp":72916189,"senderPublicKey":"a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c","type":2,"args":["XAS","100000000"],"signature":"87a86bef35bc72cbe75b340d23f1aa49a9d87359310a679c3db8dddbde41bef109ff69b4d6ca1b7601c86a29713d6faac8f30a1caae303ddc419f98b3d08a003"}}' http://localhost:4096/api/chains/my-custom-dapp/transactions/signed && echo
 ```
 
 JSON Response:
 ```js
 {
-  "success": true,    
+  "success": true,  
   "transactionId": "8bcae742206bf236214b9972efaca0bbe29f3703b4055a14cc8b095546880dc4"    
 }
 ```
 
-##### **3.1.1.2 Dapp Internal Transfer,Type=3**
-__API Endpoint:__ /api/dapps/dappID/transactions/signed  
-__HTTP Header:__ PUT  
-__Supported Format:__ JSON  
+##### **3.1.1.3 Dapp Internal Transfer,Type=3**
+API Endpoint: /api/chains/`chain-name`/transactions/signed  
+HTTP Verb: PUT  
+Supported Format: JSON  
 
 Info:  
 This operation transfers money (XAS or other currencies) only between Dapp accounts.
@@ -398,7 +439,6 @@ Request Parameter:
   
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|dappID|string|Yes|Dapp Id|
 |transaction|json|Yes|Transaction data generated by a function call to `aschJS.dapp.createInnerTransaction`|
 
 
@@ -417,16 +457,21 @@ const axios = require('axios')
 
 let fee = String(0.1 * 1e8)
 let type = 3 // internal transfer
+
+let currencyToTransfer = 'CCTime.XCT'
+let amountToTransfer = String(1 * 1e8)
+let recipient = 'A6H9rawJ7qvE2rKwQfdtBHdeYVehB8gFzC'
 let options = {
   fee: fee,
   type: type,
-  args: JSON.stringify(['CCTime.XCT', '100000000', 'A6H9rawJ7qvE2rKwQfdtBHdeYVehB8gFzC'])
+  args: JSON.stringify([currencyToTransfer, amountToTransfer, recipient])
 }
-let secret = 'elite brush pave enable history risk ankle shrimp debate witness ski trend'
+
+let secret = 'sentence weasel match weather apple onion release keen lens deal fruit matrix'
 let transaction = aschJS.dapp.createInnerTransaction(options, secret)
 
-let dappId = 'd352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/signed`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/signed`
 let data = {
   transaction: transaction
 }
@@ -446,7 +491,7 @@ axios.put(url, data, headers)
 
 Bash Response:
 ```bash
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d '{"transaction":{"fee":"10000000","timestamp":40387708,"senderPublicKey":"aa4e4ac1336a1e9db1ee5ce537a59d3fcb0f068cb4b25aac9f48e0e8bc6259c9","type":3,"args":"[\"CCTime.XCT\", \"100000000\", \"A6H9rawJ7qvE2rKwQfdtBHdeYVehB8gFzC\"]","signature":"e2364534b8c4b0735a85c68ba17fddf5321fc48af04d483ad05531d4993058eaa35ff44d913a03b6d7278890ff7f42435f8313e08ce70c523dfc256b4de9e303"}}'  http://localhost:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1/transactions/signed && echo    
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d '{"transaction":{"fee":"10000000","timestamp":72918059,"senderPublicKey":"a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c","type":3,"args":["CCTime.XCT","100000000","A6H9rawJ7qvE2rKwQfdtBHdeYVehB8gFzC"],"signature":"de01e2228a1b18e29e0c3941a443b3f8fa62712b77d20882639a68aada8148a2665b084aad8bab8c900ab1f485b7a16d1e6e556fc73523f18a10e6b1b3f44c04"}}'  http://localhost:4096/api/chains/my-custom-dapp/transactions/signed && echo  
 ```
 
 JSON Response:
@@ -457,16 +502,15 @@ JSON Response:
 }
 ```
 
-##### **3.1.1.2 Dapp set a Nickname, Type=4**
-__API Endpoint:__ /api/dapps/dappID/transactions/signed  
-__HTTP Header:__ PUT  
-__Supported Format:__ json  
+##### **3.1.1.4 Dapp set a Nickname, Type=4**
+API Endpoint: /api/chains/`chain-name`/transactions/signed  
+HTTP Verb: PUT  
+Supported Format: json  
 
 Request Parameter:  
   
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|dappID|string|Yes|Dapp Id|
 |transaction|json|Yes|Transaction data generated by a function call to `aschJS.dapp.createInnerTransaction`|
 
   
@@ -483,18 +527,19 @@ const aschJS = require('asch-js')
 const axios = require('axios')
 
 let fee = String(0.1 * 1e8)
-let type = 4 // set nickname
+let type = 4 // set nickname transaction-type
+let nickname = 'sqfasd'
 let options = {
   fee: fee,
   type: type,
-  args: JSON.stringify(['Nickname'])
+  args: JSON.stringify([nickname])
 }
 
-let secret = 'elite brush pave enable history risk ankle shrimp debate witness ski trend'
+let secret = 'sentence weasel match weather apple onion release keen lens deal fruit matrix'
 let transaction = aschJS.dapp.createInnerTransaction(options, secret)
 
-let dappId = 'd352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/signed`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/signed`
 let data = {
   transaction: transaction
 }
@@ -513,7 +558,7 @@ axios.put(url, data, headers)
 ```
 Bash Request:
 ```bash
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d '{"transaction":{"fee":"10000000","timestamp":40388287,"senderPublicKey":"aa4e4ac1336a1e9db1ee5ce537a59d3fcb0f068cb4b25aac9f48e0e8bc6259c9","type":4,"args":"[\"Nickname\"]","signature":"be08cdb2f4d1a0f2f2e5b02e33e67fdf43e403703ce35cb42a2dc7338c7a352adca56dc61e3be0fedc1727c1adc0101f1a9e1a3e67ac0623602bf872deb80802"}}' http://localhost:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1/transactions/signed && echo    
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d '{"transaction":{"fee":"10000000","timestamp":72918332,"senderPublicKey":"a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c","type":4,"args":["sqfasd"],"signature":"45f19df8b82da085038cc6edef3e800e96321f896bda24c439bc5e195d43a54a528819b7d59a70a7ec23dfd370ed152837889da0e375703ce30696f3c05ae707"}}' http://localhost:4096/api/chains/my-custom-dapp/transactions/signed && echo    
 ```
 
 JSON Response:  
@@ -526,22 +571,26 @@ JSON Response:
 
 #### **3.1.2 Server Side Signed Transaction (unsigned)**
 ##### **3.1.2.1 Dapp recharge**
+
+> INFO:  
+> For this operation is no __unsigned__ transaction API endpoint available. There is no need for it. This endpoint is not getting called by a user it is only getting called by the [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist).
+
 ##### **3.1.2.2 Dapp Withdraw money, Type=2**
-__API Endpoint:__ /api/dapps/dappId/transactions/unsigned  
-__HTTP Header:__ PUT  
-__Supported Format:__ JSON  
+API Endpoint: /api/chains/`chain-name`/transactions/unsigned  
+HTTP Verb: PUT  
+Supported Format: JSON  
 
 Info:  
-This operation is the opposite to the `Dapp recharge`. This operation withdraws money from the Dapp to the mainchain.
+This operation is the opposite of the [**3.1.1.1 Dapp Recharge**](#3111-dapp-recharge) operation. This operation withdraws money from the Dapp to the mainchain.
 
 Request Parameter:  
   
 |Name   |Type   |Required   |Description   |   
 |------ |-----  |---  |----              |   
-|secret|string|Yes|Asch secret|  
-|fee|string|Yes|Transaction fee, currently fixed at 10000000  |  
+|secret|string|Yes|Asch account secret|  
+|fee|string|Yes|Transaction fee, currently fixed at 10000000 (0.1 XAS)  |  
 |type|integer|Yes|Smart contract type |  
-|args|string Array|Yes|The string Array must contain the contract type|
+|args|Array|Yes|The Array must contain the contract type|
 
 
 Return Parameter: 
@@ -560,14 +609,18 @@ let headers = {
   version: ''
 }
 
-let dappId = 'd352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/unsigned`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/unsigned`
 
+let assetToWithdraw = 'CCTime.XCT'
+let amountToWithdraw = String(10 * 1e8)
+
+// in this example the fee can be 0.1 XAS or 0.1 CCTime.XCT. This depends solely upon how the Dapp is configured
 let data = {
-  secret: 'elite brush pave enable history risk ankle shrimp debate witness ski trend',
-  fee: '10000000',
+  secret: 'sentence weasel match weather apple onion release keen lens deal fruit matrix',
+  fee: String(0.1 * 1e8),
   type: 2, // withdraw money to mainchain
-  args: JSON.stringify(['CCTime.XCT', '100000000'])
+  args: JSON.stringify([assetToWithdraw, amountToWithdraw])
 }
 
 axios.put(url, data, headers)
@@ -580,7 +633,7 @@ axios.put(url, data, headers)
 ```
 
 ```bash
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d  '{"secret":"elite brush pave enable history risk ankle shrimp debate witness ski trend","fee":"10000000","type":2,"args":"[\"CCTime.XCT\",\"100000000\"]"}' 'http://localhost:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1/transactions/unsigned' && echo
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d  '{"secret":"sentence weasel match weather apple onion release keen lens deal fruit matrix","fee":"10000000","type":2,"args":"[\"CCTime.XCT\",\"1000000000\"]"}' 'http://localhost:4096/api/chains/my-custom-dapp/transactions/unsigned' && echo
 
 ```
 JSON Response:  
@@ -591,21 +644,21 @@ JSON Response:
 }
 ```
 
-##### **3.1.2.2 Dapp Internal Transfer, Type=3**  
-__API Endpoint:__ /api/dapps/dappId/transactions/unsigned  
-__HTTP Header:__ PUT  
-__Supported Format:__ JSON  
+##### **3.1.2.3 Dapp Internal Transfer, Type=3**  
+API Endpoint: /api/chains/`chain-name`/transactions/unsigned  
+HTTP Verb: PUT  
+Supported Format: JSON  
 
-Info: See [**3.1.1.2 Dapp Internal Transfer,Type=3**](#3112-dapp-internal-transfertype3)
+Info: See [**3.1.1.3 Dapp Internal Transfer,Type=3**](#3112-dapp-internal-transfertype3)
 
 Request Parameter:  
   
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|secret|string|Yes|Asch secret |
+|secret|string|Yes|Asch account secret |
 |fee|string|Yes|  |
-|type|integer|Yes|The number of the smart contract |
-|args|string array|Yes|The corresponding contract number needs to be passed in |
+|type|integer|Yes|The sidechain smart contract number |
+|args|Array|Yes|Pass in the currency, amount and recipient for the internal transfer |
 
 
 Return Parameter:  
@@ -624,6 +677,7 @@ let headers = {
   version: ''
 }
 
+// in this example the fee can be 0.1 XAS or 0.1 CCTime.XCT. This depends solely upon how the Dapp is configured
 let data = {
   secret: 'elite brush pave enable history risk ankle shrimp debate witness ski trend',
   fee: '10000000',
@@ -631,8 +685,8 @@ let data = {
   args: JSON.stringify(['CCTime.XCT', '1000000000', 'ADimyhJa99XFzVrbnTYsCqPB4TKQNdjCWw'])
 }
 
-let dappId = 'd352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/unsigned`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/unsigned`
 
 axios.put(url, data, headers)
   .then((result) => {
@@ -645,7 +699,7 @@ axios.put(url, data, headers)
 
 Bash Request:
 ```bash
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d  '{"secret":"elite brush pave enable history risk ankle shrimp debate witness ski trend","fee":"10000000","type":3,"args":"[\"CCTime.XCT\",\"1000000000\",\"ADimyhJa99XFzVrbnTYsCqPB4TKQNdjCWw\"]"}' 'http://localhost:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1/transactions/unsigned' && echo   
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d  '{"secret":"elite brush pave enable history risk ankle shrimp debate witness ski trend","fee":"10000000","type":3,"args":"[\"CCTime.XCT\",\"1000000000\",\"ADimyhJa99XFzVrbnTYsCqPB4TKQNdjCWw\"]"}' 'http://localhost:4096/api/chains/my-custom-dapp/transactions/unsigned' && echo   
 ```
 
 JSON Response:
@@ -656,19 +710,19 @@ JSON Response:
 }
 ```
 
-##### **3.1.2.2 set a dapp nickname, type=4**  
-__API Endpoint:__ /api/dapps/dappId/transactions/unsigned  
-__HTTP Header:__ PUT  
-__Supported Format:__ JSON  
+##### **3.1.2.4 set a dapp nickname, type=4**  
+API Endpoint: /api/chains/`chain-name`/transactions/unsigned  
+HTTP Verb: PUT  
+Supported Format: JSON  
 
 Request Parameter:  
   
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|secret|string|Yes|asch password |
-|fee|string|Yes|Transaction fee, currently 10000000|
+|secret|string|Yes|Asch account password |
+|fee|string|Yes|Transaction fee, currently 10000000 (0.1 XAS)|
 |type|integer|Yes|Smart contract number |
-|args|string array|Yes|Pass the nickname as a string in an array, see further below for example |
+|args|Array|Yes|Pass the nickname as a string in an array, see example below |
 
   
 Return Parameter: 
@@ -687,15 +741,16 @@ let headers = {
   version: ''
 }
 
+
 let data = {
-  secret: 'minor borrow display rebel depart core buzz right distance avocado immense push',
-  fee: '10000000',
+  secret: 'sentence weasel match weather apple onion release keen lens deal fruit matrix',
+  fee: String(0.1 * 1e8),
   type: 4, // set nickname
-  args: JSON.stringify(['zhenxi'])
+  args: JSON.stringify(['liangpeili'])
 }
 
-let dappId = 'd352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/unsigned`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/unsigned`
 
 axios.put(url, data, headers)
   .then((response) => {
@@ -708,27 +763,27 @@ axios.put(url, data, headers)
 
 Bash Request:  
 ```bash
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d  '{"secret":"minor borrow display rebel depart core buzz right distance avocado immense push","fee":"10000000","type":4,"args":"[\"zhenxi\"]"}' 'http://localhost:4096/api/dapps/d352263c517195a8b612260971c7af869edca305bb64b471686323817e57b2c1/transactions/unsigned' && echo  
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X PUT -d  '{"secret":"sentence weasel match weather apple onion release keen lens deal fruit matrix","fee":"10000000","type":4,"args":"[\"liangpeili\"]"}' 'http://localhost:4096/api/chains/my-custom-dapp/transactions/unsigned' && echo  
 ```
 
 JSON Response:  
 ```json
 {
-  "success": true,    
-  "transactionId": "7b5d9d13cf718ee28efde6bae85fbefbcd0eca3d6c0c6fff1421a1102d730669"    
+  "success": true,  
+  "transactionId": "7b5d9d13cf718ee28efde6bae85fbefbcd0eca3d6c0c6fff1421a1102d730669"  
 }
 ```
 
 ### **3.2 Get unconfirmed transactions** 
-__API Endpoint:__ /api/dapps/dappID/transactions/unconfirmed  
-__HTTP Header:__ GET   
-__Supported Format:__ urlencode   
+API Endpoint: /api/chains/`chain-name`/transactions/unconfirmed  
+HTTP Verb: GET  
+Supported Format: urlencode  
 
 Return Parameter:  
 
-|Name   |Type   |Description   |   
-|------ |-----  |----              |   
-|success|boolean  |Was the request successful?     |   
+|Name   |Type   |Description   |  
+|------ |-----  |----  |  
+|success|boolean  |Was the request successful?     |  
 |transactions|array  |A list of unconfirmed transactions|
 
 
@@ -736,8 +791,8 @@ Javascript Example:
 ```js
 const axios = require('axios')
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/unconfirmed`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/unconfirmed`
 
 axios.get(url)
   .then((response) => {
@@ -750,7 +805,7 @@ axios.get(url)
 
 Bash Example:  
 ```bash
-curl -k -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/transactions/unconfirmed && echo
+curl -k -X GET http://localhost:4096/api/chains/my-custom-dapp/transactions/unconfirmed && echo
 ```
 
 JSON Response:
@@ -762,15 +817,15 @@ JSON Response:
 ```
 
 ### **3.3 Get already confirmed transactions** 
-__API Endpoint:__ /api/dapps/dappID/transactions  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
+API Endpoint: /api/chains/`chain-name`/transactions  
+HTTP Verb: GET  
+Supported Format: urlencode  
 
 Request Parameter:  
   
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|senderId |string |No|Address of sender |
+|senderId |string |No|ASCH Address of sender |
 |type |interger |No|contract number |
 |limit |interger |No|Limit the result set, default is 100|
 |offset |interger |No|Offset |
@@ -791,12 +846,12 @@ const axios = require('axios')
 
 const parameters = {
   params: {
-    senderId: 'AJTGR8EGsprrF7r63D2XLDftGAKUu1Ucjn'
+    senderId: 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
   }
 }
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions`
 
 axios.get(url, parameters)
   .then((response) => {
@@ -809,7 +864,7 @@ axios.get(url, parameters)
 
 Bash Request:  
 ```bash
-curl -k -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/transactions?senderId=AJTGR8EGsprrF7r63D2XLDftGAKUu1Ucjn && echo   
+curl -k -X GET http://localhost:4096/api/chains/my-custom-dapp/transactions?senderId=AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB && echo   
 ```
 
 JSON Response:
@@ -820,8 +875,8 @@ JSON Response:
   "transactions": [{
       "id": "b12b144b3dbb76b70cd62f97e3d3b0606d97c0f402bba1fb973dd2d3ab604a16",
       "timestamp": 0,
-      "senderId": "AJTGR8EGsprrF7r63D2XLDftGAKUu1Ucjn",
-      "senderPublicKey": "27823f51a3dddd475943fb8142380d2f8722b0f6c651f6ac37930b63666c7803",
+      "senderId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
+      "senderPublicKey": "a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c",
       "fee": "0",
       "signature": "22739bb762ff0135a0c4199507e3c45a8615c467bfeb4efa5110802033959698588e39b76d037445e02959ee67b483ac4d24f12304181f4955871cdcd28e3001",
       "type": 3,
@@ -831,10 +886,10 @@ JSON Response:
 }
 ```
 
-### **3.4 Get transaction details for one transaction by id** 
-__API Endpoint:__ /api/dapps/dappID/transactions/:id  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
+### **3.4 Get transaction details for one transaction by id**  
+API Endpoint: /api/chains/`chain-name`/transactions/:id  
+HTTP Verb: GET  
+Supported Format: urlencode  
 
 Request Parameter:  
 
@@ -857,8 +912,8 @@ const axios = require('axios')
 
 let transactionId = '7088c67edd43326276453b833727677df6f312271b824564a6a934371265f0dc'
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/transactions/${transactionId}`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transactions/${transactionId}`
 
 axios.get(url)
   .then((response) => {
@@ -872,7 +927,7 @@ axios.get(url)
 Bash Request:  
 
 ```bash
-curl -k -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/transactions/7088c67edd43326276453b833727677df6f312271b824564a6a934371265f0dc && echo     
+curl -k -X GET http://localhost:4096/api/chains/my-custom-dapp/transactions/7088c67edd43326276453b833727677df6f312271b824564a6a934371265f0dc && echo     
 ```
 
 JSON Response:
@@ -882,8 +937,8 @@ JSON Response:
   "transaction": {
     "id": "7088c67edd43326276453b833727677df6f312271b824564a6a934371265f0dc",
     "timestamp": 39709980,
-    "senderId": "ADYGpYHmgkbukqByZ2JzwFXZM6wYfMXCaR",
-    "senderPublicKey": "55ad778a8ff0ce4c25cb7a45735c9e55cf1daca110cfddee30e789cb07c8c9f3",
+    "senderId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
+    "senderPublicKey": "a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c",
     "fee": "0",
     "signature": "bd51295c3373da2a92c77b6a96a0edbda75cdcde5fd7824ff326c366ed0ec5778e1d02e7d9c280a219d6c815d9bfdbc2d03bb960a0f5d8d35458e4bda87d6104",
     "type": 1,
@@ -894,19 +949,19 @@ JSON Response:
 ```
 
 ### **3.5 Obtain dapp transfer records**
-__API Endpoint:__ /api/dapps/dappID/transfers  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
+API Endpoint: /api/chains/`chain-name`/transfers  
+HTTP Verb: GET  
+Supported Format: urlencode  
 
 Info:  
-Get the records of sended or received transfers.
+Get the records of sended or received asset transfers.
 
 Request Parameter:  
   
 |Name   |Type   |Required   |Description   |
 |------ |-----  |---  |----              |
-|ownerId |string |No|At least one of the following have to exists: Sender-Address, OwnerId, Currency|
-|currency |string |No|At least one of the following have to exist: Token name, OwnerId, Currency|
+|ownerId |string |No|The owner is either the sender or the receiver of an asset transfer. So specifiying e.g. the address `AHMCKebuL2...` returns the transfers that this address send but also the transfers where this address received an asset |
+|currency |string |No|Filter for a specific currency|
 |limit |interger |No|Limits the return list, default is 10|
 |offset |interger |No|Offset, default 0|
 
@@ -915,18 +970,18 @@ Return Parameter:
 |Name   |Type   |Description|
 |------ |-----  |----              |
 |success|boolean|Was the request successful?|
-|transfers|array|Get the transfers that met the query|
+|transfers|array|Get the paged transfer results|
 |count|integer|The total number of transfers that met the query conditions|
 
 Javascript Request:
 ```js
 const axios = require('axios')
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/transfers`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/transfers`
 
 let parameters = {
-  ownerid: 'ADYGpYHmgkbukqByZ2JzwFXZM6wYfMXCaR'
+  ownerid: 'AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB'
 }
 
 axios.get(url, parameters)
@@ -940,32 +995,41 @@ axios.get(url, parameters)
 
 Bash Request:
 ```bash
-curl -k -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/transfers?ownerid=ADYGpYHmgkbukqByZ2JzwFXZM6wYfMXCaR && echo
+curl -k -X GET http://localhost:4096/api/chains/my-custom-dapp/transfers?ownerid=AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB && echo
 ```
 
-JSON Response:  
+JSON Response (transfer for one __received__ and one __send__ asset):  
 ```json
 {
   "success": true,
-  "count": 1,
+  "count": 2,
   "transfers": [{
     "tid": "b12b144b3dbb76b70cd62f97e3d3b0606d97c0f402bba1fb973dd2d3ab604a16",
     "senderId": "AJTGR8EGsprrF7r63D2XLDftGAKUu1Ucjn",
-    "recipientId": "A8QCwz5Vs77UGX9YqBg9kJ6AZmsXQBC8vj",
-    "currency": "CNY",
+    "recipientId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
+    "currency": "XAS",
     "amount": "100000000000000",
     "t_timestamp": 0,
     "t_type": 3,
     "t_height": 1
+  }, {
+    "tid": "ba21b9a68c72cc945c7a092af838cef538769b836c07de7a5af169d0ab2ee76b",
+    "senderId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
+    "recipientId": "AJTGR8EGsprrF7r63D2XLDftGAKUu1Ucjn",
+    "currency": "CCTime.XCT",
+    "amount": "15000000000",
+    "t_timestamp": 1865421,
+    "t_type": 3,
+    "t_height": 98215
   }]
 } 
 ```
 
 ## **4 Smart Contract**
 ### **4.1 Get all smart contracts for one Dapp** 
-__API Endpoint:__ /api/dapps/dappID/contracts  
-__HTTP Header:__ GET  
-__Supported Format:__ urlencode  
+API Endpoint: /api/chains/`chain-name`/contracts  
+HTTP Verb: GET  
+Supported Format: urlencode  
 
 Return Parameter: 
 
@@ -979,8 +1043,8 @@ Javascript Request:
 ```js
 const axios = require('axios')
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/contracts`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/contracts`
 
 axios.get(url)
   .then((response) => {
@@ -993,7 +1057,7 @@ axios.get(url)
 
 Bash Request:
 ```bash
-curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/dapps/bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024/contracts && echo   
+curl -k -H "Content-Type: application/json" -X GET http://localhost:4096/api/chains/my-custom-dapp/contracts && echo   
 ```
 
 JSON Response:  
@@ -1002,19 +1066,19 @@ JSON Response:
   success: true,
   contracts: [{
     type: "1",
-    name: "core.deposit" // built-in contract, recharge (from the main chain to dapp within the asset reload), ordinary users can not be called directly (the trustee can call this contract but the operation can not be verified by other nodes), when the main chain transaction-type=9 (intransfer) the smart contract will automatically call app recharge
+    name: "core.deposit" // built-in contract, recharge (from the main chain to dapp within the asset reload), ordinary users can not be called directly (the delegate can call this contract but the operation can not be verified by other nodes), when the main chain transaction-type=204 (intransfer) the dapp will automatically call core.deposit
   },
   {
     type: "2",
-    name: "core.withdrawal" // built-in contract, this operation transfers the asset from the dapp-sidechain to the mainchain
+    name: "core.withdrawal" // built-in contract, this contract transfers an asset from the dapp-sidechain to the mainchain
   },
   {
     type: "3",
-    name: "core.transfer" // built-in contract, dapp internal transfers including XAS and UIA
+    name: "core.transfer" // built-in contract, transfers assets within the sidechain between accounts (assets that can be transferred are XAS or any other custom created asset like CCTime.XCT)
   },
   {
     type: "4",
-    name: "core.setNickname" // built-in contract, set nickname for dapp address
+    name: "core.setNickname" // built-in contract, set nickname for dapp account
   },
   {
     type: "1000",
@@ -1030,11 +1094,11 @@ JSON Response:
   },
   {
     type: "1003",
-    name: "cctime.likeComment" // custom contract, reward for comments
+    name: "cctime.likeComment" // custom contract, like comments
   },
   {
     type: "1004",
-    name: "cctime.report" // custom contract, report articles
+    name: "cctime.report" // custom contract, report article
   }]
 }
 ```
@@ -1042,12 +1106,12 @@ JSON Response:
 
 ### **4.2 Access Custom Dapp Interface**
 
-To borrow an example from [aschplatform/cctime](https://github.com/AschPlatform/cctime/blob/master/interface/index.js). It is possible to register custom API endpoints for your Dapp. This makes especially sense if you create a new entity like `articles` (which becomes a table in the sidechain SQL database). Through the new custom api endpoint your frontend can access articles.  
+To borrow an example from the [aschplatform/cctime](https://github.com/AschPlatform/cctime/blob/master/interface/index.js) sidechain. It is possible to register custom API endpoints for your Dapp. This makes especially sense if you create a new entity like `articles` (which becomes a table in the sidechain SQL database). Through the new custom api endpoint your frontend can access articles.  
 
 ![alt](../../assets/dapp/custom_api_example.png)
 
 ```js
-// filename interface/index.js
+// filename your-dapp/interface/index.js
 
 app.route.get('/articles/:id', async (req) => {
   let id = req.params.id
@@ -1082,8 +1146,8 @@ app.route.get('/articles/:id', async (req) => {
 
 This API Endpoint exposes articles by id.
 
-__API Endpoint:__ /api/dapps/dappID/articles/:id  
-__HTTP Header:__ GET  
+API Endpoint: /api/chains/`chain-name`/articles/:id  
+HTTP Verb: GET  
 
 Request Parameter:  
 
@@ -1116,8 +1180,8 @@ const axios = require('axios')
 
 let articleId = 33
 
-let dappId = 'bebe3c57d76a5bbe3954bd7cb4b9e381e8a1ba3c78e183478b4f98b9d532f024'
-let url = `http://localhost:4096/api/dapps/${dappId}/articles/${articleId}`
+let chainName = 'my-custom-dapp'
+let url = `http://localhost:4096/api/chains/${chainName}/articles/${articleId}`
 
 axios.get(url)
   .then((response) => {
@@ -1132,7 +1196,7 @@ JSON Response:
 ```json
 {
   "id": "33",
-  "tid" "e4a95e133b76af2c1c6bf55ecb8ba8d6d007fc5d1bb353edac688577f0ca19a0",
+  "tid": "e4a95e133b76af2c1c6bf55ecb8ba8d6d007fc5d1bb353edac688577f0ca19a0",
   "authorId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB",
   "timestamp": "62515470",
   "title": "How to develop Dapps",
