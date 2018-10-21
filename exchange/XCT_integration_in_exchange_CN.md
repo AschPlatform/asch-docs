@@ -24,22 +24,22 @@ Asch http接口文档-英文版：https://github.com/AschPlatform/asch/blob/mast
     
     
 ## 2 建议交易平台在局域网内搭建一个Asch全节点    
+如果之前已经上线XAS交易并且有Asch全节点，则不需要再另行搭建。
 需要用Linux服务器（建议用ubuntu 16.04），这样交易平台处理充值、提现性能要好很多并且安全，不需要有公网ip但需要能访问公网。    
 下面是节点搭建命令    
 
 ```    
-> sudo apt-get update && sudo apt-get install curl wget sqlite3 ntp -y
-> wget http://www.asch.io/downloads/asch-linux-latest-mainnet.tar.gz
+> wget http://china.aschcdn.com/asch-linux-latest-mainnet.tar.gz
 > tar zxvf asch-linux-latest-mainnet.tar.gz
-> # cd 解压后的目录名字,一般是 “asch-linux-版本号-mainnet”
-> chmod u+x init/*.sh && sudo ./aschd configure
-> # 下面这个curl命令是加载快照，加速第一次区块链同步的速度
-> curl -sL http://www.asch.io/downloads/rebuild-mainnet3.sh | bash
-> tail logs/debug.log  # 查看节点同步日志，等待同步到最新的区块即可。最新高度可以在区块链浏览器中看到 https://explorer.asch.io/
+> cd asch-linux-1.4.2-mainnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
+> # 主网数据库较大，不建议从头开始同步。可以下载数据库快照，直接解压后替换 asch 目录下的 data 目录。
+> wget http://china.aschcdn.com/blockchain-mainnet-snapshot.tar.gz
+> tar zvxf blockchain-mainnet-snapshot.tar.gz
+> tail logs/debug-当天日期.log  # 查看节点同步日志，等待同步到最新的区块即可。最新高度可以在区块链浏览器中看到 https://explorer.asch.io/。也可以通过 http://yourip:8192/api/blocks/getHeight来查看新搭建的节点区块高度是否增长
 ```    
 举例：这里搭建完成后局域网ip是：192.168.1.100    
     
-备注：交易平台开发对接阶段可以用我们提供的测试服务器http://101.200.84.232:4097 ，测试账户密码'found knife gather faith wrestle private various fame cover response security predict'    
+
     
 ## 3 充值XCT    
 Asch1.3版本开始支持转账备注，因此交易平台可以有两种充值方案。    
@@ -57,6 +57,7 @@ Asch1.3版本开始支持转账备注，因此交易平台可以有两种充值�
 通过下面几种生成地址方法中的任意一种为UserA生成一个Asch充值账户。    
 地址：ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M    
 密码：'found knife gather faith wrestle private various fame cover response security predict'，这里只是举例，数据非真实。    
+然后将用户名、地址、加密后的密码存入到数据库或者文件中，从而完成用户和充值地址的绑定，然后将充值地址展示在前端页面上。     
     
 ##### 3.1.1.1 调用http接口生成地址    
     
@@ -91,13 +92,13 @@ Done
 ##### 3.1.1.3 nodejs代码生成地址    
     
 ```     
-// 以下为nodejs编程语言的demo（目前Asch SDK支持nodejs、java这2种语言，其它语言后续会支持，当前需开发者自行编码）    
+// 以下为nodejs语言的demo（目前Asch SDK支持nodejs、java这2种语言;其它语言后续会支持，当前需开发者自行根据restful api编写SDK）    
     
 // 建议用ubuntu 16.04，nodejs 8.x最新版    
 // 安装nodejs的版本管理工具nvm    
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash    
 // 上面命令执行完成后再开一个os shell窗口执行下面的命令，安装nodejs 8.x    
-nvm install node 8    
+nvm install 8    
     
 // 安装依赖库（asch-js、bitcore-mnemonic），在os shell中运行    
 npm install asch-js bitcore-mnemonic    
@@ -112,17 +113,16 @@ var AschJS = require('asch-js');
 var publicKey = AschJS.crypto.getKeys(secret).publicKey;  // 根据密码生成公钥     
 var address = AschJS.crypto.getAddress(publicKey);  // 根据公钥生成地址    
 console.log(address);	// 打印地址，ALu3f2GaGrWzG4iczamDmGKr4YsbMFCdxB    
-然后将用户名、地址、加密后的密码存入到数据库或者文件中，从而完成用户和充值地址的绑定，然后将充值地址展示在前端页面上。    
 ```    
     
     
     
     
 #### 3.1.2 用户进行充值    
-用户UserA在XCT钱包（比如http://asch.cn）往充值地址转XCT,比如转10 XCT。    
+用户UserA在Asch钱包（比如http://mainnet.asch.io）往交易平台充值地址(ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M)发送XCT,比如10 XCT，XCT在Asch主链的每次转账都需要消耗0.1XAS，然后等待平台充值结果确认即可。    
     
 #### 3.1.3 交易平台确认用户充值    
-交易平台检测每个新的区块，可以每隔10秒检测一次，每次检查时区块高度加1，检查的高度建议持久化存储并增加一个标记位“是否已检查”，这样做的优势：能最快地检测到用户的充值信息并保证充值金额的正确（用户在极短时间内充值多次相同的金额也能保证结果准确）。    
+交易平台检测Asch主链每个新的区块，可以每隔10秒检测一次，每次检查时区块高度加1，检查的高度建议持久化存储并增加一个标记位“是否已检查”，这样做的优势：能最快地检测到用户的充值信息并保证充值金额的正确（用户在极短时间内充值多次相同的金额也能保证结果准确）。    
     
 下面演示UserA的充值确认过程。    
 ```    
@@ -139,15 +139,10 @@ curl -k -X GET 'http://192.168.1.100:4097/api/blocks/full?height=223994'
 		height: 223994, // 区块高度    
 		previousBlock: "20594953fed0d67c87639f0c42050d56b3d1ddc06a72990b916dbd6676288310",    
 		numberOfTransactions: 1,    
-		totalAmount: 0,    
 		totalFee: 10000000, // 该区块中所有交易的手续费之和0.1XAS（xas精度是8）    
-		reward: 350000000,    
-		payloadLength: 177,    
-		payloadHash: "a43f6d3fb54b27c90503cb5d619e63f33cf1e2b7df72354ebbe4d6aab7175145",    
 		generatorPublicKey: "238bdc9d75760560d438a86adef6f3126c5cd0f0be43ebbd9a9053f705a30176",    
-		generatorId: "15652667420882928094",    
 		blockSignature: "ab322a2adf7fe1eb02c746bafa365e7bc0408b5fefc2d8ae3954cfbf0d3a6e74b44ac7b178a7d663610bd30296a7c1cf95af6ee2ed3417fbf5642ccd53e6480a",    
-		totalForged: 360000000,    
+		confirmations: 2,    // 本区块交易已确认数
 		transactions: [{    // 该区块包含的所有交易详情列表，每个元素代表一个交易    
 			id: "a43f6d3fb54b27c90503cb5d619e63f33cf1e2b7df72354ebbe4d6aab7175145", // 充值交易id    
 			height: 223994,    
@@ -155,16 +150,14 @@ curl -k -X GET 'http://192.168.1.100:4097/api/blocks/full?height=223994'
 			type: 14, // XCT转账的类型为14    
 			timestamp: 41428161, // 充值时间戳，Asch纪元，可以转换为unix timestamp    
 			senderPublicKey: "b33b5fc45640cfc414981985bf92eef962c08c53e1a34f90dab039e985bb5fab",    
-			requesterPublicKey: "",    
-			senderId: "AMzDw5BmZ39we18y7Ty9VW79eL9k7maZPH",  // 发送者地址    
-			recipientId: "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M", // 接收者地址    
+			senderId: "AMzDw5BmZ39we18y7Ty9VW79eL9k7maZPH",  // 发送者地址，即用户发送地址    
+			recipientId: "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M", // 接收者地址，即平台充值接收地址    
 			amount: 0,    
-			fee: 10000000, // 本条交易转账手续费0.1XAS（目前每笔转账都是固定的0.1XAS手续费）    
 			signature: "9e77b3868869af334d539d23feb5d4746db5c842466207f9c22f7e4dee91f4722c8738bc8bcc36abb7365d24dadb26727110ab18673b9bb86a32c29e4b96260c",    
 			signSignature: "",    
 			signatures: null,    
 			args: null,    
-			message: "deposit 10 XCT",  // 冲值时的备注信息    
+			message: "deposit 10 XCT",  // 充值时的备注信息    
 			asset: {    
 				uiaTransfer: {    
 					transactionId: "a43f6d3fb54b27c90503cb5d619e63f33cf1e2b7df72354ebbe4d6aab7175145", // 充值交易id    
@@ -177,17 +170,16 @@ curl -k -X GET 'http://192.168.1.100:4097/api/blocks/full?height=223994'
 }    
     
 // 如果上面的res.block.numberOfTransactions == 0则直接跳过该区块，否则循环遍历的res.block.transactions交易详情数组得到每条交易记录trs.    
-// 如果(trs.type == 14 and trs.recipientId在'交易平台的充值地址列表'中 and trs.asset.uiaTransfer.currency == 'CCTime.XCT')则代表该交易为XCT的冲值记录。此时前端页面就要展示该充值记录并将该记录（充值id、平台的充值地址、数量、确认数、发送时间、充值状态、交易id）写入到本地数据库中。    
+// 如果(trs.type == 14 and trs.recipientId在'交易平台的充值地址列表'中 and trs.asset.uiaTransfer.currency == 'CCTime.XCT')则代表该交易为XCT的充值记录。此时前端页面就要展示该充值记录并将该记录（充值id、平台的充值地址、数量、确认数res.block.confirmations、发送时间、充值状态、交易id）写入到本地数据库中。    
     
-// 充值状态是由确认数决定的，具体是几，由平台自己定，如果入库时确认数未满足平台标准，则充值状态是“未确认”，否则就是“已确认”。（目前Asch网络认为6个确认就是安全的，交易平台可适当增大该值。）    
+// 充值状态是由确认数决定的，具体是几，由平台自己定，如果入库时确认数未满足平台标准，则充值状态是“未确认”，否则就是“已确认”。（该值越大越安全，则充值确认时间越长。目前Asch网络认为6个确认就是安全的，交易平台可适当增大该值。）    
 // 每隔2分钟（交易平台可以自定义该时间，时间越短用户体验越好）对本地数据库中所有的“未确认”充值记录进行再次确认，根据数据库中的“交易id”利用下面的接口去检查交易详情    
 curl -k -X GET 'http://192.168.1.100:4097/api/transactions/get?id=a43f6d3fb54b27c90503cb5d619e63f33cf1e2b7df72354ebbe4d6aab7175145'       
 {    
 	success: true,    
 	transaction: {    
 		id: "a43f6d3fb54b27c90503cb5d619e63f33cf1e2b7df72354ebbe4d6aab7175145",    
-		height: "223994",    
-		blockId: "322e0f70f1e9de584fcf60fdcd10306691dbcdb7d738db66062c860dc29e3333",    
+		height: "223994",       
 		type: 14,    
 		timestamp: 41428161,    
 		senderPublicKey: "b33b5fc45640cfc414981985bf92eef962c08c53e1a34f90dab039e985bb5fab",    
@@ -206,7 +198,7 @@ curl -k -X GET 'http://192.168.1.100:4097/api/transactions/get?id=a43f6d3fb54b27
 		}    
 	}    
 }    
-// 当"confirmations"达到平台要求后，更改数据库中的“充值状态”为“已确认”并显示在前端页面，最后用户UserA在交易平台的XCT余额做相应的增加。    
+// 当"confirmations"达到平台要求后，更改数据库中的“充值状态”为“已确认”并更新前端页面数据显示，最后用户UserA在交易平台的XCT余额做相应的增加。    
     
 ```    
 至此用户UserA完成了充值流程。    
@@ -219,7 +211,7 @@ curl -k -X GET 'http://192.168.1.100:4097/api/transactions/get?id=a43f6d3fb54b27
 Asch提供了下面2种方式进行XCT转账操作，请选择其中一种即可。    
     
 ##### 3.1.4.1 通过不安全的api进行XCT转账    
-这种方式是把密钥放到请求里面并且明文发送给服务器进行交易的生成和签名，不安全，不建议使用。如果非要使用这种方式，务必在局域网内搭建一台Asch节点服务器，用来提供API服务。    
+这种方式是把密钥（密码）放到请求里面并且明文发送给服务器，然后服务器端进行交易的生成、签名和广播，不安全，不建议使用。如果非要使用这种方式，务必在局域网内搭建一台Asch节点服务器，用来提供API服务。    
     
 - 汇总前需要确定UserA充值地址上有多少个XCT    
 ```    
@@ -228,15 +220,14 @@ curl -X GET http://192.168.1.100:4097/api/uia/balances/ANH2RUADqXs6HPbPEZXv4qM8D
 {    
 	success: true,    
 	balance: {    
+		address: "ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M",    
 		currency: "CCTime.XCT",    
-		balance: "990900000000", // 该值=余额*100000000    
+		balance: "990900000000", // 该值=真实余额*100000000    
 		maximum: "10000000000000000",    
 		precision: 8, // XCT的精度    
 		quantity: "20000000000000000",    
-		writeoff: 0,    
-		allowWriteoff: 0,    
-		allowWhitelist: 0,    
-		allowBlacklist: 0,    
+		issuerId: "A5KGYNSwDkfMoQ39GX5jV15MFih96XWDVi",     
+		writeoff: 0,      
 		maximumShow: "100000000",    
 		quantityShow: "200000000",    
 		balanceShow: "9909" // 该账户余额为9909个XCT，平台可以设定当该值大于某个值时才会进行向总钱包汇总    
@@ -244,7 +235,7 @@ curl -X GET http://192.168.1.100:4097/api/uia/balances/ANH2RUADqXs6HPbPEZXv4qM8D
 }    
 ```    
     
-- 确认UserA充值地址上是否有XAS（XCT每次转账都需要消耗0.1XAS）    
+- 确认UserA充值地址上是否有XAS（XCT在Asch主链的每次转账都需要消耗0.1XAS）    
 ```    
 curl -X GET 'http://192.168.1.100:4097/api/accounts/getBalance?address=ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M'    
 // 返回结果    
@@ -258,7 +249,7 @@ curl -X GET 'http://192.168.1.100:4097/api/accounts/getBalance?address=ANH2RUADq
 - 如果UserA充值地址上的XAS余额小于0.1，则需要给该地址转一笔小额的XAS做XCT转账时的手续费    
 ```    
 // 'object betray start purse camp remove lucky cry soccer middle harvest clerk'为有XAS余额的账户    
-curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"object betray start purse camp remove lucky cry soccer middle harvest clerk","amount":100000000,"recipientId":"ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M"}' 'http://192.168.1.100:4097/api/transactions'  && echo // 给用户充值地址转1XAS做为后面XCT转账时的手续费，该操作本身也消耗0.1XAS手续费    
+curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"object betray start purse camp remove lucky cry soccer middle harvest clerk","secondSecret":"二级密码，如果没有则不用传该参数","args":[100000000,"ANH2RUADqXs6HPbPEZXv4qM8DZfoj4Ry3M"],"message":"beizhu","type":1,"fee":10000000}' 'http://192.168.1.100:4097/api/transactions' && echo // 给用户充值地址转1XAS做为后面XCT转账时的手续费，该操作本身也消耗0.1XAS手续费    
 // 返回结果    
 {    
 	"success": true,    

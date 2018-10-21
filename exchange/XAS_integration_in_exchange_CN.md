@@ -82,7 +82,7 @@ Done
 // 安装nodejs的版本管理工具nvm
 > curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 // 上面命令执行完成后再开一个os shell窗口执行下面的命令，安装nodejs 8.x
-> nvm install node 8
+> nvm install 8
 
 // 安装依赖库（asch-js、bitcore-mnemonic），在os shell中运行
 > npm install asch-js bitcore-mnemonic
@@ -224,7 +224,7 @@ Asch提供了下面2种方式进行转账操作。
 - 可以利用如下api将充值的XAS转入到平台总账户中，该操作消耗0.1XAS手续费
 
 ```bash
-> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","amount":70000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhu"}' 'http://192.168.1.100:8192/api/transactions' && echo // 70000000表示0.7 XAS，因为网络需要收取固定的0.1XAS手续费，所以UserA的充值地址只可以转出0.7 XAS
+> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"二级密码，如果没有则不用传该参数","args":[70000000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":10000000}' 'http://127.0.0.1:8192/api/transactions' && echo // 70000000表示0.7 XAS，type为1表示XAS普通转账，因为网络需要收取固定的0.1XAS手续费，所以UserA的充值地址只可以转出0.7 XAS(之前充值了0.8XAS)
 // 返回结果如下
 {
 	"success": true,    // 转账状态，成功

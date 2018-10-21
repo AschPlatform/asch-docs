@@ -80,7 +80,7 @@ Done
 // Install nvm, the version management tool of nodejs 
 > curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 // after the above command is executed, open another os shell window and execute the following command to install nodejs 8.x.
-> nvm install node 8
+> nvm install 8
 
 // Install the dependency libraries (asch-js, bitcore-mnemonic) and run it in the os shell
 > npm install asch-js bitcore-mnemonic
@@ -217,7 +217,7 @@ This method is to put the key into the request and send it to the server in clea
 2) You can use the following api to transfer the deposited XAS to the platform's total account, which consumes 0.1XAS fee.
 
 ```
-> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","amount":70000000,"recipientId":"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5","message":"beizhu"}' 'http://192.168.1.100:8192/api/transactions' && echo // 70000000 means 0.7 XAS, because the network needs to charge a fixed 0.1XAS fee, so UserA's deposit address can only be transferred out of 0.7 XAS 
+> curl -k -H "Content-Type: application/json" -X PUT -d '{"secret":"latin december swing love square parade era fuel circle over hub spy","secondSecret":"second password,if you have","args":[70000000,"A7RD9YP37iUnYZ1SFnmAp6ySHUx3msC4r5"],"message":"beizhu","type":1,"fee":10000000}' 'http://127.0.0.1:8192/api/transactions' && echo  // 70000000 means 0.7 XAS, because the network needs to charge a fixed 0.1XAS fee, so UserA's deposit address can only be transferred out of 0.7 XAS 
 // return the result as follows 
 {
 	"success": true,    // transfer status, success
