@@ -10,7 +10,7 @@
     - [1.2 app.sdb.get(model, cond)](#12-appsdbgetmodel-cond)
     - [1.3 app.sdb.keys(model)](#13-appsdbkeysmodel)
     - [1.4 app.sdb.entries(model)](#14-appsdbentriesmodel)
-    - [1.5 app.sdb.lock(key)](#15-apsdblockkey)
+    - [1.5 app.sdb.lock(key)](#15-appsdblockkey)
     - [1.6 app.sdb.create(model, values)](#16-appsdbcreatemodel-values)
     - [1.7 app.sdb.replace(model, values)](#17-appsdbreplacemodel-values)
     - [1.8 app.sdb.update(model, modifier, cond)](#18-appsdbupdatemodel-modifier-cond)
@@ -58,6 +58,15 @@
       - [3.4.11 IS NULL](#3411-is-null)
       - [3.4.12 IS NOT NULL](#3412-is-not-null)
       - [3.4.13 BETWEEN](#3413-between)
+    - [3.5 Create DApp Data Model](#35-create-dapp-data-model)
+      - [3.5.1 Create a Table](#351-create-a-table)
+      - [3.5.2 Naming Table](#352-naming-table)
+        - [3.5.2.1 Snake Casing and Pluralising for Table names](#3521-snake-casing-and-pluralising-for-table-names)
+        - [3.5.2.2 Pascal Casing for `app.sdb` calls](#3522-pascal-casing-for-appsdb-calls)
+        - [3.5.2.3 Pascal Casing of Model Filename](#3523-pascal-casing-of-model-filename)
+      - [3.5.3 Define Table Columns](#353-define-table-columns)
+      - [3.5.4 Foreign key](#354-foreign-key)
+      - [3.5.5 The __THIS__ context during contract execution](#355-the-__this__-context-during-contract-execution)
   - [4. Routing](#4-routing)
     - [4.1 app.route.get(path, handler)](#41-approutegetpath-handler)
     - [4.2 app.route.post(path, handler)](#42-approutepostpath-handler)
@@ -96,6 +105,10 @@
     - [8.9 app.custom[]](#89-appcustom)
     - [8.10 app.meta](#810-appmeta)
   - [9 Built in packages](#9-built-in-packages)
+  - [10 Contracts](#10-contracts)
+    - [10.1 Inbuilt contracts](#101-inbuilt-contracts)
+      - [10.1.1 Overwrite Fee](#1011-overwrite-fee)
+      - [10.1.2 Overwrite Asset](#1012-overwrite-asset)
 
 <!-- /TOC -->
 
@@ -1273,6 +1286,537 @@ WHERE height BETWEEN 1 AND 10
 
 <br/>
 
+### 3.5 Create DApp Data Model
+
+
+#### 3.5.1 Create a Table
+
+Each DApp underlies a [SQLite](https://www.sqlite.org/index.html) database. DApp data can be saved in relational form. Queries can be written in a SQL like manner. But this section is dedicated to creating the tables in which the smart contract data will be saved. The existing DApp tables are described in [3.1 Existing Data Models](#31-existing-data-models). This section only deals with the creation of __custom__ DApp tables.
+
+
+Under the `model/` directory create a new `article.js` file:  
+
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'id',
+      type: 'String',
+      length: '20',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 64,
+      not_null: true,
+      unique: true
+    },
+    {
+      name: 'authorId',
+      type: 'String',
+      length: 50,
+      not_null: true
+    },
+    {
+      name: 'timestamp',
+      type: 'Number',
+      not_null: true
+    },
+    {
+      name: 'title',
+      type: 'String',
+      length: 256,
+      not_null: true
+    },
+    {
+      name: 'url',
+      type: 'String',
+      length: 256
+    },
+    {
+      name: 'text',
+      type: 'String',
+      length: 4096,
+      not_null: true,
+    },
+    {
+      name: 'tags',
+      type: 'String',
+      length: 20
+    },
+    {
+      name: 'votes',
+      type: 'Number',
+      not_null: true
+    },
+    {
+      name: 'comments',
+      type: 'Number',
+      not_null: true,
+      default: 0
+    },
+    {
+      name: 'reports',
+      type: 'Number',
+      not_null: true,
+      default: 0
+    }
+  ]
+}
+```
+
+
+#### 3.5.2 Naming Table
+
+##### 3.5.2.1 Snake Casing and Pluralising for Table names
+In this section we explore the best practise on how to name the table right.
+
+It is advised to name the table in __snake_case__. 
+
+> Warning:  
+Be sure to follow this guidelines otherwise some parts of your DApp will not work.
+
+Example:  
+```diff
+// file-name: model/article_comments.js
+
+module.exports = {
+- name: 'articleComments',
++ name: 'article_comments',
+    fields: [
+```
+
+Also all table names must be __pluralised__:  
+
+Example:  
+```diff
+// file-name: model/article.js
+
+module.exports = {
+- name: 'article',
++ name: 'articles',
+    fields: [
+```
+
+##### 3.5.2.2 Pascal Casing for `app.sdb` calls
+
+The __pascal casing__ of the Model must be applied for nearly all `app.sdb` calls. In this scenario the name gets based off the actual table name. If the table name is `articles` (which is best practise) then the Model for the `app.sdb` calls will be named __Article__ (without the `s`).
+
+The model must be __pascal cased__ and __singularized__:  
+- [1.1 `aync` app.sdb.load(model, fields, indices)](#11-aync-appsdbloadmodel-fields-indices)
+- [1.2 app.sdb.get(model, cond)](#12-appsdbgetmodel-cond)
+- [1.3 app.sdb.keys(model)](#13-appsdbkeysmodel)
+- [1.4 app.sdb.entries(model)](#14-appsdbentriesmodel)
+- ~~[1.5 app.sdb.lock(key)](#15-appsdblockkey)~~
+- [1.6 app.sdb.create(model, values)](#16-appsdbcreatemodel-values)
+- [1.7 app.sdb.replace(model, values)](#17-appsdbreplacemodel-values)
+- [1.8 app.sdb.update(model, modifier, cond)](#18-appsdbupdatemodel-modifier-cond)
+- [1.9 app.sdb.increment(model, modifier, cond)](#19-appsdbincrementmodel-modifier-cond)
+- [1.10 app.sdb.del(model, cond)](#110-appsdbdelmodel-cond)
+
+Example (create a database entry with `app.sdb.create`):  
+```js
+// file-name: contract/article.js
+module.exports = {
+  post: async function (title, content) {
+    app.sdb.create('Article', {
+      id: app.autoID.increment('article_max_id'),
+      title: title,
+      content: content
+    })
+  }
+}
+```
+
+The model file (`articles` → `app.sdb.create('Article', {})`):  
+```js
+// file-name: model/article.js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'title',
+      type: 'string',
+      length: 256
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096
+    }
+  ]
+}
+```
+
+##### 3.5.2.3 Pascal Casing of Model Filename
+
+To query a data model the Model gets build from the __model filename__ (e.g. `model/article.js`) and gets __pascal cases__:
+
+Example:
+
+Assume that there exists a `model/article.js` file with the following content:
+
+```js
+// file-name: model/article.js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'id_field',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    }
+  ]
+}
+```
+
+If we want to query this database table we use the `app.model[modelName]` property on the global `app` object.
+
+Lets create an custom API endpoint that queries the data from the table that is linked to the `model/article.js` file:
+
+```js
+// file-name: interface/article-endpoint.js
+app.route.get('/articles', async (req) => {
+  let count = await app.model.Article.count({})
+  let articles = await app.model.Article.findAll({})
+  return { count, articles }
+})
+```
+
+> WARNING:  
+> In this case the __modelName__ in `app.model[modelName]` depends solely upon the model __file-name__
+>  
+> If we create a file `model/test.js` that creates an `articles` table. The model name on `app.model` will be __Test__ not `Article`! Confusing, but the model name depends upon the __file name__ not the table name.  
+
+
+
+#### 3.5.3 Define Table Columns
+
+Each column is represented by an JavaScript object. Each column needs at least a __name__ and __type__ property:  
+```js
+{
+  name: 'id',
+  type: 'String',
+  length: 64,
+  not_null: true,
+  primary_key: true
+}
+```
+
+Columns should be defined in the __fields__ array:  
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    // column objects come here
+  ]
+}
+```
+
+> Warning:  
+If the `type`=__String__ then also the `lenght` property must be provided!
+
+
+Available Properties:  
+
+| Name | Required | Description |
+| :---: | :---: | :---: |
+| type | Y | See table __below__ |
+| name | Y | Specify the name of the column |
+| length | Y/N | This property __must__ be provided if `type`=String |
+| not_null | N | The column can't be null |
+| primary_key | N | Only __one__ column can have a primary key |
+| unique | N | Creates a __unique__ constraint |
+| index | N | creates an __index__ |
+
+Available Types:  
+
+| Name | Underlying Sqlite Type |
+| :---: | :---: |
+| Number | int |
+| BigInt | bigint |
+| String | varchar |
+| Text | text |
+| Real | real |
+| Boolean | tinyint |
+| Blob | blob |
+| Binary | binary |
+
+
+#### 3.5.4 Foreign key
+
+With the `foreignKeys` property it is possible to create real __FOREIGN KEYS__ in the database.  
+
+Example of how a comment references an article by a __FOREIGN KEY__:  
+
+`init.js` file:  
+```js
+module.exports = async function () {
+  app.registerContract(1000, 'article.post')
+  app.registerContract(1001, 'comment.post')
+  // default fee 0.1 XAS
+  app.setDefaultFee(String(0.1 * 1e8), 'XAS')
+}
+```
+
+`contract/article.js` file:  
+```js
+module.exports = {
+  post: async function(title, content) {
+    let exists = await app.model.Article.exists({
+      title: title
+    })
+    if (exists) return 'Title already exist'
+    let transactionId = this.trs.id
+    app.sdb.create('Article', {
+      id: app.autoID.increment('article_max_id'),
+      title: title,
+      content: content,
+      tid: transactionId
+    })
+  }
+}
+```
+
+`contract/comment.js` file:  
+```js
+module.exports = {
+  post: async function (articleId, content) {
+    let exists = await app.model.Article.exists({
+      id: articleId
+    })
+    if (!exists) return `articleId "${articleId}" does not exists`
+
+    let transactionId = this.trs.id
+    app.sdb.create('Comment', {
+      id: app.autoID.increment('comment_max_id'),
+      articleId: articleId,
+      content: content,
+      tid: transactionId
+    })
+  }
+}
+```
+
+`model/article.js` file:  
+```js
+module.exports = {
+  name: 'articles',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'title',
+      type: 'String',
+      length: 200,
+      not_null: true
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096,
+      not_null: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 200,
+      not_null: true
+    }
+  ]
+}
+```
+
+`model/comment.js` file:  
+```js
+module.exports = {
+  name: 'comments',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'articleId',
+      type: 'Number',
+      not_null: true
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096,
+      not_null: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 200,
+      not_null: true
+    }
+  ],
+  foreignKeys: [
+    {
+      field: 'articleId',
+      table: 'articles',
+      table_field: 'id'
+    }
+  ]
+}
+```
+
+
+![img](../assets/sdk_api/filled_custom_articles_table.png)
+![img](../assets/sdk_api/filled_custom_comments_table.png)
+
+The `article.js` and `comment.js` file in the `model/` directory created the following SQLite SQL create statements in the DApp database:  
+
+```SQL
+CREATE TABLE "articles" (
+  "id" int NOT NULL PRIMARY KEY,
+  "title" varchar(200) NOT NULL,
+  "content" varchar(4096) NOT NULL,
+  "tid" varchar(200) NOT NULL,
+  "_deleted_" int default 0
+)
+
+CREATE TABLE "comments" (
+  "id" int NOT NULL PRIMARY KEY,
+  "articleId" int NOT NULL,
+  "content" varchar(4096) NOT NULL,
+  "tid" varchar(200) NOT NULL,
+  "_deleted_" int default 0,
+  FOREIGN KEY (articleId) REFERENCES articles(id)
+)
+```
+
+
+<br/>
+
+#### 3.5.5 The __THIS__ context during contract execution
+
+In the context of a smart contract function execution there are the corresponding `Transaction` (via `this.trs`) and `Block` (via `this.block`) objects bound to the __this__ context:  
+
+Example of a `this` variable during the smart contract `1000` call (`article.post`):
+
+`this.trs`:  
+```json
+{
+  "trs": {
+    "fee": "10000000",
+    "timestamp": 71207092,
+    "senderPublicKey": "a7cfd49d25ce247568d39b17fca221d9b2ff8402a9f6eb6346d2291a5c81374c",
+    "type": 1000,
+    "args": ["blog title", "blog content"],
+    "signature": "92d273832a8560c712eeee2514506a33e74056d72b3c1cbcb3e711b12318f743de8b781bfbd38e677e9764e9cac6b3b8073554539cef4b19befe4054ead8b202",
+    "id": "29bc145f934adb24afb2a9b19b53d46b280296dcea935ad24832da10961375c5",
+    "senderId": "AHMCKebuL2nRYDgszf9J2KjVZzAw95WUyB"
+  }
+}
+```
+
+`this.block`:  
+```json
+  "block": {
+    "height": 9,
+    "delegate": "A7NWaYUkpa543hdTsfw57AoZAgCBr2NFY6"
+  }
+}
+```
+
+
+In depth example of how to save the `TransactionId` next to the just saved Blog entry:  
+
+Define the Blog model in `model/blog.js`:  
+```js
+module.exports = {
+  name: 'blogs',
+  fields: [
+    {
+      name: 'id',
+      type: 'Number',
+      not_null: true,
+      primary_key: true
+    },
+    {
+      name: 'title',
+      type: 'String',
+      length: 200,
+      not_null: true
+    },
+    {
+      name: 'content',
+      type: 'String',
+      length: 4096,
+      not_null: true
+    },
+    {
+      name: 'tid',
+      type: 'String',
+      length: 200,
+      not_null: true
+    }
+  ]
+}
+```
+
+Blog contract function in `contract/blog.js`
+```js
+module.exports = {
+  blog: async function(title, content) {
+    let exists = await app.model.Blog.exists({
+      title: title
+    })
+    if (exists) return 'Title already exist'
+    let transactionId = this.trs.id
+    app.sdb.create('Blog', {
+      id: app.autoID.increment('blog_max_id'),
+      title: title,
+      content: content,
+      tid: transactionId
+    })
+  }
+}
+```
+
+Register smart contract in `init.js`
+```js
+module.exports = async function () {
+  app.registerContract(1000, 'blog.blog')
+  app.setDefaultFee(String(0.1 * 1e8), 'XAS')
+}
+```
+
+After we started the DApp and called the `1000` contract we can see the new custom `blogs` table with one example entry:  
+
+![custom_table](../assets/sdk_api/filled_custom_dapp_table.png)
+
+
+
+Even if the `tid` column of the `Blog` table has no foreign key to `transactions.id`, it is still very useful to save this information along.
+
+The corresponding transaction can be seen here:  
+![custom_table](../assets/sdk_api/filled_custom_dapp_table_trs.png)
+
+
+
+<br/>
+
 ## 4. Routing
 
 - `path` Path
@@ -2274,3 +2818,35 @@ The package [protocol-buffers](https://github.com/mafintosh/protocol-buffers/tre
 
 - asch-js  
 Official asch package [asch-js](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md)
+
+## 10 Contracts
+
+### 10.1 Inbuilt contracts
+
+Every Sidechain has 4 inbuilt contracts. Details to these contracts can be found [asch-docs/dapp/api/en.md](https://github.com/AschPlatform/asch-docs/blob/master/dapp/api/en.md#3-transactions) or at [asch-docs/js_api/en.md](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md#6-dapp)
+
+
+#### 10.1.1 Overwrite Fee
+
+In the `init.js` file we can increase or decrease the fee for the inbuilt contract.
+
+Example (set the fee for the __nickname__ transaction (type 4) to 50 XAS):  
+```js
+module.exports = async function () {
+  let contract = 4
+  let fee = String(50 * 1e8)
+  let currency = 'XAS'
+  app.registerFee(contract, fee, currency)
+}
+```
+
+#### 10.1.2 Overwrite Asset
+
+We can specify another asset (default asset is `XAS`) for the inbuilt contracts in the `init.js` file:  
+
+Example (set the fee for the __internal transfer__ transaction (type 3) to `10 CCTime.XCT`):  
+```js
+module.exports = async function () {
+  app.registerFee(3, String(10 * 1e8), 'CCTime.XCT')
+}
+```
