@@ -107,8 +107,9 @@
   - [9 Built in packages](#9-built-in-packages)
   - [10 Contracts](#10-contracts)
     - [10.1 Inbuilt contracts](#101-inbuilt-contracts)
-      - [10.1.1 Overwrite Fee](#1011-overwrite-fee)
-      - [10.1.2 Overwrite Asset](#1012-overwrite-asset)
+      - [10.1.1 Overwrite Fee and used Asset](#1011-overwrite-fee-and-used-asset)
+      - [10.1.2 Overwrite Defaut Contract Fee and Asset](#1012-overwrite-defaut-contract-fee-and-asset)
+      - [10.1.3 Get Fee Information](#1013-get-fee-information)
 
 <!-- /TOC -->
 
@@ -2295,7 +2296,7 @@ app.validate('array', [], { length: { minimum: 1 } })
 
 Beside the already existing validators [amount](#811-amount-datatype), [string](#812-string-datatype) and [array](#813-array-datatype) is it also possible to register a custom validator:  
 
-Create a new directory `lib` in your Dapp:  
+Create a new directory `lib/` in your Dapp:  
 
 ```bash
 mkdir lib
@@ -2340,11 +2341,12 @@ module.exports = {
 }
 ```
 
+<br/>
 
 ### 8.2 app.registerContract(type, name)
 
-- `type` Contract Type
-- `name` The name of contract
+- `type` Contract Type, the contract number must be at least `1000` because all numbers below are reserved for the built-in Sidechain contracts
+- `name` The location of the contract
 
 > No return value  
 > To register a number type for a contract, an unregistered contract can not be called externally
@@ -2357,10 +2359,14 @@ app.registerContract(1001, 'cctime.postArticle')
 ```
 
 
-The string `'cctime.postArticle'` means, that they must be a `cctime` file in the `contract` directory and in the `cctime` file a function named `postArticle`.
+The string `'cctime.postArticle'` means, that they must be a `cctime` file in the `contract/` directory and in the `cctime` file a function named `postArticle`.
 
 ![alt](../assets/dapp/cctime_file.png)
 
+> INFO  
+> Be sure to set your fee (with [8.4 app.registerFee(type, min, currency)](#84-appregisterfeetype-min-currency)) for the just registered contract. Otherwise the default fee of `0.1 XAS` gets applied.
+
+<br/>
 
 ### 8.3 app.getContractName(type)
 
@@ -2374,20 +2380,33 @@ Example:
 app.getContractName(1001) === 'cctime.postArticle'
 ```
 
+<br/>
+
 ### 8.4 app.registerFee(type, min, currency)
 
-- `type` The type or the the number of the contract
+- `type` The type or the number of the contract
 - `min` Minimum cost
 - `currency` Currency
 
-> The minimum fee for a contract registration  
-> `Min` stands for the minimum cost. The fee to call the contract. The fee can not be less then `min`. The fee can be greater. The execess part will be send to the fee pool.
+> MINIMUM FEE  
+> `Min` stands for the minimum cost. The fee that the user needs to pay in order to call the contract. The fee can not be less then `min`. The fee can be greater. The execess part will be send to the fee pool.
+
 
 Example:
 
 ```js
-app.registerFee(1001, '100000', 'XAS')
+app.registerFee(1001, String(0.1 * 1e8), 'XAS')
 ```
+
+> INFO 1  
+> If you register a custom contract ([8.2 app.registerContract(type, name)](#82-appregistercontracttype-name)) and __not__ register a fee (with `app.registerFee()`) for it then the default fee (`0.1 XAS`) gets applied!
+
+
+> INFO 2  
+> You can also overwrite the fee for the inbuilt Sidechain contracts. See section [10.1.1 Overwrite Fee and used Asset](#1011-overwrite-fee-and-used-asset) for more information.
+
+<br/>
+
 ### 8.5 app.getFee(type)
 
 - `type` The type or number of the contract
@@ -2405,18 +2424,30 @@ app.getFee(1001)
 }
 ```
 
+<br/>
+
 ### 8.6 app.setDefaultFee(min, currency)
 
 - `min` Minimum cost
 - `currency` Currency
 
-> Set default fee for all contracts in the system.
+> IMPORTANT  
+> Set default fee for all contracts (which were not expliclity set with a call to `registerFee`) in the system.
 
 Example:
 
 ```js
-app.setDefaultFee('10000', 'XAS')
+app.setDefaultFee(String(0.1 * 1e8), 'XAS')
 ```
+
+> INFO 1  
+> If the function `app.setDefaultFee` gets not called, then the default fee remains `0.1 XAS` for (nearly) all existing built-in contracts and all custom contracts
+>  
+> The built-in contract `type 1` has a fixed fee of `0 XAS`, however the built-in contracts `type 2`, `type 3` and `type 4` have a fee of `0.1 XAS`.
+
+> INFO 2  
+> You can also set the __default fee__ for the inbuilt Sidechain contracts. See section [10.1.3 Overwrite Defaut Contract Fee and Asset](#1013-overwrite-defaut-contract-fee-and-asset) for more information.
+
 
 ### 8.7 app.getRealTime(epochTime)
 
@@ -2817,20 +2848,45 @@ Official asch package [z-schema](https://github.com/AschPlatform/z-schema)
 The package [protocol-buffers](https://github.com/mafintosh/protocol-buffers/tree/1583634bda4b04a9a101ec5aace1953f3788449b) version `3.2.1` is a package of the node.js ecosystem
 
 - asch-js  
-Official asch package [asch-js](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md)
+Official asch package [asch-js](../js_api/en.md)
 
 ## 10 Contracts
 
 ### 10.1 Inbuilt contracts
 
-Every Sidechain has 4 inbuilt contracts. Details to these contracts can be found [asch-docs/dapp/api/en.md](https://github.com/AschPlatform/asch-docs/blob/master/dapp/api/en.md#3-transactions) or at [asch-docs/js_api/en.md](https://github.com/AschPlatform/asch-docs/blob/master/js_api/en.md#6-dapp)
+> WARNING:  
+> Do __not__ overwrite the built-in contract `type: 1` because it messes with the ability to __refuel__ your Sidechain!
+>  
+> Overwriting the fee for the built-in contracts `type: 2`, `type: 3` and `type: 4` is OK
 
 
-#### 10.1.1 Overwrite Fee
+Every Sidechain has 4 inbuilt contracts.
 
-In the `init.js` file we can increase or decrease the fee for the inbuilt contract.
+| Type | Fee | Description |
+| :---: | :---: | :---: |
+| 1  | __0 XAS__ | Sidechain Refuel.<br/>Gets __automatically__ called through the [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist)<br/>Do __NOT__ overwrite fee! |
+| 2  | 0.1 XAS | Sidechain Withdrawal |
+| 3  | 0.1 XAS | Transfer assets on the Sidechain |
+| 4  | 0.1 XAS | Set nickname for Sidechain account |
 
-Example (set the fee for the __nickname__ transaction (type 4) to 50 XAS):  
+
+Details to these contracts can be found [asch-docs/dapp/api/en.md](../dapp/api/en.md#3-transactions) or at [asch-docs/js_api/en.md](../js_api/en.md#6-dapp)
+
+
+> INFO:
+> If I explicitly set the fee for a contract, then it can't be overwritten by the `setDefaultFee` call. But if a contract (also inbuilt) has no explicit fee, then the default Fee is applied!
+
+<br/>
+
+#### 10.1.1 Overwrite Fee and used Asset
+
+> DEFAULT FEE  
+> The default fee for built-in contracts is `0.1 XAS`. For details see the table in [10.1 Inbuilt contracts](#101-inbuilt-contracts)
+
+In the `init.js` file we can overwrite the __fee__ and the used __asset__ for the inbuilt contracts.
+
+Example 1:  
+Overwrite the fee for the nickname transaction `type 4` with `50 XAS`  
 ```js
 module.exports = async function () {
   let contract = 4
@@ -2840,13 +2896,93 @@ module.exports = async function () {
 }
 ```
 
-#### 10.1.2 Overwrite Asset
+Alternatively it is also possible to use an asset other then `XAS` for the fee of a built-in contract (e.g `PUB.SUB`):
 
-We can specify another asset (default asset is `XAS`) for the inbuilt contracts in the `init.js` file:  
-
-Example (set the fee for the __internal transfer__ transaction (type 3) to `10 CCTime.XCT`):  
+Example 2:  
+Overwrite the fee for the internal transfer transaction `type 3` with `10 CCTime.XCT`:  
 ```js
 module.exports = async function () {
-  app.registerFee(3, String(10 * 1e8), 'CCTime.XCT')
+  let contract = 3
+  let fee = String(10 * 1e8)
+  let currency = 'CCTime.XCT'
+  app.registerFee(contract, fee, currency)
+}
+```
+
+<br/>
+
+#### 10.1.2 Overwrite Defaut Contract Fee and Asset
+
+You can overwrite the __default__ `fee` and `asset` for all __inbuilt__ and for all __custom contracts__. You are setting the __default__ fee and asset for all custom and built-in contracts that have no explicit fee and asset set (with `app.registerFee`).
+
+> INFO  
+> The `setDefaultFee(fee, asset)` default only works for these contracts (built-in or custom) that have __no explicitly__ fee set with `registerFee`
+
+> DEFAULT FEE  
+> The default fee for built-in contracts is `0.1 XAS`. For details see the table in [10.1 Inbuilt contracts](#101-inbuilt-contracts)
+
+
+Example:  
+```js
+// file-name: init.js
+module.exports = async function () {
+  app.logger.info('init.js...')
+  app.setDefaultFee(String(1 * 1e8), 'PUB.SUB')
+}
+```
+
+<br/>
+
+#### 10.1.3 Get Fee Information
+
+If you would like to see the current `defaultFee` for all contracts and the `fee` and `asset` information for every custom contract add the following custom API endpoints to your Sidechain/Dapp.
+
+Add this two functions to a arbitrary file in the `interface/` directory:
+```js
+// file-name: interface/arbitrary-file.js
+
+app.route.get('/defaultFee', async () => {
+  return app.defaultFee
+})
+
+app.route.get('/feeMapping', async () => {
+  return app.feeMapping
+})
+```
+<br/>
+
+Request for `defaultFee`:
+```bash
+curl http://localhost:4096/api/chains/<chain-name>/defaultFee
+```
+
+Server response for `defaultFee`:
+```json
+{
+  "currency":"XAS",
+  "min":"10000000",
+  "success":true
+}
+```
+
+<br/>
+
+Request for `feeMapping`:
+```bash
+curl http://localhost:4096/api/chains/<chain-name>/feeMapping
+```
+
+Server response for `feeMapping`:
+```json
+{
+  "1": {
+    "currency":"XAS",
+    "min":"0"
+  },
+  "1000": {
+    "currency":"XAS",
+    "min":"500000000"
+  },
+  "success":true
 }
 ```
