@@ -35,7 +35,7 @@
   + [DApp SDK document](./sdk_api/en.md)
   + [DApp HTTP document](./dapp/api/en.md)
   + [Common DApp Development Problems](./dapp/common_dapp_dev_problems_en.md)
-
+  + [How to Debug DApps](./dapp/how_to_debug_dapps_en.md)
 
 ## Inhaltsverzeichnis
 
