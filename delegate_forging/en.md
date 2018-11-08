@@ -42,8 +42,7 @@ The following are the various stages of the block reward
 |3|3464500|6464500|
 |2|6464500|9464500|
 |1|9464500|12464500|
-|0.5|12464500|15464500|
-|0.5|15464500|---|
+|0.5|12464500|---|
 
 # 2 transaction fee
 
