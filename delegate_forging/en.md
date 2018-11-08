@@ -32,7 +32,7 @@ rate of the top 101 delegators is the same.
 Block rewards will decrease over time, and the specific time will be based on the height of a future block.
 The block rewards of Asch system  start from the beginning of 464500 block. The initial reward is 3.5 coins.
 Every 3 million block decreases once and it lasts about 1 year.
-After 15464500 block, the reward is no longer decreasing and each year has slightly less than 1.5% inflation rate.
+After 12464500 block, the reward is no longer decreasing and each year has slightly less than 1.5% inflation rate.
 
 The following are the various stages of the block reward
 
