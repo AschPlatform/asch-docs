@@ -2,9 +2,9 @@
 
 
 ### Preparation
-Make sure to have the ASCH blockchain installed ([Install ASCH blockchain](https://medium.com/aschplatform/develop-blockchain-apps-with-sidechain-technology-part-1-c5aa91c4602f)).  
+Make sure to have the ASCH blockchain installed ([Install ASCH blockchain](https://medium.com/aschplatform/develop-blockchain-apps-with-sidechain-technology-part-1-c5aa91c4602f)).
 
-Be also sure to have the ASCH GUI downloaded ([Download ASCH GUI](https://github.com/AschPlatform/asch-docs/blob/master/install/en.md#56-configure-frontend)).
+Also, make sure to have the ASCH GUI downloaded ([Download ASCH GUI](https://github.com/AschPlatform/asch-docs/blob/master/install/en.md#56-configure-frontend)).
 
 
 ### New Account
@@ -12,7 +12,7 @@ Now start the ASCH blockchain by executing (`cd asch && node app.js`) in your te
 
 ![Step 1/2 Create Master Secret](./images/nextstep.png)
 
-In this example the secret is `sentence weasel match weather apple onion release keen lens deal fruit matrix` (write it safely down somewhere). Now press the __CREATE MASTER SECRET__ button to confirm the secret.
+In this example, the secret is `sentence weasel match weather apple onion release keen lens deal fruit matrix` (write it safely down somewhere). Now press the __CREATE MASTER SECRET__ button to confirm the secret.
 
 
 Login with your new secret:  
@@ -27,7 +27,7 @@ You will find your new account with an empty balance and your address `AHMCKebuL
 
 ### Send yourself some XAS
 
-First logout from your current session. The logout button is in the upper right corner:  
+First, logout from your current session. The logout button is in the upper right corner:  
 
 ![Logout](./images/logout.png)
 
