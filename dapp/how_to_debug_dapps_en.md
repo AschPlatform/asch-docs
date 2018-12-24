@@ -5,7 +5,7 @@
 
 - [How to debug Dapps](#how-to-debug-dapps)
     - [**Overview**](#overview)
-    - [**Differnt Log files and their loction**](#differnt-log-files-and-their-loction)
+    - [**Differnt Log files and their location**](#differnt-log-files-and-their-location)
       - [**Mainchain log file**](#mainchain-log-file)
       - [**Sidechain log file**](#sidechain-log-file)
     - [**Consult Common-Dev-Problems Document**](#consult-common-dev-problems-document)
@@ -29,9 +29,9 @@
 
 ### **Overview**
 
-Developing Dapps is not always easy and straightforward. Problems can't always be spotted right away because the Dapp code is run by the [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist). This document tries to help make the lifes of developers easier.
+Developing Dapps is not always easy and straightforward. Problems can't always be spotted right away because the Dapp code is run by the [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist). This document tries to help make the lives of developers easy.
 
-### **Differnt Log files and their loction**
+### **Different Log files and their location**
 
 There are different `log` files. One of these can often help to spot the problem.
 
@@ -39,7 +39,7 @@ There are different `log` files. One of these can often help to spot the problem
 The log files for the [ASCH](https://github.com/aschplatform/asch) Mainchain are located under `asch/logs/debug.<year><month><day>.log`.
 
 > WARNING  
-> The log files for the ASCH mainchain are only created if the blockchain is started through `./aschd start`. If you start the blockchain in the terminal with `node app.js` then the log files are not getting constructed.
+> The log files for the ASCH mainchain are only created if the blockchain is started through `./aschd start`. If you start the blockchain in the terminal with `node app.js` then, the log files are not getting constructed.
 
 #### **Sidechain log file**
 
@@ -47,17 +47,17 @@ The log files for every Sidechain are located under `asch/chains/<chain-name>/lo
 
 ### **Consult Common-Dev-Problems Document**
 
-If your Dapp is not working this can have numerous causes. Be sure to check out the [Common Dapp Dev Problems](../common_dapp_dev_problems_en.md) file.
+If your Dapp is not working, this can be due to numerous causes. Be sure to check out the [Common Dapp Dev Problems](../common_dapp_dev_problems_en.md) file.
 
 ### **Debug your Sidechain code with Chrome `ndb` Debugger**
 
 #### **Why an extra tool for Sidechain code Debugging?**
 
-Every Sidechain is running in a separate [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist) environment.
+Every Sidechain runs in a separate [asch-sandbox](https://github.com/aschplatform/asch-sandbox-dist) environment.
 
-If we hadn't the Chrome [ndb](https://github.com/GoogleChromeLabs/ndb) tool at hand we would need to pass the `'['--inspect=9228', '--debug-brk']` options to the `spawn()` function (from the built-in `child_process` package). Of course with an extra port number for every Sidechain.
+If we didn't have the Chrome [ndb](https://github.com/GoogleChromeLabs/ndb) tool at hand, we would need to pass the `'['--inspect=9228', '--debug-brk']` options to the `spawn()` function (from the built-in `child_process` package). Of course with an extra port number for every Sidechain.
 
-Due to the new Chrome [ndb](https://github.com/GoogleChromeLabs/ndb) tool we can __automatically__ connect to new child processes! No need for extra `spawn()` parameters!
+Due to the new Chrome [ndb](https://github.com/GoogleChromeLabs/ndb) tool, we can __automatically__ connect to new child processes! No need for extra `spawn()` parameters!
 
 #### **Install `ndb`**
 
@@ -88,14 +88,14 @@ The `ndb` tool looks like the Chrome Debugger. You can also save files to the fi
 
 #### **Start Blockchain**
 
-In the panel `Filesystem` on the left you can find the `asch/app.js` file and with `Right Click` + `Run this script` you can start the ASCH blockchain:
+In the panel `Filesystem` on the left, you can find the `asch/app.js` file and with `Right Click` + `Run this script` you can start the ASCH blockchain:
 
 ![](../assets/dapp/debug_ndb_start_app.png)
 
 
 #### **Where is my Sidechain code?**
 
-You can have as many Sidechains installed on your local ASCH blockchain as you like. There are located in the `asch/chains/` directory:
+You can have as many Sidechains installed on your local ASCH blockchain as you like. They are located in the `asch/chains/` directory:
 
 ![](../assets/dapp/debug_ndb_chains_dir.png)
 
@@ -119,13 +119,13 @@ The debugger hits the `debugger;` statement a few seconds after the ASCH blockch
 #### **Example: Debug Contract Execution**
 
 > INFO  
-> In this example we are using the [CCTime](https://github.com/aschplatform/cctime) Sidechain code but we gave our Sidechains random names, because Sidechain-names must be unique (in this case we named our Sidechain `they-clap-dapp`).
+> In this example, we are using the [CCTime](https://github.com/aschplatform/cctime) Sidechain code but we gave our Sidechains random names, because Sidechain-names must be unique (in this case we named our Sidechain `they-clap-dapp`).
 
-Most times we want to debug an Sidechain contract. Therefore we set a __Breakpoint__ in the `asch/chains/they-clapp-dapp/contract/cctime.js` file:
+Most times we want to debug a Sidechain contract. Therefore, we set a __Breakpoint__ in the `asch/chains/they-clapp-dapp/contract/cctime.js` file:
 
 ![](../assets/dapp/debug_ndb_contract_breakpoint.png)
 
-Then we sign a transaction and send it to the `they-clapp-dapp` Sidechain:  
+Then, we sign a transaction and send it to the `they-clapp-dapp` Sidechain:  
 
 ```js
 const aschJS = require('asch-js')
@@ -173,7 +173,7 @@ axios.put(url, { transaction: trs }, headers)
 
 #### **Kill Process**
 
-On the Chrome [ndb](https://github.com/GoogleChromeLabs/ndb) tool the buttons for stopping the debugging are not so easy to spot.
+On the Chrome [ndb](https://github.com/GoogleChromeLabs/ndb) tool, the buttons for stopping the debugging are not so easy to spot.
 
 On the right side under `Node processes`:
 ![](../assets/dapp/ndb_debug_right_side.png)
@@ -184,14 +184,14 @@ Every process must be killed with the __white square__ button:
 
 #### **Restart**
 
-Besides killing the process you can also __restart__ the debugging with the latest configuration with the keyboard shortcut `Ctrl + R`
+Beside killing the process, you can also __restart__ the debugging with the latest configuration with the keyboard shortcut `Ctrl + R`
 
 
 #### **Switch between Contexts**
 
-When you have at least one Sidechain running then you have differnet Javascript Execution Environments to switch between. This step is normally not necessary because the `ndb` is smart enough to switch automatically to the Context where the `debugger;` statement or the `Breakpoint` was hit.
+When you have at least one Sidechain running, then, you have different Javascript Execution Environments to switch between. This step is normally not necessary because the `ndb` is smart enough to switch automatically to the Context where the `debugger;` statement or the `Breakpoint` was hit.
 
-However if you want to pause the execution in the right JavaScript process you need to __switch__ context:
+However, if you want to pause the execution in the right JavaScript process you need to __switch__ context:
 
 ![](../assets/dapp/debug_ndb_switch_context.png)
 
