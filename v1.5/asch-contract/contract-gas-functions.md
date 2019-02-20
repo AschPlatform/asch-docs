@@ -1,0 +1,535 @@
+# ASCH 燃料计费表和智能合约内置函数
+
+本文档涉及：
+
+1. 燃料计费表
+2. 合约内置工具函数
+
+以下「燃料」代表 gas。
+
+## 1. 燃料计费表
+
+### 1.1 合约相关
+
+| 合约动作     | 燃料消耗 |
+| ------------ | -------- |
+| 注册合约     | 1000     |
+| 合约内转账   | 1000     |
+| 合约调用     | 500      |
+| 每个字节存储 | 2        |
+
+### 1.2 合约代码
+
+| 一元运算符 | 燃料消耗 |
+| ---------- | -------- |
+| +          | 3        |
+| -          | 3        |
+| !          | 3        |
+| ~          | 3        |
+| typeof     | 3        |
+| void       | 1        |
+
+| 自增减运算符 | 燃料消耗 |
+| ------------ | -------- |
+| ++           | 5        |
+| --           | 5        |
+
+| 二元运算符 | 燃料消耗 |
+| ---------- | -------- |
+| ==         | 5        |
+| !=         | 5        |
+| ===        | 5        |
+| !==        | 5        |
+| <          | 5        |
+| <=         | 5        |
+| >          | 5        |
+| >=         | 5        |
+| <<         | 5        |
+| >>         | 5        |
+| >>>        | 5        |
+| +          | 5        |
+| -          | 5        |
+| *          | 5        |
+| /          | 5        |
+| %          | 5        |
+| \|         | 5        |
+| ^          | 5        |
+| &          | 5        |
+| in         | 5        |
+| instanceof | 5        |
+
+| 赋值运算符 | 燃料消耗 |
+| ---------- | -------- |
+| =          | 3        |
+| +=         | 5        |
+| -=         | 5        |
+| *=         | 5        |
+| /=         | 5        |
+| %=         | 5        |
+| <<=        | 5        |
+| >>=        | 5        |
+| >>>=       | 5        |
+| \|=        | 5        |
+| ^=         | 5        |
+| &=         | 5        |
+
+| 逻辑运算符 | 燃料消耗 |
+| ---------- | -------- |
+| &&         | 5        |
+| \|\|       | 5        |
+
+| 其他              | 举例                                  | 燃料消耗 |
+| ----------------- | ------------------------------------- | -------- |
+| new表达式         | new Mapping()                         | 50       |
+| 函数声明          | function fn (){/* 燃料-10 */}         | 10       |
+| 函数表达式        | const fn = function() {/* 燃料-10 */} | 10       |
+| while             | while(true){/* 燃料-1 */}             | 1        |
+| do while          | do{/* 燃料-1 */}while(true)           | 1        |
+| for/for-in/for-of | for( ; ; ){/* 燃料-1 */}              | 1        |
+| 变量声明          | const num = 1                         | 3        |
+| 成员表达式        | obj.name                              | 1        |
+
+## 2. 合约内置工具函数
+
+### 2.1 assert
+
+#### assert(value[, message])
+
+燃料消耗: 20
+示例:
+
+```js
+assert(true)
+assert(1 === 2, 'Not equal')
+```
+
+### 2.2 Mapping
+
+#### new Mapping()
+
+燃料消耗: 50
+示例:
+
+```js
+const mapping = new Mapping()
+mapping['name'] = 'asch'
+mapping['name'] // 'asch'
+'name' in mapping // true
+delete mapping['name']
+'name' in mapping // false
+```
+
+#### Mapping.fromItems(array)
+
+燃料消耗: 10 * array.length || 10
+示例:
+
+```js
+const mapping = Mapping.fromItems([
+  {
+    key: 'name',
+    value: 'asch'
+  }
+])
+'name' in mapping // true
+```
+
+#### Mapping.isMapping(mapping)
+
+燃料消耗: 20
+示例:
+
+```js
+const mapping = new Mapping()
+Mapping.isMapping(mapping) // true
+```
+
+#### Mapping.keysOf(mapping)
+
+燃料消耗: 10 * mapping里key的个数 || 10
+示例:
+
+```js
+const mapping = new Mapping()
+mapping.name = 'asch'
+mapping['name2'] = 'asch2'
+
+Mapping.keysOf(mapping) // ['name', 'name2']
+```
+
+#### Mapping.valuesOf(mapping)
+
+燃料消耗: 10 * mapping里value的个数 || 10
+示例:
+
+```js
+const mapping = new Mapping()
+mapping.name = 'asch'
+mapping['name2'] = 'asch2'
+
+Mapping.valuesOf(mapping) // ['asch', 'asch2']
+```
+
+#### Mapping.sizeOf(mapping)
+
+燃料消耗: 20
+示例:
+
+```js
+const mapping = new Mapping()
+mapping.name = 'asch'
+mapping.name2 = 'asch2'
+
+Mapping.sizeOf(mapping) // 2
+```
+
+### 2.3 Vector
+
+#### new Vector()
+
+燃料消耗: 50
+示例:
+
+```js
+const vector = new Vector()
+// vector[0] -> throw error(out of range)
+vector.push('asch')
+vector[0] // 'asch'
+vector[0] = 'asch2'
+vector[0] // 'asch2'
+```
+
+#### Vector.isVector(vector)
+
+燃料消耗: 20
+示例:
+
+```js
+const vector = new Vector()
+Vector.isVector(vector) // true
+Vector.isVector(1) // false
+```
+
+#### vector.push(...args)
+
+燃料消耗: 10 * args.length || 10
+示例:
+
+```js
+const vector = new Vector()
+vector.push('asch1') // 1
+vector.push('asch2') // 2
+```
+
+#### vector.pop()
+
+燃料消耗: 20
+示例:
+
+```js
+const vector = new Vector()
+vector.push('asch')
+vector.pop() // 'asch'
+```
+
+#### vector.size()
+
+燃料消耗: 20
+示例:
+
+```js
+const vector = new Vector()
+vector.push('asch1')
+vector.push('asch2')
+vector.size() // 2
+```
+
+### 2.5 Crypto
+
+#### Crypto.sha256.hash(str)
+
+燃料消耗: Math.max(100, str.length * 10)
+示例:
+
+```js
+Crypto.sha256.hash("abc") // ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+```
+
+#### Crypto.ripemd160.hash(str)
+
+燃料消耗: Math.max(100, str.length * 10)
+示例:
+
+```js
+Crypto.sha256.hash("abc") // 8eb208f7e05d987a9b044a8e98c6b087f15a0bfc
+```
+
+#### Crypto.ed25519.sign(message, privateKey)
+
+燃料消耗: message.length * 10
+示例:
+
+```js
+Crypto.ed25519.sign(
+  '11111111111111111111111111111111',
+  '313131313131313131313131313131313131313131313131313131313131313148075a597e721a156e2e0799de5cc0c5324dc6e7eaf1cdd46250868ec53215dd'
+)
+// 0c1f708675134e5b20d633ce84c7358969e569f2fda598b1fb467891b6f3537d114aeb6c8a55f7e7ec636eb64a338109b410a45b816ee90cab7b5982a2036701
+```
+
+#### Crypto.ed25519.verify(message, signature, publicKey)
+
+燃料消耗: message.length * 10
+示例:
+
+```js
+Crypto.ed25519.verify(
+  '11111111111111111111111111111111',
+  '0c1f708675134e5b20d633ce84c7358969e569f2fda598b1fb467891b6f3537d114aeb6c8a55f7e7ec636eb64a338109b410a45b816ee90cab7b5982a2036701',
+  '48075a597e721a156e2e0799de5cc0c5324dc6e7eaf1cdd46250868ec53215dd'
+)
+// true
+```
+
+### 2.5 全局对象
+
+名词解释：
+
+- args: 代表函数所有参数的数组
+- arg: 代表函数第一个参数
+- this: 代表当前对象
+- result: 代表函数执行后返回的结果
+
+#### Object
+
+| 静态方法       | 燃料消耗                  |
+| -------------- | ------------------------- |
+| Object.assign  | args.length * 10 \|\|10   |
+| Object.entries | result.length * 10 \|\|10 |
+| Object.keys    | result.length * 10 \|\|10 |
+| Object.values  | result.length * 10 \|\|10 |
+| Object.is      | 20                        |
+
+例子:
+
+```js
+Object.assign({ name: 'asch' }, { name2: 'asch2' }) // { name: 'asch', name2: 'asch2' }
+Object.is('foo', 'foo') // true
+```
+
+#### Array
+
+| 静态方法      | 燃料消耗                   |
+| ------------- | -------------------------- |
+| Array.from    | result.length * 10 \|\| 10 |
+| Array.isArray | 20                         |
+| Array.of      | result.length * 10 \|\| 10 |
+
+| 实例方法    | 燃料消耗                   |
+| ----------- | -------------------------- |
+| concat      | result.length * 10 \|\| 10 |
+| copyWithin  | result.length * 10 \|\| 10 |
+| every       | this.length * 10 \|\| 10   |
+| fill        | this.length * 10 \|\| 10   |
+| filter      | this.length * 10 \|\| 10   |
+| find        | this.length * 10 \|\| 10   |
+| findIndex   | this.length * 10 \|\| 10   |
+| forEach     | this.length * 10 \|\| 10   |
+| includes    | this.length * 10 \|\| 10   |
+| indexOf     | this.length * 10 \|\| 10   |
+| join        | this.length * 10 \|\| 10   |
+| lastIndexOf | this.length * 10 \|\| 10   |
+| map         | this.length * 10 \|\| 10   |
+| pop         | 20                         |
+| push        | 20                         |
+| reduce      | this.length * 10 \|\| 10   |
+| reduceRight | this.length * 10 \|\| 10   |
+| reverse     | this.length * 10 \|\| 10   |
+| shift       | 20                         |
+| unshift     | 20                         |
+| slice       | this.length * 10 \|\| 10   |
+| some        | this.length * 10 \|\| 10   |
+| sort        | this.length * 10 \|\| 10   |
+| splice      | this.length * 10 \|\| 10   |
+| toString    | this.length * 10 \|\| 10   |
+
+例子:
+
+```js
+Array.isArray([]) // true
+[1].concat([2, 3]) // [1, 2, 3]
+[1, 2].map(item => item * 2) // [2, 4]
+```
+
+#### String
+
+| 静态方法            | 燃料消耗 |
+| ------------------- | -------- |
+| String.fromCharCode | 20       |
+
+| 实例方法    | 燃料消耗                   |
+| ----------- | -------------------------- |
+| charAt      | 20                         |
+| charCodeAt  | 20                         |
+| startsWith  | 20                         |
+| endsWith    | 20                         |
+| includes    | this.length * 10 \|\| 10   |
+| indexOf     | this.length * 10 \|\| 10   |
+| lastIndexOf | this.length * 10 \|\| 10   |
+| padStart    | arg * 10 \|\| 10           |
+| padEnd      | arg * 10 \|\| 10           |
+| repeat      | result.length * 10 \|\| 10 |
+| slice       | result.length * 10 \|\| 10 |
+| substr      | result.length * 10 \|\| 10 |
+| substring   | result.length * 10 \|\| 10 |
+| split       | result.length * 10 \|\| 10 |
+| toLowerCase | this.length * 10 \|\| 10   |
+| toUpperCase | this.length * 10 \|\| 10   |
+| trim        | 20                         |
+| trimLeft    | 20                         |
+| trimRight   | 20                         |
+
+例子:
+
+```js
+'abc'.startsWith('a') // true
+'abc'.slice(1, 2) // 'b'
+' abc '.trim() // 'abc'
+```
+
+#### Number
+
+| 静态方法          | 燃料消耗 |
+| ----------------- | -------- |
+| Number.isNaN      | 20       |
+| Number.parseFloat | 20       |
+| Number.parseInt   | 20       |
+
+| 实例方法      | 燃料消耗 |
+| ------------- | -------- |
+| toExponential | 20       |
+| toFixed       | 20       |
+| toPrecision   | 20       |
+| toString      | 20       |
+
+例子:
+
+```js
+Number.isNaN(1) // false
+Number.parseFloat('1.23') // 1.23
+Number.parseInt('1.23') // 1
+const number = 1.234
+number.toFixed(2) // 1.23
+```
+
+#### Math
+
+| 静态方法    | 燃料消耗 |
+| ----------- | -------- |
+| Math.abs    | 20       |
+| Math.acos   | 20       |
+| Math.acosh  | 20       |
+| Math.asin   | 20       |
+| Math.asinh  | 20       |
+| Math.atan   | 20       |
+| Math.atan2  | 20       |
+| Math.atanh  | 20       |
+| Math.cbrt   | 20       |
+| Math.ceil   | 20       |
+| Math.clz32  | 20       |
+| Math.cos    | 20       |
+| Math.cosh   | 20       |
+| Math.exp    | 20       |
+| Math.expm1  | 20       |
+| Math.floor  | 20       |
+| Math.fround | 20       |
+| Math.hypot  | 20       |
+| Math.imul   | 20       |
+| Math.log    | 20       |
+| Math.log10  | 20       |
+| Math.log1p  | 20       |
+| Math.log2   | 20       |
+| Math.max    | 20       |
+| Math.min    | 20       |
+| Math.pow    | 20       |
+| Math.round  | 20       |
+| Math.sign   | 20       |
+| Math.sin    | 20       |
+| Math.sinh   | 20       |
+| Math.sqrt   | 20       |
+| Math.tan    | 20       |
+| Math.tanh   | 20       |
+| Math.trunc  | 20       |
+
+例子:
+
+```js
+Math.abs(-1) // 1
+Math.max(1, 2) // 2
+Math.floor(1.23) // 1
+```
+
+#### BigInt
+
+| 实例方法 | 燃料消耗 |
+| -------- | -------- |
+| toString | 20       |
+
+例子:
+
+```js
+1n + BigInt(2) // 3n
+BigInt('999999999999999999999999999999999') // 999999999999999999999999999999999n
+BigInt('999999999999999999999999999999999').toString() // "999999999999999999999999999999999"
+```
+
+#### ArrayBuffer
+
+| 静态方法           | 燃料消耗                |
+| ------------------ | ----------------------- |
+| ArrayBuffer.isView | 20                      |
+| ArrayBuffer.from   | arg.length * 20 \|\| 20 |
+
+| 实例方法 | 燃料消耗                     |
+| -------- | ---------------------------- |
+| toString | this.byteLength * 10 \|\| 10 |
+
+例子:
+
+```js
+const buf = new ArrayBuffer(24)
+buf.toString() // ''
+
+const buf2 = ArrayBuffer.from('abc')
+buf2.toString() // 'abc'
+```
+
+#### DataView
+
+| 实例方法   | 燃料消耗 |
+| ---------- | -------- |
+| getInt8    | 20       |
+| getUint8   | 20       |
+| getInt16   | 20       |
+| getUint16  | 20       |
+| getInt32   | 20       |
+| getUint32  | 20       |
+| getFloat32 | 20       |
+| getFloat64 | 20       |
+| setInt8    | 20       |
+| setUint8   | 20       |
+| setInt16   | 20       |
+| setUint16  | 20       |
+| setInt32   | 20       |
+| setUint32  | 20       |
+| setFloat32 | 20       |
+| setFloat64 | 20       |
+
+例子:
+
+```js
+const buf = new ArrayBuffer(24)
+const dataView = new DataView(buf)
+dataView.setInt8(0, 1)
+dataView.getInt8(0) // 1
+```
