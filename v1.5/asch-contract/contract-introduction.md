@@ -59,7 +59,62 @@ ASCH智能合约语言是[Typescript语言](http://www.typescriptlang.org/docs/h
 
 ```typescript
 
-// 基础样例
+// 自定义状态类型
+class PayInfo {
+	// 转账次数
+	payTimes: number
+	// 转账总额
+	amount: number
+}
+	// 合约类
+class TestContract extends AschContract {
+	// 支持的币种，公开属性，可通过外部接口查询（下同）
+	currency: string
+	// 合约收到的转账
+	payInfoOfAddress: Mapping<PayInfo>
+	// 收到的转账总额
+	total: bigint
+	// 最大转账的地址，私有状态，外部不可查询
+	private maxAmountAddress: string
+	// 初始化方法
+	constructor() {
+		super()
+		this.currency = 'XAS'
+		this.payInfoOfAddress = new Mapping<PayInfo>()
+		this.total = BigInt(0)
+	}
+	// 向合约转账自动调用的方法
+	@payable({ isDefault : true })
+	onPay(amount: number, currency: string) {
+		const address = this.context!.senderAddress
+		assert( currency === this.currency, 'Support XAS only' )
+		assert( amount > 0 && amount < 100000000000,
+		'Amount should greater than 0 and less than 100000000000')
+		const newAmount = this.payFromAddress(amount, address)
+		if (this.getMaxAmount() < newAmount) {
+			this.maxAmountAddress = address
+		}
+	}
+	// 内部方法，外部不可访问（下同）
+	private getMaxAmount() : number {
+		return (this.maxAmountAddress === undefined) ? 0 :
+			this.getPayInfo(this.maxAmountAddress).amount
+	}
+	// 内部方法
+	private payFromAddress(amount: number, address: string) : number {
+		const payInfo = this.payInfoOfAddress[address] || 
+			{ payTimes: 0, amount: 0 }
+		payInfo.payTimes += 1
+		payInfo.amount += amount
+		this.total += BigInt(amount)
+		return payInfo.amount
+	}
+	// 内部方法
+	private getPayInfo(address: string) : PayInfo {
+		return this.payInfoOfAddress[address] ||
+			{ payTimes: 0, amount : 0 }
+	}
+}
 
 ```
 
