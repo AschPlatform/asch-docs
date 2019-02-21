@@ -86,7 +86,7 @@
   [1.5测试网址](http://testnet.asch.cn/)
 
 - 如何获取测试用的XAS？
-  请通过[水龙头](https://www.asch.io/faucet/)自动领取
+  请通过[水龙头](http://www.asch.io:3000/faucet/index.html/)领取
 
 - bug反馈及建议
   请联系开发群(QQ群: 472708713 )管理员
