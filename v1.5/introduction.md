@@ -70,7 +70,8 @@
 
 #### 3.2. 智能合约编写
 
-请参见[智能合约开发入门](./asch-contract/contract-introduction.md)
+请参见[智能合约开发入门](./asch-contract/contract-introduction.md)和
+[燃料计费表和智能合约内置函数](./asch-contract/contract-gas-functions.md)
 
 #### 3.3. 本地测试合约
 
