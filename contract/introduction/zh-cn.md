@@ -601,7 +601,7 @@ export class SimpleCrowdFundgingContract extends AschContract {
   请参见[查询智能合约公开的状态](../../http-api/zh-cn.md#2125-查询智能合约公开状态)
 
 - **使用查询方法查询状态**
-  智能合约中通过`@constant`注解修饰的方法为状态查询函数，状态查函数的返回值应是基本类型、简单自定义类型、基本类型及简单自定义类型构成的数组。且序列化为`JSON`后的字符串长度小于16K
+  智能合约中通过`@constant`注解修饰的方法为状态查询函数，状态查函数的返回值应是基本类型、简单自定义类型、基本类型及简单自定义类型构成的数组。且序列化为`JSON`后的字符串长度小于32K
   状态查询函数通过`HTTP POST`接口访问，访问地址为：`{serverAddress}/api/v2/contracts/{contractName}/constant/{method}`
   请参见[使用智能合约查询方法](../../http-api/zh-cn.md#2.12.7-调用查询方法)
 
