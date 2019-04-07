@@ -4114,7 +4114,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   | name     | string | 智能合约名称，全网唯一，4 ~ 32 个字符组成。必须是字母开头，可包含字母、数字或下划线  |
   | version  | string | 合约引擎版本，该参数未来可能取消，测试时请填v0.3  | 
   | desc     | string | 不超过255个字符，对合约描述信息 | 
-  | code     | string | 合约代码，长度不超过20K | 
+  | code     | string | 合约代码，长度不超过16K | 
   |consumeOwnerEnergy|boolean|是否优先消耗创建者能量|
 
   代码示例

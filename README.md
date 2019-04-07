@@ -21,4 +21,3 @@
   + [智能合约开发入门](./contract/introduction/zh-cn.md)
   + [智能合约开发实战](./contract/contract-in-action/zh-cn.md)
   + [智能合约Gas计费与函数库](./contract/gas-and-functions/zh-cn.md)
-  + [智能合约相关HTTP API](./contract/http-api/zh-cn.md)
