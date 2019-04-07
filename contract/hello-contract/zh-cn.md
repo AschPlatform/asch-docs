@@ -21,7 +21,7 @@ cd [my-asch-contract] && npm test
 
 ### 1.2. 本地全节点安装
 
-我们建议开发者安装本地合约运行环境[请参见链接](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。如不选择搭建本地开发环境
+我们建议开发者安装本地合约运行环境[请参见节点安装](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。如不选择搭建本地开发环境
 
 ```sh
 git clone https://github.com/AschPlatform/asch
@@ -37,7 +37,7 @@ mkdir -p public/dist
 
 ## 2. 编写智能合约
 
-如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[请参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：
+如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[语法参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：
 
 ```typescript
 const CURRENCY = 'XAS'
