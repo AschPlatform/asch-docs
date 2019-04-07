@@ -1,8 +1,5 @@
 # asch_docs
 
-## v1.5.0测试说明 
-
-
 ## 文档索引
 - [v1.5测试指南](./v1.5.0-test.md)
 - [ASCH白皮书](./whitepaper/asch/zh-cn.md)
