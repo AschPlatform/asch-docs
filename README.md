@@ -2,7 +2,7 @@
 
 ## 文档索引
 
-- [Asch白皮书](./whitepaper/asch/zh-cn.md)
+- [ASCH白皮书](./whitepaper/asch/zh-cn.md)
 - [全节点安装](./install/zh-cn.md)
 - [受托人锻造区块及收益机制](./delegate-forging/zh-cn.md)
 - [asch-js 使用指南](./asch-js/zh-cn.md)
@@ -17,8 +17,8 @@
   + [侧链DApp 开发介绍](./side-chain/introduction/zh-cn.md)
   + [侧链SDK 使用指南](./side-chain/sdk/zh-cn.md)
 - [智能合约](./contract)
-  + [智能合约开发5分钟入门](./contract/hello-contract/zh-cn.md)
-  + [智能合约开发介绍](./contract/introduction/zh-cn.md)
+  + [5分钟开发ASCH智能合约](./contract/hello-contract/zh-cn.md)
+  + [智能合约开发入门](./contract/introduction/zh-cn.md)
   + [智能合约开发实战](./contract/contract-in-action/zh-cn.md)
-  + [智能合约Gas计费与函数库](./contract/gas-and-library/zh-cn.md)
+  + [智能合约Gas计费与函数库](./contract/gas-and-functions/zh-cn.md)
   + [智能合约相关HTTP API](./contract/http-api/zh-cn.md)
