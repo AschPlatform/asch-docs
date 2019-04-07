@@ -583,11 +583,11 @@ export class SimpleCrowdFundgingContract extends AschContract {
 
 #### 4.3.1. 合约开发环境准备
 
-请参见[5分钟开发ASCH智能合约](../hello-contract/zh-cn.md#1.-开发环境搭建)
+请参见[5分钟开发ASCH智能合约](../hello-contract/zh-cn.md#1-开发环境搭建)
 
 #### 4.3.2. 部署合约  
 
-请参见[5分钟开发ASCH智能合约](../hello-contract/zh-cn.md#4.-在区块链上部署智能合约)
+请参见[5分钟开发ASCH智能合约](../hello-contract/zh-cn.md#4-在区块链上部署智能合约)
 
 #### 4.3.3. 智能合约相关交易接口
 
