@@ -44,16 +44,16 @@
 
 - 必须是linux系统，建议使用 Ubuntu 14.04 以上的64位系统
 - 必须有公网ip
-- 建议CPU 2核以上
-- 建议内存2G以上
+- 建议CPU 4核以上
+- 建议内存8G以上
 - 建议带宽2Mb以上
-- 建议硬盘空间30GB以上
+- 建议硬盘空间32GB以上
 
 ### 1.2 系统依赖安装
 
 ```
 # Install dependency package
-sudo apt-get install curl sqlite3 ntp wget git libssl-dev openssl make gcc g++ autoconf automake python build-essential -y
+sudo apt-get install curl ntp wget git libssl-dev openssl make gcc g++ autoconf automake python build-essential -y
 # libsodium for ubuntu 14.04
 sudo apt-get install libtool -y
 # libsodium for ubuntu 16.04
@@ -62,7 +62,7 @@ sudo apt-get install libtool libtool-bin -y
 
 ### 1.3 Node.js 安装
 
-阿希支持的是Node.js 最新的 LTS 版本，目前版本为v8.11.3。在安装 node.js 时一定要注意版本是否符合要求。建议使用 nvm 管理版本。
+阿希1.5基于Node.js v10.14开发，最低要求为v10.14(推荐使用当前最新LTS版本：v10.15.1)。在安装 node.js 时一定要注意版本是否符合要求。建议使用 nvm 管理版本。
 
 ```
 # Install nvm
@@ -74,9 +74,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Install node and npm for current user.
-nvm install v8
+nvm install v10
 
-# check node version and it should be v8.x.x
+# check node version and it should be v10.x.x
 node --version
 ```
 
