@@ -134,7 +134,7 @@ aschWeb.api
 
 ### 构建交易-->签名交易-->广播交易
 
-1. [TransactionBuilder 生成未签名的交易](https://github.com/AschPlatform/asch-web/blob/master/src/builders/README.md)
+1. [TransactionBuilder 生成未签名的交易](./src/builders/README.md)
 ```
 let trans = TransactionBuilder.transferXAS(1000,to,'test')
 console.log('unsigned transcation:'+JSON.stringify(trans))
@@ -192,4 +192,39 @@ result:
 	"success": true,
 	"transactionId": "15cab894a1c86b68c33e0c47e292fdb474cdca73d6337fd2c7f138c48d6e20e3"
 }
+```
+
+
+### 智能合约基本使用
+
+
+```javascript
+const contract = await aschWeb.createContractFromName('crowdFundging_v1')
+```
+
+### 调用合约方法
+
+```javascript
+let result = await contract.call('getXXT', ['233'], 1000000, false)
+console.log('testContract result:' + JSON.stringify(result))
+
+```
+
+### 转账到合约
+
+```javascript
+  contract.pay('XAS', '12345', contract.name, 1000000, false).
+    then(res => {
+      if (res.success) {
+        alert('调用成功')
+        //document.getElementById('result').innerHTML = JSON.stringify(res)
+      } else {
+       // alert(res.error)
+        console.error(res)
+      }
+    }).catch(err => {
+      alert(res.error)
+      console.error(err)
+    })
+
 ```
