@@ -61,7 +61,7 @@ sudo apt-get install libtool libtool-bin -y
 
 ### 1.3 Node.js 安装
 
-ASCH v1.5基于Node.js v10.14开发，**最低要求为v10.14**(推荐使用当前最新LTS版本：v10.15.1)。在安装 node.js 时一定要注意版本是否符合要求。建议使用 nvm 管理版本。
+ASCH v1.5基于Node.js v10.13开发，**最低要求为v10.13**(推荐使用当前最新LTS版本：v10.15.1)。在安装 node.js 时一定要注意版本是否符合要求。建议使用 nvm 管理版本。
 
 ```sh
 # Install nvm
