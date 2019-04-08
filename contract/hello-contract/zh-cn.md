@@ -21,11 +21,12 @@ cd [my-asch-contract] && npm test
 
 ### 1.2. 本地全节点安装
 
-我们建议开发者安装本地合约运行环境[请参见链接](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。如不选择搭建本地开发环境
+我们建议开发者安装本地合约运行环境[请参见节点安装](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。如不选择搭建本地开发环境
 
 ```sh
-git clone https://github.com/AschPlatform/asch/tree/v1.5.0-beta
+git clone https://github.com/AschPlatform/asch
 cd asch
+git checkout develop
 npm install
 
 #手动创建相关目录
@@ -36,29 +37,127 @@ mkdir -p public/dist
 
 ## 2. 编写智能合约
 
-如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[请参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：
+如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[语法参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：
 
+```typescript
+const CURRENCY = 'XAS'
 
+class Payment {
+  address: string
+  amount: bigint
 
-## 3. 对合约进行测试
+  constructor(address: string, amount: bigint) {
+    this.address = address
+    this.amount = amount
+  }
+}
 
-### 3.1. 模拟测试
+export class HelloContract extends AschContract {
+  private total: bigint
+  private payments: Vector<Payment>
 
-根据智能合约的逻辑编写测试用例进行测试，参考合约模板自带的Demo的所自带的测试用例
+  constructor() {
+    super()
+    this.total = BigInt(0)
+    this.payments = new Vector<Payment>()
+  }
 
-### 3.2. 在本地节点上进行测试
+  @payable({ isDefault: true })
+  onPay(amount: bigint, currency: string) {
+    assert(amount > 0, `Amount should greater than 0`)
+    assert(currency === CURRENCY, `Please pay ${CURRENCY}`)
+
+    this.total += amount
+    const payment = new Payment(this.context.senderAddress, amount)
+    this.payments.push(payment)
+  }
+
+  @constant
+  getPayTimes(): number {
+    return this.payments.size()
+  }
+
+  @constant
+  getTotal(): bigint {
+    return this.total
+  }
+}
+```
+
+上述合约非常简单，先定义了一个合约状态的类型`Payment`，用于保存合约的状态。
+然后实现了一个合约类`HelloContract`，包括：
+
+- `total`和`payments`两个状态，分别存储总余额和转账历史
+- `onPay`方法，通过`@payable`注解进行修饰，表示当合约默认接收转账的处理方法。该方法只是简单记录下转账的地址和金额，同时更新合约账户总余额
+- `@constant`注解修饰的两个方法，用于查询合约内部状态。
+
+## 3. 对合约进行调试与测试
+
+### 3.1. 合约代码模拟调试
+
+#### 3.1.1. 通过jest-runner插件进行调试
+
+  1. 安装 [Jest Runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner)
+  2. 在 __tests__/SimpleContract.test.ts 某个 it 测试里添加断点，右键选择「Debug Jest」
+
+#### 3.1.2. 设置vscode的调试配置
+
+  1. 自己编写 test.ts，引入 mock.ts 和 SimpleContract.ts
+  2. 设置 .vscode/launch.json 如下：
+
+  ```json
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Test Contract",
+        "args": [
+          "-r",
+          "${workspaceFolder}/node_modules/ts-node/register",
+          "${workspaceFolder}/test.ts"
+        ]
+      }
+    ]
+  }
+  ```
+
+  3. 在 SimpleContract.ts 添加断点
+  4. 启动调试
+
+### 3.2. 合约测试
+
+### 3.2.1. 合约模拟单元测试
+
+请参考模板项目中的示例测试代码编写单元测试用例，通过测试工具进行单元测试。
+
+### 3.2.2. 在本地节点上进行测试
 
 由于模拟测试是在普通的Node.js环境中，通过moke的方法对合约逻辑进行测试。不是在合约的VM中运行，不能代表实际的合约运行情况，故需要将合约部署到本地节点上进行测试(部署方法见第4节)。
 
---TODO: 使用asch-web调用合约
-
+可以通过[智能合约查询接口](../../http-api/zh-cn.md#212-智能合约)、[智能合约交易接口](../../http-api/zh-cn.md#37-智能合约)或[asch-web](../../asch-web/zh-cn.md)提供的方法实现合约注册、向合约转账、调用合约方法以及访问合约中的状态，测试合约在区块链上的运行效果。
 
 ## 4. 在区块链上部署智能合约
+
+目前可以通过下面几种方法部署智能合约：
+
+- 使用ASCH平台的Web客户端界面操作注册合约
 
 使用ASCH自带的客户端环境，或使用测试网的网页客户端，找到`智能合约->我发布的合约`，单击`提交新合约`。填写智能合约名称、智能合约代码、合约描述、gasLimit以及是否优先消耗合约创建者的能量等参数，单击`提交合约`进行提交。
 
 如果提交失败系统会提示错误信息，提交成功后，稍后会在`我发布的合约`中看到刚提交的合约。
 
-## 5. 更多
+- 使用HTTP接口注册合约
 
-诚然，实际的智能合约开发内容比本文档中描述的复杂。智能合约开发过程中也有一些注意事项与语法约定。具体请参考 [ASCH智能合约开发入门](../introduction/zh-cn.md)和[ASCH智能合约开发实战](../contract-in-action/zh-cn.md)
+通过[智能合约交易接口](../../http-api/zh-cn.md#371-注册智能合约)提交交易的方式来注册合约
+
+
+## 5. 进一步阅读
+
+诚然，实际的智能合约开发内容比本文档中描述的复杂。智能合约开发过程中也有一些注意事项与语法约定。更多文档请参考：
+
+- [ASCH智能合约开发入门](../introduction/zh-cn.md)
+- [ASCH智能合约开发实战](../contract-in-action/zh-cn.md)
+- [Gas与内置函数](../gas-and-functions/zh-cn.md)
+- [asch-web使用指南](../../asch-web/zh-cn.md)

@@ -3,7 +3,6 @@
 Table of Contents
 =================
 
-
    * [ASCH HTTP API文档](#asch-http-api文档)
       * [<strong>1 API使用说明</strong>](#1-api使用说明)
       * [<strong>2 基本接口</strong>](#2-基本接口)
@@ -61,7 +60,7 @@ Table of Contents
             * [<strong>2.9.1 获取所有代理人账户</strong>](#291-获取所有代理人账户)
             * [<strong>2.9.2 获取某个代理下的委托客户</strong>](#292-获取某个代理下的委托客户)
             * [<strong>2.9.3 获取Group信息</strong>](#293-获取group信息)
-         * [<strong>2.10 Dapp查询接口</strong>](#210-dapp查询接口)
+         * [<strong>2.10 侧链DApp查询接口</strong>](#210-dapp查询接口)
             * [<strong>2.10.1 获取所有已注册侧链</strong>](#2101-获取所有已注册侧链)
          * [<strong>2.11 用户自定义资产uia</strong>](#211-用户自定义资产uia)
             * [<strong>2.11.1 获取全网所有发行商</strong>](#2111-获取全网所有发行商)
@@ -70,9 +69,17 @@ Table of Contents
             * [<strong>2.11.4 获取全网所有资产信息</strong>](#2114-获取全网所有资产信息)
             * [<strong>2.11.5 获取指定资产信息</strong>](#2115-获取指定资产信息)
             * [<strong>2.11.6 获取指定账户所有uia的余额</strong>](#2116-获取指定账户所有uia的余额)
+         * [<strong>2.12 智能合约</strong>](#211-智能合约)
+            * [<strong>2.12.1 查询智能合约列表</strong>](#2121-查询智能合约列表)
+            * [<strong>2.12.2 查询智能合约详细信息</strong>](#2122-查询智能合约详细信息)
+            * [<strong>2.12.3 查询智能合约代码</strong>](#2123-查询智能合约代码)
+            * [<strong>2.12.4 查询智能合约元数据</strong>](#2124-查询智能合约元数据)
+            * [<strong>2.12.5 查询智能合约公开状态</strong>](#2125-查询智能合约公开状态)
+            * [<strong>2.12.6 查询智能合约执行结果</strong>](#2126-查询智能合约执行结果)
+            * [<strong>2.12.7 调用查询方法</strong>](#2127-调用查询方法)
       * [<strong>3. 事务接口</strong>](#3-事务接口)
          * [<strong>请求过程说明</strong>](#请求过程说明)
-         * [<strong>3.1 基础合约</strong>](#31-基础合约)
+         * [<strong>3.1 基础交易</strong>](#31-基础交易)
             * [<strong>3.1.1 转账</strong>](#311-转账)
             * [<strong>3.1.3 设置二级密码</strong>](#313-设置二级密码)
             * [<strong>3.1.4 锁仓</strong>](#314-锁仓)
@@ -89,16 +96,17 @@ Table of Contents
             * [<strong>3.2.2 注册资产</strong>](#322-注册资产)
             * [<strong>3.2.3 发行资产</strong>](#323-发行资产)
             * [<strong>3.2.4 内部转账</strong>](#324-内部转账)
-         * [<strong>3.3 DApp合约</strong>](#33-dapp合约)
-            * [<strong>3.3.2 修改委托人</strong>](#332-修改委托人-)
+         * [<strong>3.3 侧链DApp</strong>](#33-侧链DApp)
+            * [<strong>3.3.1 注册侧链DApp</strong>](#331-注册侧链DApp)         
+            * [<strong>3.3.2 修改委托人</strong>](#332-修改委托人)
             * [<strong>3.3.3 增加委托人</strong>](#333-增加委托人)
             * [<strong>3.3.4 删减委托人</strong>](#334-删减委托人)
-            * [<strong>3.3.6 从 DApp 提现</strong>](#336-从-dapp-提现)
-         * [<strong>3.4 提案相关合约</strong>](#34-提案相关合约)
+            * [<strong>3.3.6 从侧链DApp提现</strong>](#336-从-dapp-提现)
+         * [<strong>3.4 提案相关</strong>](#34-提案相关)
             * [<strong>3.4.1 发起提案</strong>](#341-发起提案)
             * [<strong>3.4.2 给提案投票</strong>](#342-给提案投票)
             * [<strong>3.4.3 激活提案</strong>](#343-激活提案)
-         * [<strong>3.5 网关合约</strong>](#35-网关合约)
+         * [<strong>3.5 网关</strong>](#35-网关)
             * [<strong>3.5.1 开启网关</strong>](#351-开通网关账户)
             * [<strong>3.5.2 注册成员</strong>](#352-注册成员)
             * [<strong>3.5.3 对网关充值</strong>](#353-对网关充值)
@@ -106,12 +114,15 @@ Table of Contents
             * [<strong>3.5.5 提交提现交易</strong>](#355-提交提现交易)
             * [<strong>3.5.6 提交交易签名</strong>](#356-提交交易签名)
             * [<strong>3.5.7 提交交易协议</strong>](#357-提交交易协议)
-         * [<strong>3.6 理事会合约</strong>](#36-理事会合约)
+         * [<strong>3.6 理事会</strong>](#36-理事会)
             * [<strong>3.6.1 投票</strong>](#361-投票)
             * [<strong>3.6.2 激活理事会</strong>](#362-激活理事会)
             * [<strong>3.6.3 增加成员</strong>](#363-增加成员)
             * [<strong>3.6.4 移除成员</strong>](#364-移除成员)
-
+         * [<strong>3.7 智能合约</strong>](#37-智能合约)
+            * [<strong>3.7.1 注册智能合约</strong>](#371-注册智能合约)
+            * [<strong>3.7.2 调用智能合约</strong>](#372-调用智能合约)
+            * [<strong>3.7.3 向智能合约转账</strong>](#373-向智能合约转账)
 Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ## **1 API使用说明**   
@@ -2282,7 +2293,7 @@ curl -k -X GET 'http://192.168.1.78:4096/api/v2/groups/G3sQzuWpvXZjxhoYnvvJvnfUU
 }
 ```
 
-### **2.10 Dapp查询接口**
+### **2.10 侧链DApp查询接口**
 
 #### **2.10.1 获取所有已注册侧链**
 
@@ -2593,8 +2604,265 @@ JSON返回示例：
 curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/uia/balances/AKKHPvQb2A119LNicCQWLZQDFxhGVEY57a' && echo
 ```
 
-JSON返回示例：   
+JSON返回示例：  
 
+
+### **2.12 智能合约**
+#### **2.12.1 查询智能合约列表**
+接口地址：/api/v2/contracts/  
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|N|合约名称|
+|ownerId|string|N|创建人地址|
+|address|string|N|合约地址|
+|limit|integer|N|限制结果集个数，最小值：0,最大值：100|
+|offset|integer|N|偏移量，最小值0|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|contracts|list|合约信息列表，包括：合约Id, 合约名称，交易Id，合约地址，合约创建者地址，合约虚拟机版本，是否优先使用创建者能量，合约描述，创建时间
+|count|integer|符合条件的合约数量|
+
+请求示例：   
+```sh   
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2/contracts/?ownerId=ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5' && echo
+```
+返回示例
+```json
+{
+  "success": true,
+  "count": 1,
+  "contracts": [
+    {
+      "id": 58,
+      "name": "test-contract",
+      "tid": "2273aeb3aedff822d4263066216ed8709995d9701d2dd6239f9dceb8813c4604",
+      "address": "SFcxEbU7sK2UuYRgqeK6chBX4uDAs8eyLj",
+      "ownerId": "ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5",
+      "vmVersion": "v0.1",
+      "consumeOwnerEnergy": 0,
+      "desc": "test contract",
+      "timestamp": 87580096
+    }
+  ]
+}
+```
+
+#### **2.12.2 查询智能合约详细信息**
+接口地址：/api/v2/contracts/:name 
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|Y|合约名称|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|contract|object|合约详细信息，包括：合约Id, 合约名称，交易Id，合约地址，合约创建者地址，合约虚拟机版本，是否优先使用创建者能量，合约描述，合约代码，合约元数据，创建时间
+
+
+请求示例：   
+```sh   
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2/contracts/sample' && echo
+```
+返回示例
+```json
+{
+  "success": true,
+  "contract": {
+    "id": 58,
+    "tid": "2273aeb3aedff822d4263066216ed8709995d9701d2dd6239f9dceb8813c4604",
+    "name": "test-contract",
+    "address": "SFcxEbU7sK2UuYRgqeK6chBX4uDAs8eyLj",
+    "ownerId": "ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5",
+    "consumeOwnerEnergy": 0,
+    "desc": "test contract",
+    "vmVersion": "v0.1",
+    "code": "...", //省略详细代码
+    "metadata": {...} //省略详细元数据
+    "timestamp": 87580096
+  }
+}
+```
+
+#### **2.12.3 查询智能合约代码**
+接口地址：/api/v2/contracts/:name/code
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|Y|合约名称|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|code|string|合约代码 |
+
+请求示例：   
+```sh   
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2/contracts/sample/code' && echo
+```
+返回示例
+```json
+{
+  "success": true,
+  "code": "..." //省略详细代码
+}
+```
+#### **2.12.4 查询智能合约元数据**
+接口地址：/api/v2/contracts/:name/metadata
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|Y|合约名称|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|metadata|object|合约元数据 |
+
+请求示例：   
+```sh   
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2/contracts/sample/metadata' && echo
+```
+返回示例
+```json
+{
+  "success": true,
+  "metadata": {...} //省略详细元数据
+}
+```
+#### **2.12.5 查询智能合约公开状态**
+接口地址：/api/v2/contracts/:name/states/:path
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|Y|合约名称|
+|path|string|Y|状态的路径，状态路径是用'.'号分隔的一个字符串，表示要查询的状态所在的合约对象的位置。如：'amount'表示查询合约的amount属性，'payments.0'表示payments对象的第0个元素，'paymentOfAddress.ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5'表示合约的paymentOfAddress['ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5']。以此类推|
+
+需要注意的是，**该方法仅可查询公开的简单属性的值，否则会失败**。如amount是`private`的则查询会失败。如paymentOfAddress的类型是`Mapping<Payment>`这种复杂类型，查询也会失败。如需实现更复杂的查询，请参考智能合约开发文档，使用查询方法。
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|data|any|状态值|
+
+请求示例：   
+```sh   
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2/contracts/sample/states/amount' && echo
+```
+返回示例
+```json
+{
+  "success": true,
+  "amount": 100
+}
+```
+#### **2.12.6 查询智能合约执行结果**
+接口地址：/api/v2/contracts/:name/results/:tid
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|Y|合约名称|
+|tid|string|Y|执行合约的交易Id|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|result|object|合约执行结果(包括合约注册、合约调用或向合约转账), 包括是否执行成功，错误信息(如果失败），消耗的Gas等信息|
+
+请求示例：   
+```sh   
+curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2/contracts/sample/results/2273aeb3aedff822d4263066216ed8709995d9701d2dd6239f9dceb8813c4604' && echo
+```
+返回示例
+```json
+{
+  "success": true,
+  "result": {
+    "gas": 5492,
+    "error": "",
+    "stateChangesHash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+    "tid": "2273aeb3aedff822d4263066216ed8709995d9701d2dd6239f9dceb8813c4604",
+    "contractId": 58,
+    "success": true
+  }
+}
+```
+
+#### **2.12.7 调用查询方法**
+接口地址：/api/v2/contracts/:name/constants/:method
+请求方式：GET   
+支持格式：urlencoded 
+
+请求参数说明：
+
+|名称	|类型   |必填 |说明              |
+|------ |-----  |---  |----              |
+|name|string|Y|合约名称|
+|method|string|Y|查询方法名称|
+|args|json|Y|查询方法参数数组，以json形式放在请求的body中。查询方法参数必须是数组，如果没有参数请使用空数组|
+
+返回参数说明：   
+
+|名称	|类型   |说明              |
+|------ |-----  |----              |
+|success|boolean  |是否成功 |
+|data|any|查询方法返回的结果|
+
+请求示例
+```sh
+curl -H "Content-Type: application/json" -k -X POST -d '["ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5"]' 'http://192.168.1.78:4096/api/v2/contracts/sample/constant/getTimes'
+```
+表示如下调用的返回结果
+```javascript
+  getTimes('ABuH9VHV3cFi9UKzcHXGMPGnSC4QqT2cZ5')
+```
+
+返回示例
+```json
+{
+  "success": true,
+  "data": 100
+}
+```
 
 ## **3. 事务接口**   
 
@@ -2604,11 +2872,11 @@ JSON返回示例：
 
 params是一个对象，先介绍下它的所含属性。
 
-- **type：     合约编号**
+- **type：     交易类型**
 
 - **fee：        手续费**
 
-- **args：      合约所需参数**
+- **args：      交易所需参数**
 
 - **message：备注**
 
@@ -2616,9 +2884,9 @@ params是一个对象，先介绍下它的所含属性。
 
 - **secondSecret：二级密码**
 
-  对于不同的合约，合约编号，手续费及合约所需要的参数是不同的。
+  对于不同的交易，交易类型，手续费及所需要的参数是不同的。
 
-  下面列举一个转账合约的例子
+  下面列举一个转账交易的例子
 
 ```js
 let message = '备注' ，amount = 50*100000000,
@@ -2629,9 +2897,9 @@ let args = [amount,recipient],  //第一个参数是转账金额，第二个参�
      
 //构造params对象
 let params = {
-        type:1,      //转账的合约编号是1  
+        type:1,      //转账的交易类型是1  
         fee:0.1*100000000,    //转账的手续费是0.1XAS
-        args：args  //合约所需要参数
+        args：args  //交易所需要的参数
         message,    //做一些备注（非必需）
         secret:mySecret,   //我的密码（发送这笔交易的人的secret）
         secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
@@ -2671,15 +2939,15 @@ curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k 
 {success: true,transactionId:"609074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502"}
 ```
 
-以上就是调用一次合约的全部过程，其实对于不同的合约，所需要变换的变量有type，fee，args这三个属性。
+以上就是调用一次交易的全部过程，其实对于不同的交易，所需要变换的变量有type，fee，args这三个属性。
 
-下面枚举所有合约所需要的这三个属性（主要是这三个属性）
+下面枚举所有交易所需要的这三个属性（主要是这三个属性）
 
 XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上100000000，为了简洁，下面使用XAS的时候替换如下：
 
   **const   XAS = 100000000**
 
-### **3.1 基础合约**   
+### **3.1 基础交易**   
 
 #### **3.1.1 转账**   
 - **type：1**
@@ -2703,9 +2971,9 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   
   //构造params对象
   let params = {
-          type:1,      //转账的合约编号是1  
+          type:1,      //转账的交易类型是1  
           fee:0.1*100000000,    //转账的手续费是0.1XAS
-          args：args  //合约所需要参数
+          args：args  //交易所需要的参数
           message,    //做一些备注（非必需）
           secret:mySecret,   //我的密码（发送这笔交易的人的secret）
           secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
@@ -2748,9 +3016,9 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   
   //构造params对象
   let params = {
-          type:2,      //转账的合约编号是1  
+          type:2,      //转账的交易类型是1  
           fee:10*100000000,    //转账的手续费是0.1XAS
-          args：args  //合约所需要参数
+          args：args  //交易所需要的参数
           message,    //做一些备注（非必需）
           secret:mySecret,   //我的密码（发送这笔交易的人的secret）
           secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
@@ -3211,9 +3479,9 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   http.POST(trs)  //详情见请求过程说明
   ```
 
-### **3.3 DApp合约**
+### **3.3 侧链DApp**
 
-#### **3.3.1 注册dapp**
+#### **3.3.1 注册侧链DApp**
 
 - **type：200**
 
@@ -3281,7 +3549,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 - **fee：   1*XAS**
 - **args： [chain,key]**
 
-#### **3.3.5 充值到 DApp**
+#### **3.3.5 充值到侧链DApp**
 
 - **type：204**
 
@@ -3316,7 +3584,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   http.POST(trs)  //详情见请求过程说明
   ```
 
-#### **3.3.6 从 DApp 提现**
+#### **3.3.6 从侧链DApp提现**
 
 - **type：205**
 
@@ -3333,9 +3601,9 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   |    oid    | string |          |
   |    seq    | string |          |
 
-  **备注**：该合约不由用户或开发者发起
+  **备注**：该交易不由用户或开发者发起
 
-### **3.4 提案相关合约**
+### **3.4 提案相关**
 
 #### **3.4.1 发起提案**
 
@@ -3510,7 +3778,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   http.POST(trs)  //详情见请求过程说明
   ```
 
-### **3.5 网关合约**
+### **3.5 网关**
 
 #### **3.5.1 开通网关账户**
 
@@ -3703,7 +3971,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   | oid  | string |        |
 
 
-### **3.6 理事会合约**
+### **3.6 理事会**
 
 #### **3.6.1 投票**
 
@@ -3829,4 +4097,126 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //使用asch-js生成交易信息
   let trs = AschJS.transaction.createTransactionEx(params)
   http.POST(trs)  //详情见请求过程说明
+  ```
+
+### **3.7 智能合约**
+
+#### **3.7.1 注册智能合约**
+- **type：600**
+
+- **fee：  0**
+
+- **args： [gasLimit, name, version, desc, code, consumeOwnerEnergy]**
+
+  |  名称   |  类型  | 说明     |
+  | :-----: | :----: | -------- |
+  | gasLimit | number | 注册合约最大可消耗的Gas，100 <= gasLimit <= 10000000 |
+  | name     | string | 智能合约名称，全网唯一，4~32 个字符组成。必须是字母开头，可包含字母、数字或下划线  |
+  | version  | string | 合约引擎版本，该参数未来可能取消，测试时请填v0.3  | 
+  | desc     | string | 不超过255个字符，对合约描述信息 | 
+  | code     | string | 合约代码，长度不超过32K | 
+  |consumeOwnerEnergy|boolean|是否优先消耗创建者能量|
+
+  代码示例
+
+  ```js
+  //args参数示例
+  const gasLimit = 5000000
+  const name = 'test-contract'
+  const version = 'v0.3'
+  const desc = '这是一个测试合约'
+  const code = '...'// 合约代码
+  
+  let args = [gasLimit, name, version, desc, code, true]
+  let params = {
+    type:600,   
+    fee: 0,  
+    args, 
+    message, 
+    secret:mySecret,  
+    secondSecret:mySecondSecret } 
+  //使用asch-js生成交易信息
+  let trs = AschJS.transaction.createTransactionEx(params)
+  http.POST(trs)  //详情见请求过程说明
+  ```
+
+#### **3.7.2 调用智能合约**
+- **type：601**
+
+- **fee：  0**
+
+- **args： [gasLimit, enablePayGasInXAS, name, method, methodArgs]**
+
+  |  名称   |  类型  | 说明     |
+  | :-----: | :----: | -------- |
+  | gasLimit | number | 注册合约最大可消耗的Gas，100 <= gasLimit <= 10000000 |
+  |enablePayGasInXAS|boolean|当调用者能量不足时是否使用XAS抵扣Gas|  
+  | name     | string | 智能合约名称|
+  | method   | string | 调用的合约方法名称 | 
+  | methodArgs| array | 调用合约方法的参数数组 | 
+
+  代码示例
+
+  ```js
+  //args参数示例
+  const gasLimit = 5000000
+  const name = 'test-contract'
+  const method = 'increase'
+  const methodArgs = [1, 'test']
+  
+  let args = [gasLimit, name, true,  method, methodArgs]
+  let params = {
+    type:601,   
+    fee: 0,  
+    args, 
+    message, 
+    secret:mySecret,  
+    secondSecret:mySecondSecret } 
+  //使用asch-js生成交易信息
+  let trs = AschJS.transaction.createTransactionEx(params)
+  http.POST(trs)  //详情见请求过程说明
+
+  //上述代码相当于调用合约中的方法如下：
+  increase(1, 'test')
+
+  ```
+
+#### **3.7.3 向智能合约转账**
+- **type：602**
+
+- **fee：  0**
+
+- **args： [gasLimit, enablePayGasInXAS, receiverPath, amount, currency]**
+
+  |  名称   |  类型  | 说明     |
+  | :-----: | :----: | -------- |
+  | gasLimit | number | 注册合约最大可消耗的Gas，100 <= gasLimit <= 10000000 |
+  |enablePayGasInXAS|boolean|当调用者能量不足时是否使用XAS抵扣Gas|  
+  | receiverPath| string | 接收资产的方法路径，格式为：'合约名称或地址/接收方法名'，如果是默认的转账接收方法(请参见智能合约开发文档)，只需要写合约名称或地址即可 |
+  | amount   | bigint / string | 转入合约的资产数量 | 
+  | currency| string | 转入合约的资产名称 | 
+
+**注意：由于bigint不可作为json传输**,故系统支持将字符串自动转换为`bigint`类型。`amount`支持传入bigint或string
+
+  代码示例
+
+  ```js
+  //args参数示例
+  const gasLimit = 5000000
+  const reciverPath = 'test-contract/onPay'
+  const amount = BigInt(100 * (10 ** 8)) // 100 XAS
+  const currency = 'XAS'
+  
+  let args = [gasLimit, name, true,  reciverPath, amount, currency]
+  let params = {
+    type:602,   
+    fee: 0,  
+    args, 
+    message, 
+    secret:mySecret,  
+    secondSecret:mySecondSecret } 
+  //使用asch-js生成交易信息
+  let trs = AschJS.transaction.createTransactionEx(params)
+  http.POST(trs)  //详情见请求过程说明
+
   ```

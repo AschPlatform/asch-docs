@@ -28,20 +28,20 @@ ASCH智能合约平台致力于成为一个开发者可以快速上手的安全�
 
 #### 1.3.2. 基于Typescript子集的合约语言
 
-##### 不设计新的合约语言
+- 不设计新的合约语言
 
 智能合约语言的选择首先要做的决策是设计一门全新的智能合约语言(例如：以太坊的Solidity)还是使用一个现有的语言(例如：以太坊的Vyper)。由于智能合约是一种DSL，理论上来说设计一个新语言是最合适的方式。但设计一个新语言不仅周期长、实现风险高，更重要的是对开发人员来说学习和迁移成本更高。而且设计一个全新的语言同时还需要一个全新的运行环境，可能会引入大量的bug。  
 另一方面从语言本身来说，现在流行的主流语言特性是趋同的。基于上述两方面原因，ASCH智能合约平台选择使用已有的成熟语言，而不是设计一个新的合约语言(正因为上述原因，以太坊平台上的新的智能合约语言Vyper是基于Python的)。
 
-##### 不支持多语言
+- 不支持多语言
 
 对开发人员来说，选择语言需要同时考虑和语言相关的框架、类库等生态。而在智能合约平台中，提供的类库等工具是一样的；支持多语言只是语法上的差别，对实际开发影响并不大。故ASCH智能合约平台暂不支持多语言。
 
-##### 不使用WebAssembly
+- 不使用WebAssembly
 
 WebAssembly是目前呼声很高的智能合约中间语言，理论上支持使用多种语言编写然后编译成WebAssembly在引擎中运行。WebAssembly相对原生Javascript来说是一种执行效率更高的方案。通过调研我们发现：目前相对成熟的是Rust和C++语言编译成WebAssembly，其他语言的WebAssembly环境中的配套工具严重匮乏，会导致合约编写困难；而Rust和C++对于开发人员来说门槛高、不友好。所以我们选择了Typescript作为合约编写语言编译成Javascript在Node.js引擎环境中运行。在WebAssembly环境成熟后，可以将合约编译成WebAssembly在Node.js中运行，开发人员不需要对合约进行调整。
 
-##### 使用Typescript语言作为合约编写语言
+- 使用Typescript语言作为合约编写语言
 
 TypeScript是一种由微软开发的自由和开源的编程语言，它是JavaScript的一个超集，由实现了静态类型和基于类的面向对象编程。由Anders Hejlsberg设计(他同时还是Delphi和.NET平台的设计师)，Typescript借鉴了许多C#、Java等现代语言的优点，相对Javascript来说具有更为安全、更完善的工具支持、代码更易维护的特点。很多的流行的框架(如：AngularJS、ReactJS、Vue等)都基于Typescript开发。ASCH智能合约平台使用Typescript语言作为智能合约编写语言可以实现对合约代码的有效性检查、减少智能合约编写过程中的bug，通过开发工具的智能提示提升开发效率。
 
@@ -58,7 +58,98 @@ ASCH智能合约语言是[Typescript语言](http://www.typescriptlang.org/docs/h
 #### 2.1.1. 一个简单智能合约样例
 
 ```typescript
+const CURRENCY = 'XAS'
+const EMPTY_ADDRESS = ''
+const MAX_AMOUNT = BigInt(1000 * (10 ** 8))
 
+// 自定义状态类型
+class PayState {
+  // 转账次数
+  payTimes: number
+  // 转账总额
+  amount: bigint
+  constructor() {
+    this.payTimes = 0
+    this.amount = BigInt(0)
+  }
+}
+
+// 数据接口类型
+interface MaxAmountInfo {
+  address?: string
+  amount?: bigint
+  payTimes?: number
+}
+
+// 合约类
+export class TestContract extends AschContract {
+  // 合约收到的转账, 公开属性
+  payStateOfAddress: Mapping<PayState>
+  
+  // 最大转账的地址，私有状态，外部不可查询
+  private maxAmountAddress = EMPTY_ADDRESS
+  // 收到的转账总额
+  private total = BigInt(0)
+
+  // 初始化方法
+  constructor() {
+    super()
+    this.payStateOfAddress = new Mapping<PayState>()
+    this.total = BigInt(0)
+  }
+
+  // 默认向合约转账自动调用的方法
+  @payable({ isDefault : true })
+  onPay(amount: bigint, currency: string) {  
+    assert( currency === AVAIBLE_CURRENCY, `Support ${CURRENCY} only` )
+    assert( amount > 0 && amount < MAX_AMOUNT , `Amount should greater than 0 and less than ${MAX_AMOUNT}`)
+
+    const address = this.context.senderAddress
+    const newAmount = this.payXAS(amount, address)
+    if (this.getMaxAmount() < newAmount) {
+      this.maxAmountAddress = address
+    }
+  }
+
+  @constant
+  getMaxInfo(): MaxAmountInfo {
+    const address = this.maxAmountAddress
+    if (address === EMPTY_ADDRESS) return { }
+
+    const { payTimes, amount } = this.payStateOfAddress[address]!
+    return { address, payTimes, amount }
+  }
+
+  @constant
+  getTotal(): bigint {
+    return this.total
+  }
+
+  // 内部方法，外部不可访问（下同）
+  private payXAS(amount: bigint, address: string) : bigint {
+    let payState = this.payStateOfAddress[address]
+    if (!payState) {
+      payState = new PayState()
+      this.payStateOfAddress[address] = payState
+    }
+
+    payState.payTimes += 1
+    payState.amount += amount
+    this.total += amount
+
+    return payState.amount
+  }
+
+  private getMaxAmount() : bigint {
+    return (this.maxAmountAddress === EMPTY_ADDRESS) ?
+      BigInt(0) :
+      this.getPayInfo(this.maxAmountAddress).amount
+  }
+
+  private getPayInfo(address: string) : PayState {
+    return this.payStateOfAddress[address] || new PayState()
+  }
+}
 ```
 
 上述合约代码实现了一个简单的智能合约，这个合约的功能是接收转账并记录下转账人转账次数和转账总额，同时记录下最大的转账人地址。熟悉Typescript/Javascript/C#/Java等语言的开发者可以会发现读起来几乎没有障碍，非常容易理解。下面我们来详细了解一下这个合约的结构和约定：
@@ -162,6 +253,7 @@ class PayStateOptional {
 
 一个合约文件中必须**有且仅有一个**合约类定义，使用`class`关键字定义，合约类必须是`AschContract`的子类。合约类只允许合约状态和方法两类成员，基本要求如下:
 
+- 使用`export`关键字修饰
 - 必须从`AschContract`直接继承，不支持多重继承
 - 不能是泛型类(不能有泛型参数)
 - 不能是抽象类(不支持`abstract`)
@@ -249,7 +341,7 @@ class PayStateOptional {
 - 不可以使用引入第三方库
 - 不支持`Symbol`
 - 不使用`null`、`any`、`never`、`object`、`unknown` 等类型，`undefined`可以使用
-- 不使用交叉类型(如`string & number`)和联合类型(如`string | null`)
+- 不使用交叉类型(如`string & number`)和联合类型(如`string | null`)作为公开方法的参数或返回类型
 - 不支持生成器和异步语法(不使用`Promise`、`async/await`)
 - 不使用强制类型转换(不使用`<string>name`及`name as string`)
 - 一个合约文件只能有一个合约类，这个类必须从`AschContract`继承而来
@@ -262,7 +354,7 @@ class PayStateOptional {
   - 查询方法必须声明返回类型，对于可调用方法，如果未声明返回值类型，返回值将被丢弃(不作为调用结果返回)
 - 状态类型和数据接口类嵌套深度不超过**3**
   由于状态容器类型的值可以是状态容器类型或合约状态类型，而状态类型中也可以有状态类型或状态容器(数据接口类似)。基于代码可读性以及状态管理的性能考虑。嵌套的深度不应超过3，如`Mapping<bigint>`深度称为 1，`Vector<Mapping<number>>`深度为2；简单自定义类型本身深度为1，包含一个深度为1的容器类型或自定义状态类型深度为2；以此类推
-- 注意，**与以太坊的solidity不同**的是，在solidity中，给存储状态赋值会导致自动的复制。而在ASCH智能合约中，状态容器或自定义状态中使用的是对象的引用。这样的好处是性能更好、编程更灵活、更符合主流语言的习惯，但也会带来一个问题：当两个状态容器中保存相同的对象引用时，可能会导致误操作。合约引擎会自动检查这种情况的存在，当尝试把一个已经属于合约状态一部分的对象赋值给合约状态时，会抛出异常。()
+- 注意，**与以太坊的solidity不同**的是，在solidity中，给存储状态赋值会导致自动的复制。而在ASCH智能合约中，状态容器或自定义状态中使用的是对象的引用。这样的好处是性能更好、编程更灵活、更符合主流语言的习惯，但也会带来一个问题：当两个状态容器中保存相同的对象引用时，可能会导致误操作。合约引擎会自动检查这种情况的存在，当尝试把一个已经属于合约状态一部分的对象赋值给合约状态时，会抛出异常。
 
 ### 2.2. 内置对象
 
@@ -381,7 +473,107 @@ function assert(condition: boolean, error: string): void
 ### 4.2. 合约代码
 
 ```typescript
+const SPONSOR = 'SponsorAddress'   //发起人地址
+const OFFERING_TOKEN = 'test.XXT'  //众筹得到的Token
 
+interface FundingInfo {
+  tokenAmount: bigint
+  xasAmount: bigint
+  bchAmount: bigint
+}
+
+class Funding {
+  // 众筹得到的token数量
+  tokenAmount: bigint
+  // 参与众筹XAS数量
+  xasAmount: bigint
+  // 参与众筹BCH数量
+  bchAmount: bigint
+  constructor() {
+    this.tokenAmount = BigInt(0)
+    this.xasAmount = BigInt(0)
+    this.bchAmount = BigInt(0)
+  }
+}
+
+// 众筹合约类
+export class SimpleCrowdFundgingContract extends AschContract {
+  // 记录每个地址的众筹信息
+  fundingOfAddress: Mapping<Funding> 
+  // 兑换比例
+  rateOfCurrency: Mapping<bigint>
+  // 总可众筹token数量
+  totalFundingToken: bigint
+  // 剩余可众筹数量
+  avalibleTokenAmount: bigint
+
+  // 初始化方法，会在合约注册时被调用
+  constructor() {
+    super()
+
+    this.rateOfCurrency = new Mapping<bigint>()
+    this.rateOfCurrency['XAS'] = BigInt(100)    // 1 XAS = 100 token
+    this.rateOfCurrency['BCH'] = BigInt(30000) // 1 BCH = 30000 token
+
+    this.totalFundingToken = BigInt(0)
+    this.avalibleTokenAmount = BigInt(0)
+    this.fundingOfAddress = new Mapping<Funding>()
+  }
+
+  // 发起人初始注入token，只允许注入一次
+  @payable
+  payInitialToken(amount: bigint, currency: string): void {
+    assert(this.context.senderAddress === SPONSOR, `invalid sponsor address`)
+    assert(currency === OFFERING_TOKEN, `invalid offering currency, should be ${OFFERING_TOKEN}`)
+    assert(this.totalFundingToken === BigInt(0), `initial ${OFFERING_TOKEN} has paied`)
+
+    this.totalFundingToken = amount
+    this.avalibleTokenAmount = amount
+  }
+  
+  // 众筹逻辑
+  @payable({ isDefault: true })
+  crowdFunding(amount: bigint, currency: string) {
+    assert(amount >= 0, 'amount must great than 0')
+    assert(currency === 'XAS' || currency === 'BCH', `invalid currency '${currency}', please pay XAS or BCH`)
+  
+    const rate = this.rateOfCurrency[currency]!
+
+    const tokenAmount = amount * rate
+    assert(this.avalibleTokenAmount >= tokenAmount, `insuffient ${OFFERING_TOKEN}`)
+
+    this.avalibleTokenAmount = this.avalibleTokenAmount - tokenAmount
+    const partnerAddress = this.context!.senderAddress
+    this.updateFunding(partnerAddress, amount, currency, tokenAmount)
+    // 调用ASCH链转账
+    this.transfer(partnerAddress, tokenAmount, OFFERING_TOKEN)
+  }
+  
+  @constant
+  getFunding(address: string): FundingInfo {
+    return this.fundingOfAddress[address] || new Funding()
+  }
+
+  private updateFunding( address: string, amount: bigint, currency: string, tokenAmount: bigint) : void {
+    const funding = this.getOrCreateFunding(address)
+    funding.tokenAmount += tokenAmount
+
+    if (currency === 'XAS') {
+      funding.xasAmount += amount
+    }
+    else if (currency === 'BCH') {
+      funding.bchAmount += amount
+    }
+  }
+  
+  private getOrCreateFunding( address: string ) : Funding {
+    if (this.fundingOfAddress[address] === undefined) {
+      this.fundingOfAddress[address] = new Funding()
+    }
+    return this.fundingOfAddress[address]!
+  }
+  
+}
 
 ```
 
@@ -389,83 +581,43 @@ function assert(condition: boolean, error: string): void
 
 ### 4.3. 合约部署和使用
 
-#### 4.3.1. 合约开发工具
+#### 4.3.1. 合约开发环境准备
 
-为了帮助开发人员更方便的基于ASCH平台开发智能合约，我们开发了ASCH智能合约构建工具帮助开发人员以交互式的方式生成基本的开发环境。其中包括了依赖的npm包、语法检查工具、样例合约、应用模板、测试工具及模拟调试等一整套工具。使用方法如下：
-
-- 安装环境
-- 生成程序框架
-- 编写合约及测试用例
-- 调试合约
+请参见[5分钟开发ASCH智能合约](../hello-contract/zh-cn.md#1-开发环境搭建)
 
 #### 4.3.2. 部署合约  
 
-使用[ASCH链在线客户端](https://mainnet.asch.io)中的智能合约部署功能，填入合约名称、合约代码及其他信息，提交即可。测试网请使用[ASCH链测试网络客户端](https://testnet.asch.io)。开发请自行搭建本地开发节点，请参见[节点安装](../../install/zh-cn.md)，注意：请使用v1.5版以上的节点安装包。
+请参见[5分钟开发ASCH智能合约](../hello-contract/zh-cn.md#4-在区块链上部署智能合约)
 
-#### 4.3.3. 合约调用
+#### 4.3.3. 智能合约相关交易接口
 
-智能合约的注册与调用是通过ASCH链上的三种交易实现的，注册合约(代码600)转账到合约(代码602)和调用合约方法(代码601)，交易费为 0 (根据代码运行消耗Gas)。如何提交交易到区块链请参见 [事务接口](https://github.com/AschPlatform/asch-docs/blob/master/http_api/zh-cn.md#3-%E4%BA%8B%E5%8A%A1%E6%8E%A5%E5%8F%A3)。参数传入如下：  
-
-- **注册合约**
-  - type: 600
-  - args: [`asLimit`, `name`, `version`, `desc`, `code`, `consumeOwnerEnergy`]
-    - gasLimit: `number`类型，最大消耗的Gas, `10,000,000 > gasLimit > 0`
-    - name: `string`类型，智能合约名称，全网唯一，3 ~ 32个字母或数字组成
-    - version: `string`类型，合约引擎版本，目前请填`v1.0`
-    - desc: `string`类型，智能合约的描述，长度不超过255的字符串
-    - code: `string`类型，智能合约代码，长度不超过16K
-    - consumeOwnerEnergy: `boolean`类型，是否优先消耗合约所有者的能量
-- **调用合约方法**
-  - type: 601
-  - args: [`gasLimit`, `enablePayGasInXAS`, `contractName`, `method`, `methodArgs`]
-    - gasLimit: `number`类型，最大消耗的Gas, `10,000,000 > gasLimit > 0`
-    - enablePayGasInXAS: `boolean`类型，当调用者能量不足时，是否使用XAS支付Gas
-    - contractName: `string`类型，智能合约名称
-    - method: `string`类型，要调用的方法名称
-    - methodArgs: `Array`类型，调用方法所需要的参数列表
-- **转账到合约**
-  - type: 602  
-  - args: [`gasLimit`, `enablePayGasInXAS`, `receiverPath`, `amount`, `currency`]  
-    - gasLimit: `number`类型，最大消耗的Gas, `10,000,000 > gasLimit > 0`
-    - enablePayGasInXAS: `boolean`类型，当调用者能量不足时，是否使用XAS支付Gas
-    - receiverPath: `string`类型，接收转账的路径（由合约地址或名称、'/'、接收方法名称组成，如接收方法是默认接收方法则'/'和接收方法可以省略）
-    - amount: `string`类型，转账金额
-    - currency: `string`类型，转账资产名称
+请参见
 
 #### 4.3.4. 合约状态查询
 
 - **简单状态查询**
 
-  智能合约中`public`的状态可以通过`HTTP GET`接口进行查询，查询地址为：`{serverAddress}/api/v2/contracts/{contractName}/states/{statePath}`。注意，本接口仅能查询基本类型的数据，复杂类型请通过状态查询函数来查询
-  - serverAddress 服务地址
-  - contractName 合约名称，部署合约时填入的合约名称
-  - statePath 由'.'分隔的状态路径。如 `holding.0`将会查询`contract.holding[0]`
-  - 返回值 如路径指向的是简单状态值，则返回值本身。如果是`Mapping`或`Vector`，返回其包含的元素条数，如是自定义类型，返回成员数量
+  智能合约中`public`的状态可以通过`HTTP GET`接口进行查询，查询地址为：`{serverAddress}/api/v2/contracts/{contractName}/states/{statePath}`。注意，本接口仅能查询基本类型的数据，复杂类型请通过状态查询函数来查询。
+  请参见[查询智能合约公开的状态](../../http-api/zh-cn.md#2125-查询智能合约公开状态)
 
-  例如，查询某地址参与众筹的信息可以访问如下地址：  
-  `https://testnet.asch.io/api/v2/contracts/CrowdFunding/fundingOf.{Address}`
-
-- **状态查询函数查询**
-  智能合约中通过`@constant`注解修饰的方法为状态查询函数，状态查函数的返回值应是基本类型、简单自定义类型、基本类型及简单自定义类型构成的数组。且序列化为`JSON`后的字符串长度小于16K
-  状态查询函数通过`HTTP POST`接口访问，访问地址为：`{serverAddress}/api/v2/contracts/{contractName}/constants/{method}`
-  - serverAddress 服务地址
-  - method 查询函数名称
-  - body中的内容是查询函数的参数，如：[ "arg1", 2, true ]，表示三个参数 `"arg1"`、`2`和`true`
-  - 返回值 如调用成功，返回查询函数的结果
+- **使用查询方法查询状态**
+  智能合约中通过`@constant`注解修饰的方法为状态查询函数，状态查函数的返回值应是基本类型、简单自定义类型、基本类型及简单自定义类型构成的数组。且序列化为`JSON`后的字符串长度小于32K
+  状态查询函数通过`HTTP POST`接口访问，访问地址为：`{serverAddress}/api/v2/contracts/{contractName}/constant/{method}`
+  请参见[使用智能合约查询方法](../../http-api/zh-cn.md#2.12.7-调用查询方法)
 
 ## 5. 常见问题  
 
 - **有没有更方便的调用合约和查询状态的方法**
-  `asch-web`是对ASCH链上接口的封装，可自动生成合约方法的代理，使用方便。请参见具体文档
+  `asch-web`是对ASCH链上接口的封装，可自动生成合约方法的代理，使用方便。请参见[asch-web使用指南](../../asch-web/zh-cn.md)
 
 - **gas具体是如何计费的**
   gas计费是一个比较复杂的过程，具体计费规则请参见《Gas计费与内置函数》
 
 - **gas计费规则**
-  在合约注册时，有参数可以指定是否优先消耗合约开发者的能量，如果设置为优先消耗开发者的能量，则在开发者能量足够的情况下优先使用开发者的能量作为智能合约的消耗；如果未设置或开发者能量不足，则消耗调用者的能量，当调用者的能量不足时，可选择使用`XAS`作为智能合约的能量消耗。目前，`1 XAS (100,000,000) = 10,000 GAS`
+  在合约注册时，有参数可以指定是否优先消耗合约开发者的能量，如果设置为优先消耗开发者的能量，则在开发者能量足够的情况下优先使用开发者的能量作为智能合约的消耗；如果未设置或开发者能量不足，则消耗调用者的能量，当调用者的能量不足时，可选择使用`XAS`作为智能合约的能量消耗。目前，`1 XAS (100,000,000wei) = 10,000 GAS`
 
 - **gasLimit是什么，该传入多少？**  
-  gasLimit是一次智能合约访问所最大能消耗的Gas数量，Gas用正整数表示。系统限制一次合约调用所能使用的最大gasLimit应小于 10,000,000。
+  gasLimit是一次智能合约访问所最大能消耗的Gas数量，Gas用正整数表示。系统限制一次合约调用所能使用的gasLimit范围为：10000000 >= gasLimit >= 100。
 
 - **我如何知道一次合约调用会消耗多少Gas?**  
   由于合约代码是动态的，无法精确估计具体Gas的数量，需要开发人员准备模拟环境测试。

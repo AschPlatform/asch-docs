@@ -1,7 +1,7 @@
 # asch_docs
 
 ## 文档索引
-
+- [v1.5测试指南](./v1.5.0-test.md)
 - [ASCH白皮书](./whitepaper/asch/zh-cn.md)
 - [全节点安装](./install/zh-cn.md)
 - [受托人锻造区块及收益机制](./delegate-forging/zh-cn.md)
@@ -21,4 +21,3 @@
   + [智能合约开发入门](./contract/introduction/zh-cn.md)
   + [智能合约开发实战](./contract/contract-in-action/zh-cn.md)
   + [智能合约Gas计费与函数库](./contract/gas-and-functions/zh-cn.md)
-  + [智能合约相关HTTP API](./contract/http-api/zh-cn.md)
