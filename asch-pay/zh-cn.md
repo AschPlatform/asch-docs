@@ -1,6 +1,6 @@
 # AschPay Browser Extension
 
-[Download From Chrome WebStore](https://chrome.google.com/webstore/detail/aschpay/gjdneabihbmcpobmfhcnljaojmgoihfk)
+[Download From Chrome WebStore](https://chrome.google.com/webstore/detail/aschpay/eibepfonpdkkelekmahbbhcfkeijlpop)
 
 AschPay is a Browser Extension for Asch NetWork.  
 It can be used to debug smart contract, or play DApps with browser.
