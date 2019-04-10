@@ -4207,7 +4207,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const amount = BigInt(100 * (10 ** 8)) // 100 XAS
   const currency = 'XAS'
   
-  let args = [gasLimit, name, true,  reciverPath, amount, currency]
+  let args = [gasLimit, true, reciverPath, amount, currency]
   let params = {
     type:602,   
     fee: 0,  
