@@ -21,7 +21,7 @@ cd [my-asch-contract] && npm test
 
 ### 1.2. 本地全节点安装
 
-我们建议开发者安装本地合约运行环境[请参见节点安装](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。如不选择搭建本地开发环境
+我们建议开发者安装本地合约运行环境[请参见节点安装](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。
 
 ```sh
 git clone https://github.com/AschPlatform/asch
