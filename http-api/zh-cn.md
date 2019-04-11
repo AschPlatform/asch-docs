@@ -4115,7 +4115,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   | version  | string | 合约引擎版本，该参数未来可能取消，测试时请填v0.3  | 
   | desc     | string | 不超过255个字符，对合约描述信息 | 
   | code     | string | 合约代码，长度不超过32K | 
-  |consumeOwnerEnergy|boolean|是否优先消耗创建者能量|
+  |consumeOwnerEnergy|boolean|是否优先消耗创建者能量，true表示在调用合约(包括向合约转账)时优先消耗合约所有者账户的能量来抵扣Gas，如合约所有者的能量不足则尝试扣除调用者账户的能量。**在合约注册时，如合约所有者能量不足则自动使用XAS抵扣。但在合约调用(包括向合约转账)时，即使默认优先消耗合约所有者能量，也不会使用合约所有者的XAS来抵扣Gas**|
 
   代码示例
 
@@ -4164,7 +4164,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const method = 'increase'
   const methodArgs = [1, 'test']
   
-  let args = [gasLimit, name, true,  method, methodArgs]
+  let args = [gasLimit, true, name, method, methodArgs]
   let params = {
     type:601,   
     fee: 0,  
@@ -4184,9 +4184,9 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 #### **3.7.3 向智能合约转账**
 - **type：602**
 
-- **fee：  0**
+- **fee：0**
 
-- **args： [gasLimit, enablePayGasInXAS, receiverPath, amount, currency]**
+- **args：[gasLimit, enablePayGasInXAS, receiverPath, amount, currency]**
 
   |  名称   |  类型  | 说明     |
   | :-----: | :----: | -------- |
@@ -4204,7 +4204,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   const gasLimit = 5000000
   const reciverPath = 'test-contract/onPay'
-  const amount = BigInt(100 * (10 ** 8)) // 100 XAS
+  const amount = String(100 * (10 ** 8)) // 100 XAS
   const currency = 'XAS'
   
   let args = [gasLimit, true, reciverPath, amount, currency]
