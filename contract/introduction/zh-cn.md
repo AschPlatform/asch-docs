@@ -417,7 +417,7 @@ function assert(condition: boolean, error: string): void
   - `Math`
   - `Bigint`
   - `Crypto`  
-  - `util`
+  - `Util`
 
 工具类及函数的详细说明请参见《Gas计费与内置函数》
 

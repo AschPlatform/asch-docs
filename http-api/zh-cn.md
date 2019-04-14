@@ -4186,28 +4186,30 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 
 - **fee：0**
 
-- **args：[gasLimit, enablePayGasInXAS, receiverPath, amount, currency]**
+- **args：[gasLimit, enablePayGasInXAS, name, method, amount, currency]**
 
   |  名称   |  类型  | 说明     |
   | :-----: | :----: | -------- |
   | gasLimit | number | 注册合约最大可消耗的Gas，100 <= gasLimit <= 10000000 |
   |enablePayGasInXAS|boolean|当调用者能量不足时是否使用XAS抵扣Gas|  
-  | receiverPath| string | 接收资产的方法路径，格式为：'合约名称或地址/接收方法名'，如果是默认的转账接收方法(请参见智能合约开发文档)，只需要写合约名称或地址即可 |
+  | name     | string | 智能合约名称|
+  | method   | string | 调用的合约方法名称，如果是默认的转账接收方法(请参见智能合约开发文档)，可使用''代替 |
   | amount   | bigint / string | 转入合约的资产数量 | 
   | currency| string | 转入合约的资产名称 | 
 
-**注意：由于bigint不可作为json传输**,故系统支持将字符串自动转换为`bigint`类型。`amount`支持传入bigint或string
+**注意：由于bigint不可作为json传输**,故系统支持将字符串自动转换为`bigint`类型。`amount`支持传入string
 
   代码示例
 
   ```js
   //args参数示例
   const gasLimit = 5000000
-  const reciverPath = 'test-contract/onPay'
+  const name = 'test-contract'
+  const method = 'onPay'
   const amount = String(100 * (10 ** 8)) // 100 XAS
   const currency = 'XAS'
   
-  let args = [gasLimit, true, reciverPath, amount, currency]
+  let args = [gasLimit, true, name, method, amount, currency]
   let params = {
     type:602,   
     fee: 0,  
