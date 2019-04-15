@@ -11,12 +11,13 @@
 - [asch-pay 使用指南](./asch-pay/zh-cn.md)
 - [HTTP API 接口文档](./http-api/zh-cn.md)
 - [交易平台对接文档](./exchange)
-- [侧链开发文档](./side-chain)
+- [侧链开发文档](./side-chain)**(不推荐)**
   + [侧链DApp HTTP API 文档](./side-chain/api/zh-cn.md)
   + [侧链DApp 的开发及部署](./side-chain/hello_world/zh-cn.md)
   + [侧链DApp 开发介绍](./side-chain/introduction/zh-cn.md)
   + [侧链SDK 使用指南](./side-chain/sdk/zh-cn.md)
-- [智能合约](./contract)
+- [智能合约](./contract)**(推荐)**
+  + [准备智能合约开发环境](./contract/install-evn.md)
   + [5分钟开发ASCH智能合约](./contract/hello-contract/zh-cn.md)
   + [智能合约开发入门](./contract/introduction/zh-cn.md)
   + [智能合约开发实战](./contract/contract-in-action/zh-cn.md)

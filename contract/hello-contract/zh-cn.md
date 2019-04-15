@@ -5,7 +5,7 @@
 
 ## 1. 开发环境搭建
 
-阿希智能合约平台要求的Node.js版本为v10，推荐安装最新LTS版本(目前为v10.15.1)
+阿希智能合约平台要求的Node.js版本不低于v10.14，推荐安装最新LTS版本(MacOS和Ubuntu环境推荐使用v10.15.1,Windows环境请使用v10.14.1)
 
 ### 1.1. 智能合约开发工具安装
 
@@ -25,8 +25,11 @@ cd [my-asch-contract] && npm test
 
 ```sh
 git clone https://github.com/AschPlatform/asch
+
 cd asch
 git checkout develop
+git pull
+
 npm install
 
 #手动创建相关目录
@@ -35,6 +38,7 @@ mkdir -p data/contracts
 mkdir -p public/dist
 ```
 
+详细开发环境搭建请见[智能合约开发环境安装](../install-evn.md)
 ## 2. 编写智能合约
 
 如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[语法参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：
