@@ -173,7 +173,7 @@ npm i -g node-gyp --registry=https://registry.npm.taobao.org
 
 请访问 [VSCode官网](https://code.visualstudio.com/)，安装最新版VSCode。
 
-推荐安装 `tslint`、`typescript` 插件，也可由ASCH智能合约开发工具自动安装
+推荐安装 `tslint`、`typescript`、`jest`等常用插件
 
 ## 3. 安装ASCH智能合约开发工具
 
