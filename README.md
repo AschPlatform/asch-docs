@@ -17,7 +17,7 @@
   + [侧链DApp 开发介绍](./side-chain/introduction/zh-cn.md)
   + [侧链SDK 使用指南](./side-chain/sdk/zh-cn.md)
 - [智能合约](./contract)**(推荐)**
-  + [准备智能合约开发环境](./contract/install-evn.md)
+  + [准备智能合约开发环境](./contract/install/zh-cn.md)
   + [5分钟开发ASCH智能合约](./contract/hello-contract/zh-cn.md)
   + [智能合约开发入门](./contract/introduction/zh-cn.md)
   + [智能合约开发实战](./contract/contract-in-action/zh-cn.md)

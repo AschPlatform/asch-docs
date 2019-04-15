@@ -38,7 +38,7 @@ mkdir -p data/contracts
 mkdir -p public/dist
 ```
 
-详细开发环境搭建请见[智能合约开发环境安装](../install-evn.md)
+详细开发环境搭建请见[智能合约开发环境安装](../install/zh-cn.md)
 ## 2. 编写智能合约
 
 如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[语法参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：

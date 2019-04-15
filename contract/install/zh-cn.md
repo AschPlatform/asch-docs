@@ -18,12 +18,14 @@ ASCH智能合约支持在MacOS、Ubuntu、和Windows三种平台下进行开发�
 支持Windows 8.1以上版本的Windows操作系统。以下操作在 Win10 x64 简体中文专业版 （版本 1809 17763.194）上验证通过
 
 - **安装 nvm-windows**
+
 目前最新版为v1.1.7[下载地址](https://github.com/coreybutler/nvm-windows/releases/download/1.1.7/nvm-setup.zip)
 
 [安装参考](https://blog.csdn.net/sinat_38334334/article/details/80013648)
 **注意使用管理员权限安装，否则安装node后可能无法在命令行中直接运行**
 
 - **安装 node v10.14.1**
+
 以管理员权限在命令行中运行下面的命令
 
 ```sh
@@ -44,6 +46,7 @@ v10.14.1
 **在Windows环境中如使用10.15.x版，可能会导致ASCH合约开发工具安装失败**
 
 - **安装 node-gyp 及 C++编译工具**
+
 以管理员权限运行下面的命令
 
 ```sh
@@ -71,6 +74,7 @@ npm config set msvs_version 2015
 以下操作在MacOS 10.14.4上验证通过
 
 - **安装 Homebrew**
+
 Homebrew 是 macOS 平台的软件包管理器，相当于 Linux 常用的 apt-get。首先请确保已经安装XCode，如未安装，直接在AppStore中安装即可。
 
 ```sh
@@ -228,6 +232,7 @@ git pull
 npm install
 
 #根据文档进行打包并拷贝到'asch/dist/public'目录下
+
 ```
 
 - **启动本地节点**
