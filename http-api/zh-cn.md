@@ -127,7 +127,7 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 ## **1 API使用说明**   
 
-1.1 客户端可以使用`asch-js`构造请求数据，数据按照 Asch 提供的接口规则，通过程序生成签名，生成请求数据集合；      
+1.1 客户端可以使用`asch-web`构造请求数据，数据按照 Asch 提供的接口规则，通过程序生成签名，生成请求数据集合；      
 
 1.2 发送请求数据，把构造完成的数据集合通过POST/GET等提交的方式传递给 Asch 节点；       
 
@@ -166,12 +166,29 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 
 请求示例：
 ```js
-var secret = 'Asch账户密码'  //在浏览器内存中保留
-var AschJS = require('asch-js');  // npm install asch-js
-var publicKey = AschJS.crypto.getKeys(secret).publicKey;  //根据密码生成公钥 
-// var address = AschJS.crypto.getAddress(publicKey);   //根据公钥生成地址
+const AschWeb = window.AschWeb
+const HTTPProvider = AschWeb.HTTPProvider
+const Network = AschWeb.Network
 
-// 将上面生成的数据通过 POST 方法提交到 Asch server   
+
+const host = 'http://testnet.asch.io'// 'http://mainnet.asch.cn/'
+const net = Network.Test//   Network.Main
+const secret = 'reunion march reduce artist horror correct wonder ice inside fringe zoo beyond'
+const secondSecret = '' //'11111111a'
+const provider = new HTTPProvider(host, net)
+let aschWeb = new AschWeb(provider, secret, secondSecret)
+aschWeb.api
+    .open2()
+    .then(res => {
+        console.log('transfer XAS response:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+```
+
+```js
+//  POST 方法提交到 Asch server   
 curl -X POST -H "Content-Type: application/json" -k -d '{"publicKey":"116025d5664ce153b02c69349798ab66144edd2a395e822b13587780ac9c9c09"}' 'http://192.168.1.78:4096/api/accounts/open2/'   
 ```
 
@@ -2868,7 +2885,7 @@ curl -H "Content-Type: application/json" -k -X POST -d '["ABuH9VHV3cFi9UKzcHXGMP
 
 ### **请求过程说明**
 
-通过asch-js里面封装好的transaction.createTransactionEx(params)方法获得到transaction,然后将这个transaction POST 发送到peer/transactions路由。
+通过asch-web里面封装好的transaction.createTransactionEx(params)方法获得到transaction,然后将这个transaction POST 发送到peer/transactions路由。
 
 params是一个对象，先介绍下它的所含属性。
 
@@ -2891,49 +2908,22 @@ params是一个对象，先介绍下它的所含属性。
 ```js
 let message = '备注' ，amount = 50*100000000,
     recipient = 'A3w7Rx5bCerJFbfG5BKdQ77bPqfWeyrmgJ',  //(只是给出地址格式，并非有效地址)
-    mySecret = 'cat craft often annual face marriage lyrics clutch room helmet crowd biology',
-    secondSecret = 'abcd12345'
-let args = [amount,recipient],  //第一个参数是转账金额，第二个参数是目标地址
-     
-//构造params对象
-let params = {
-        type:1,      //转账的交易类型是1  
-        fee:0.1*100000000,    //转账的手续费是0.1XAS
-        args：args  //交易所需要的参数
-        message,    //做一些备注（非必需）
-        secret:mySecret,   //我的密码（发送这笔交易的人的secret）
-        secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
 
-//到这里位置所需要的params对象就构造好了，下面将这个对象交给asch-js里的createTransactionEx()接口
-let aschjs = require('asch-js')
-//这个方法返回的transaction就是需要提交到服务器的交易数据
-let transaction = aschjs.transaction.createTransactionEx(params) 
+aschWeb.api
+    .transferXAS(amount, recipient, message)
+    .then(res => {
+        console.log('transfer XAS response:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+```
 
-//http.POST(transaction)  transaction
-//这里的http.POST就是将transaction提交上去的概念，并非有效代码
+```js
 
 //下面使用curl命令举个例子
 curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":transaction}' 'http://192.168.1.78:4096/peer/transaction'
 
-//JS代码举例  http.POST()函数内容示例如下 
- axios({
-        method: 'post',
-        url: 'http://192.168.1.78:4096/peer/transactions',
-        json:true,
-        data:{
-            transaction:transaction
-        },
-        headers:{
-            'Content-Type':'application/json',
-            'version':'',
-            'magic':'594fe0f3'
-        }
-    }).then(function(response){
-        console.log(response.data)
-    }).catch(function(error){
-        //logger.error(error)
-        console.error(error)
-    })
 
 //上述步骤成功后应该返回的是成功交易的交易ID
 {success: true,transactionId:"609074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502"}
@@ -2967,19 +2957,15 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let amount =  100*XAS   //转账金额
   let recipent = 'A3w7Rx5bCerJFbfG5BKdQ77bPqfWeyrmgJ'    //接收地址
-  let args = [amount,recipent]
-  
-  //构造params对象
-  let params = {
-          type:1,      //转账的交易类型是1  
-          fee:0.1*100000000,    //转账的手续费是0.1XAS
-          args：args  //交易所需要的参数
-          message,    //做一些备注（非必需）
-          secret:mySecret,   //我的密码（发送这笔交易的人的secret）
-          secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+  aschWeb.api
+    .transferXAS(amount, recipient)
+    .then(res => {
+        console.log('transfer XAS response:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.2 设置昵称**
@@ -3012,19 +2998,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let name = 'username1'
-  let args = [name]
-  
-  //构造params对象
-  let params = {
-          type:2,      //转账的交易类型是1  
-          fee:10*100000000,    //转账的手续费是0.1XAS
-          args：args  //交易所需要的参数
-          message,    //做一些备注（非必需）
-          secret:mySecret,   //我的密码（发送这笔交易的人的secret）
-          secondSecret:mySecondSecret}  //二级密码（没设置可以填null，但有些交易必需使用）
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-   http.POST(trs)  //详情见请求过程说明
+
+  aschWeb.api
+    .setName(name)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.3 设置二级密码**   
@@ -3043,22 +3026,15 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   
   //这个SecondSecret是加密后的字符串
   let password = 'asch123456'
-  let hash = sha256Bytes(new Buffer(password))
-  let keypair = nacl.sign.keyPair.fromSeed(hash);
-  let secondSecret = new Buffer(keypair.publicKey).toString("hex")
-  //得到将password加密后的secondSecret作为参数
-  let args = [secondSecret]  
-  //构造params对象
-  let params = {
-          type:3,  
-          fee:5*100000000,    
-          args：args
-          message,   
-          secret:mySecret,   
-          secondSecret:null} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+  aschWeb.api
+    .setSecondPassword(secondSecret)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 
@@ -3080,18 +3056,15 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let height = 64200,amount = 20000*XAS
-  let args = [height,amount]
-  //构造params对象
-  let params = {
-          type:4,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+  aschWeb.api
+    .setLock(height, amount)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+  
   ```
 
 #### **3.1.5 解锁仓库**
@@ -3105,16 +3078,17 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   代码示例
 
   ```js
-  let params = {
-          type:5,   
-          fee:0*100000000,  
-          args：[]  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+  aschWeb.api
+    .unlock()
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
+
   ```
 
 #### **3.1.6 设置理事会**
@@ -3169,16 +3143,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let max = 5
   let m = 6
   let undateInterval = 1
-  let params = {
-          type:6,   
-          fee:5*100000000,  
-          args：[name,members,min,max,m,undateInterval]  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+  aschWeb.api
+    .setCouncil(name,members,min,max,m,undateInterval)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.7 注册代理人**
@@ -3194,16 +3168,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   代码示例
 
   ```js
-  let params = {
-          type:7,   
-          fee:100*100000000,  
-          args：[]  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+  aschWeb.api
+    .registerAgent()
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.8 设置代理人**
@@ -3220,18 +3194,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 
   ```js
   let agent = 'user1'
-  let args = [agent]
-  
-  let params = {
-          type:8,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+  aschWeb.api
+    .setAgent(agent)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.9 取消代理人**
@@ -3245,16 +3217,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   代码示例
 
   ```js
-  let params = {
-          type:9,   
-          fee:0*100000000,  
-          args：[]  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+  aschWeb.api
+    .repealAgent(secondSecret)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.10 注册委托人**
@@ -3268,16 +3240,15 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   代码示例
 
   ```js
-  let params = {
-          type:10,   
-          fee:100*100000000,  
-          args：[]  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+  aschWeb.api
+    .registerDelegate()
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.11 给委托人投票**
@@ -3297,18 +3268,17 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //delegate1,delegate2,delegate3分别为三个受托人的姓名
   let delegates = 'delegate1,delegate2,delegate3'   
-  let args = [delegates]
-  
-  let params = {
-          type:11,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+ 
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .voteDelegates(delegates)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.1.12 取消给委托人投票**
@@ -3327,17 +3297,17 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 
   ```js
   let delegates = 'delegate1,delegate2'   //delegate1,delegate2,delegate3分别为三个受托人的姓名 
-  let args = [delegates]
-  let params = {
-          type:12,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .cleanVote(delegates)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 ###  **3.2 资产**
@@ -3361,18 +3331,17 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let name = 'TEST'
   let desc = 'my first issuer'
-  let args = [name,desc]
-  
-  let params = {
-          type:100,   
-          fee:100*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .registerIssuer(name,desc)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.2.2 注册资产**
@@ -3398,18 +3367,17 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let desc = 'my first asset'
   let maximum = '100000000000'
   let precsion = 1     //取值范围是1-16之间的整数
-  //组成args
-  let args = [symbol,desc,maximum,precsion]
-  let params = {
-          type:101,   
-          fee:500*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .registerAsset(symbol,desc,maximum,precsion)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.2.3 发行资产**
@@ -3431,17 +3399,17 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let name = 'TEST.TXC'    //资产名=发行商名称.代币名
   let amount = '1000000000'
-  let args = [name,amount]
-  let params = {
-          type:102,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+   aschWeb.api
+    .issueAsset(name,amount)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
+
   ```
 
 #### **3.2.4 内部转账**
@@ -3465,18 +3433,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let currency = 'TEST.TXC'
   let amount = '10000000'
   let recipient = 'A3w7Rx5bCerJFbfG5BKdQ77bPqfWeyrmgJ'
-  //args组成
-  let args = [currency,amount,recipient]
-  let params = {
-          type:103,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .transferAsset(currency,amount,recipient)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 ### **3.3 侧链DApp**
@@ -3516,19 +3482,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ]
   //最少需要的委托人个数（需要委托人共同决定）
   let unlockNumber = 3
-  //构建args
-  let args = [name,desc,link,icon,delegates,unlockNumber]
-  
-  let params = {
-          type:200,   
-          fee:100*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .registerDapp(name,desc,link,icon,delegates,unlockNumber)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.3.2 修改委托人**
@@ -3536,18 +3499,45 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 - **type：201**
 - **fee：   1*XAS**
 - **args： [chain,from,to]**
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .updateBooker(chain,from,to)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
 
 #### **3.3.3 增加委托人**
 
 - **type：202**
 - **fee：   1*XAS**
 - **args： [chain,key]**
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .addBooker(chain,key)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
 
 #### **3.3.4 删减委托人**
 
 - **type：203**
 - **fee：   1*XAS**
 - **args： [chain,key]**
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .deleteBooker(chain,key)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
 
 #### **3.3.5 充值到侧链DApp**
 
@@ -3570,18 +3560,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let chainName = 'dappTest'
   let currency = 'XAS'   //也可以是TEST.TXC内部资产币
   let amount = '1000000000'
-  //args构造
-  let args = [chainName,currency,amount]
-  let params = {
-          type:204,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .depositDapp(chainName,currency,amount)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.3.6 从侧链DApp提现**
@@ -3630,18 +3618,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let topic = '提案的类型(下面详细介绍)'
   let content = '提案类型所需要的参数（下面详细介绍）'
   let endHeight = 50000     //结束高度
-  //构造args
-  let args = [title,desc,topic,content,endHeight]
-  let params = {
-          type:300,   
-          fee:10*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .createProposal(title,desc,topic,content,endHeight)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
   对不同提案类型给出不同的参数
@@ -3669,6 +3655,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
                  minimumMembers:minimumMembers,
                  updateInterval:updateInterval,
                  currency:currency}
+
   ```
 
   2. 网关初始化
@@ -3687,6 +3674,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let content = {gateway:gateway,
                  members:members
                 }
+
   ```
 
   3.  更新网关成员
@@ -3703,6 +3691,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
                  from:from,
                  to:to
                 }
+
   ```
 
   4. 网关撤销
@@ -3714,6 +3703,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let gateway = 'bitcoin'     //网关的名字
   //下面构造这个content
   let content = {gateway:gateway}
+
   ```
 
 #### **3.4.2 给提案投票**
@@ -3733,18 +3723,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let pid = 'aer074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502'        /*发起提案的交易id*/
-  //构造args
-  let args = [pid]
-  let params = {
-          type:301,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .voteProposal(pid)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.4.3 激活提案**
@@ -3764,18 +3752,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let pid = 'aer074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502'        /*发起提案的交易id*/
-  //构造args
-  let args = [pid]
-  let params = {
-          type:302,   
-          fee:0*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .activateProposal(pid)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 ### **3.5 网关**
@@ -3797,17 +3783,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let gateway = 'bitcoin'     //网关名字
-  let args = [gateway]
-  let params = {
-          type:400,   
-          fee:0.1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .openGatewayAccount(gateway)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.5.2 注册成员**
@@ -3831,19 +3816,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let gateway = 'bitcoin'
   let publicKey = 'c03e43c7e8aefe3b5a83e02a7b4dc8cce84bb787202650338e85d1b7758065d6'
   let desc = 'some describes of resgiter member'
-  //构造args
-  let args = [gateway,publicKey,desc]
-  
-  let params = {
-          type:401,   
-          fee:100*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .registerGateway(gateway,publicKey,desc)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.5.3 对网关充值**
@@ -3871,18 +3853,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let currency = 'BTC'
   let amount = '100000000000'
   let oid = ''
-  //构造args
-  let args = [gateway,address,currency,amount,oid]
-  let params = {
-          type:402,   
-          fee:0.01*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .depositGateway(gateway,address,currency,amount,oid)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.5.4 从网关提现**
@@ -3910,18 +3890,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let currency = 'BTC'
   let amount = '100000000000'    //转账的金额
   let fee = '200000000'          //网关收取的手续费
-  //构造args
-  let args = [address,gateway,currency,amount,fee]
-  let params = {
-          type:403,   
-          fee:0*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .withdrawGateway(address, gateway, currency, amount, fee)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.5.5 提交提现交易**
@@ -3990,17 +3968,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let targetId = 'f80dcf3d520cc14e963ddf4aedd6ae42db92795fc80ac3738c2be5b3aa5c9238'  //交易id
-  let args = [targetId]
-  let params = {
-          type:500,   
-          fee:0*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .voteForCouncil(targetId)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.6.2 激活理事会**
@@ -4020,17 +3997,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   //args参数示例
   let targetId = 'f80dcf3d520cc14e963ddf4aedd6ae42db92795fc80ac3738c2be5b3aa5c9238'  //交易id
-  let args = [targetId]
-  let params = {
-          type:501,   
-          fee:0*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .activCouncil(targetId)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.6.3 增加成员**
@@ -4054,17 +4030,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let address = 'AMySpLqC4bEgQ8VoYK1iWNEEuhRtjS59Bt'  
   let weight = ''
   let m = 1
-  let args = [address,weight,m]
-  let params = {
-          type:502,   
-          fee:1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .addMemberToCouncil(address,weight,m)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.6.4 移除成员**
@@ -4086,17 +4061,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let address = 'AMySpLqC4bEgQ8VoYK1iWNEEuhRtjS59Bt'  
   let m = 1
-  let args = [address,m]
-  let params = {
-          type:503,   
-          fee:1*100000000,  
-          args：args  
-          message, 
-          secret:mySecret,  
-          secondSecret:mySecondSecret} 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .removeMemberFromCouncil(address,m)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 ### **3.7 智能合约**
@@ -4127,17 +4101,15 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const desc = '这是一个测试合约'
   const code = '...'// 合约代码
   
-  let args = [gasLimit, name, version, desc, code, true]
-  let params = {
-    type:600,   
-    fee: 0,  
-    args, 
-    message, 
-    secret:mySecret,  
-    secondSecret:mySecondSecret } 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .registerContract(name, desc, code, version, true, gasLimit)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
   ```
 
 #### **3.7.2 调用智能合约**
@@ -4163,21 +4135,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const name = 'test-contract'
   const method = 'increase'
   const methodArgs = [1, 'test']
-  
-  let args = [gasLimit, true, name, method, methodArgs]
-  let params = {
-    type:601,   
-    fee: 0,  
-    args, 
-    message, 
-    secret:mySecret,  
-    secondSecret:mySecondSecret } 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
 
-  //上述代码相当于调用合约中的方法如下：
-  increase(1, 'test')
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .callContract(name, method, methodArgs, gasLimit, true)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
 
   ```
 
@@ -4208,17 +4175,14 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const method = 'onPay'
   const amount = String(100 * (10 ** 8)) // 100 XAS
   const currency = 'XAS'
-  
-  let args = [gasLimit, true, name, method, amount, currency]
-  let params = {
-    type:602,   
-    fee: 0,  
-    args, 
-    message, 
-    secret:mySecret,  
-    secondSecret:mySecondSecret } 
-  //使用asch-js生成交易信息
-  let trs = AschJS.transaction.createTransactionEx(params)
-  http.POST(trs)  //详情见请求过程说明
+ //使用asch-web 构建，签名和广播交易
+  aschWeb.api
+    .payContract(currency, amount, name, method, gasLimit, true)
+    .then(res => {
+        console.log('result:' + JSON.stringify(res))
+    })
+    .catch(err => {
+        console.error(err)
+    })
 
   ```
