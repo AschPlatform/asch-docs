@@ -3269,7 +3269,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //delegate1,delegate2,delegate3分别为三个受托人的姓名
   let delegates = 'delegate1,delegate2,delegate3'   
  
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .voteDelegates(delegates)
     .then(res => {
@@ -3298,7 +3298,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   ```js
   let delegates = 'delegate1,delegate2'   //delegate1,delegate2,delegate3分别为三个受托人的姓名 
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .cleanVote(delegates)
     .then(res => {
@@ -3332,7 +3332,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let name = 'TEST'
   let desc = 'my first issuer'
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .registerIssuer(name,desc)
     .then(res => {
@@ -3368,7 +3368,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let maximum = '100000000000'
   let precsion = 1     //取值范围是1-16之间的整数
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .registerAsset(symbol,desc,maximum,precsion)
     .then(res => {
@@ -3400,7 +3400,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let name = 'TEST.TXC'    //资产名=发行商名称.代币名
   let amount = '1000000000'
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
    aschWeb.api
     .issueAsset(name,amount)
     .then(res => {
@@ -3434,7 +3434,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let amount = '10000000'
   let recipient = 'A3w7Rx5bCerJFbfG5BKdQ77bPqfWeyrmgJ'
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .transferAsset(currency,amount,recipient)
     .then(res => {
@@ -3483,7 +3483,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //最少需要的委托人个数（需要委托人共同决定）
   let unlockNumber = 3
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .registerDapp(name,desc,link,icon,delegates,unlockNumber)
     .then(res => {
@@ -3499,7 +3499,9 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
 - **type：201**
 - **fee：   1*XAS**
 - **args： [chain,from,to]**
- //使用asch-web 构建，签名和广播交易
+
+```
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .updateBooker(chain,from,to)
     .then(res => {
@@ -3508,13 +3510,15 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
     .catch(err => {
         console.error(err)
     })
+```
 
 #### **3.3.3 增加委托人**
 
 - **type：202**
 - **fee：   1*XAS**
 - **args： [chain,key]**
- //使用asch-web 构建，签名和广播交易
+```
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .addBooker(chain,key)
     .then(res => {
@@ -3523,13 +3527,16 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
     .catch(err => {
         console.error(err)
     })
+```
 
 #### **3.3.4 删减委托人**
 
 - **type：203**
 - **fee：   1*XAS**
 - **args： [chain,key]**
- //使用asch-web 构建，签名和广播交易
+
+```
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .deleteBooker(chain,key)
     .then(res => {
@@ -3538,6 +3545,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
     .catch(err => {
         console.error(err)
     })
+```
 
 #### **3.3.5 充值到侧链DApp**
 
@@ -3561,7 +3569,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let currency = 'XAS'   //也可以是TEST.TXC内部资产币
   let amount = '1000000000'
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .depositDapp(chainName,currency,amount)
     .then(res => {
@@ -3619,7 +3627,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let content = '提案类型所需要的参数（下面详细介绍）'
   let endHeight = 50000     //结束高度
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .createProposal(title,desc,topic,content,endHeight)
     .then(res => {
@@ -3724,7 +3732,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let pid = 'aer074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502'        /*发起提案的交易id*/
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .voteProposal(pid)
     .then(res => {
@@ -3753,7 +3761,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let pid = 'aer074700dcea17b56e5a98bbfeee5f6416935b6b444c0750e5cb319d818a502'        /*发起提案的交易id*/
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .activateProposal(pid)
     .then(res => {
@@ -3784,7 +3792,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let gateway = 'bitcoin'     //网关名字
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .openGatewayAccount(gateway)
     .then(res => {
@@ -3817,7 +3825,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let publicKey = 'c03e43c7e8aefe3b5a83e02a7b4dc8cce84bb787202650338e85d1b7758065d6'
   let desc = 'some describes of resgiter member'
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .registerGateway(gateway,publicKey,desc)
     .then(res => {
@@ -3854,7 +3862,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let amount = '100000000000'
   let oid = ''
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .depositGateway(gateway,address,currency,amount,oid)
     .then(res => {
@@ -3891,7 +3899,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let amount = '100000000000'    //转账的金额
   let fee = '200000000'          //网关收取的手续费
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .withdrawGateway(address, gateway, currency, amount, fee)
     .then(res => {
@@ -3969,7 +3977,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let targetId = 'f80dcf3d520cc14e963ddf4aedd6ae42db92795fc80ac3738c2be5b3aa5c9238'  //交易id
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .voteForCouncil(targetId)
     .then(res => {
@@ -3998,7 +4006,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   //args参数示例
   let targetId = 'f80dcf3d520cc14e963ddf4aedd6ae42db92795fc80ac3738c2be5b3aa5c9238'  //交易id
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .activCouncil(targetId)
     .then(res => {
@@ -4031,7 +4039,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let weight = ''
   let m = 1
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .addMemberToCouncil(address,weight,m)
     .then(res => {
@@ -4062,7 +4070,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   let address = 'AMySpLqC4bEgQ8VoYK1iWNEEuhRtjS59Bt'  
   let m = 1
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .removeMemberFromCouncil(address,m)
     .then(res => {
@@ -4101,7 +4109,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const desc = '这是一个测试合约'
   const code = '...'// 合约代码
   
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .registerContract(name, desc, code, version, true, gasLimit)
     .then(res => {
@@ -4136,7 +4144,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const method = 'increase'
   const methodArgs = [1, 'test']
 
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .callContract(name, method, methodArgs, gasLimit, true)
     .then(res => {
@@ -4175,7 +4183,7 @@ XAS的精度是小数点后八位，所以使用XAS币的时候需要乘上10000
   const method = 'onPay'
   const amount = String(100 * (10 ** 8)) // 100 XAS
   const currency = 'XAS'
- //使用asch-web 构建，签名和广播交易
+  //使用asch-web 构建，签名和广播交易
   aschWeb.api
     .payContract(currency, amount, name, method, gasLimit, true)
     .then(res => {
