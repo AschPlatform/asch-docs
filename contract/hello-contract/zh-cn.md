@@ -5,7 +5,7 @@
 
 ## 1. 开发环境搭建
 
-阿希智能合约平台要求的Node.js版本不低于v10.14，推荐安装最新LTS版本(MacOS和Ubuntu环境推荐使用v10.15.1,Windows环境请使用v10.14.1)
+阿希智能合约平台要求的Node.js版本不低于v10.14，推荐安装最新LTS版本(MacOS和Ubuntu环境推荐使用v10.15.1，Windows环境请使用v10.14.1)
 
 ### 1.1. 智能合约开发工具安装
 
@@ -21,7 +21,7 @@ cd [my-asch-contract] && npm test
 
 ### 1.2. 本地全节点安装
 
-我们建议开发者安装本地合约运行环境[请参见节点安装](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。
+开发者可以安装本地合约运行环境[请参见节点安装](../../install/zh-cn.md)，对智能合约进行本地测试。由于目前testnet属于测试阶段，请通过源码方式安装本地测试节点，并手动安装npm包。
 
 ```sh
 git clone https://github.com/AschPlatform/asch
@@ -39,6 +39,7 @@ mkdir -p public/dist
 ```
 
 详细开发环境搭建请见[智能合约开发环境安装](../install/zh-cn.md)
+
 ## 2. 编写智能合约
 
 如前所述，智能合约使用的是Typescript作为合约开发语言。它是Javascript基础上增加了静态类型的超级，与主流语言特性接近。大部分开发人员可以很快掌握[语法参见智能合约开发入门](../introduction/zh-cn.md)。我们下面看一个最简单的智能合约：
@@ -172,18 +173,17 @@ export class HelloContract extends AschContract {
 
 ### 5.2. 调用合约方法
 
-合约类中的除`constructor`外的所有没有注解修饰的方法都是外部可调用方法，通过ASCH链类型为`601`的交易实现调用。请参见[调用智能合约](../../http-api/zh-cn.md#372-调用智能合约)
+合约类中的除`constructor`外的所有没有注解修饰的公开方法都是外部可调用方法，通过ASCH链类型为`601`的交易实现调用。请参见[调用智能合约](../../http-api/zh-cn.md#372-调用智能合约)
 
 ### 5.1. 向合约转账
 
 合约类中使用`@payable`修饰的方法为接收资产转账的方法，资产接收方法通过ASCH链类型为`602`的交易实现调用。请参见[向合约转账](../../http-api/zh-cn.md#373-向智能合约转账)
 
-
 ## 6. 进一步阅读
 
 诚然，实际的智能合约开发内容比本文档中描述的复杂。智能合约开发过程中也有一些注意事项与语法约定。更多文档请参考：
 
-- [ASCH智能合约开发入门](../introduction/zh-cn.md)
-- [ASCH智能合约开发实战](../contract-in-action/zh-cn.md)
-- [Gas与内置函数](../gas-and-functions/zh-cn.md)
+- [ASCH智能合约开发概述](../introduction/zh-cn.md)
+- [ASCH智能合约开发实战](../contract-in-action/README.md)
+- [Gas与内置函数](../contract-in-action/5.1%20附录一：燃料计费表和智能合约内置函数.md)
 - [asch-web使用指南](../../asch-web/zh-cn.md)
