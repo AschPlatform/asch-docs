@@ -185,5 +185,5 @@ export class HelloContract extends AschContract {
 
 - [ASCH智能合约开发概述](../introduction/zh-cn.md)
 - [ASCH智能合约开发实战](../contract-in-action/README.md)
-- [Gas与内置函数](../gas-and-functions/zh-cn.md)
+- [Gas与内置函数](../contract-in-action/5.1%20附录一：燃料计费表和智能合约内置函数.md)
 - [asch-web使用指南](../../asch-web/zh-cn.md)

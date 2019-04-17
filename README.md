@@ -21,4 +21,4 @@
   + [5分钟开发ASCH智能合约](./contract/hello-contract/zh-cn.md)
   + [智能合约开发概述](./contract/introduction/zh-cn.md)
   + [智能合约开发实战](./contract/contract-in-action/README.md)
-  + [智能合约Gas计费与函数库](./contract/gas-and-functions/zh-cn.md)
+  + [智能合约Gas计费与函数库](./contract/contract-in-action/5.1%20附录一：燃料计费表和智能合约内置函数.md)
