@@ -406,6 +406,14 @@ function assert(condition: boolean, error: string): void
 
 该函数合约方法中使用，用来检查合约执行的前置条件是否满足，如条件不满足(`condition === fasle`)会抛出异常，导致合约终止。
 
+- **`log`函数**，原型为：
+
+```typescript
+function log(...args: any[]): void
+```
+
+该函数用于输出调试日志 (请在节点的配置文件`config.json`中的日志级别设置成'debug'，否则日志不显示)，日志位于`logs/contracts/log_yyyyMMdd.log`
+
 - **内置工具类**  
  主要包括如下类与命名空间，除`Crypto`和`util`外，基本与原生功能保持一致：
   - `Array`
