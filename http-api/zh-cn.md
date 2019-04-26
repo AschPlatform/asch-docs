@@ -2922,7 +2922,7 @@ aschWeb.api
 ```js
 
 //下面使用curl命令举个例子
-curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":transaction}' 'http://192.168.1.78:4096/peer/transaction'
+curl -H "Content-Type: application/json" -H "magic:594fe0f3" -H "version:''" -k -X POST -d '{"transaction":transaction}' 'http://192.168.1.78:4096/peer/transactions'
 
 
 //上述步骤成功后应该返回的是成功交易的交易ID
