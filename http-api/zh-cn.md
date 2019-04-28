@@ -2845,8 +2845,8 @@ curl -X GET -H "Content-Type: application/JSON" 'http://192.168.1.78:4096/api/v2
 ```
 
 #### **2.12.7 调用查询方法**
-接口地址：/api/v2/contracts/:name/constants/:method
-请求方式：GET   
+接口地址：/api/v2/contracts/:name/constant/:method
+请求方式：POST 
 支持格式：urlencoded 
 
 请求参数说明：
