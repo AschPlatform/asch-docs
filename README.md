@@ -10,7 +10,7 @@
 - [asch-pay 使用指南](./asch-pay/zh-cn.md)
 - [HTTP API 接口文档](./http-api/zh-cn.md)
 - [交易平台对接文档](./exchange)
-- [智能合约]
+- **智能合约**
   + [准备智能合约开发环境](./contract/install/zh-cn.md)
   + [5分钟开发ASCH智能合约](./contract/hello-contract/zh-cn.md)
   + [智能合约开发概述](./contract/introduction/zh-cn.md)
