@@ -37,23 +37,22 @@
       * [八、常用命令](#八常用命令)
       * [九、受托人配置](#九受托人配置)
 
-
 ## 一、系统环境和依赖
 
 ### 1.1 系统要求
 
-- 必须是linux系统，建议使用 Ubuntu 14.04 以上的64位系统
+- 必须是linux系统，使用 Ubuntu 14.04 以上的64位系统，推荐使用 Ubuntu 16.04以上版本系统
 - 必须有公网ip
-- 建议CPU 2核以上
-- 建议内存2G以上
-- 建议带宽2Mb以上
-- 建议硬盘空间30GB以上
+- 建议4核以上CPU，主频不低于2G
+- 建议内存8G以上
+- 建议公网带宽5Mb以上
+- 建议可用空间32GB以上的SSD硬盘
 
 ### 1.2 系统依赖安装
 
-```
+```sh
 # Install dependency package
-sudo apt-get install curl sqlite3 ntp wget git libssl-dev openssl make gcc g++ autoconf automake python build-essential -y
+sudo apt-get install curl ntp wget git libssl-dev openssl make gcc g++ autoconf automake python build-essential -y
 # libsodium for ubuntu 14.04
 sudo apt-get install libtool -y
 # libsodium for ubuntu 16.04
@@ -62,58 +61,59 @@ sudo apt-get install libtool libtool-bin -y
 
 ### 1.3 Node.js 安装
 
-阿希支持的是Node.js 最新的 LTS 版本，目前版本为v8.11.3。在安装 node.js 时一定要注意版本是否符合要求。建议使用 nvm 管理版本。
+ASCH v1.5基于Node.js v10.14开发，**最低要求为v10.14**(推荐使用当前最新LTS版本：v10.15.1)。在安装 node.js 时一定要注意版本是否符合要求。建议使用 nvm 管理版本。
 
-```
+```sh
 # Install nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
 
 # This loads nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Install node and npm for current user.
-nvm install v8
+nvm install v10
 
-# check node version and it should be v8.x.x
+# check node version and it should be v10.x.x
 node --version
 ```
 
 ## 二、Asch Mainnet 节点安装
 
-Mainnet 默认端口为8192， P2P 端口为8193。如果要修改端口，请两者一并修改，P2P 端口 = 默认端口 + 1
+Mainnet 默认端口为8192， P2P 端口为8193。如果开启了防火墙，请确保放行此两个端口的出入数据（TCP协议）
 
 ### 2.1 下载安装包并解压
 
-```
+```sh
 wget http://china.aschcdn.com/asch-linux-latest-mainnet.tar.gz
 tar zxvf asch-linux-latest-mainnet.tar.gz
 cd asch-linux-1.4.2-mainnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
 ```
 
-### 2.2 修改config.json 
+### 2.2 修改config.json
 
-```
+```sh
 vim config.json
 
-修改 publicIp 为自己服务器的公网 IP
+#修改 publicIp 为自己服务器的公网 IP
 ```
 
 ### 2.3 下载数据库快照并解压替换
 
 主网数据库较大，不建议从头开始同步。可以下载数据库快照，直接解压后替换 asch 目录下的 data 目录。
 
-```
+```sh
 wget http://china.aschcdn.com/blockchain-mainnet-snapshot.tar.gz
 tar zvxf blockchain-mainnet-snapshot.tar.gz
 ```
 
 ### 2.4 启动节点，监听区块同步情况
+
 执行
 `./aschd start`
 
-此时可以监听日志(logs/debug.2018xxxx.log)或者通过接口 `http://yourip:8192/api/blocks/getHeight`来查看区块高度是否增长。
+此时可以监听日志(位于logs/debug.yyyyMMdd.log)查看日志信息或者通过接口 `http://yourip:8192/api/blocks/getHeight`来查看区块高度是否增长。
 
 ## 三、Asch Testnet 节点安装
 
@@ -121,30 +121,31 @@ Testnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请�
 
 ### 3.1 下载安装包并解压
 
-```
+```sh
 wget http://china.aschcdn.com/asch-linux-latest-testnet.tar.gz
 tar zxvf asch-linux-latest-testnet.tar.gz
-cd asch-linux-1.4.2-testnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
+cd asch-linux-1.5.0-testnet // 不同版本的安装包解压出来的目录名不同，此处为1.5.0
 ```
 
-### 3.2 修改config.json 
+### 3.2 修改config.json
 
-```
+```sh
 vim config.json
 
-修改 publicIp 为自己服务器的公网 IP
+#修改 publicIp 为自己服务器的公网 IP
 ```
 
 ### 3.3 下载数据库快照并解压替换
 
 主网数据库较大，不建议从头开始同步。可以下载数据库快照，直接解压后替换 asch 目录下的 data 目录。
 
-```
+```sh
 wget http://china.aschcdn.com/blockchain-testnet-snapshot.tar.gz
 tar zvxf blockchain-testnet-snapshot.tar.gz
 ```
 
 ### 3.4 启动节点，监听区块同步情况
+
 执行
 `./aschd start`
 
@@ -156,21 +157,23 @@ Localnet 默认端口为4096， P2P 端口为4097。如果修改了端口，请�
 
 ### 4.1 下载安装包并解压
 
-```
+```sh
 wget http://china.aschcdn.com/asch-linux-latest-localnet.tar.gz
 tar zxvf asch-linux-latest-localnet.tar.gz
-cd asch-linux-1.4.2-localnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
+#不同版本的安装包解压出来的目录名不同，此处为1.4.2
+cd asch-linux-1.4.2-localnet 
 ```
 
 ### 4.2 修改config.json 
 
-```
+```sh
 vim config.json
 
-修改 publicIp 为自己服务器的公网 IP 或局域网 IP
+# 修改 publicIp 为自己服务器的公网 IP 或局域网 IP
 ```
 
 ### 4.3 启动节点，监听区块同步情况
+
 执行
 `./aschd start`
 
@@ -184,32 +187,34 @@ vim config.json
 
 ## 五、源码安装
 
-下面以安装 Mainnet 为例，演示如何通过源码安装 Mainnet 节点.
+下面以安装 Mainnet 为例，演示如何通过源码安装 Mainnet 节点，请在安装前确保[系统环境和依赖](#一系统环境和依赖)安装完成
 
 ### 5.1 克隆源码到本地
-```
+
+```sh
 git clone https://github.com/AschPlatform/asch
 ```
 
 ### 5.2 安装依赖
 
-```
+```sh
 npm install
 ```
+
 **备注**： 此处依赖较多，可能需要较长时间
 
 ### 5.3 修改 app.js
 
-```
-搜索testnet,修改为 mainnet。修改后的结果如下：
-
+```javascript
+//搜索testnet,修改为 mainnet。修改后的结果如下：
 appConfig.netVersion = process.env.NET_VERSION || 'mainnet'
 ```
 
 ### 5.4 覆盖config.json
 
 默认的config.json 是用于 localnet 调试，Mainnet 需要修改。
-```
+
+```sh
 cp config-mainnet.json config.json
 ```
 
@@ -217,22 +222,31 @@ cp config-mainnet.json config.json
 
 ### 5.5 创建依赖目录
 
-```
+```sh
 mkdir -p public/dist
+mkdir -p data/contracts
 mkdir chains
 ```
 
 ### 5.6 配置网页客户端
 
-```
-cd public/dist
-wget http://china.aschcdn.com/frontend-mainnet-5f5b3cf5.zip
-unzip frontend-mainnet-5f5b3cf5.zip
+```sh
+# 下载前端源码
+git clone https://github.com/AschPlatform/asch-frontend-2.git
+# 安装包管理器yarn
+npm install -g yarn
+# 安装依赖包
+yarn install
+# 编译 dev: localnet, test: testnet, pro: mainnet
+yarn pro
+# 把编译后的结果拷至 asch 主目录下的 public/dist目录中
+cp -r dist/spa-mat/* ../asch/src/public/dist
+# 详细内容请参考前端项目内的文档
 ```
 
 ### 5.7 下载快照并解压
 
-```
+```sh
 cd asch
 wget http://47.75.26.122/blockchain-mainnet-snapshot.tar.gz
 tar zvxf blockchain-mainnet-snapshot.tar.gz
@@ -240,7 +254,7 @@ tar zvxf blockchain-mainnet-snapshot.tar.gz
 
 ### 5.8 启动节点
 
-```
+```sh
 ./aschd start
 ```
 
@@ -248,7 +262,7 @@ tar zvxf blockchain-mainnet-snapshot.tar.gz
 
 ### 6.1 网页客户端无法访问
 
-网页客户端访问地址为 http://your_ip:your_port, Mainnet 端口默认为8192， Testnet 以及 Localnet 默认为 4096.
+网页客户端访问地址为：`http://your_ip:your_port`, Mainnet 端口默认为8192， Testnet 以及 Localnet 默认为 4096.
 
 排查步骤：
 
@@ -260,35 +274,40 @@ tar zvxf blockchain-mainnet-snapshot.tar.gz
 
 排查步骤：
 
-1. 从网页客户端查看受托人排名是否进入前101
+1. 从网页客户端查看受托人排名是否进入前21
 2. 使用下面的命令搜索错误日志`grep Failed logs/debug.log`,如果出现字样`Failed to get public ip, block forging MAY not work!`说明公网ip没有自动获取到，需要手动配置。
 3. 使用下面的命令搜索错误日志`grep error logs/debug.log`如果出现字样`Failed to load delegates: Account xxxxxxxxx not found`。说明你配置的账户密钥还没有注册成为受托人，或者注册成为受托人之前就启动了服务，这时重启服务即可
 
 **注意** 如果你的节点正在同步区块，不要立即重启，等同步完成了再重启
 
-```
+```sh
 ./aschd restart
 ```
+
 正常情况下应该会出现如下log
-```
+
+```sh
 grep Forging logs/debug.log
-Forging enabled on account: xxxxxxxxxxxxxx
+
+#Forging enabled on account: xxxxxxxxxxxxxx
 ```
 
 ### 6.3 无法同步区块(卡块)
 
-对比自己节点区块高度和最新区块高度。最新区块高度：https://wallet.asch.cn/api/blocks/getHeight。 如果发现自己节点的高度一直落后且不增长，可以断定为自己的节点没有同步区块。
+对比自己节点区块高度和最新区块高度。[最新区块高度](https://wallet.asch.cn/api/blocks/getHeight)。 如果发现自己节点的高度一直落后且不增长，可以断定为自己的节点没有同步区块。
 
 解决方法：
 
 1. 升级到最新版本并重启
-```
+
+```sh
 ./aschd upgrade
 ./aschd start
 ```
 
 2. 重建
-```
+
+```sh
 ./aschd rebuild
 ```
 
@@ -297,14 +316,15 @@ Forging enabled on account: xxxxxxxxxxxxxx
 在安装完节点以后，后续节点的升级可以通过简单的`./aschd upgrade`来完成，不必重复安装。
 
 进入 asch 目录执行命令：
-```
+
+```sh
 ./aschd upgrade
 ./aschd start
 ```
 
 ## 八、常用命令
 
-```
+```sh
 # 启动节点
 ./aschd start
 
@@ -340,10 +360,11 @@ tail -f logs/debug.201xxxxx.log
 **注意** 不管运行了几个节点，请不要重复配置相同的受托人主密码
 
 执行以下命令：
-```
-// 重启节点
+
+```sh
+# 重启节点
 ./aschd restart
 
-// 打开生产区块开关
+# 打开生产区块开关
 ./aschd enable "your sercret"
 ```
