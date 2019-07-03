@@ -41,12 +41,12 @@
 
 ### 1.1 系统要求
 
-- 必须是linux系统，建议使用 Ubuntu 14.04 以上的64位系统
+- 必须是linux系统，使用 Ubuntu 14.04 以上的64位系统，推荐使用 Ubuntu 16.04以上版本系统
 - 必须有公网ip
-- 建议CPU 4核以上
+- 建议4核以上CPU，主频不低于2G
 - 建议内存8G以上
-- 建议带宽2Mb以上
-- 建议硬盘空间32GB以上
+- 建议公网带宽5Mb以上
+- 建议可用空间32GB以上的SSD硬盘
 
 ### 1.2 系统依赖安装
 
@@ -81,7 +81,7 @@ node --version
 
 ## 二、Asch Mainnet 节点安装
 
-Mainnet 默认端口为8192， P2P 端口为8193。如果要修改端口，请两者一并修改，P2P 端口 = 默认端口 + 1
+Mainnet 默认端口为8192， P2P 端口为8193。如果开启了防火墙，请确保放行此两个端口的出入数据（TCP协议）
 
 ### 2.1 下载安装包并解压
 
@@ -91,7 +91,7 @@ tar zxvf asch-linux-latest-mainnet.tar.gz
 cd asch-linux-1.4.2-mainnet // 不同版本的安装包解压出来的目录名不同，此处为1.4.2
 ```
 
-### 2.2 修改config.json 
+### 2.2 修改config.json
 
 ```sh
 vim config.json
@@ -113,7 +113,7 @@ tar zvxf blockchain-mainnet-snapshot.tar.gz
 执行
 `./aschd start`
 
-此时可以监听日志(logs/debug.2018xxxx.log)或者通过接口 `http://yourip:8192/api/blocks/getHeight`来查看区块高度是否增长。
+此时可以监听日志(位于logs/debug.yyyyMMdd.log)查看日志信息或者通过接口 `http://yourip:8192/api/blocks/getHeight`来查看区块高度是否增长。
 
 ## 三、Asch Testnet 节点安装
 
@@ -187,7 +187,7 @@ vim config.json
 
 ## 五、源码安装
 
-下面以安装 Mainnet 为例，演示如何通过源码安装 Mainnet 节点.
+下面以安装 Mainnet 为例，演示如何通过源码安装 Mainnet 节点，请在安装前确保[系统环境和依赖](#一系统环境和依赖)安装完成
 
 ### 5.1 克隆源码到本地
 
@@ -213,6 +213,7 @@ appConfig.netVersion = process.env.NET_VERSION || 'mainnet'
 ### 5.4 覆盖config.json
 
 默认的config.json 是用于 localnet 调试，Mainnet 需要修改。
+
 ```sh
 cp config-mainnet.json config.json
 ```
@@ -230,9 +231,17 @@ mkdir chains
 ### 5.6 配置网页客户端
 
 ```sh
-cd public/dist
-wget http://china.aschcdn.com/frontend-mainnet-5f5b3cf5.zip
-unzip frontend-mainnet-5f5b3cf5.zip
+# 下载前端源码
+git clone https://github.com/AschPlatform/asch-frontend-2.git
+# 安装包管理器yarn
+npm install -g yarn
+# 安装依赖包
+yarn install
+# 编译 dev: localnet, test: testnet, pro: mainnet
+yarn pro
+# 把编译后的结果拷至 asch 主目录下的 public/dist目录中
+cp -r dist/spa-mat/* ../asch/src/public/dist
+# 详细内容请参考前端项目内的文档
 ```
 
 ### 5.7 下载快照并解压
@@ -265,7 +274,7 @@ tar zvxf blockchain-mainnet-snapshot.tar.gz
 
 排查步骤：
 
-1. 从网页客户端查看受托人排名是否进入前101
+1. 从网页客户端查看受托人排名是否进入前21
 2. 使用下面的命令搜索错误日志`grep Failed logs/debug.log`,如果出现字样`Failed to get public ip, block forging MAY not work!`说明公网ip没有自动获取到，需要手动配置。
 3. 使用下面的命令搜索错误日志`grep error logs/debug.log`如果出现字样`Failed to load delegates: Account xxxxxxxxx not found`。说明你配置的账户密钥还没有注册成为受托人，或者注册成为受托人之前就启动了服务，这时重启服务即可
 
