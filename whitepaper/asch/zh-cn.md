@@ -121,11 +121,11 @@ Asch 系统采用的共识机制是基于 DPOS 的，也是使用了委托人选
 
 ### 4.1.1 委托人选举
 
-Asch 系统的委托人选举制度与 DPOS 是类似的，核心系统是由 101 个委托人节点组成，委托人是被社区选举的可信账户，得票最高的 101 个委托人负责生产区块。得票排名未进入前 101 名的账户被称为候选人，当他们将来获得足够多的选票并进入前 101 名后，将成为正式的委托人。
+Asch 系统的委托人选举制度与 DPOS 是类似的，核心系统是由 N 个委托人节点组成，委托人是被社区选举的可信账户，得票最高的 N 个委托人负责生产区块。得票排名未进入前 N 名的账户被称为候选人，当他们将来获得足够多的选票并进入前 N 名后，将成为正式的委托人。
 
-每个 Asch 用户都有权利投票给最多 101 位委托人，选票的权重是由用户持有的 XAS数量决定。
+每个 Asch 用户都有权利投票给最多 N 位委托人，选票的权重是由用户持有的 XAS数量决定。
 
-每一个选举周期产生 101 个区块，每一次投票和委托人排名的变化将体现在下一个周
+每一个选举周期产生 N 个区块，每一次投票和委托人排名的变化将体现在下一个周
 
 期。每个区块产生的间隔时间是 10 秒，新创建的区块会被广播到网络中并添加到区块链中。每当新的区块被添加到区块链中，该区块之前的所有交易的确认次数加一，得到 6 个确认后，可以认为交易是安全的，如果数额较小的交易，可以允许更小的确认次数，相反，数额较大的交易可以通过增加确认数来保证安全性。
 
@@ -163,8 +163,8 @@ required VARCHAR(20) 	id;
 required VARCHAR(20) 	blockId;
 required TINYINT		type;
 required INT			timstamp;
-required VARCHAR(21)	senderId;
-optional VARCHAR(21)	recpientId;
+required VARCHAR(N)	senderId;
+optional VARCHAR(N)	recpientId;
 required BIGINT			amount;
 required BIGINT			fee;
 required BINARY(64)		signature;
