@@ -15,37 +15,3 @@
   + [Asch DApp HTTP API 文档](./dapp/api/zh-cn.md)
   + [DApp 的开发及部署](./dapp/hello_world/zh-cn.md)
   + [Asch DApp 开发介绍](./dapp/introduction/zh-cn.md)
-
-
-
-
-
-## Documents index
-
-- [Asch whitepaper](./whitepaper/asch/en.md)
-- [5 minutes quick start](./5_minutes/en.md)
-- [Full node installation document](./install/en.md)
-- [Delegate & forging](./delegate_forging/en.md)
-- [asch-cli document](./cli_usage/en.md)
-- [Exchange list instruction](./exchange)
-- [asch-js document](./js_api/en.md)
-- [HTTP API](./http_api/en.md)
-- [How to Create a new Asset](./tokens/en.md)
-- [DApp Documents](./dapp)
-  + [DApp SDK document](./sdk_api/en.md)
-  + [DApp HTTP document](./dapp/api/en.md)
-  + [Common DApp Development Problems](./dapp/common_dapp_dev_problems_en.md)
-  + [How to Debug DApps](./dapp/how_to_debug_dapps_en.md)
-
-## Inhaltsverzeichnis
-
-- [Whitepaper](./whitepaper/asch/de.md)
-- [5 minutes start](./5_minutes/en.md)
-- [Installation](./install/de.md)
-- [Delegation & Schmiede](./delegate_forging/en.md)
-- [Command Line Interface](./cli_usage/de.md)
-- [js api](./js_api/en.md)
-- [Http api](./http_api/de.md)
-- [SDK](./sdk_api/en.md)
-- [DApp Entwicklung](./dapp/api/en.md)
-- [Exchange](./exchange)
