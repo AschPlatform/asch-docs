@@ -15,7 +15,7 @@
 
 ```sh
 npm i create-asch-contract -g
-create-asch-contract
+create-asch-contract init my-asch-contract
 cd [my-asch-contract] && npm test
 ```
 
