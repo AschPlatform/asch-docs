@@ -420,7 +420,7 @@ JSON返回示例：
 请求示例
 
 ```bash
-curl -k -X GET 'http://192.168.1.78:4096/api/accounts/delegates?adddress=APSu9NhiCTtvRGx1EpkeKNubiApiBWMf7T' 
+curl -k -X GET 'http://192.168.1.78:4096/api/accounts/delegates?address=APSu9NhiCTtvRGx1EpkeKNubiApiBWMf7T' 
 ```
 
 返回示例
